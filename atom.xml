@@ -4,7 +4,7 @@
   <title><![CDATA[My Octopress Blog]]></title>
   <link href="http://lifematrix.github.io/atom.xml" rel="self"/>
   <link href="http://lifematrix.github.io/"/>
-  <updated>2014-09-14T07:39:22+00:00</updated>
+  <updated>2014-09-14T08:01:21+00:00</updated>
   <id>http://lifematrix.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -12,5 +12,14 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Hello]]></title>
+    <link href="http://lifematrix.github.io/blog/2014/09/14/hello/"/>
+    <updated>2014-09-14T07:59:57+00:00</updated>
+    <id>http://lifematrix.github.io/blog/2014/09/14/hello</id>
+    <content type="html"><![CDATA[<p>It is my first blog. Good Luck!</p>
+]]></content>
+  </entry>
   
 </feed>
