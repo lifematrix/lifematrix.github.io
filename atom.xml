@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
+  <title><![CDATA[Life Matrix 生命矩阵]]></title>
   <link href="http://lifematrix.github.io/atom.xml" rel="self"/>
   <link href="http://lifematrix.github.io/"/>
-  <updated>2014-09-14T08:01:21+00:00</updated>
+  <updated>2014-09-14T08:15:29+00:00</updated>
   <id>http://lifematrix.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Steven Liu ]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
