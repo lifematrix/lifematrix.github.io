@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Life Matrix 生命矩阵]]></title>
+  <link href="http://lifematrix.github.io/atom.xml" rel="self"/>
+  <link href="http://lifematrix.github.io/"/>
+  <updated>2014-09-15T05:54:30+00:00</updated>
+  <id>http://lifematrix.github.io/</id>
+  <author>
+    <name><![CDATA[Steven Liu ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Hello]]></title>
+    <link href="http://lifematrix.github.io/blog/2014/09/14/hello/"/>
+    <updated>2014-09-14T07:59:57+00:00</updated>
+    <id>http://lifematrix.github.io/blog/2014/09/14/hello</id>
+    <content type="html"><![CDATA[<p>It is my first blog. Good Luck!</p>
+]]></content>
+  </entry>
+  
+</feed>
