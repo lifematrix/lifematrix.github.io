@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Life Matrix 生命矩阵]]></title>
-  <link href="http://lifematrix.github.io/atom.xml" rel="self"/>
-  <link href="http://lifematrix.github.io/"/>
-  <updated>2014-09-15T05:54:30+00:00</updated>
-  <id>http://lifematrix.github.io/</id>
+  <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
+  <link href="http://hack.the-lifematrix.net/"/>
+  <updated>2014-09-15T15:10:16+08:00</updated>
+  <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
     
@@ -14,10 +14,19 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Art and Hack]]></title>
+    <link href="http://hack.the-lifematrix.net/blog/2014/09/15/art-and-hack/"/>
+    <updated>2014-09-15T15:09:40+08:00</updated>
+    <id>http://hack.the-lifematrix.net/blog/2014/09/15/art-and-hack</id>
+    <content type="html"><![CDATA[<p>It is interesting!</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Hello]]></title>
-    <link href="http://lifematrix.github.io/blog/2014/09/14/hello/"/>
-    <updated>2014-09-14T07:59:57+00:00</updated>
-    <id>http://lifematrix.github.io/blog/2014/09/14/hello</id>
+    <link href="http://hack.the-lifematrix.net/blog/2014/09/14/hello/"/>
+    <updated>2014-09-14T15:59:57+08:00</updated>
+    <id>http://hack.the-lifematrix.net/blog/2014/09/14/hello</id>
     <content type="html"><![CDATA[<p>It is my first blog. Good Luck!</p>
 ]]></content>
   </entry>

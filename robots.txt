@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://lifematrix.github.io/sitemap.xml 
+Sitemap: http://hack.the-lifematrix.net/sitemap.xml 
