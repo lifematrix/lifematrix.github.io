@@ -4,11 +4,7 @@
   <title><![CDATA[Life Matrix 生命矩阵]]></title>
   <link href="http://lifematrix.github.io/atom.xml" rel="self"/>
   <link href="http://lifematrix.github.io/"/>
-<<<<<<< HEAD
   <updated>2014-09-15T05:54:30+00:00</updated>
-=======
-  <updated>2014-09-15T13:40:01+08:00</updated>
->>>>>>> 1abc37cdc9bbb8778a99c5b42e5fe99f22eb0e56
   <id>http://lifematrix.github.io/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -18,11 +14,11 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Art and Hacking]]></title>
-    <link href="http://lifematrix.github.io/blog/2014/09/15/art-and-hacking/"/>
-    <updated>2014-09-15T13:37:38+08:00</updated>
-    <id>http://lifematrix.github.io/blog/2014/09/15/art-and-hacking</id>
-    <content type="html"><![CDATA[<p>It is very interesting!</p>
+    <title type="html"><![CDATA[Hello]]></title>
+    <link href="http://lifematrix.github.io/blog/2014/09/14/hello/"/>
+    <updated>2014-09-14T07:59:57+00:00</updated>
+    <id>http://lifematrix.github.io/blog/2014/09/14/hello</id>
+    <content type="html"><![CDATA[<p>It is my first blog. Good Luck!</p>
 ]]></content>
   </entry>
   
