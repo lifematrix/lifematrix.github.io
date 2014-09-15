@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix 生命矩阵]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2014-09-15T15:14:41+08:00</updated>
+  <updated>2014-09-15T15:57:06+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Then Essence of Technology]]></title>
+    <link href="http://hack.the-lifematrix.net/blog/2014/09/15/then-essence-of-technology/"/>
+    <updated>2014-09-15T15:56:34+08:00</updated>
+    <id>http://hack.the-lifematrix.net/blog/2014/09/15/then-essence-of-technology</id>
+    <content type="html"><![CDATA[<p>Technology is important.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Art and Hack]]></title>
