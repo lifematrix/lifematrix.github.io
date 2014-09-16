@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix 生命矩阵]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2014-09-15T17:18:46+08:00</updated>
+  <updated>2014-09-16T11:50:31+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -64,6 +64,69 @@
     <updated>2014-09-14T15:59:57+08:00</updated>
     <id>http://hack.the-lifematrix.net/blog/2014/09/14/hello</id>
     <content type="html"><![CDATA[<p>It is my first blog. Good Luck!</p>
+
+<h1 id="for-test-math">For Test Math</h1>
+<p>##Markdown and I</p>
+
+<script type="math/tex; mode=display">% &lt;![CDATA[
+
+\begin{align}
+\mbox{Union: } & A\cup B = \{x\mid x\in A \mbox{ or } x\in B\} \\
+\mbox{Concatenation: } & A\circ B  = \{xy\mid x\in A \mbox{ and } y\in B\} \\
+\mbox{Star: } & A^\star  = \{x_1x_2\ldots x_k \mid  k\geq 0 \mbox{ and each } x_i\in A\} \\
+\end{align}
+ %]]&gt;</script>
+
+<p>This is a table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>First Header</th>
+      <th>Second Header</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Content Cell</td>
+      <td>Content Cell</td>
+    </tr>
+    <tr>
+      <td>Content Cell</td>
+      <td>Content Cell</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>You can align cell contents with syntax like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Left Aligned</th>
+      <th style="text-align: center">Center Aligned</th>
+      <th style="text-align: right">Right Aligned</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">col 3 is</td>
+      <td style="text-align: center">some wordy text</td>
+      <td style="text-align: right">$1600</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">col 2 is</td>
+      <td style="text-align: center">centered</td>
+      <td style="text-align: right">$12</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">zebra stripes</td>
+      <td style="text-align: center">are neat</td>
+      <td style="text-align: right">$1</td>
+    </tr>
+  </tbody>
+</table>
+
 ]]></content>
   </entry>
   
