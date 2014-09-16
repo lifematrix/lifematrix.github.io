@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix 生命矩阵]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2014-09-16T11:50:31+08:00</updated>
+  <updated>2014-09-16T11:53:52+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -66,7 +66,7 @@
     <content type="html"><![CDATA[<p>It is my first blog. Good Luck!</p>
 
 <h1 id="for-test-math">For Test Math</h1>
-<p>##Markdown and I</p>
+<p>## Markdown and I</p>
 
 <script type="math/tex; mode=display">% &lt;![CDATA[
 
