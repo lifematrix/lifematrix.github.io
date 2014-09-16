@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix 生命矩阵]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2014-09-16T11:57:10+08:00</updated>
+  <updated>2014-09-16T12:03:20+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -128,10 +128,8 @@
 </table>
 
 <script type="math/tex; mode=display">
-\begin{align}
   \frac{\partial{C}}{\partial{p_{uk}}}=
      -2(r_{ui}-\hat{r}_{ui})q_{ik}+2\lambda{p_{uk}}
-\end{align}
 </script>
 
 ]]></content>
