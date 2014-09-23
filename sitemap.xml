@@ -3,6 +3,14 @@
   
   
   <url>
+    <loc>http://hack.the-lifematrix.net/blog/2014/09/23/kaggle-competition-the-hunt-for-prohibited-content/</loc>
+    
+    <lastmod>2014-09-23T10:42:26+08:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://hack.the-lifematrix.net/blog/2014/09/21/xie-zai-a-li-shang-shi-zhi-ji/</loc>
     
     <lastmod>2014-09-21T15:45:42+08:00</lastmod>
@@ -61,21 +69,21 @@
   
   <url>
     <loc>http://hack.the-lifematrix.net/blog/archives/</loc>
-    <lastmod>2014-09-22T15:41:46+08:00</lastmod>
+    <lastmod>2014-09-23T18:37:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://hack.the-lifematrix.net/</loc>
-    <lastmod>2014-09-22T15:41:46+08:00</lastmod>
+    <lastmod>2014-09-23T18:37:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://hack.the-lifematrix.net/resources/</loc>
-    <lastmod>2014-09-22T15:41:46+08:00</lastmod>
+    <lastmod>2014-09-23T18:37:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
