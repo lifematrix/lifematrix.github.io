@@ -7,3 +7,8 @@ categories:
 ---
 
 A consciousness of abundance.
+
+
+```
+$ git clone git@github.com:imathis/octopress.git # fork octopress
+```

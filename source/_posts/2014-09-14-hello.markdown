@@ -6,3 +6,37 @@ comments: true
 categories: 
 ---
 It is my first blog. Good Luck!
+
+# For Test Math
+### Markdown and I
+
+$$
+\begin{align}
+\mbox{Union: } & A\cup B = \{x\mid x\in A \mbox{ or } x\in B\} \\
+\mbox{Concatenation: } & A\circ B  = \{xy\mid x\in A \mbox{ and } y\in B\} \\
+\mbox{Star: } & A^\star  = \{x_1x_2\ldots x_k \mid  k\geq 0 \mbox{ and each } x_i\in A\} \\
+\end{align}
+$$
+
+
+This is a table:
+
+First Header  | Second Header
+------------- | -------------
+Content Cell  | Content Cell
+Content Cell  | Content Cell
+
+You can align cell contents with syntax like this:
+
+| Left Aligned  | Center Aligned  | Right Aligned |
+|:------------- |:---------------:| -------------:|
+| col 3 is      | some wordy text |         $1600 |
+| col 2 is      | centered        |           $12 |
+| zebra stripes | are neat        |            $1 |
+
+
+
+$$
+  \frac{\partial{C}}{\partial{p_{uk}}}=     -2(r_{ui}-\hat{r}_{ui})q_{ik}+2\lambda{p_{uk}}
+$$
+
