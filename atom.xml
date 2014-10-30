@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2014-09-23T18:37:06+08:00</updated>
+  <updated>2014-10-30T18:26:08+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -12,6 +12,87 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Web Design的趋势]]></title>
+    <link href="http://hack.the-lifematrix.net/blog/2014/10/30/web-design-trends-and-valuable-sites/"/>
+    <updated>2014-10-30T14:55:26+08:00</updated>
+    <id>http://hack.the-lifematrix.net/blog/2014/10/30/web-design-trends-and-valuable-sites</id>
+    <content type="html"><![CDATA[<p>虽然我的注意力主要在机器学习和服务端的架构，但是前端领域也在生机勃勃地发展，有很多激动人心的创意、新技术、设计理念的更新和美学的极致体验。今天在网上找到一些有价值的文章，分享给大家。</p>
+
+<p><em><a href="http://www.hongkiat.com/blog/web-design-trends-2014/">Web Design: 20 Hottest Trends To Watch Out For In 2014</a></em> 是一篇很棒的文章，总结了本年度（2014）年在Web Design方面可去观察的20个热点。作者自身的设计水平就很高，了解业界的动态和趋势，掌握资料翔实。如下概括这20个要点，详细的内容请参考<a href="http://www.hongkiat.com/blog/web-design-trends-2014/">原文</a>。</p>
+
+<h3 id="grid-style-layouts-">Grid-Style Layouts 网格式布局</h3>
+<p>对网格设计的主流认识来自<a href="https://www.pinterest.com">pinterest</a>。这并非说要强制老的网站这么做，而是要看目的是什么。<strong>用户体验</strong>总是首先被考虑的。在使用微缩图或文字更新的场合下，网格布局能将所有内容压缩到一个易于阅读的格式，让用户可以快速略读。同时，页面内容可以保持一致并不占太多空间。</p>
+
+<p>诸如开源js库<a href="http://masonry.desandro.com">masonry</a>，可以帮你做大量繁重的工作。</p>
+
+<p>没有太多的网站利用这一特性，但凡使用的，经常让视觉很舒服。</p>
+
+<p><img src="../images/01-masonry-jquery-homepage.jpg" alt="image" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Likelihood和Probability的区别]]></title>
+    <link href="http://hack.the-lifematrix.net/blog/2014/10/16/likelihood-dot-vs-dot-probability/"/>
+    <updated>2014-10-16T10:26:42+08:00</updated>
+    <id>http://hack.the-lifematrix.net/blog/2014/10/16/likelihood-dot-vs-dot-probability</id>
+    <content type="html"><![CDATA[<p>Likelihood(似然性)和Probalility(可能性)在机器学习和统计学中经常遇到，容易混淆。特别上网查询，以便澄清。</p>
+
+<h2 id="section">几种说法</h2>
+<p>### Mathworld
+<a href="http://mathworld.wolfram.com/Likelihood.html">http://mathworld.wolfram.com/Likelihood.html</a></p>
+
+<p><strong><em>Likelihood</em></strong> <em>is the hypothetical probability that an event that has already occurred would yield a specific outcome. The concept differs from that of a probability in that a probability refers to the occurrence of future events, while a likelihood refers to past events with known outcomes.</em></p>
+
+<p>似然性是已发生的事件产生特定结果的假设概率。这个概念不同于概率的地方在于，概率指代未来事件的发生，而似然性指代有已知结果的过去事件。</p>
+
+<h3 id="wiki">Wiki</h3>
+<p><a href="http://en.wikipedia.org/wiki/Likelihood_function">http://en.wikipedia.org/wiki/Likelihood_function</a></p>
+
+<p>*Likelihood functions play a key role in statistical inference, especially methods of estimating a parameter from a set of statistics. In informal contexts, “likelihood” is often used as a synonym for “probability.” But in statistical usage, a distinction is made depending on the roles of the outcome or parameter. Probability is used when describing a function of the outcome given a fixed parameter value. For example, if a coin is flipped 10 times and it is a fair coin, what is the probability of it landing heads-up every time? Likelihood is used when describing a function of a parameter given an outcome. For example, if a coin is flipped 10 times and it has landed heads-up 10 times, what is the likelihood that the coin is fair? *</p>
+
+<p>在非正式的语境下，likelihood经常是probaility的同义词。但在统计学中，根据参数和输出的角色不同，用法上仍有不同。可能性，经常用于描述，当给定参数值时，输出的函数。例如，如果将一个硬币抛10次，而硬币没问题，那么它每次正面朝上的概率有多大？而Likelihood用于描述，当给定结果时，参数的函数。例如，如果抛硬币10次，每次都正面朝上，那么硬币没问题的似然性有多大？</p>
+
+<h3 id="ben-klemens">Ben Klemens的文章</h3>
+<p><a href="http://modelingwithdata.org/pdfs/024-like_probably.pdf">http://modelingwithdata.org/pdfs/024-like_probably.pdf</a></p>
+
+<h2 id="section-1">总结</h2>
+
+<ul>
+  <li>Possibility(概率)是给定参数后，针对数据的函数。而Likelihood(似然性)是给定数据后，针对参数的函数。</li>
+  <li>Possibility是后验的、可测量的、客观的。而Likelihood则是先验的、不可测量的，由人主观构思的。</li>
+  <li>可以通过Bayes’s法则将二者联系起来
+*</li>
+</ul>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Classification of Algorithms in Machine Learning]]></title>
+    <link href="http://hack.the-lifematrix.net/blog/2014/10/11/the-classification-of-algorithms-in-machine-learning/"/>
+    <updated>2014-10-11T16:47:32+08:00</updated>
+    <id>http://hack.the-lifematrix.net/blog/2014/10/11/the-classification-of-algorithms-in-machine-learning</id>
+    <content type="html"><![CDATA[<h1 id="section">机器学习中算法的分类</h1>
+
+<p>机器学习中算法很多，比如：SVM、Logistics、Decision Tree…。了解这些算法的特点，有助于更好地选择合适的算法解决问题。</p>
+
+<p>模型是机器学习中的中心概念，因为它们是为了解决给定的问题而从数据中所学到的。机器学习模型的可选范围很大，相当可观，乃至让人迷惑。一个原因是机器学习所解决问题的无所不包：分类、回归、聚类、关联性发现，不一而足。事实上，在每个科学和工程的分支中，都能找到这些任务的每个例子。数学家、工程师、心理学家和计算机科学家以及很多其他人发现或经常再次发现，解决这些问题的途径。他们都施加了各自的特定背景，因此在这些模型底层的原因也各不相同。我个人的观点是，这种多样性是件好事情，因为有助于机器学习成为强大而令人兴奋的学科。但是，这也使得写一本机器学习的书没那么容易！幸运的是，仍然可观察到一些公共的主题，这允许我以有些系统性的方法来讨论机器学习。我将讨论三组模型：几何模型，概率模型和逻辑模型。这些分组并非互斥的，例如，有时一个特定类别的模型，兼具几何和概率的解释。但是，这为我们的目的提供了一个好的出发点。</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[zeroMQ]]></title>
+    <link href="http://hack.the-lifematrix.net/blog/2014/09/25/zeromq/"/>
+    <updated>2014-09-25T10:42:13+08:00</updated>
+    <id>http://hack.the-lifematrix.net/blog/2014/09/25/zeromq</id>
+    <content type="html"><![CDATA[<p>A valuable whitepaper: <a href="http://zeromq.wdfiles.com/local--files/whitepapers%3Amultithreading-magic/imatix-multithreaded-magic.pdf">Multithreaded Magic with ØMQ</a></p>
+
+<p>The article <a href="http://msdn.microsoft.com/en-us/magazine/cc817398.aspx">Solving 11 Likely Problems In Your Multithreaded Code</a> outlines some challenge in multi-threading program</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Kaggle Competition: The Hunt for Prohibited Content]]></title>
