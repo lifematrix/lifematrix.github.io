@@ -1,0 +1,11 @@
+---
+layout: post
+title: "zeroMQ"
+date: 2014-09-25 10:42:13 +0800
+comments: true
+categories: 
+---
+
+A valuable whitepaper: [Multithreaded Magic with ØMQ](http://zeromq.wdfiles.com/local--files/whitepapers%3Amultithreading-magic/imatix-multithreaded-magic.pdf)
+
+The article [Solving 11 Likely Problems In Your Multithreaded Code](http://msdn.microsoft.com/en-us/magazine/cc817398.aspx) outlines some challenge in multi-threading program
