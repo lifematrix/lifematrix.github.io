@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2014-11-02T22:40:34+08:00</updated>
+  <updated>2014-11-03T11:36:02+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -81,6 +81,26 @@
 <p>也请阅读：<a href="http://www.hongkiat.com/blog/flat-ui-design-showcase/">Showcase Of Beautiful Flat UI Design</a></p>
 
 <h3 id="personal-portraits-">8. Personal Portraits 个人肖像</h3>
+
+<p>简单的个人概况网站(portfolio websites)也值得关注。你想传递一些关于你是谁，你曾在哪里，并展示你的工作样例。当为了让人们真正感兴趣，你需要建立人性的连接(human connection)。做到这点的最好途径之一是，在你页面的某个地方加入你相片的样张。</p>
+
+<p><a href="http://www.andreamann.com/"><img src="../images/05-andrea-mann-jazz-vocalist-homepage.jpg" alt="" /></a></p>
+
+<p><a href="http://www.andreamann.com/">Andrea Mann</a> 使用了一张占据主页很大幅面的相片。这也与更暗的背景融为一体，重新调色为黑白灰度(recolored to shades of B&amp;W)。尽管你不需要在你的网站上使用<a href="http://www.hongkiat.com/blog/oversized-background-image-design/">大幅背景肖像(large background portraits)</a>，但这的确很奇妙。甚至在你主页上一个小的相片或about页面，也让访问者瞥见你是谁。</p>
+
+<h3 id="svg-">9. SVG 图像或图标</h3>
+<p><a href="http://www.vectorstock.com">基于矢量的图形(vector-based graphics)</a>不是建立在像素，而是建立在线和坐标上。通过数学公式将单独的形状(shape)组织起来，这允许你将矢量拉伸到任何尺寸。<a href="http://www.hongkiat.com/blog/scalable-vector-graphic/">SVG (Scalable Vector Graphics) 图像</a>能容易被操作而不损失太多质量，在这个意义上象<a href="http://www.vectorstock.com">矢量图形</a>。</p>
+
+<p>最大的问题是所有浏览器对这些图像的支持度。许多人仍然使用IE(internet Explorer)的旧版本和其它遗留的浏览器。这是一个巨大的趋势，需要好几年掠过Internet才能到来(如果它没开始的话)。</p>
+
+<p><strong>也请阅读：<a href="http://www.hongkiat.com/blog/tag/scalable-vector-graphics/">More On Scalable Vector Graphics</a></strong></p>
+
+<p>如果你真的想开始，我可能推荐<a href="http://codepen.io/tag/svg">codepen</a>, 一个开放的社区驱动的IDE，让开发者在线分享他们的工作。<a href="http://snapsvg.io/">Snap.svg</a>是一个JavaScript库，致力于多浏览器自然地支持SVG图像。这是有点更详细的主题，但如果你好奇，值得深入探索。</p>
+
+<h3 id="unique-web-copy-web">10. Unique Web Copy 唯一Web拷贝</h3>
+<p>Web开发中最酷的新特性之一是，@face-font申明。你能导入在本地或外部远端服务器的字体文件。这些字体在CSS中定义，你能在<strong>font-family</strong>属性引用它们，从而设计你的web页字体。</p>
+
+<p>这已经发展到包含<a href="http://www.hongkiat.com/blog/webfont-icons/">基于字体的图标(font-based icons)</a>，这里灵活的字体在页面上可以象文本一样被渲染。相比真实的图形，这些图标的设计没那么良好，它可结合大量不同的颜色。但是，简单地能在页面上定制化任何字体，就让你的网站在人群中脱颖而出。</p>
 
 <h1 id="other-resource">Other Resource</h1>
 
