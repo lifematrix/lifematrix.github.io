@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2014-11-04T16:43:47+08:00</updated>
+  <updated>2014-11-04T18:48:11+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -18,20 +18,22 @@
     <link href="http://hack.the-lifematrix.net/blog/2014/10/web-design-trends-and-valuable-sites/"/>
     <updated>2014-10-30T14:55:26+08:00</updated>
     <id>http://hack.the-lifematrix.net/blog/2014/10/web-design-trends-and-valuable-sites</id>
-    <content type="html"><![CDATA[<p>虽然我的注意力主要在机器学习和服务端的架构，但是前端领域也在生机勃勃地发展，有很多激动人心的创意、新技术、富于洞见的设计理念和极致的美学体验。今天在网上找到一些有价值的文章，分享给大家。</p>
+    <content type="html"><![CDATA[<p>虽然我的注意力主要在机器学习和服务端架构，但前端领域也在蓬勃地发展着，有很多激动人心的创意、新技术、富于洞见的设计理念和极致的美学体验。最近在网上发现一些有价值的文章，分享给大家。</p>
 
-<p><em><a href="http://www.hongkiat.com/blog/web-design-trends-2014/">Web Design: 20 Hottest Trends To Watch Out For In 2014</a></em> 是一篇很棒的文章，总结了本年度（2014）年在Web Design方面可去观察的20个热点。作者自身的设计水平就很高，了解业界的动态和趋势，掌握资料翔实。如下概括这20个要点，详细的内容请参考<a href="http://www.hongkiat.com/blog/web-design-trends-2014/">原文</a>。</p>
+<p><em><a href="http://www.hongkiat.com/blog/web-design-trends-2014/">Web Design: 20 Hottest Trends To Watch Out For In 2014</a></em> 是一篇很棒的文章，总结了本年度(2014)年在Web Design方面可去观察的20个热点。作者自身的设计水平就很高，了解业界的动态和趋势，掌握资料翔实。如下为译文，英文好的请直接阅读<a href="http://www.hongkiat.com/blog/web-design-trends-2014/">原文</a>。</p>
 
 <h2 id="web-design-20-hottest-trends-to-watch-out-for-in-2014">译文：Web Design: 20 Hottest Trends To Watch Out For In 2014</h2>
 
-<p>花几小时在线浏览不同网站后，你往往会在找到一些设计上可辨识的趋势。过去几年，作者一直在撰写文章，关于不断变化的趋势，特别在web站点布局和web应用领域。W3C规范的发展连同现代浏览器，已经打开了通往<strong>数字设计新时代(a new era of digital design)</strong>的大门。</p>
+<p>花几小时在线浏览不同网站后，你往往会找到一些设计上可辨识的趋势。过去几年，作者 <strong><em>(译者注：译文中的作者，指原文作者，下同)</em></strong> 一直在撰写关于变化趋势的文章，特别是在web站点布局和web应用领域。W3C规范的发展连同现代浏览器，已经打开了通往<strong>数字设计新时代(a new era of digital design)</strong>的大门。</p>
 
-<p>在本文，作者将分享20个成长中的趋势，希望看到它在2014年蓬勃发展。许多已经开始，有些才刚有曙光。检视新的趋势、看看<a href="http://www.hongkiat.com/blog/web-design-trend-2013/">它们能持续多久(how long they stick around)</a>，是好玩的。在2014年浏览网站时，密切关注任何进行中的这些UI/UX的趋势(keep your eyes peeled for any of these UI/UX trends in action)。</p>
+<p>在本文，作者将分享20个成长中的趋势，希望看到它在2014年蓬勃发展。许多已经开始，有些才刚现曙光。检视新的趋势、看看<a href="http://www.hongkiat.com/blog/web-design-trend-2013/">它们能持续多久(how long they stick around)</a>，挺好玩的。在2014年浏览网站时，请密切关注任何正在发生的这些UI/UX <em>(译者注：User Interface/User Experience)</em> 的趋势(keep your eyes peeled for any of these UI/UX trends in action)。</p>
+
+<p>推荐阅读：<a href="http://www.hongkiat.com/blog/40-web-design-conferences-to-look-forward-to-in-2014/">40 Web Design Conferences To Look Forward To In 2014</a></p>
 
 <h3 id="grid-style-layouts-">1. Grid-Style Layouts 网格式布局</h3>
 <p>对网格设计的主流认识来自<a href="https://www.pinterest.com">pinterest</a>。社交网站的news feed过去常用流线型，比如twitter和Tumblr。现在象Facebook的许多页面将时间线更新散布为网格式。</p>
 
-<p>这并非说要强制老的网站这么做，而是要看目的是什么。<strong>用户体验</strong>总是首先被考虑的。在使用微缩图或文字更新的场合下，网格布局能将所有内容压缩到一个易于阅读的格式，让用户可以快速略读。同时，页面内容可以保持一致并不占太多空间。</p>
+<p>这并非说要强制老的网站这么做，而是要看目的是什么。<strong>用户体验</strong>总是首先被考虑的。在使用微缩图或文字更新的场合下，网格布局能将所有内容压缩到一个易于阅读的格式，让用户可以快速浏览。同时，页面内容可以保持一致且不占太多空间。</p>
 
 <p>诸如开源js库<a href="http://masonry.desandro.com">masonry</a>，可以帮你做大量繁重的工作。</p>
 
@@ -39,80 +41,80 @@
 
 <p><a href="http://masonry.desandro.com"><img src="../images/01-masonry-jquery-homepage.jpg" alt="Masonry web site" /></a></p>
 
-<h3 id="crafty-image-captions-">2. Crafty Image Captions 巧妙图片标题</h3>
+<h3 id="crafty-image-captions-">2. Crafty Image Captions 巧妙的图片标题</h3>
 <p>许多网站用图片画廊来展示商品的概要、相片、微缩图等。此文讲到了独特的<a href="http://www.hongkiat.com/blog/css3-image-captions/">CSS3图片效果</a>，其演示效果见<a href="http://demo.hongkiat.com/css3-image-captions/index.html">此页面</a>。使用图片标题(Image Caption)帮助网页访问者将更多信息与图片联系起来。而且，利用CSS3，你可以只历来浏览器自带的特性，而不需特别的javascript效果。</p>
 
-<p><strong>每个网站都应该使用自己的设计，来为读者提供便利（Each website should have its own design to provide benefit to the reader）</strong>。还有一个来自Codrps的教程关于<a href="http://tympanus.net/codrops/2013/05/02/automatic-figure-numbering-with-css-counters/">figure numbering with CSS3</a>。你可以自动构造标题风格的标签，自动添加到每页的图片（或<a href="http://html5doctor.com/the-figure-figcaption-elements/">图形</a>）上。</p>
+<p><strong>每个网站都应该使用自己的设计，来为读者提供便利（Each website should have its own design to provide benefit to the reader）</strong>。还有一个来自Codrops的教程关于<a href="http://tympanus.net/codrops/2013/05/02/automatic-figure-numbering-with-css-counters/">figure numbering with CSS3</a>。你可以构造标题风格的标签，自动添加到每页的图片 (或<a href="http://html5doctor.com/the-figure-figcaption-elements/">图形</a>) 上。</p>
 
 <h3 id="extended-form-elements-">3. Extended Form Elements 扩展表单元素</h3>
-<p>大多数前端开发者都了解jQuery的作用。它帮助你编写更平滑的javascript代码，而且更短小、更整洁。自由开源的jQuery插件有它的市场，现在的需求很旺盛。</p>
+<p>大多数前端开发者都了解jQuery的作用。它帮助你编写更平滑的JavaScript代码，而且更短小整洁。自由开源的jQuery插件有它的市场，现在的需求很旺盛。</p>
 
 <p><a href="http://www.unheap.com/section/inputs-forms/"><img src="../images/02-jquery-unheap-form-inputs.jpg" alt="" /></a></p>
 
 <p>围绕那些能<strong><em>增强用户体验</em></strong>的jQuery表单有特别的热情。这些效果包括浮动标签(floating labels)，输入校验(input validation)，指导性提示(guided tooltips)，几乎任何你可以想象到的。看一下<a href="http://www.unheap.com/section/inputs-forms/">Unheap form gallery</a>, 它编目了开源jQuery插件，你可以下载并在新项目中测试。</p>
 
 <h3 id="deeply-focused-landing-pages-landing">4. Deeply-Focused Landing Pages 深度聚焦的Landing页面</h3>
-<p>iOS App Store刚启动时，开发者们吵闹着要发布他们下一个创意。过了几年，我们已经有几百万个针对iOS+Android设备的应用。许多这样的App甚至有它们自己的伙伴网站。</p>
+<p>iOS App Store刚启动时，开发者们吵闹着要发布他们下一个创意。过了几年，我们已经有几百万个针对iOS+Android设备的应用。许多这样的App甚至有它们自己的同伴网站。</p>
 
 <p><a href="http://wipmessenger.com"><img src="../images/03-wip-messenger-iphone-app-homepage.jpg" alt="" /></a></p>
 
-<p>一些开发者经常购买一个域名，发布一个网站作为营销工具。这个点子后来已经扩展到包括移动游戏、开源脚本、智能手机App、事实上任何你能想到的数字产品。从根本上来说，对于鼓励潜在客户在购买前多了解产品，这些网页是必可不少的。</p>
+<p>一些开发者经常购买一个域名，发布一个网站作为营销工具。这个点子后来已经扩展到包括移动游戏，开源脚本，智能手机App，事实上任何你能想到的数字产品。从根本上来说，对于鼓励潜在客户在购买前多了解产品，这些网页是必可不少的。</p>
 
 <p><a href="http://www.hongkiat.com/blog/mobile-app-landing-pages/">20 Gorgeous Mobile App Landing Pages</a></p>
 
-<p><em>注: 关于landing page的解释见Wiki <a href="http://en.wikipedia.org/wiki/Landing_page">http://en.wikipedia.org/wiki/Landing_page</a></em></p>
+<p><em>译者注：关于landing page的解释见Wiki <a href="http://en.wikipedia.org/wiki/Landing_page">http://en.wikipedia.org/wiki/Landing_page</a></em></p>
 
 <h3 id="html5-">5. HTML5 视频播放器</h3>
-<p>虽然必要时，Flash仍有用处，但大多数Web开发者认同，Internet视频的未来是HTML5。高度推荐的两个脚本是：<a href="http://www.videojs.com/">Video.js</a> 和 <a href="http://mediaelementjs.com/">MediaElement.js</a>。第一个更为简单，局限于基本功能。</p>
+<p>虽然必要时，Flash仍有用处，但大多数Web开发者认同，Internet视频的未来是HTML5。高度推荐两个脚本：<a href="http://www.videojs.com/">Video.js</a> 和 <a href="http://mediaelementjs.com/">MediaElement.js</a>。第一个更简单，只局限于基本功能。</p>
 
 <p><a href="http://mediaelementjs.com/"><img src="../images/04-media-element-js-jquery-homepage.jpg" alt="" /></a></p>
 
-<p>Media Element为你构造自己的播放器设计，提供了一些缺省的皮肤和更为优秀的文档。你也可以用此代码构造一个音乐或音频播放器。除过API之外，两个脚本都提供了文档。它们都是很好的js库。当你在未来的项目中需要自有主机的视频(self-hosted videos)时，请记着这些。</p>
+<p>Media Element为你构造自己的播放器设计，提供了一些缺省的皮肤和更为优秀的文档。你也可以用此代码构造一个音乐或音频播放器。除过API之外，两个脚本都提供了文档。它们都是很好的js库。当你在未来的项目中需要<strong>自有主机的视频(self-hosted videos)</strong>时，请记着这些。</p>
 
 <p>也请阅读: <a href="http://www.hongkiat.com/blog/html5-videos-things-you-need-to-know/">10 Things Designers Need To Know About HTML5 Videos</a></p>
 
 <h3 id="d--transition-effects">6. 3D 渐变效果 (Transition Effects)</h3>
-<p>在过去的一年中，我已经从更多的网站中发现了一些创造性的3D动画。这些经常构建在动画效果的图片画廊、导航菜单和元素。3D效果可以用jQuery来创建，虽然CSS3正追赶过来。</p>
+<p>在过去的一年中，我已经从更多的网站中发现了一些创造性的3D动画。它们经常构建在一些页面中，其包含有动画效果的画廊、导航菜单和元素。3D效果可以用jQuery来创建，虽然CSS3正追赶过来。</p>
 
-<p>不用说，所有浏览器并没有完全支持动画，设计者必须小心不要在一个页面中使用太多的动画。然而如果你愿意尝试新事物，我强烈推荐搜索这样的<a href="http://codepen.io/tag/3d/">3D animated code examples</a>去把玩。</p>
+<p>不用说，所有浏览器并没有完全支持动画，设计者必须小心不要在一个页面中使用太多的动画。然而如果你愿意尝试新事物，我强烈推荐搜索这样的 <a href="http://codepen.io/tag/3d/">3D animated code examples</a> 去把玩。</p>
 
 <h3 id="flat-design-elements-">7. Flat Design Elements 平面设计元素</h3>
 <p>在讨论web设计趋势时，不能忽略广泛应用的 <a href="http://www.hongkiat.com/blog/tag/flat-ui/">flat UI</a> 元素。CSS3允许设计者使用自然盒子阴影、文本阴影或圆角，创建更为平面的按钮。这一平面UI模式已经扩展到表单输入，甚至导航菜单。</p>
 
 <p>但是，在不久的未来，还有更多的可以期待。很多网站已经免费发布了 <a href="http://www.hongkiat.com/blog/long-shadow-flat-icons/">平面图标集(Flat icon sets)</a> 和 <a href="http://www.hongkiat.com/blog/webapp-design-resources/">GUI kits</a>。
-在本文作者的文章 <a href="http://www.hongkiat.com/blog/flat-design-resources/">guide to flat web design</a>，你可以找到一堆堆可免费下载的PSD/AI图像。从微软的Windows操作系统到Window Mobile Phone，地铁风格(metro-style)的布局已经普及。</p>
+在本文作者的文章 <a href="http://www.hongkiat.com/blog/flat-design-resources/">guide to flat web design</a> 中，你可以找到一堆堆可免费下载的PSD/AI图像。从微软的Windows操作系统到Window Mobile Phone，地铁风格(metro-style)的布局已经普及了。</p>
 
 <p>也请阅读：<a href="http://www.hongkiat.com/blog/flat-ui-design-showcase/">Showcase Of Beautiful Flat UI Design</a></p>
 
 <h3 id="personal-portraits-">8. Personal Portraits 个人肖像</h3>
-<p>简单的个人概况网站(portfolio websites)也值得关注。你想传递一些关于你是谁，你曾在哪里，并展示你的工作样例。当为了让人们真正感兴趣，你需要建立人性的连接(human connection)。做到这点的最好途径之一是，在你页面的某个地方加入你相片的样张。</p>
+<p>简单的个人概况网站(portfolio websites)也值得关注。你想传递一些关于你是谁、你曾在哪里的信息，并展示你的工作样例。为了让人们真正感兴趣，你需要建立人性的连接(human connection)。做到这点的最好途径之一，是在你页面的某个地方加入你相片的样张。</p>
 
 <p><a href="http://www.andreamann.com/"><img src="../images/05-andrea-mann-jazz-vocalist-homepage.jpg" alt="" /></a></p>
 
-<p><a href="http://www.andreamann.com/">Andrea Mann</a> 使用了一张占据主页很大幅面的相片。这也与更暗的背景融为一体，重新调色为黑白灰度(recolored to shades of B&amp;W)。尽管你不需要在你的网站上使用<a href="http://www.hongkiat.com/blog/oversized-background-image-design/">大幅背景肖像(large background portraits)</a>，但这的确很奇妙。甚至在你主页上一个小的相片或about页面，也让访问者瞥见你是谁。</p>
+<p><a href="http://www.andreamann.com/">Andrea Mann</a> 使用了一张占据主页很大幅面的相片。这也与更暗的背景融为一体，重新将色彩调为黑白灰度 (recolored to shades of B&amp;W)。尽管你不需要在你的网站上使用 <a href="http://www.hongkiat.com/blog/oversized-background-image-design/">大幅背景肖像(large background portraits)</a>，但这的确很奇妙。甚至在你主页上一个小的相片或about页面，也能让访问者瞥见你是谁。</p>
 
 <h3 id="svg-">9. SVG 图像或图标</h3>
-<p><a href="http://www.vectorstock.com">基于矢量的图形(vector-based graphics)</a>不是建立在像素，而是建立在线和坐标上。通过数学公式将单独的形状(shape)组织起来，这允许你将矢量拉伸到任何尺寸。<a href="http://www.hongkiat.com/blog/scalable-vector-graphic/">SVG (Scalable Vector Graphics) 图像</a>能容易被操作而不损失太多质量，在这个意义上象<a href="http://www.vectorstock.com">矢量图形</a>。</p>
+<p><a href="http://www.vectorstock.com">基于矢量的图形(vector-based graphics)</a> 不是建立在像素，而是建立在线和坐标上。通过数学公式将单独的形状(shape)组织起来，这允许你将矢量拉伸到任何尺寸。<a href="http://www.hongkiat.com/blog/scalable-vector-graphic/">SVG (Scalable Vector Graphics) 图像</a> 能容易被加工而不损失太多质量，在这个意义上有些像<a href="http://www.vectorstock.com">矢量图形</a>。</p>
 
 <p>最大的问题是所有浏览器对这些图像的支持度。许多人仍然使用IE(internet Explorer)的旧版本和其它遗留的浏览器。这是一个巨大的趋势，需要好几年掠过Internet才能到来(如果它没开始的话)。</p>
 
 <p><strong>也请阅读：<a href="http://www.hongkiat.com/blog/tag/scalable-vector-graphics/">More On Scalable Vector Graphics</a></strong></p>
 
-<p>如果你真的想开始，我可能推荐<a href="http://codepen.io/tag/svg">codepen</a>, 一个开放的社区驱动的IDE，让开发者在线分享他们的工作。<a href="http://snapsvg.io/">Snap.svg</a>是一个JavaScript库，致力于多浏览器自然地支持SVG图像。这是有点更详细的主题，但如果你好奇，值得深入探索。</p>
+<p>如果你真的想开始，我可能推荐<a href="http://codepen.io/tag/svg">codepen</a>, 一个开放的社区驱动的IDE，让开发者在线分享他们的工作。<a href="http://snapsvg.io/">Snap.svg</a>是一个JavaScript库，致力于让多浏览器自然地支持SVG图像。这是有点更细节的主题，但如果你好奇，值得深入探索。</p>
 
 <h3 id="unique-web-copy-web">10. Unique Web Copy 唯一Web拷贝</h3>
-<p>Web开发中最酷的新特性之一是，@face-font申明。你能导入在本地或外部远端服务器的字体文件。这些字体在CSS中定义，你能在<strong>font-family</strong>属性引用它们，从而设计你的web页字体。</p>
+<p>Web开发中最酷的新特性之一是 <strong>@face-font申明</strong>。你能导入在本地或外部远端服务器的字体文件。这些字体在CSS中定义，你能在<strong>font-family</strong>属性引用它们，从而设计你的web页字体。</p>
 
-<p>这已经发展到包含<a href="http://www.hongkiat.com/blog/webfont-icons/">基于字体的图标(font-based icons)</a>，这里灵活的字体在页面上可以象文本一样被渲染。相比真实的图形，这些图标的设计没那么良好，它可结合大量不同的颜色。但是，简单地能在页面上定制化任何字体，就让你的网站在人群中脱颖而出。</p>
+<p>这已经发展到包含<a href="http://www.hongkiat.com/blog/webfont-icons/">基于字体的图标(font-based icons)</a>，这里灵活的字体在页面上可以象文本一样被渲染。相比真实的图形可结合大量不同的颜色，这些图标的设计没那么优良。但是，简单地能在页面上定制化任何字体，就能让你的网站在人群中脱颖而出。</p>
 
 <h3 id="lazy-loading-animations-">11. Lazy-Loading Animations 延迟加载动画</h3>
-<p>主题森林(themeforest)有很多WordPress主题，它有一些应用到元素上的渐变效果，但只有在你将它们滚动到视图时才会出现动画。这些元素的表现和延迟加载图片相似，除过它们已经被加载到页面但被隐藏起来。</p>
+<p>主题森林(themeforest)有很多WordPress主题，它有一些应用到元素上的渐变效果，但只有在你将它们滚动到视图里才会出现动画。这些元素的表现和延迟加载图片相似，除过它们已经被加载到页面但被隐藏起来。</p>
 
 <p>使用JavaScript很容易探测到哪些元素在视图里，然后使用CSS3渐变或JavaScript来实现动画。</p>
 
 <p><a href="http://www.chartjs.org/"><img src="../images/06-chartjs-homepage-layout-script.jpg" alt="" /></a></p>
 
-<p>如果你想下滚动<a href="http://www.chartjs.org/">Chart.js</a>的页面，你将发现内容+图像的块，开始慢慢地消失在视线中(fade into view)。这个趋势大概不能节省带宽，除非你有意识地等待载入内容。这更多地是关于<strong>页面美学(about page aesthetics)</strong>，为你的访问者提供柔顺的界面(a sleek interface for you visitors)。</p>
+<p>如果你想下滚动<a href="http://www.chartjs.org/">Chart.js</a>的页面，你将发现内容+图像的块，开始慢慢地消失在视线中(fade into view)。这个趋势大概不能节省带宽，除非你有意识地等到需要时将内容载入。这更多地是关于<strong>页面美学(about page aesthetics)</strong>，为你的访问者提供柔顺的界面(a sleek interface for you visitors)。</p>
 
 <h3 id="customized-image-galleries-">12. Customized Image Galleries 定制的图片画廊</h3>
 <p>JavaScript和CSS不断地集成，允许开发者创造独特的新项目。<a href="http://www.hongkiat.com/blog/image-slider-photoshop-jquery-nivo-slider/">Image Galleries</a>是一个已经持续数十年的趋势。步入2014年，我们可以期待甚至对<a href="http://www.hongkiat.com/blog/free-responsive-image-gallery/">旋转木马(dynamic carousels)</a>和图像光盒(Image lightboxes)更精彩的方案。</p>
@@ -124,13 +126,13 @@
 <p>如果你喜欢这个概念，为什么不看下<a href="http://jquer.in/category/jquery-plugins-for-awesome-image-galleries/">jQuery画廊插件</a>呢？这将是开始学习的更快策略，随着时间，你甚至能构建你自己的画廊插件。</p>
 
 <h3 id="mega-navigation-menus-">13. Mega-Navigation Menus 巨大导航菜单</h3>
-<p>近年来，所有奇特的新导航种类都被测试和采用了。除过<a href="http://www.hongkiat.com/blog/tag/series-html5-css3-tuts/">HTML5/CSS3</a>规范，移动响应Web是这方面的大头。有一个关于<a href="http://codepen.io/jreece/pen/ocjGI">mega navigation menus</a>很小却在增长的趋势，它扩充以容纳内容和链接的大块。</p>
+<p>近年来，所有奇特的新导航种类都被测试和采用了。除过<a href="http://www.hongkiat.com/blog/tag/series-html5-css3-tuts/">HTML5/CSS3</a>规范，移动响应式Web是这方面的大头。有一个关于<a href="http://codepen.io/jreece/pen/ocjGI">mega navigation menus</a>很小却在增长的趋势，为了容纳内容和链接的大块，它做了扩充。</p>
 
 <p><a href="http://mashable.com/"><img src="../images/08-mashable-mega-dropdown-navigation.jpg" alt="" /></a></p>
 
 <p>这在以很大的容量发布许多独特内容的网站上，最为普遍。立即浮现脑海的，是在线杂志或web论坛。它的确占据了页面的一点空间，但它也给读者更宽广的选择去导航你的站点。</p>
 
-<p>在Smashing Magazine上偶然撞见的一篇相关文章，谈到所有关于针对<a href="http://www.smashingmagazine.com/2013/03/27/navigation-mega-sites/">大型站点的导航菜单(navigation menus for mega-sites)</a>。概念是相似的，对任何对这一趋势感兴趣的人，所提供的例子，都是好的起步点。</p>
+<p>在Smashing Magazine上偶然撞见的一篇相关文章，谈到有关 <a href="http://www.smashingmagazine.com/2013/03/27/navigation-mega-sites/">大型站点的导航菜单(navigation menus for mega-sites)</a> 的所有事情。概念是相似的，任何对这一趋势感兴趣的人，签名所提供的例子，都是好的起步点。</p>
 
 <h3 id="expanding-search-bars-">14. Expanding Search Bars 扩展搜索栏</h3>
 <p>回头一看，不能完全确定这一概念是否正在加速。但是，在你的布局中构造半隐藏或扩展的搜索栏(semi-hidden or expanding search bars)，正不断流行。用户点击放大镜图标，或点击进入表单本身，然后它扩展更快，允许输入更多文本。</p>
@@ -180,7 +182,7 @@
 <p>还有一个途径是使用<a href="http://css-tricks.com/almanac/properties/t/transition/">渐变属性(transition property)</a>，但是它针对动画只有一个状态，而关键帧(keyframes)表现得很像Adobe Flash。你设置一个从0% ~ 100%的帧百分比值，定义随着时间改变的属性。最新的CSS3规范提供了足够的工具，让你以几乎任何喜欢的方式去给元素加上动画。</p>
 
 <h3 id="section">结语</h3>
-<p>较小的界面概念(smaller interface concepts)不是我们每天考虑的事情。但正是这些较小的重点让更聪明的网站布局得以诞生。希望本文能散发光芒到一些设计趋势上，在未来的项目上我们将重点关注。如果关于2014年的设计趋势本文有那些遗漏的，请在如下的评论区与我们分享。</p>
+<p>较小的界面概念(smaller interface concepts)不是我们每天考虑的事情。但正是这些较小的重点让更聪明的网站布局得以诞生。希望本文能散发光芒到一些设计趋势上，在未来的项目上我们将重点关注。如果本文对2014年的设计趋势有所遗漏，请在如下的评论区与我们分享。</p>
 
 <h1 id="other-resource">Other Resource</h1>
 
