@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2014-11-04T16:40:26+08:00</updated>
+  <updated>2014-11-04T16:43:47+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Web Design的趋势]]></title>
-    <link href="http://hack.the-lifematrix.net/blog/2014/10/30/web-design-trends-and-valuable-sites/"/>
+    <link href="http://hack.the-lifematrix.net/blog/2014/10/web-design-trends-and-valuable-sites/"/>
     <updated>2014-10-30T14:55:26+08:00</updated>
-    <id>http://hack.the-lifematrix.net/blog/2014/10/30/web-design-trends-and-valuable-sites</id>
+    <id>http://hack.the-lifematrix.net/blog/2014/10/web-design-trends-and-valuable-sites</id>
     <content type="html"><![CDATA[<p>虽然我的注意力主要在机器学习和服务端的架构，但是前端领域也在生机勃勃地发展，有很多激动人心的创意、新技术、富于洞见的设计理念和极致的美学体验。今天在网上找到一些有价值的文章，分享给大家。</p>
 
 <p><em><a href="http://www.hongkiat.com/blog/web-design-trends-2014/">Web Design: 20 Hottest Trends To Watch Out For In 2014</a></em> 是一篇很棒的文章，总结了本年度（2014）年在Web Design方面可去观察的20个热点。作者自身的设计水平就很高，了解业界的动态和趋势，掌握资料翔实。如下概括这20个要点，详细的内容请参考<a href="http://www.hongkiat.com/blog/web-design-trends-2014/">原文</a>。</p>
@@ -192,9 +192,9 @@
   
   <entry>
     <title type="html"><![CDATA[Likelihood和Probability的区别]]></title>
-    <link href="http://hack.the-lifematrix.net/blog/2014/10/16/likelihood-dot-vs-dot-probability/"/>
+    <link href="http://hack.the-lifematrix.net/blog/2014/10/likelihood-dot-vs-dot-probability/"/>
     <updated>2014-10-16T10:26:42+08:00</updated>
-    <id>http://hack.the-lifematrix.net/blog/2014/10/16/likelihood-dot-vs-dot-probability</id>
+    <id>http://hack.the-lifematrix.net/blog/2014/10/likelihood-dot-vs-dot-probability</id>
     <content type="html"><![CDATA[<p>Likelihood(似然性)和Probalility(可能性)在机器学习和统计学中经常遇到，容易混淆。特别上网查询，以便澄清。</p>
 
 <h2 id="section">几种说法</h2>
@@ -228,9 +228,9 @@
   
   <entry>
     <title type="html"><![CDATA[The Classification of Algorithms in Machine Learning]]></title>
-    <link href="http://hack.the-lifematrix.net/blog/2014/10/11/the-classification-of-algorithms-in-machine-learning/"/>
+    <link href="http://hack.the-lifematrix.net/blog/2014/10/the-classification-of-algorithms-in-machine-learning/"/>
     <updated>2014-10-11T16:47:32+08:00</updated>
-    <id>http://hack.the-lifematrix.net/blog/2014/10/11/the-classification-of-algorithms-in-machine-learning</id>
+    <id>http://hack.the-lifematrix.net/blog/2014/10/the-classification-of-algorithms-in-machine-learning</id>
     <content type="html"><![CDATA[<h1 id="section">机器学习中算法的分类</h1>
 
 <p>机器学习中算法很多，比如：SVM、Logistics、Decision Tree…。了解这些算法的特点，有助于更好地选择合适的算法解决问题。</p>
@@ -242,9 +242,9 @@
   
   <entry>
     <title type="html"><![CDATA[zeroMQ]]></title>
-    <link href="http://hack.the-lifematrix.net/blog/2014/09/25/zeromq/"/>
+    <link href="http://hack.the-lifematrix.net/blog/2014/09/zeromq/"/>
     <updated>2014-09-25T10:42:13+08:00</updated>
-    <id>http://hack.the-lifematrix.net/blog/2014/09/25/zeromq</id>
+    <id>http://hack.the-lifematrix.net/blog/2014/09/zeromq</id>
     <content type="html"><![CDATA[<p>A valuable whitepaper: <a href="http://zeromq.wdfiles.com/local--files/whitepapers%3Amultithreading-magic/imatix-multithreaded-magic.pdf">Multithreaded Magic with ØMQ</a></p>
 
 <p>The article <a href="http://msdn.microsoft.com/en-us/magazine/cc817398.aspx">Solving 11 Likely Problems In Your Multithreaded Code</a> outlines some challenge in multi-threading program</p>
@@ -253,9 +253,9 @@
   
   <entry>
     <title type="html"><![CDATA[Kaggle Competition: The Hunt for Prohibited Content]]></title>
-    <link href="http://hack.the-lifematrix.net/blog/2014/09/23/kaggle-competition-the-hunt-for-prohibited-content/"/>
+    <link href="http://hack.the-lifematrix.net/blog/2014/09/kaggle-competition-the-hunt-for-prohibited-content/"/>
     <updated>2014-09-23T10:42:26+08:00</updated>
-    <id>http://hack.the-lifematrix.net/blog/2014/09/23/kaggle-competition-the-hunt-for-prohibited-content</id>
+    <id>http://hack.the-lifematrix.net/blog/2014/09/kaggle-competition-the-hunt-for-prohibited-content</id>
     <content type="html"><![CDATA[<h1 id="section">简介</h1>
 <p>当我开始留意这个竞赛时，已接近尾声。还有个原因，竞赛的进展超出了主办发的预期，他们迫不及待想看看结果，于是就提前结束了竞赛(<a href="http://www.kaggle.com/c/avito-prohibited-content/forums/t/9721/timeline-change/">Timeline Change</a>)。</p>
 
@@ -303,9 +303,9 @@ proved ensamble median: 0.98329(0.98448)。</p>
   
   <entry>
     <title type="html"><![CDATA[写在阿里上市之际]]></title>
-    <link href="http://hack.the-lifematrix.net/blog/2014/09/21/xie-zai-a-li-shang-shi-zhi-ji/"/>
+    <link href="http://hack.the-lifematrix.net/blog/2014/09/xie-zai-a-li-shang-shi-zhi-ji/"/>
     <updated>2014-09-21T15:45:42+08:00</updated>
-    <id>http://hack.the-lifematrix.net/blog/2014/09/21/xie-zai-a-li-shang-shi-zhi-ji</id>
+    <id>http://hack.the-lifematrix.net/blog/2014/09/xie-zai-a-li-shang-shi-zhi-ji</id>
     <content type="html"><![CDATA[<p>阿里成功的根本，是满足了社会的需求，让商业更方便高效，用马云的话：”让天下没有难做的生意“。企业的存在是因为创造价值，顾客愿意购买，
 金钱才会流动。如果忽略这点，只谈创业者的传奇和神勇，是本末倒置。</p>
 
@@ -341,18 +341,18 @@ proved ensamble median: 0.98329(0.98448)。</p>
   
   <entry>
     <title type="html"><![CDATA[Wisdom]]></title>
-    <link href="http://hack.the-lifematrix.net/blog/2014/09/15/wisdom/"/>
+    <link href="http://hack.the-lifematrix.net/blog/2014/09/wisdom/"/>
     <updated>2014-09-15T16:54:15+08:00</updated>
-    <id>http://hack.the-lifematrix.net/blog/2014/09/15/wisdom</id>
+    <id>http://hack.the-lifematrix.net/blog/2014/09/wisdom</id>
     <content type="html"><![CDATA[<p>Wisdom comes from deepest truth.</p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[About Abundance]]></title>
-    <link href="http://hack.the-lifematrix.net/blog/2014/09/15/about-abundance/"/>
+    <link href="http://hack.the-lifematrix.net/blog/2014/09/about-abundance/"/>
     <updated>2014-09-15T16:48:53+08:00</updated>
-    <id>http://hack.the-lifematrix.net/blog/2014/09/15/about-abundance</id>
+    <id>http://hack.the-lifematrix.net/blog/2014/09/about-abundance</id>
     <content type="html"><![CDATA[<p>A consciousness of abundance.</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
@@ -362,36 +362,36 @@ proved ensamble median: 0.98329(0.98448)。</p>
   
   <entry>
     <title type="html"><![CDATA[美的本质]]></title>
-    <link href="http://hack.the-lifematrix.net/blog/2014/09/15/mei-de-ben-zhi/"/>
+    <link href="http://hack.the-lifematrix.net/blog/2014/09/mei-de-ben-zhi/"/>
     <updated>2014-09-15T16:01:53+08:00</updated>
-    <id>http://hack.the-lifematrix.net/blog/2014/09/15/mei-de-ben-zhi</id>
+    <id>http://hack.the-lifematrix.net/blog/2014/09/mei-de-ben-zhi</id>
     <content type="html"><![CDATA[<p>美的体验非常重要。</p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Then Essence of Technology]]></title>
-    <link href="http://hack.the-lifematrix.net/blog/2014/09/15/then-essence-of-technology/"/>
+    <link href="http://hack.the-lifematrix.net/blog/2014/09/then-essence-of-technology/"/>
     <updated>2014-09-15T15:56:34+08:00</updated>
-    <id>http://hack.the-lifematrix.net/blog/2014/09/15/then-essence-of-technology</id>
+    <id>http://hack.the-lifematrix.net/blog/2014/09/then-essence-of-technology</id>
     <content type="html"><![CDATA[<p>Technology is important.</p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Art and Hack]]></title>
-    <link href="http://hack.the-lifematrix.net/blog/2014/09/15/art-and-hack/"/>
+    <link href="http://hack.the-lifematrix.net/blog/2014/09/art-and-hack/"/>
     <updated>2014-09-15T15:09:40+08:00</updated>
-    <id>http://hack.the-lifematrix.net/blog/2014/09/15/art-and-hack</id>
+    <id>http://hack.the-lifematrix.net/blog/2014/09/art-and-hack</id>
     <content type="html"><![CDATA[<p>It is interesting!</p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Hello]]></title>
-    <link href="http://hack.the-lifematrix.net/blog/2014/09/14/hello/"/>
+    <link href="http://hack.the-lifematrix.net/blog/2014/09/hello/"/>
     <updated>2014-09-14T15:59:57+08:00</updated>
-    <id>http://hack.the-lifematrix.net/blog/2014/09/14/hello</id>
+    <id>http://hack.the-lifematrix.net/blog/2014/09/hello</id>
     <content type="html"><![CDATA[<p>It is my first blog. Good Luck!</p>
 
 <h1 id="for-test-math">For Test Math</h1>
