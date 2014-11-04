@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2014-11-03T18:49:13+08:00</updated>
+  <updated>2014-11-04T16:40:26+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -21,6 +21,12 @@
     <content type="html"><![CDATA[<p>虽然我的注意力主要在机器学习和服务端的架构，但是前端领域也在生机勃勃地发展，有很多激动人心的创意、新技术、富于洞见的设计理念和极致的美学体验。今天在网上找到一些有价值的文章，分享给大家。</p>
 
 <p><em><a href="http://www.hongkiat.com/blog/web-design-trends-2014/">Web Design: 20 Hottest Trends To Watch Out For In 2014</a></em> 是一篇很棒的文章，总结了本年度（2014）年在Web Design方面可去观察的20个热点。作者自身的设计水平就很高，了解业界的动态和趋势，掌握资料翔实。如下概括这20个要点，详细的内容请参考<a href="http://www.hongkiat.com/blog/web-design-trends-2014/">原文</a>。</p>
+
+<h2 id="web-design-20-hottest-trends-to-watch-out-for-in-2014">译文：Web Design: 20 Hottest Trends To Watch Out For In 2014</h2>
+
+<p>花几小时在线浏览不同网站后，你往往会在找到一些设计上可辨识的趋势。过去几年，作者一直在撰写文章，关于不断变化的趋势，特别在web站点布局和web应用领域。W3C规范的发展连同现代浏览器，已经打开了通往<strong>数字设计新时代(a new era of digital design)</strong>的大门。</p>
+
+<p>在本文，作者将分享20个成长中的趋势，希望看到它在2014年蓬勃发展。许多已经开始，有些才刚有曙光。检视新的趋势、看看<a href="http://www.hongkiat.com/blog/web-design-trend-2013/">它们能持续多久(how long they stick around)</a>，是好玩的。在2014年浏览网站时，密切关注任何进行中的这些UI/UX的趋势(keep your eyes peeled for any of these UI/UX trends in action)。</p>
 
 <h3 id="grid-style-layouts-">1. Grid-Style Layouts 网格式布局</h3>
 <p>对网格设计的主流认识来自<a href="https://www.pinterest.com">pinterest</a>。社交网站的news feed过去常用流线型，比如twitter和Tumblr。现在象Facebook的许多页面将时间线更新散布为网格式。</p>
@@ -162,11 +168,19 @@
 <h3 id="quick-user-registration-">19. Quick User Registration 快速用户注册</h3>
 <p>有日益增加的创业公司和Web应用允许用户注册。事实上，许多服务要求你使用站点前先注册。在这个快节奏的世界，冗长的详细注册表单是极端令人扫兴的(tremendously off-putting)。</p>
 
-<p><strong>尽量让所有注册表单快捷并切中要点(Try to keep all registration forms quick and to the point)</strong>。很多更新的WebApp恰在首页包含注册表单，以抓住尽可能多的访问者。这发生在当一个访问者对你的产品好奇，看了表单只有2~4项，然后决定去注册。你可能会惊讶，这种策略对抓住新客户如此有成效。</p>
+<p><strong>尽量让所有注册表单快捷并切题(Try to keep all registration forms quick and to the point)</strong>。很多更新的WebApp恰在首页包含注册表单，以抓住尽可能多的访问者。这发生在当一个访问者对你的产品好奇，看了表单只有2~4项，然后决定去注册。你可能会惊讶，这种策略对抓住新客户如此有成效。</p>
 
 <p>也请阅读：<a href="http://www.hongkiat.com/blog/boosting-your-site-traffic-by-harnessing-your-subscribers-list/">Boosting Your Site Traffic By Harnessing Your Subscriber’s List</a></p>
 
 <h3 id="css3-animated-keyframes-">20. CSS3 Animated Keyframes 动画关键帧</h3>
+<p>自从新千年的早期，JavaScript就已是浏览器动画的主要选择。只到最近，CSS3才被主流采纳，开发者可使用@keyframe来制作他们自己的动画效果。</p>
+
+<p><a href="http://codepen.io/aidentailor/pen/bqfzt"><img src="../images/12-css3-keyframe-animation-loaders.jpg" alt="" /></a></p>
+
+<p>还有一个途径是使用<a href="http://css-tricks.com/almanac/properties/t/transition/">渐变属性(transition property)</a>，但是它针对动画只有一个状态，而关键帧(keyframes)表现得很像Adobe Flash。你设置一个从0% ~ 100%的帧百分比值，定义随着时间改变的属性。最新的CSS3规范提供了足够的工具，让你以几乎任何喜欢的方式去给元素加上动画。</p>
+
+<h3 id="section">结语</h3>
+<p>较小的界面概念(smaller interface concepts)不是我们每天考虑的事情。但正是这些较小的重点让更聪明的网站布局得以诞生。希望本文能散发光芒到一些设计趋势上，在未来的项目上我们将重点关注。如果关于2014年的设计趋势本文有那些遗漏的，请在如下的评论区与我们分享。</p>
 
 <h1 id="other-resource">Other Resource</h1>
 
