@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2014-11-04T18:48:11+08:00</updated>
+  <updated>2014-11-05T14:49:14+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -132,45 +132,45 @@
 
 <p>这在以很大的容量发布许多独特内容的网站上，最为普遍。立即浮现脑海的，是在线杂志或web论坛。它的确占据了页面的一点空间，但它也给读者更宽广的选择去导航你的站点。</p>
 
-<p>在Smashing Magazine上偶然撞见的一篇相关文章，谈到有关 <a href="http://www.smashingmagazine.com/2013/03/27/navigation-mega-sites/">大型站点的导航菜单(navigation menus for mega-sites)</a> 的所有事情。概念是相似的，任何对这一趋势感兴趣的人，签名所提供的例子，都是好的起步点。</p>
+<p>在Smashing Magazine上偶然撞见的一篇相关文章，谈到有关 <a href="http://www.smashingmagazine.com/2013/03/27/navigation-mega-sites/">大型站点的导航菜单(navigation menus for mega-sites)</a> 的所有事情。概念是相似的，任何对这一趋势感兴趣的人，前面所提供的例子，都是好的起步点。</p>
 
 <h3 id="expanding-search-bars-">14. Expanding Search Bars 扩展搜索栏</h3>
-<p>回头一看，不能完全确定这一概念是否正在加速。但是，在你的布局中构造半隐藏或扩展的搜索栏(semi-hidden or expanding search bars)，正不断流行。用户点击放大镜图标，或点击进入表单本身，然后它扩展更快，允许输入更多文本。</p>
+<p>回头一看，不能完全确定这一概念是否正在加速。但是，在你的布局中构造半隐藏或扩展的搜索栏(semi-hidden or expanding search bars)，正不断流行。用户点击放大镜图标，或点击进入表单本身，然后它扩展变宽，允许输入更多文本。</p>
 
 <p><a href="http://tympanus.net/codrops/2013/06/26/expanding-search-bar-deconstructed/"><img src="../images/09-expanding-search-bar-tutorial.jpg" alt="" /></a></p>
 
-<p>关于这个主题，Codrops编写了很出色的<a href="http://tympanus.net/codrops/2013/06/26/expanding-search-bar-deconstructed/">教程</a>，对任何开发者，就极具可读性。隐藏输入域首先是用于节省页面的地方。你甚至可以在顶部隐藏表单，象导航菜单一样切换它上/下(toggle it up/down like a navigation menu)。这个技术在响应式布局中最为突出，但在甚至更大、更完整的设计中也包含了这些可适应的搜索域(adaptable search fields)。</p>
+<p>关于这个主题，Codrops编写了很出色的<a href="http://tympanus.net/codrops/2013/06/26/expanding-search-bar-deconstructed/">教程</a>，对任何开发者，就极具可读性。隐藏输入域的第一个用处是节省页面空间。你甚至可以在顶部隐藏表单，象导航菜单一样切换它上/下(toggle it up/down like a navigation menu)。这个技术在响应式布局中最为突出，但在甚至更大、更完整的设计中也包含了这些可适应的搜索域(adaptable search fields)。</p>
 
 <h3 id="featured-detail-lists-">15. Featured Detail Lists 有特色的详情列表</h3>
-<p>最近，在网站上发现的featured detail lists都放在一个<a href="http://blog.teamtreehouse.com/50-homepage-website-layouts-using-featured-details-icon-lists">设计展示</a>中。这是面向列表的详细资料，解释有关公司或产品的信息。详细资料经常伴随一些图标来以更简洁的方式说明要点。</p>
+<p>最近，在网站上发现的featured detail lists都放在一个<a href="http://blog.teamtreehouse.com/50-homepage-website-layouts-using-featured-details-icon-lists">设计展示</a>中。这是面向列表的详细资料，解释有关公司或产品的信息。详细资料经常连同一些图标来以更简洁的方式说明要点。</p>
 
-<p>这些详细资料列表已经成为很多主页的主要部分。有关任何产品或服务的信息的收集，给访问者一个理由去逗留。它对你提供给客户的内容给出一些洞见，它们一起如何工作(It gives some insight towards what you provide to customers and how it all works)。当快速滚动页面时，<a href="http://www.hongkiat.com/blog/category/free-icons/">图标</a>象糖霜(frosting)一样能吸引注意力。</p>
+<p>这些详细资料列表已经成为很多主页的主要部分。汇集的有关产品或服务的任何信息，将让访问者愿意多看看。它对你提供一些洞见：提供什么内容给客户，及其如何一起工作(It gives some insight towards what you provide to customers and how it all works)。当快速滚动页面时，<a href="http://www.hongkiat.com/blog/category/free-icons/">图标</a>象糖霜(frosting)一样能吸引注意力。</p>
 
 <h3 id="mobile-first-design-">16. Mobile-First Design 移动优先设计</h3>
-<p>前阵子，<strong>Luke Wroblewski</strong>的书<a href="http://www.abookapart.com/products/mobile-first">Mobile First</a>给出这一观点。当浏览一个站点时，不太可能轻易地区分设计过程是如果进行的。但这个想法是，首先对你的站点在移动屏幕上如何看起来如同一个响应性布局去搭建雏形(mock-up)。消减所有多余的不成功的尝试、只保留尽可能少的基本要素(Eliminate all the excess fluff and keep only the bare essentials)。</p>
+<p>前阵子，<strong>Luke Wroblewski</strong>的书<a href="http://www.abookapart.com/products/mobile-first">Mobile First</a>给出这一观点。当浏览一个站点时，不太可能轻易地辨识设计过程是如果进行的。但这个想法是，首先对你的站点在移动屏幕上如何看起来象一个响应性布局去搭建雏形(mock-up)。消减所有多余的不成功的尝试、只保留尽可能少的基本要素(Eliminate all the excess fluff and keep only the bare essentials)。</p>
 
-<p>从这个观点看，将你的设计向上扩展到更为宽阔的屏幕，会非常容易。导航菜单更宽了，内容被拉长，还连同一个边栏(sidebar)。移动优先的设计将移动体验放在更高的优先级，这然后成为整个布局的基线(then becomes a baseline for the entire layout)。这个概念值得拥抱。希望设计者尝试实施它，看看它如何影响设计的工作流和最终的结果。</p>
+<p>从这个观点看，将你的设计向上扩展到更为宽阔的屏幕，会非常容易。导航菜单更宽了，内容被拉长，还连同一个边栏(sidebar)。移动优先的设计将移动体验放在更高的优先级，这然后成为整个布局的基线(then becomes a baseline for the entire layout)。这个概念值得拥抱。希望设计者试着实践它，看看它如何影响设计的工作流和最终的结果。</p>
 
 <h3 id="html5--1">17. HTML5 画布</h3>
 <p>关于<a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/">画布元素(canvas element)</a>有很多可以讲的，这确实是一个研究的主题。使用JavaScript, 恰在HTML5里面就能创造出游戏或绘画应用。曾经见过，通过鼠标来<a href="http://thomasjbradley.ca/lab/signature-pad/require-drawn/">收集签名</a>的画布元素。</p>
 
 <p><a href="http://codepen.io/jackrugile/pen/Gving"><img src="../images/10-canvas-based-loader-animation.jpg" alt="" /></a></p>
 
-<p>上面的例子来自一个简单的codepen条目。有人发布一个有光泽的加载圈到Dribble，这个笔是使用画布元素的一个仿制。另一个例子是构建在HTML5画布和JavaScript上的这个小<a href="http://codepen.io/motorlatitude/pen/Aybmz">水平加载条(horizontal loading bar)</a>。这种可能性增长很快，我们兴奋地期待看看2~3后这样的画布会是什么。</p>
+<p>上面的例子来自一个简单的codepen条目。有人发布一个有光泽的加载圈到Dribble(Someone posted a glossy loading circle onto Dribbble)，这个笔是使用画布元素的一个仿制。另一个例子是构建在HTML5画布和JavaScript上的这个小<a href="http://codepen.io/motorlatitude/pen/Aybmz">水平加载条(horizontal loading bar)</a>。这种可能性增长很快，我们兴奋地期待看看2~3年后这样的画布会是什么。</p>
 
 <h3 id="pixel-sprites--browser-games-">18. Pixel Sprites &amp; Browser Games 像素精灵和浏览器游戏</h3>
 <p>很象经典的视频播放器，<a href="http://www.hongkiat.com/blog/chrome-experiments-games/">浏览器游戏(browser games)</a>过去完全在Adobe Flash中制作。但是JavaScript已经在社区中获得立足点，很多开发者很高兴去发布这类项目的开放源码。</p>
 
 <p><a href="http://codepen.io/jkneb/details/smtHA"><img src="../images/11-pixel-sprite-game-example-codepen.jpg" alt="" /></a></p>
 
-<p>早先，此文作者有一篇文章，详细说明了也能使用动画的<a href="http://www.hongkiat.com/blog/pixel-based-websites/">像素为中心的web站点(pixel-centric websites</a>。这些设计不常见，但能抓住你的注意力。它需要很多设计天赋来创造如此精巧的像素艺术品。因此构建你自己的浏览器内的精灵游戏，将是一个甚至更大的挑战。</p>
+<p>早先，作者有一篇文章，详细说明了<a href="http://www.hongkiat.com/blog/pixel-based-websites/">以像素为中心的web站点(pixel-centric websites</a>，它也能使用动画。这些设计不常见，但能抓住你的注意力。它需要很多设计天赋来创造如此精巧的像素艺术品。因此构建你自己的浏览器内的精灵游戏，将是一个甚至更大的挑战。</p>
 
 <p>刚入道时，最好的一个资源可以在<a href="http://html5gameengine.com/">HTML5 Game Engine</a>找到。这个站点罗列了很多自由的JavaScript库用于创建你自己的浏览器游戏。关于这个过程有很多可以学习的，但幸运地是，你能在Google中找到数以百计的教程。</p>
 
 <h3 id="quick-user-registration-">19. Quick User Registration 快速用户注册</h3>
 <p>有日益增加的创业公司和Web应用允许用户注册。事实上，许多服务要求你使用站点前先注册。在这个快节奏的世界，冗长的详细注册表单是极端令人扫兴的(tremendously off-putting)。</p>
 
-<p><strong>尽量让所有注册表单快捷并切题(Try to keep all registration forms quick and to the point)</strong>。很多更新的WebApp恰在首页包含注册表单，以抓住尽可能多的访问者。这发生在当一个访问者对你的产品好奇，看了表单只有2~4项，然后决定去注册。你可能会惊讶，这种策略对抓住新客户如此有成效。</p>
+<p><strong>尽量让所有注册表单快捷并切题(Try to keep all registration forms quick and to the point)</strong>。很多更新的webapp恰在首页包含注册表单，以抓住尽可能多的访问者。这样当一个访问者对你的产品好奇，看了表单只有2~4项，就决定去注册。你可能会惊讶，这种策略对抓住新客户如此有效。</p>
 
 <p>也请阅读：<a href="http://www.hongkiat.com/blog/boosting-your-site-traffic-by-harnessing-your-subscribers-list/">Boosting Your Site Traffic By Harnessing Your Subscriber’s List</a></p>
 
@@ -179,16 +179,14 @@
 
 <p><a href="http://codepen.io/aidentailor/pen/bqfzt"><img src="../images/12-css3-keyframe-animation-loaders.jpg" alt="" /></a></p>
 
-<p>还有一个途径是使用<a href="http://css-tricks.com/almanac/properties/t/transition/">渐变属性(transition property)</a>，但是它针对动画只有一个状态，而关键帧(keyframes)表现得很像Adobe Flash。你设置一个从0% ~ 100%的帧百分比值，定义随着时间改变的属性。最新的CSS3规范提供了足够的工具，让你以几乎任何喜欢的方式去给元素加上动画。</p>
+<p>还有一个途径是使用<a href="http://css-tricks.com/almanac/properties/t/transition/">渐变属性(transition property)</a>，但是它针对动画只有一个状态，而关键帧(keyframes)表现得很像Adobe Flash。你设置一个从0%~100%的帧百分比值，定义随着时间改变的属性。最新的CSS3规范提供了足够的工具，让你以几乎任何喜欢的方式去给元素加上动画。</p>
 
 <h3 id="section">结语</h3>
-<p>较小的界面概念(smaller interface concepts)不是我们每天考虑的事情。但正是这些较小的重点让更聪明的网站布局得以诞生。希望本文能散发光芒到一些设计趋势上，在未来的项目上我们将重点关注。如果本文对2014年的设计趋势有所遗漏，请在如下的评论区与我们分享。</p>
+<p>较小的界面概念(smaller interface concepts)不是我们每天考虑的事情。但正是这些较小的重点让更聪明的网站布局得以诞生。希望本文能照亮一些设计趋势上，在未来的项目上我们将重点关注。如果本文对2014年的设计趋势有所遗漏，请在如下的评论区与我们分享。</p>
 
-<h1 id="other-resource">Other Resource</h1>
+<h1 id="section-1">其它的资源</h1>
 
-<p>http://www.hongkiat.com/blog/mobile-app-landing-pages/</p>
-
-<p>https://futureofwebdesign.com/nyc-2014/?utm_source=Future%20Insights&amp;utm_medium=Blog&amp;utm_campaign=Blog%20Event%20Widget</p>
+<p><a href="https://futureofwebdesign.com/nyc-2014/?utm_source=Future%20Insights&amp;utm_medium=Blog&amp;utm_campaign=Blog%20Event%20Widget">https://futureofwebdesign.com/nyc-2014/?utm_source=Future%20Insights&amp;utm_medium=Blog&amp;utm_campaign=Blog%20Event%20Widget</a></p>
 ]]></content>
   </entry>
   
