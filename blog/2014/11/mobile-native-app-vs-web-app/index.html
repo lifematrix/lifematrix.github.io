@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Mobile: Native Application vs Web Solution - Life Matrix</title>
+  <meta name="author" content="Steven Liu <stevenliucx@gmail.com>&#8221;>
+
+  
+  <meta name="description" content="移动互联网近几年发展迅速，毋庸置疑，也会成为今后的主流趋势。相应地，针对移动端（手机、平板电脑…）的应用也越来越成为热门。移动端应用开发有两个思路，本地应用(native application)和Web解决方案(web solution)。关于这两者之间的优劣和前景一直争论不休。我赞同移动优先 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://hack.the-lifematrix.net/blog/2014/11/mobile-native-app-vs-web-app">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Life Matrix" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+
+  <!-- mathjax config similar to math.stackexchange -->
+  <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+       jax: ["input/TeX", "output/HTML-CSS"],
+       tex2jax: {
+          inlineMath: [ ['$', '$'] ],
+          displayMath: [ ['$$', '$$']],
+          procehssEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+       },
+       messageStyle: "none",
+       "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+     });
+   </script>
+   <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Life Matrix</a></h1>
+  
+    <h2>Machine learning, Hacking, Web app</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:hack.the-lifematrix.net" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/resources">Resources</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Mobile: Native Application vs Web Solution</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-11-05T15:31:40+08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:31 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>移动互联网近几年发展迅速，毋庸置疑，也会成为今后的主流趋势。相应地，针对移动端（手机、平板电脑…）的应用也越来越成为热门。移动端应用开发有两个思路，本地应用(native application)和Web解决方案(web solution)。关于这两者之间的优劣和前景一直争论不休。我赞同<a href="http://www.abookapart.com/products/mobile-first">移动优先 (Mobile First)</a>作者的观点：<strong>事实上，有很大理由，两者都需要考虑</strong>。下面就书中和相关文章的观点做总结介绍。</p>
+
+<h2 id="section">本地应用</h2>
+<p>#### 用户体验更好
+因为本地应用运行在本地，它们能访问web应用无法访问到系统资源。这意味着，在本地应用中，画面过渡和交互通常都会更平滑。试图在浏览器中重现这些效果，会导致用户体验上明显的停顿和延迟。</p>
+
+<h4 id="section-1">便于访问本地硬件</h4>
+<p>本地应用可以更健壮地访问硬件设施，这在目前还无法通过移动web浏览器做到。
+* 关键的特性，如访问地址簿、SMS(短消息)、相机、声音输入(audio input)和内置的传感器，大多数都做不到。
+* 无法实现在后台运行进程
+* 无法通过移动端的App Store去变现(monetize)或app内的购买(in-app purchase)
+* 非本地应用无法加入App Store，因此难以出现在用户的移动设备屏幕上，这将不利于它被发现和持续地使用</p>
+
+<p><br />
+<em>所以，如果你的移动产品或业务需要很深的硬件访问、后台进程，app或in-app销售，或对移动设备更多集成的安排，那你可能需要一个本地解决方案。但这不并意味着，</em> <strong><em>你不需要一个移动web解决方案。</em></strong></p>
+
+<h2 id="web">Web解决方案</h2>
+<p>#### Access 可访问性
+正如移动策略专家Jason Grigspy所说，<em>”Web链接不打开应用程序，而是指向网页(Web links don’t open apps, they go to web pages)“</em>。 无论是通过搜索、邮件、社交网络或Web页面，如果你有在线的内容，人们将发现和分享到它的链接。缺少移动web解决方案意味着，任何在移动设备上点击链接的人，将没有一个很棒的体验。本地移动应用对此爱莫能助。</p>
+
+<p>对于移动web体验，访问性甚至是最大的用户利益所在。即使你针对一个平台开发了本地应用，风险你不能针对每个平台做一个。Apple的iOS要求Objective C；Google的安卓要求Java；微软的Windows Phone 7依赖于silverlight；三星的Bada要求C++；RIM的黑莓，有Java, WebWorks和Adode Air解决方案。很少有公司能用所有这些技术构建些什么。而且，即便你能针对每个平台开发一个本地应用，维护它们的成本很快就令人望而却步。</p>
+
+<p>无论如何，增加web将可能是你最流行的移动体验。14%的Twitter会员使用移动web体验，想对比，8%使用本地iPhone应用，7%使用黑莓本地应用。剩下的本地移动应用，每个都少于5%的用户基数(<a href="https://blog.twitter.com/2010/evolving-ecosystem">资料来源</a>)。</p>
+
+<p><a href="https://blog.twitter.com/2010/evolving-ecosystem"><img src="http://hack.the-lifematrix.net/images/top_10_twitter_apps_by_unique_users.png" alt="" /></a></p>
+
+<p>Facebook情况类似，接近19%的帖子在移动web体验上完成，而Facebook本地的iPhone、安卓、黑莓应用每个只占了大约4%(<a href="http://danzarrella.com/new-data-on-mobile-facebook-posting.html#">资料来源</a>)。这说明访问性(任何地点)很重要(It turns out access (anywhere) goes a long way)。</p>
+
+<p><a href="http://danzarrella.com/new-data-on-mobile-facebook-posting.html#"><img src="http://hack.the-lifematrix.net/images/Mobile_Facebook_posting_clients.jpg" alt="" /></a></p>
+
+<h4 id="web-1">本地应用促进web使用</h4>
+<p>事实上，本地应用其实增加了移动设备上的web使用。每次在本地应用中分享和引用的链接，它就会在web的浏览器窗口打开。因此，更多的本地访问很快转化为更多的web使用。</p>
+
+<h4 id="section-2">便于更新、测试</h4>
+<p>移动web体验也不需要用户下载更新(对一个服务器的修正，就是对站点的修正)，这让你能经常地做多种设计选项的A/B测试或分桶测试(Bucket test)。<strong><em>如果这二者任何一个对你都至关重要，那么移动web应用会更有意义。</em></strong></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Steven Liu <stevenliucx@gmail.com></span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-11-05T15:31:40+08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:31 pm</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://hack.the-lifematrix.net/blog/2014/11/mobile-native-app-vs-web-app/" data-via="" data-counturl="http://hack.the-lifematrix.net/blog/2014/11/mobile-native-app-vs-web-app/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/10/web-design-trends-and-valuable-sites/" title="Previous Post: Web Design的趋势">&laquo; Web Design的趋势</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/11/mobile-native-app-vs-web-app/">Mobile: Native Application vs Web Solution</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/10/web-design-trends-and-valuable-sites/">Web Design的趋势</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/10/likelihood-dot-vs-dot-probability/">Likelihood和Probability的区别</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/10/the-classification-of-algorithms-in-machine-learning/">The Clashsification of Algorithms in Machine Learning</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/zeromq/">zeroMQ</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Steven Liu <stevenliucx@gmail.com> -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
