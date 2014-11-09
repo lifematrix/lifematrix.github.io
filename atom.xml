@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2014-11-09T15:10:35+08:00</updated>
+  <updated>2014-11-09T21:48:32+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -12,6 +12,69 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[译文：扁平化设计：趋势或者革命？]]></title>
+    <link href="http://hack.the-lifematrix.net/blog/2014/11/flat-web-design-trend-or-revolution/"/>
+    <updated>2014-11-09T15:15:44+08:00</updated>
+    <id>http://hack.the-lifematrix.net/blog/2014/11/flat-web-design-trend-or-revolution</id>
+    <content type="html"><![CDATA[<p><em>原文地址: <a href="http://blog.usabilla.com/flat-web-design-trend-or-revolution/">http://blog.usabilla.com/flat-web-design-trend-or-revolution/</a></em></p>
+
+<p>有时，新的做事方法潜入我们的生活或工作习惯。其原因，可能是不断变化的个人偏好、新技术，或跟随潮流的简单冲动。Web设计上一个新近的趋势是扁平化设计。扁平化针对二维的屏幕，描画二维的设计(Flat describes a two dimensional design for a two dimensional screen)。</p>
+
+<p>在最近几年，拟物风格(skeuomorphism)的特点是现代和以用户为中心的设计。现在，看起来我们已经有些习惯于数字时代；我们很多人甚至不记得，在设计中所试图展现的东西在现实生活中的对应物。</p>
+
+<p>通过扁平化设计，我们向接受web独特而抽象的属性迈进一步。但是，我们是在应付一个临时的趋势，或者正在面对我们如何为web设计的一次革命？这里有5个原因，为什么扁平化web设计可能是一个好的习惯。</p>
+
+<h1 id="web">1. 扁平化web设计是诚实的</h1>
+<p><img src="../images/flat-web-design-trend-or-revolution/Screen-shot-2013-04-04-at-11.29.jpg" alt="" />
+<em><a href="http://www.windowsphone.com/en-us">Windows phone</a>网站用大量的颜色、排版和清晰的结构，展示了扁平化Windows设计。</em></p>
+
+<p>大概扁平化设计的核心概念是<strong>“诚实”</strong>。你想知道这意味着什么？很简单：扁平化设计承认屏幕设计的二维属性(Flat design acknowledges the two dimensional nature of screen design)。不试图去添加任何三维的效果，或者诱使用户认为他们在和一个并非扁平屏幕的东西交互。</p>
+
+<p>这里没有阴影、没有梯度、没有模式、没有3-D效果，或没有代表真实世界事物的设计元素(design elements representing real-world things)。相反，扁平化设计使用颜色、排版、很多留白(a lot of white space)和严格的网格系统来实现一个清晰、可用的界面。</p>
+
+<h1 id="web-1">2. 扁平化Web设计引领潮流</h1>
+<p><img src="../images/flat-web-design-trend-or-revolution/Screen-shot-2013-04-04-at-11.26.jpg" alt="" />
+<em><a href="http://www.rdio.com/">Rdio</a>采用了带有很多色彩和大量留白的扁平化设计</em></p>
+
+<p>有些习惯来自于时尚。我们想跟上时代，这就是为什么我们跟随潮流。扁平化设计引领潮流 – 它新鲜、清晰、明亮和现代。它与web设计的其它潮流相伴而来(it goes hand in hand with other trends in web design)，比如排版和留白的使用。而且，亮色(bright colors)也找到了它们的路，回到了现代设计者的意识中。</p>
+
+<p>正如任何其他趋势，我们不知道扁平化设计会持续多久。它可能是一个时期(phase)，但它也可能只触发web设计领域很小的革新。只要我们不知道它将是什么，就不要试图盲目跟随潮流。在将你的设计扁平化之前，确信你的目标对象(target group)准备好了，而且你的网站适合这种策略。</p>
+
+<h1 id="section">3. 扁平化设计具备可用性</h1>
+
+<p><img src="../images/flat-web-design-trend-or-revolution/Screen-shot-2013-04-04-at-11.30.jpg" alt="" />
+<em><a href="http://foundation.zurb.com/index.php">Foundation</a>将所有设计元素消减到合理的最小程度。每个设计元素都对网站的可用性做出贡献。</em></p>
+
+<p>扁平化设计不但吸引人，而且具备可用性 — 如果做得恰当，这是显然的(if done right, obviously)。扁平化设计是简单并消减到最小程度。其创意是，移除所有让人分心的元素，真正关注在内容和你用户的目标上。使用可视化的暗示，比如颜色、排版来引导你的用户，帮助他们达到他们的目标。</p>
+
+<p>避免分心，并不是把扁平化设计等同于最小化设计。这就是它变得微妙的地方。脱光你的设计，让它尽可能简单清晰 - 但是确保你没有移除对用户成功使用网站必不可少的暗示。</p>
+
+<h1 id="section-1">4. 扁平化设计很快捷</h1>
+
+<p><img src="../images/flat-web-design-trend-or-revolution/Screen-shot-2013-04-04-at-11.25.jpg" alt="" />
+<em><a href="http://www.geckoboard.com/plans-and-pricing/">Geckoboard</a> 的扁平和精简设计很有说服力。在只看了页面一眼之后，他们的定价就一目了然。</em></p>
+
+<p>扁平化设计显露了效率(Flat web design radiates efficiency)。因为不用分心，你的视线直接被吸引到网站最本质的地方。你不但能达到目标，而且你能确信你能在很短的时间内做到。虽然一个不同的网站也能做到可用性，但是扁平化设计不会耻于炫耀(a flat design is not ashamed to brag about it)。</p>
+
+<p>在这个情形下，炫耀并非坏事。如果你能说服你的访问者，他们将发现他们要找的 - 甚至在他们开始看之前 - 在更好的转换率方面，你已经移除了很大的障碍(you have taken a huge hurdle in terms of a better conversion)。</p>
+
+<h1 id="section-2">5. 扁平化网站设计能扩展</h1>
+
+<p><img src="../images/flat-web-design-trend-or-revolution/Screen-shot-2013-04-04-at-11.24.jpg" alt="" />
+<em><a href="http://oak.is/">Oak</a> 采用了带有大量排版、留白和色彩的扁平化设计。网站是可响应的，内容很容易在不同屏幕尺寸扩展。</em></p>
+
+<p>最后一点并非最不重要(Last but not least)，扁平化设计易于扩展。这点和web设计中最近的另一个趋势：响应性设计(responsive design），是一致的。移动互联网正变得越来越重要，你必须考虑你的网站在不同的屏幕尺寸上看着象会怎样。虽然实际的图像和其它设计效果难以扩展，但是扁平化设计元素，比如颜色和排版，很容易适应更小的屏幕。</p>
+
+<p>例如，在扁平化设计中，有颜色的链接，将取代仔细风格化的按钮(instead of having a carefully styled button, in flat web design a colored link will do)。一个模式化的背景图像变成一个朴素的背景颜色(a plain background color)。而且，通过使用不同的颜色，不同的内容区域在横跨多个设备时，可以容易地识别。</p>
+
+<h1 id="section-3">6. 趋势或革命？</h1>
+
+<p>你怎么思考扁平化设计？这是有些要认真对待的东西吗？你看到了伴随这一极简设计策略而来的好处吗？或者你反对，认为这只是一个我们不必过于兴奋的趋势？请给出你的评论(Let us know in the comments)。</p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Flat Design Resources]]></title>
