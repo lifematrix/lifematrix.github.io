@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2014-11-17T17:10:13+08:00</updated>
+  <updated>2014-11-19T17:30:44+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -12,6 +12,127 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[译文：扁平化设计的原理]]></title>
+    <link href="http://hack.the-lifematrix.net/blog/2014/11/the-principles-of-flat-design/"/>
+    <updated>2014-11-19T10:28:07+08:00</updated>
+    <id>http://hack.the-lifematrix.net/blog/2014/11/the-principles-of-flat-design</id>
+    <content type="html"><![CDATA[<p><em>原文地址：<a href="http://designmodo.com/flat-design-principles/">http://designmodo.com/flat-design-principles/</a></em></p>
+
+<p><a href="http://designmodo.com/flat-design/">扁平化设计</a> – 设计社区简直没有停止讨论。</p>
+
+<p>感觉很强烈。大多数设计者，要么没有充分掌握它，要么绝对地厌恶它。</p>
+
+<p>我是站在中间的某处。好的设计是关乎创造一些有用的东西，能奏效。如果答案是以扁平化的时尚去设计，那就这么做。但是，趋势可能不是对所有项目奏效，因此不能强制。</p>
+
+<p>因此，让我们检视一下是什么让东西扁平化。这里有<strong>5个相当明显的特征</strong>。先逐个看看，然后对<strong>“近乎”扁平化设计</strong>做些介绍。</p>
+
+<h3 id="no-added-effects-">No Added Effects 没有附加的效果</h3>
+
+<p>[<img src="http://www.triplagent.com/" alt="TriplAgent( http://hack.the-lifematrix.net/images/flat-design-principles/TriplAgent.jpg)" /></p>
+
+<p>[<img src="http://www.intothearctic.gp/" alt="intothearctic( http://hack.the-lifematrix.net/images/flat-design-principles/intothearctic.jpg)" /></p>
+
+<p>[<img src="http://dribbble.com/shots/947749-Task-app" alt="Task-app( http://hack.the-lifematrix.net/images/flat-design-principles/Task-app.jpg)" /></p>
+
+<p><strong>扁平化设计</strong>得名于所使用的形状。扁平化设计使用了一个明显的二维风格，它纯粹就是扁平的。</p>
+
+<p>这个概念的实现不带装饰 - 去掉阴影、斜面边缘(bevel)、压纹(embossing)、梯度和其它增加深度的工具。每个元素或盒子，从图像框(image frame)到按钮、到导航工具，是干净挺括的，少了羽化边缘或阴影。</p>
+
+<p>没有添加什么让元素看着更真实，比如在<a href="http://designmodo.com/skeuomorphism-ui-design/">拟物风格设计(skeuomorphic design)</a>的项目中让元素看着象3D的设计技巧。扁平化设计中使用的层，借鉴了其它项目，但是层没有交叉，剩下一个明显的背景图片、前端图片或按钮、文本和导航。</p>
+
+<p>那么它如何奏效？去掉所有附加物，扁平化设计有一个独特的外观和感觉。这依赖于设计上清晰的层次感和元素的放置，从而使得成功的项目易于让用户去理解和交互。虽然越来越多的网站正在使用扁平化设计原理，但是对app和移动设计，它可能甚至更受欢迎。由于较小的屏幕，会有更少的按钮和选项，让一个扁平化界面相当易于使用。</p>
+
+<h3 id="simple-elements-">Simple Elements 简单元素</h3>
+<p>[<img src="http://dribbble.com/shots/917819-iPad-Calendar-Login" alt="iPad-Calendar-Login( http://hack.the-lifematrix.net/images/flat-design-principles/iPad-Calendar-Login.jpg)" /></p>
+
+<p>[<img src="http://dribbble.com/shots/962125-Filetypes" alt="Filetypes( http://hack.the-lifematrix.net/images/flat-design-principles/Filetypes.jpg)" /></p>
+
+<p>[<img src="http://designmodo.com/square/" alt="square-ui( http://hack.the-lifematrix.net/images/flat-design-principles/square-ui.jpg)" /></p>
+
+<p>[<img src="http://simonemarcarino.com/" alt="Simone-Marcarino( http://hack.the-lifematrix.net/images/flat-design-principles/Simone-Marcarino.jpg)" /></p>
+
+<p>扁平化设计使用很多简单的用户界面元素，比如按钮、图标。设计者经常坚守简单的形状，比如矩形、圆或正方形，并让每个形状突出。形状的边缘可以是完全的尖角、正方形或包含弯度。</p>
+
+<p>每个界面元素必须简单并易于点击或轻拍。交互必须对用户是直觉式的，不需很多设计内的解释。</p>
+
+<p>除过简单的风格，在可点击的按钮上加黑体和颜色，来促进使用。但是<strong>不要将简单元素与简单设计混淆</strong>，扁平化设计概念能恰恰象其它任何设计方案一样复杂。</p>
+
+<p>起步时需要帮助吗？Designmodo提供很多采用扁平化风格的UI工具 - 从<a href="http://designmodo.com/square-free/">Square UI Free</a>到<a href="http://designmodo.com/flat-free/">Flat UI Free</a>, 一个带有基本组件的简单PSD/HTML UI kit; 以及从 <a href="http://designmodo.com/square/">Square UI</a>到<a href="http://designmodo.com/flat/">Flat UI Pro</a>，针对网站和APP设计项目的完整PSD/HTML UI包。</p>
+
+<h3 id="focus-on-typography-">Focus on Typography 聚焦于版式</h3>
+<p>[<img src="http://courtneyandrew.com/" alt="courtneyandrew( http://hack.the-lifematrix.net/images/flat-design-principles/courtneyandrew.jpg)" /></p>
+
+<p>[<img src="https://plover.co/" alt="Plover( http://hack.the-lifematrix.net/images/flat-design-principles/Plover.jpg)" /></p>
+
+<p>[<img src="http://www.flatmate.se/" alt="Plover( http://hack.the-lifematrix.net/images/flat-design-principles/Flatmate.jpg)" /></p>
+
+<p>因为扁平化设计中元素的简单性，版式就极端重要。</p>
+
+<p>字体的格调必须与整个设计方案匹配 - 一个高度修饰的字体在超级简单的设计上，可能看起来有些奇怪。字体必须醒目，措辞也须简单而有效，从某种程度上让最终的产品在视觉上和文字上都有一致的格调。</p>
+
+<p>考虑一个简单的无衬线字体族，带有丰富的变体和字重，用于扁平化设计网站的主要版式。用一种新的字体作为一个艺术元素，来增加意想不到的润色，但要仔细，别走过头使用了特殊的字体。</p>
+
+<p>字体也必须告诉用户如何使用这个设计。标签按钮和其它元素能增加易用性和交互性。</p>
+
+<h3 id="focus-on-color-">Focus on Color 聚焦于颜色</h3>
+<p>[<img src="http://dribbble.com/shots/968439-Close-landing-page" alt="Close-landing-page( http://hack.the-lifematrix.net/images/flat-design-principles/Close-landing-page.jpg)" /></p>
+
+<p>[<img src="http://dribbble.com/shots/963964-Online-Radio" alt="Online-Radio( http://hack.the-lifematrix.net/images/flat-design-principles/Online-Radio.jpg)" /></p>
+
+<p>[<img src="http://dribbble.com/shots/1021883-Squirrel-Settings" alt="Squirrel-Settings( http://hack.the-lifematrix.net/images/flat-design-principles/Squirrel-Settings.jpg)" /></p>
+
+<p>颜色占扁平化设计的很大部分。<a href="http://designmodo.com/flat-design-colors/">扁平化设计调色板</a> 经常比其它网站要明亮和鲜艳的多。</p>
+
+<p>扁平化设计项目的调色板也经常包括更多的色调。虽然大多数调色板至多聚焦在2到3个颜色，但扁平化设计调色板可能均等使用6~8种颜色。</p>
+
+<p>色调往往有活力(vibrant) – 想想颜色轮(the color wheel)上最纯粹的颜色 – 没有染色(tint)或格调(tone)。主要和其次的颜色都受欢迎。而且，也频繁使用特定类型的颜色；在扁平化设计趋势的这波周期中，怀旧色(retro color)， 包括鲜肉色(salmon)、紫色(purple)、绿色和蓝色，特别流行。</p>
+
+<h3 id="minimalist-approach-">Minimalist Approach 极简策略</h3>
+<p>[<img src="http://dribbble.com/shots/981593-Personal-Site" alt="Close-landing-page( http://hack.the-lifematrix.net/images/flat-design-principles/Personal-Site.jpg)" /></p>
+
+<p>[<img src="http://fltdsgn.com/" alt="Dropbox( http://hack.the-lifematrix.net/images/flat-design-principles/Dropbox.jpg)" /></p>
+
+<p>[<img src="http://ournameismud.co.uk/" alt="Mud( http://hack.the-lifematrix.net/images/flat-design-principles/Mud.jpg)" /></p>
+
+<p>扁平化设计本质上就简单，因此能与整个极简设计策略很好地工作。</p>
+
+<p>在整个网站设计上避免过多浮华的装饰。简单的颜色和文本可能就够了。如果你想增加视觉材料(visuals)，就选择简单的照片。</p>
+
+<p>一些使用扁平化设计的零售网站，比如Svpply，做了很棒的工作，将物品放置在简单的背景上。(必须指出，相片的确有一些自然的深度，但是仍然与设计的整体扁平化吻合。）</p>
+
+<h3 id="almost-flat-design-">“Almost” Flat Design 近乎扁平化设计</h3>
+<p>[<img src="http://dribbble.com/shots/1024811-Nagging-popup" alt="Nagging-popup( http://hack.the-lifematrix.net/images/flat-design-principles/Nagging-popup.jpg)" /></p>
+
+<p>[<img src="http://dribbble.com/shots/1054539-Calc" alt="Calc( http://hack.the-lifematrix.net/images/flat-design-principles/Calc.jpg)" /></p>
+
+<p>[<img src="http://dribbble.com/shots/992907-SimpleMail-Full-View-The-easy-way-to-email-anything" alt="SimpleMail( http://hack.the-lifematrix.net/images/flat-design-principles/SimpleMail.jpg)" /></p>
+
+<p>[<img src="http://dribbble.com/shots/1053618-Coming-project" alt="Coming-project( http://hack.the-lifematrix.net/images/flat-design-principles/Coming-project.jpg)" /></p>
+
+<p>[<img src="http://dribbble.com/shots/1001719-Music-Web-Application" alt="Music-Web-Application( http://hack.the-lifematrix.net/images/flat-design-principles/Music-Web-Application.jpg)" /></p>
+
+<p>更多设计者常常赞同的一个风格是“近乎”扁平化设计。</p>
+
+<p>在近乎扁平化设计中，扁平风格的基本方案被使用，但是会在设计方案中增加一些效果。例如，按钮，可能包含轻微的梯度或去掉阴影。设计者通常选择一个效果，然后在一个近乎扁平化项目项目中专门地使用。</p>
+
+<p>比起扁平化设计背后“无效果”想法的一些僵硬性，这个风格允许多一点灵活性。</p>
+
+<p>设计者喜欢它，因为添加了深度和纹理。用户喜欢它，因为风格没那么锐利，有助于指导合适的迭代。另一方面，设计者不喜欢它，因为它以缺少一种真正风格定义的方式，去联姻了两种风格。</p>
+
+<h3 id="more-on-flat-design-">More on Flat Design 更多关于扁平化设计</h3>
+<p>Designmodo 已经是扁平化设计趋势讨论的引领者。阅读我们过去的文章，了解更多关于扁平化设计。</p>
+
+<ul>
+  <li><a href="http://designmodo.com/flat-design">Flat Design: Can you Benefit from the Trend?</a></li>
+  <li><a href="http://designmodo.com/flat-design-examples/">Flat Web Design: Beautiful Examples of Websites</a></li>
+  <li><a href="http://designmodo.com/flat-icons-examples/">Beautiful Examples of Flat Icon Design</a></li>
+  <li><a href="http://designmodo.com/flat-design-colors/">Making it Work: Flat Design and Color Trends</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[译文：扁平化设计：趋势或者革命？]]></title>
