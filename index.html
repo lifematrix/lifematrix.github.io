@@ -120,7 +120,7 @@
   <li>
     <p>A special form expression is defined to be a list whose first element is a special form operator. The expression is evaluated according to the operator’s idiosyncratic evaluation rule.
 <br />
-一个特殊形式的表达式被定义为一个列表，其第一个元素是一个特殊的form运算符。根据运算符的特殊求值规则，对表达式求值</p>
+一个特殊形式的表达式被定义为一个列表，其第一个元素是一个特殊的form运算符。根据运算符的特殊求值规则，对表达式求值。</p>
   </li>
   <li>
     <p>A function application is evaluated by first evaluating the arguments (the rest of the list) and then finding the function named by the first element of the list and applying it to the list of evaluated arguments.
@@ -137,7 +137,7 @@
 <br />
 对一个符号的求值，是由它命名的变量最近所赋的值。符号由字母组成，可能有数字，很少有标点符号。
 <br />
-<em>(注：这说明，符号和变量不同，变量是内存中的对象，而符号是对变量的命名。多个符号可能对应一个变量)</em></p>
+<em>(注：这说明符号和变量不同，变量是内存中的对象，而符号是对变量的命名。多个符号可能对应同一个变量。)</em></p>
   </li>
   <li>
     <p>A nonsymbol atom evaluates to itself. 
@@ -145,6 +145,22 @@
 非符号的原子求值为自己。比如，数字和字符串，都是非符号原子型的，其值等于自己。</p>
   </li>
 </ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">a</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">b</span> <span class="mi">2</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">c</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">d</span> <span class="mi">1</span><span class="p">))</span>
+</span><span class="line">    <span class="p">(</span><span class="nb">cond</span> <span class="p">((</span><span class="nb">eql</span> <span class="nv">a</span> <span class="nv">b</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class="line">          <span class="p">((</span><span class="nb">eql</span> <span class="nv">a</span> <span class="nv">c</span><span class="p">)</span> <span class="s">&quot;First form&quot;</span> <span class="mi">2</span><span class="p">)</span>
+</span><span class="line">          <span class="p">((</span><span class="nb">eql</span> <span class="nv">a</span> <span class="nv">d</span><span class="p">)</span> <span class="mi">3</span><span class="p">)))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 </div>
   
   
