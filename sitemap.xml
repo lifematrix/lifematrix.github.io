@@ -3,6 +3,22 @@
   
   
   <url>
+    <loc>http://hack.the-lifematrix.net/blog/2014/12/the-lisp-evaluation-rule/</loc>
+    
+    <lastmod>2014-12-26T14:55:44+08:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://hack.the-lifematrix.net/blog/2014/12/ampl/</loc>
+    
+    <lastmod>2014-12-01T10:55:41+08:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://hack.the-lifematrix.net/blog/2014/11/the-principles-of-flat-design/</loc>
     
     <lastmod>2014-11-19T10:28:07+08:00</lastmod>
@@ -133,21 +149,21 @@
   
   <url>
     <loc>http://hack.the-lifematrix.net/blog/archives/</loc>
-    <lastmod>2014-11-19T17:42:53+08:00</lastmod>
+    <lastmod>2014-12-26T15:23:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://hack.the-lifematrix.net/</loc>
-    <lastmod>2014-11-19T17:42:53+08:00</lastmod>
+    <lastmod>2014-12-26T15:23:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://hack.the-lifematrix.net/resources/</loc>
-    <lastmod>2014-11-19T17:42:53+08:00</lastmod>
+    <lastmod>2014-12-26T15:23:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

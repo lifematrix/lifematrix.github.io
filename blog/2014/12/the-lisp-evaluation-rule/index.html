@@ -5,13 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Likelihood和Probability的区别 - Life Matrix</title>
+  <title>The Lisp Evaluation Rule - Life Matrix</title>
   <meta name="author" content="Steven Liu <stevenliucx@gmail.com>&#8221;>
 
   
-  <meta name="description" content="Likelihood(似然性)和Probalility(可能性)在机器学习和统计学中经常遇到，容易混淆。特别上网查询，以便澄清。 几种说法
-### Mathworld
-http://mathworld.wolfram.com/Likelihood.html Likelihood is the &hellip;">
+  <meta name="description" content="摘自”Paradigms of Artificial Intelligence Programming: Case Studies in Common Lisp”, Section 1.9 Every expression is either a list or an atom. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +18,7 @@ http://mathworld.wolfram.com/Likelihood.html Likelihood is the &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://hack.the-lifematrix.net/blog/2014/10/likelihood-dot-vs-dot-probability">
+  <link rel="canonical" href="http://hack.the-lifematrix.net/blog/2014/12/the-lisp-evaluation-rule">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Life Matrix" type="application/atom+xml">
@@ -87,7 +85,7 @@ http://mathworld.wolfram.com/Likelihood.html Likelihood is the &hellip;">
   
   <header>
     
-      <h1 class="entry-title">Likelihood和Probability的区别</h1>
+      <h1 class="entry-title">The Lisp Evaluation Rule</h1>
     
     
       <p class="meta">
@@ -96,40 +94,53 @@ http://mathworld.wolfram.com/Likelihood.html Likelihood is the &hellip;">
 
 
 
-<time class='entry-date' datetime='2014-10-16T10:26:42+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>10:26 am</span></time>
+<time class='entry-date' datetime='2014-12-26T14:55:44+08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>2:55 pm</span></time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Likelihood(似然性)和Probalility(可能性)在机器学习和统计学中经常遇到，容易混淆。特别上网查询，以便澄清。</p>
-
-<h2 id="section">几种说法</h2>
-<p>### Mathworld
-<a href="http://mathworld.wolfram.com/Likelihood.html">http://mathworld.wolfram.com/Likelihood.html</a></p>
-
-<p><strong><em>Likelihood</em></strong> <em>is the hypothetical probability that an event that has already occurred would yield a specific outcome. The concept differs from that of a probability in that a probability refers to the occurrence of future events, while a likelihood refers to past events with known outcomes.</em></p>
-
-<p>似然性是已发生的事件产生特定结果的假设概率。这个概念不同于概率的地方在于，概率指代未来事件的发生，而似然性指代有已知结果的过去事件。</p>
-
-<h3 id="wiki">Wiki</h3>
-<p><a href="http://en.wikipedia.org/wiki/Likelihood_function">http://en.wikipedia.org/wiki/Likelihood_function</a></p>
-
-<p>*Likelihood functions play a key role in statistical inference, especially methods of estimating a parameter from a set of statistics. In informal contexts, “likelihood” is often used as a synonym for “probability.” But in statistical usage, a distinction is made depending on the roles of the outcome or parameter. Probability is used when describing a function of the outcome given a fixed parameter value. For example, if a coin is flipped 10 times and it is a fair coin, what is the probability of it landing heads-up every time? Likelihood is used when describing a function of a parameter given an outcome. For example, if a coin is flipped 10 times and it has landed heads-up 10 times, what is the likelihood that the coin is fair? *</p>
-
-<p>在非正式的语境下，likelihood经常是probaility的同义词。但在统计学中，根据参数和输出的角色不同，用法上仍有不同。可能性，经常用于描述，当给定参数值时，输出的函数。例如，如果将一个硬币抛10次，而硬币没问题，那么它每次正面朝上的概率有多大？而Likelihood用于描述，当给定结果时，参数的函数。例如，如果抛硬币10次，每次都正面朝上，那么硬币没问题的似然性有多大？</p>
-
-<h3 id="ben-klemens">Ben Klemens的文章</h3>
-<p><a href="http://modelingwithdata.org/pdfs/024-like_probably.pdf">http://modelingwithdata.org/pdfs/024-like_probably.pdf</a></p>
-
-<h2 id="section-1">总结</h2>
+<div class="entry-content"><p><em>摘自”Paradigms of Artificial Intelligence Programming: Case Studies in Common Lisp”, Section 1.9</em></p>
 
 <ul>
-  <li>Possibility(概率)是给定参数后，针对数据的函数。而Likelihood(似然性)是给定数据后，针对参数的函数。</li>
-  <li>Possibility是后验的、可测量的、客观的。而Likelihood则是先验的、不可测量的，由人主观构思的。</li>
-  <li>可以通过Bayes’s法则将二者联系起来
-*</li>
+  <li>
+    <p>Every expression is either a list or an atom.
+<br />
+每一个表达式都是列表或原子。</p>
+  </li>
+  <li>
+    <p>Every list to be evaluated is either a special form expression or a function application. 
+<br />
+每个被求值的列表都是特殊的form表达式或函数应用。</p>
+  </li>
+  <li>
+    <p>A special form expression is defined to be a list whose first element is a special form operator. The expression is evaluated according to the operator’s idiosyncratic evaluation rule.
+<br />
+一个特殊形式的表达式被定义为一个列表，其第一个元素是一个特殊的form运算符。根据运算符的特殊求值规则，对表达式求值</p>
+  </li>
+  <li>
+    <p>A function application is evaluated by first evaluating the arguments (the rest of the list) and then finding the function named by the first element of the list and applying it to the list of evaluated arguments.
+ <br />
+ 对函数应用求值时，首先对参数(列表的剩余部分)求值，然后找到由列表第一个元素命名的函数，然后将此函数应用到已求值的参数上。</p>
+  </li>
+  <li>
+    <p>Every atom is either a symbol or a nonsymbol.
+<br />
+每个原子都是符号或者非符号。</p>
+  </li>
+  <li>
+    <p>A symbol evaluates to the most recent value that has been assigned to the variable named by that symbol. Symbols are composed of letters, and possibly digits and, rarely, punctuation characters.
+<br />
+对一个符号的求值，是由它命名的变量最近所赋的值。符号由字母组成，可能有数字，很少有标点符号。
+<br />
+<em>(注：这说明，符号和变量不同，变量是内存中的对象，而符号是对变量的命名。多个符号可能对应一个变量)</em></p>
+  </li>
+  <li>
+    <p>A nonsymbol atom evaluates to itself. 
+&lt;/br&gt;
+非符号的原子求值为自己。比如，数字和字符串，都是非符号原子型的，其值等于自己。</p>
+  </li>
 </ul>
 </div>
 
@@ -146,7 +157,7 @@ http://mathworld.wolfram.com/Likelihood.html Likelihood is the &hellip;">
 
 
 
-<time class='entry-date' datetime='2014-10-16T10:26:42+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>10:26 am</span></time>
+<time class='entry-date' datetime='2014-12-26T14:55:44+08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>2:55 pm</span></time>
       
 
 
@@ -154,7 +165,7 @@ http://mathworld.wolfram.com/Likelihood.html Likelihood is the &hellip;">
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://hack.the-lifematrix.net/blog/2014/10/likelihood-dot-vs-dot-probability/" data-via="" data-counturl="http://hack.the-lifematrix.net/blog/2014/10/likelihood-dot-vs-dot-probability/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://hack.the-lifematrix.net/blog/2014/12/the-lisp-evaluation-rule/" data-via="" data-counturl="http://hack.the-lifematrix.net/blog/2014/12/the-lisp-evaluation-rule/" >Tweet</a>
   
   
   
@@ -163,10 +174,8 @@ http://mathworld.wolfram.com/Likelihood.html Likelihood is the &hellip;">
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/10/the-classification-of-algorithms-in-machine-learning/" title="Previous Post: The clashsification of algorithms in machine learning">&laquo; The clashsification of algorithms in machine learning</a>
+        <a class="basic-alignment left" href="/blog/2014/12/ampl/" title="Previous Post: Overview of AMPL">&laquo; Overview of AMPL</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/10/web-design-trends-and-valuable-sites/" title="Next Post: Web Design的趋势">Web Design的趋势 &raquo;</a>
       
     </p>
   </footer>
