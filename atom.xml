@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2015-04-02T18:13:59+08:00</updated>
+  <updated>2015-04-08T16:36:02+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -12,6 +12,26 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[About Creative Commons]]></title>
+    <link href="http://hack.the-lifematrix.net/blog/2015/04/about-creative-commons/"/>
+    <updated>2015-04-08T16:33:00+08:00</updated>
+    <id>http://hack.the-lifematrix.net/blog/2015/04/about-creative-commons</id>
+    <content type="html"><![CDATA[<p>参考slide share:</p>
+
+<p><a href="http://www.slideshare.net/ramblinglibrarian/creative-commons-what-how-why">http://www.slideshare.net/ramblinglibrarian/creative-commons-what-how-why</a></p>
+
+<p>一个creative commons license包含三个部分：</p>
+
+<ul>
+  <li>机器识别的</li>
+  <li>人可读的</li>
+  <li>法律条文</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[惊艳的WordPress主题]]></title>
@@ -99,6 +119,12 @@
 <p>这是内在设计的风格，聪明地利用空间，通过极简干净的设计，将空间尽可能留给内容。令人耳目一新。</p>
 
 <p>在<a href="https://creativemarket.com/r6themes/44612-Alexander-A-Interior-Design-Theme">Creative Market</a>售价$45。</p>
+
+<h3 id="novalumen">Novalumen</h3>
+
+<p>https://creativemarket.com/TheGravity/54850-Novalumen-Modern-WordPress-Theme</p>
+
+<p>http://thegravity.net/novalumen/</p>
 
 <h2 id="wordpress">常见Wordpress主题网址</h2>
 
@@ -1077,83 +1103,6 @@ proved ensamble median: 0.98329(0.98448)。</p>
     <updated>2014-09-15T15:09:40+08:00</updated>
     <id>http://hack.the-lifematrix.net/blog/2014/09/art-and-hack</id>
     <content type="html"><![CDATA[<p>It is interesting!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Hello]]></title>
-    <link href="http://hack.the-lifematrix.net/blog/2014/09/hello/"/>
-    <updated>2014-09-14T15:59:57+08:00</updated>
-    <id>http://hack.the-lifematrix.net/blog/2014/09/hello</id>
-    <content type="html"><![CDATA[<p>It is my first blog. Good Luck!</p>
-
-<h1 id="for-test-math">For Test Math</h1>
-<p>### Markdown and I</p>
-
-<script type="math/tex; mode=display">% &lt;![CDATA[
-
-\begin{align}
-\mbox{Union: } & A\cup B = \{x\mid x\in A \mbox{ or } x\in B\} \\
-\mbox{Concatenation: } & A\circ B  = \{xy\mid x\in A \mbox{ and } y\in B\} \\
-\mbox{Star: } & A^\star  = \{x_1x_2\ldots x_k \mid  k\geq 0 \mbox{ and each } x_i\in A\} \\
-\end{align}
- %]]&gt;</script>
-
-<p>This is a table:</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>First Header</th>
-      <th>Second Header</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Content Cell</td>
-      <td>Content Cell</td>
-    </tr>
-    <tr>
-      <td>Content Cell</td>
-      <td>Content Cell</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>You can align cell contents with syntax like this:</p>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: left">Left Aligned</th>
-      <th style="text-align: center">Center Aligned</th>
-      <th style="text-align: right">Right Aligned</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: left">col 3 is</td>
-      <td style="text-align: center">some wordy text</td>
-      <td style="text-align: right">$1600</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">col 2 is</td>
-      <td style="text-align: center">centered</td>
-      <td style="text-align: right">$12</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">zebra stripes</td>
-      <td style="text-align: center">are neat</td>
-      <td style="text-align: right">$1</td>
-    </tr>
-  </tbody>
-</table>
-
-<script type="math/tex; mode=display">
-  \frac{\partial{C}}{\partial{p_{uk}}}=
-     -2(r_{ui}-\hat{r}_{ui})q_{ik}+2\lambda{p_{uk}}
-</script>
-
 ]]></content>
   </entry>
   
