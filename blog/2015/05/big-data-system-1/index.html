@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Why Big Data System? - Life Matrix</title>
+  <meta name="author" content="Steven Liu <stevenliucx@gmail.com>&#8221;>
+
+  
+  <meta name="description" content="Nathan Marz 的新书 Big Data 对大数据系统及Lambda架构有深入和详尽的讨论。加上自己对数据库使用的多年经验和思考，准备写一组博文，作为读书笔记和思考总结。 为什么有大数据系统 大家对关系型数据库(RDBMS)并不陌生。早期的商业系统主要为了处理交易，比如银行存取款、证券交易 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://hack.the-lifematrix.net/blog/2015/05/big-data-system-1">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Life Matrix" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+
+  <!-- mathjax config similar to math.stackexchange -->
+  <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+       jax: ["input/TeX", "output/HTML-CSS"],
+       tex2jax: {
+          inlineMath: [ ['$', '$'] ],
+          displayMath: [ ['$$', '$$']],
+          procehssEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+       },
+       messageStyle: "none",
+       "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+     });
+   </script>
+   <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Life Matrix</a></h1>
+  
+    <h2>Machine learning, Hacking, Web app</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:hack.the-lifematrix.net" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/resources">Resources</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Why Big Data System?</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-05-08T10:38:19+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:38 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><a href="http://nathanmarz.com">Nathan Marz</a> 的新书 <a href="http://manning.com/marz/">Big Data</a> 对大数据系统及Lambda架构有深入和详尽的讨论。加上自己对数据库使用的多年经验和思考，准备写一组博文，作为读书笔记和思考总结。</p>
+
+<h1 id="section">为什么有大数据系统</h1>
+
+<p>大家对关系型数据库(RDBMS)并不陌生。早期的商业系统主要为了处理交易，比如银行存取款、证券交易、销售、采购、订票等。这也称为OLTP(在线事务处理)系统。其对数据操作的特点是，基于索引定位的单(少数)记录操作较多，读写随机，而且高并发性，数据记录的改变反映了资源的变化、状态的迁移或相关活动的触发。OLTP属于业务关键性应用，所以数据的一致性、并发控制和容错，至关重要。而RDBMS比较完美地解决了OLTP对持久化存储的需要，因而占据了主导地位。RDBMS有很多共性：</p>
+
+<ul>
+  <li>逻辑结构
+    <ul>
+      <li>基于关系代数的逻辑结构和建模方法</li>
+      <li>SQL结构化查询语言</li>
+    </ul>
+  </li>
+  <li>数据一致性保证
+    <ul>
+      <li>事务处理</li>
+      <li>锁机制</li>
+      <li>日志</li>
+    </ul>
+  </li>
+  <li>容错
+    <ul>
+      <li>数据文件镜像</li>
+      <li>备份与恢复</li>
+      <li>高可用性复制</li>
+    </ul>
+  </li>
+</ul>
+
+<p>那么为什么会有大数据和NoSQL数据库的出现呢？这就要说到RDBMS的局限，因为它是基于关系代数设计的：</p>
+
+<ol>
+  <li>
+    <p>由于关系代数强调的是遵循范式和数据一致性，所以在性能上不是最优的。数据文件存放在磁盘上，而磁盘IO速度远低于内存速度，很多数据库的优化都不得不绕过范式，实现更快的性能。</p>
+  </li>
+  <li>
+    <p>关系性建模要求一开始就把数据模型确定下来，随后的调整很费力。但随着迭代式开发模式的普及，数据结构需具灵活性、易于调整。而且有些数据不适合以关系模型去描述，比如key-value、文档数据库等。</p>
+  </li>
+  <li>
+    <p>对于批量处理的应用，如数据仓库、数据挖掘和机器学习等，数据库事务控制会增加很大的开销，但又不是必须的。</p>
+  </li>
+</ol>
+
+<p>而且，传统的RDMBS实际上是单机系统。虽然RDMBS也有集群版本，但所有的集群必须共享一个存储源(通常是磁盘阵列)。无论有再多的服务器，RMDBS只有一个日志系统、一个统一的事务控制。就好比一个人不能有两个脑袋。从CAP定理来看，RDBMS保证了一致性(Consistency)一致性(Availability)，但因此必须牺牲分区容受性(Patition Tolerance)。这致使RDMBS面对大数据时，就会捉襟见肘。</p>
+
+<ol>
+  <li>
+    <p>数据量的局限
+互联网应用的数据达到TB、PB级，不是单机可以存储的。即便通过数据分片，将数据物理地分散在多个存储设备上，也有存储设备本身的限制。而传统的磁盘阵列价格高昂。</p>
+  </li>
+  <li>
+    <p>吞吐量的限制
+无论数据如何分散到多个存储设备，整个数据库还是有中心控制机制。这必然造成锁、消息队列等关键资源的瓶颈，限制了并发性。换言之，传统的RDBMS是中心化的设计，和去中心化设计的思路是相反的。只有去中心化后，才能实现分区化。</p>
+  </li>
+  <li>
+    <p>应用特点不同
+互联网的应用不同于OLTP的特点。一次写入，多次读出；写后一般不会修改；数据以添加的方式写入。</p>
+  </li>
+</ol>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Steven Liu <stevenliucx@gmail.com></span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2015-05-08T10:38:19+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:38 am</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://hack.the-lifematrix.net/blog/2015/05/big-data-system-1/" data-via="" data-counturl="http://hack.the-lifematrix.net/blog/2015/05/big-data-system-1/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/05/notes-on-the-books-big-data-system/" title="Previous Post: Notes on the books big data system">&laquo; Notes on the books big data system</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/05/big-data-system-1/">Why Big Data System?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/notes-on-the-books-big-data-system/">Notes on the Books Big Data System</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/color-space/">Color Space</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/understanding-features/">Understanding Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/an-introduction-to-computer-vision/">An Introduction to Computer Vision</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Steven Liu <stevenliucx@gmail.com> -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
