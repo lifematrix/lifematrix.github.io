@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Life Matrix</title>
+  <title>A Conversation With Alan Kay - Life Matrix</title>
   <meta name="author" content="Steven Liu <stevenliucx@gmail.com>&#8221;>
 
   
@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://hack.the-lifematrix.net">
+  <link rel="canonical" href="http://hack.the-lifematrix.net/blog/2015/06/a-conversation-with-alan-kay">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Life Matrix" type="application/atom+xml">
@@ -81,15 +81,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2015/06/a-conversation-with-alan-kay/">A Conversation With Alan Kay</a></h1>
+      <h1 class="entry-title">A Conversation With Alan Kay</h1>
     
     
       <p class="meta">
@@ -105,7 +102,7 @@
   </header>
 
 
-  <div class="entry-content"><h2 id="a-conversation-with-alan-kay">A Conversation with Alan Kay</h2>
+<div class="entry-content"><h2 id="a-conversation-with-alan-kay">A Conversation with Alan Kay</h2>
 <p>### Big talk with the creator of Smalltalk—and much more.</p>
 
 <p><a href="http://queue.acm.org/detail.cfm?id=1039523">http://queue.acm.org/detail.cfm?id=1039523</a></p>
@@ -408,596 +405,46 @@ Post a Comment:</p>
 <p>© 2014 ACM, Inc. All Rights Reserved.</p>
 
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/06/concepts-in-lisp/">Concepts in LISP</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-06-01T12:07:42+08:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>12:07 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3 id="forms">Forms</h3>
-
-<p>The things which you type to the LISP interpreter are called forms; the LISP interpreter repeatedly reads a form, evaluates it, and prints the result. This procedure is called the read-eval-print loop.</p>
-
-<p>你键入到Lisp中的东西，称为form。Lisp 反复地读取一个form，对它求值，然后打印结果。这个过程称为，“读取-求值-打印”循环，缩写为REPL。</p>
-
-<p>In general, a form is either an atom (for example, a symbol, an integer, or a string) or a list. If the form is an atom, LISP evaluates it immediately. Symbols evaluate to their value; integers and strings evaluate to themselves. If the form is a list, LISP treats its first element as the name of a function; it evaluates the remaining elements recursively, and then calls the function with the values of the remaining elements as arguments.</p>
-
-<p>通常，一个form要么是原子(例如，符号、整数或字符串)，或者是列表。原子，也称为正常form或自求值form(normal form or self-evaluating form)。符号求值为它们的值；整数和字符串求值为他们自己。如果form是列表，也称为复合form(compound form)。LISP将其第一个元素视为函数名；它迭代地对剩下的元素求值，然后将剩下元素的值作为参数来调用函数。</p>
-
-<h4 id="special-form">Special Form</h4>
-
-<p>A special form is a form with special syntax, special evaluation rules, or both, possibly manipulating the evaluation environment, control flow, or both. A special operator has access to the current lexical environment and the current dynamic environment. Each special operator defines the manner in which its subexpressions are treated—which are forms, which are special syntax, etc. </p>
-
-<p>The set of special operator names is fixed in Common Lisp; no way is provided for the user to define a special operator. The next figure lists all of the Common Lisp symbols that have definitions as special operators.</p>
-
-<p>(来源：<a href="http://www.lispworks.com/documentation/HyperSpec/Body/03_ababa.htm">http://www.lispworks.com/documentation/HyperSpec/Body/03_ababa.htm</a>)</p>
-
-<p>特殊form是一个form, 带有特殊语法或特殊求值规则，或兼有。它可能操纵求值环境、控制流，或兼有。一个特殊的运算符访问当前的词法环境和当前的动态环境。每个特殊的运算符定义了，如何处理其子表达式的方式，哪些是form，哪些是特殊语法，等等。</p>
-
-<p>在Common Lisp中，特殊运算名的集合是固定的。没有给用户提供定义特殊运算符的方式。如下列出了所有作为特殊运算符定义的Common Lisp符号。</p>
-
-<table>
-  <thead>
-    <tr>
-      <th> </th>
-      <th> </th>
-      <th> </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>block</td>
-      <td>let*</td>
-      <td>return-from</td>
-    </tr>
-    <tr>
-      <td>catch</td>
-      <td>load-time-value</td>
-      <td>setq</td>
-    </tr>
-    <tr>
-      <td>eval-when</td>
-      <td>locally</td>
-      <td>symbol-macrolet</td>
-    </tr>
-    <tr>
-      <td>flet</td>
-      <td>macrolet</td>
-      <td>tagbody</td>
-    </tr>
-    <tr>
-      <td>function</td>
-      <td>multiple-value-call</td>
-      <td>the</td>
-    </tr>
-    <tr>
-      <td>go</td>
-      <td>multiple-value-prog1</td>
-      <td>throw</td>
-    </tr>
-    <tr>
-      <td>if</td>
-      <td>progn</td>
-      <td>unwind-protect</td>
-    </tr>
-    <tr>
-      <td>labels</td>
-      <td>progv</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>let</td>
-      <td>quote</td>
-      <td> </td>
-    </tr>
-  </tbody>
-</table>
-
-</div>
-  
   
 
+<span class="byline author vcard">Posted by <span class="fn">Steven Liu <stevenliucx@gmail.com></span></span>
 
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/05/big-data-system-2/">Lambda Architechture</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
 
-<time class='entry-date' datetime='2015-05-20T17:03:39+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>5:03 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2 id="what-is-data-system">What is Data System</h2>
-
-<p>query = function(all data)</p>
-
-<h2 id="section">大数据系统的要求</h2>
-
-<p>一个数据系统，就是要向应用提供数据的存储、加工、修改和查询的系统。<a href="http://manning.com/marz/">Big Data</a>一书中，总结大数据系统必须满足如下要求：</p>
-
-<ul>
-  <li>容错性
-包含两方面，物理容错性和人为容错性
-    <ul>
-      <li>物理容错性
-由于允许数据分区，也就是分布式存储。那不可避免有些机器会宕机或者系统软件等出现故障，导致其不可访问。局部的错误，不会导致整体系统不可访问。</li>
-      <li>人为容错性
-程序可能有bug, 对数据进行错误的修改。那么应该有办法恢复，然后用修正后的程序重新计算。</li>
-    </ul>
-  </li>
-  <li>
-    <p>可扩展性
-这是一个广泛使用，但容易引起混淆的概念。这里指的是，通过增加资源，系统在更大负载下，保持性能的能力。尽管系统有扩展性，但<strong>线性扩展性</strong>，才是有意义的。如果是与负载呈平方或者四次方的扩展性，是不实用的。</p>
-  </li>
-  <li>
-    <p>低延迟的读或修改
-绝大多数应用对于读，需要很小的延迟，在几毫米到几百毫秒。而对于修改的延迟，不同的应用要求不同，从几毫秒到几小时不等。</p>
-  </li>
-  <li>
-    <p>普遍性(Generalization)
-一个普遍的系统应能支持很大范围的应用，比如财务管理系统、社交媒体分析、科学应用、社交网络等等。</p>
-  </li>
-  <li>
-    <p>延展性(Extensibility)
-可延展的系统，允许以较小的开发成本增加新的特性或功能。</p>
-  </li>
-  <li>
-    <p>维护最小化(Minimal maintenance)</p>
-
-    <p>维护是对开发者收的税。维护是为了确保系统平滑运行而需要做的工作。最小化维护量的一个重要举措，是选择部署复杂度尽可能小的部件。</p>
-  </li>
-  <li>
-    <p>可调试性(Debuggability)</p>
-
-    <p>一个大数据系统必须在出错时，提供必要的信息来调试系统。其关键是能够追踪，对于系统中的每个值，恰恰是什么导致了这个值。</p>
-  </li>
-</ul>
-
-<h2 id="lambda-">Lambda 架构</h2>
-
-<p>本书主要是介绍Lambda架构，作为大数据的新范式，见下图：</p>
-
-<p><img src="../images/bigdata/LambdaArchitecture.png" alt="" /></p>
-
-<p>Lambda架构认为，</p>
-
-<ul>
-  <li>batch view = function(all data)</li>
-  <li>realtime view = function(realtime view, new data)</li>
-  <li>query = function(batch view. realtime view)</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
+<time class='entry-date' datetime='2015-06-30T12:14:50+08:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>30</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>12:14 pm</span></time>
       
-  <header>
+
+
+    </p>
     
-      <h1 class="entry-title"><a href="/blog/2015/05/big-data-system-1/">Why Big Data System?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-05-08T10:38:19+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:38 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://nathanmarz.com">Nathan Marz</a> 的新书 <a href="http://manning.com/marz/">Big Data</a> 对大数据系统及Lambda架构有深入和详尽的讨论。加上自己对数据库使用的多年经验和思考，准备写一组博文，作为读书笔记和思考总结。</p>
-
-<h2 id="section">为何大数据</h2>
-
-<p>大数据是与互联网相伴而生的。传统的应用系统和数据库，都是针对企业层面的应用，而且主要用于事务处理。企业也只是占据整个市场的一定份额，因此数据量有限。而由于网络的规模效应，在互联网上更容易产生“赢者通吃”的结果，所以互联网企业往往面对的是社会化的普遍需求，用户数、数据量和访问量都巨大。大数据表现在：</p>
-
-<ul>
-  <li>
-    <p>数据量大</p>
-
-    <p>用户数少则几百万，上千万，过亿很普遍。随着商业的繁荣、市场细分和个性化需求的挖掘，商品数SKU，经常达到几十万。日均交易上千万笔。
- 搜索引擎的网页数据库，也达到几千TB。</p>
-  </li>
-  <li>
-    <p>访问量
- 无论是读取(浏览、查询)还是写入(修改、增加)</p>
-  </li>
-  <li>数据多样化
- 除过通常的交易类数据，还有：
-    <ul>
-      <li>文档</li>
-      <li>网页
-搜索引擎的网页缓存</li>
-      <li>图片
-Facebook, 微信, Flickr的图片分享</li>
-      <li>视频</li>
-      <li>搜索引擎的索引数据库
- 这些都不是RDBMS擅长管理的。</li>
-    </ul>
-  </li>
-  <li>数据处理方式
-除过事务型处理外，还有批量处理，如机器学习、在线学习、流式处理等。</li>
-</ul>
-
-<h2 id="section-1">为什么需要大数据系统</h2>
-
-<p>大家对关系型数据库(RDBMS)并不陌生。早期的商业系统主要为了处理交易，比如银行存取款、证券交易、销售、采购、订票等。这也称为OLTP(在线事务处理)系统。其对数据操作的特点是，基于索引定位的单记录(少数记录)操作较多，读写随机，而且高并发性，数据记录的改变反映了资源的变化、状态的迁移或相关活动的触发。OLTP属于业务关键性应用，所以数据的一致性、并发控制和容错，至关重要。而RDBMS比较完美地解决了OLTP对持久化存储的需要，因而占据了主导地位。RDBMS有很多共性：</p>
-
-<ul>
-  <li>逻辑结构
-    <ul>
-      <li>基于关系代数的逻辑结构和建模方法</li>
-      <li>SQL结构化查询语言</li>
-    </ul>
-  </li>
-  <li>数据一致性保证
-    <ul>
-      <li>事务处理</li>
-      <li>锁机制</li>
-      <li>日志</li>
-    </ul>
-  </li>
-  <li>容错
-    <ul>
-      <li>数据文件镜像</li>
-      <li>备份与恢复</li>
-      <li>高可用性复制</li>
-    </ul>
-  </li>
-</ul>
-
-<p>那么为什么会有大数据和NoSQL数据库的出现呢？这就要说到RDBMS的局限，因为它是基于关系代数设计的：</p>
-
-<ol>
-  <li>
-    <p>由于关系代数强调的是遵循范式和数据一致性，所以在性能上不是最优的。数据文件存放在磁盘上，而磁盘IO速度远低于内存速度，很多数据库的优化都不得不绕过范式，实现更快的性能。</p>
-  </li>
-  <li>
-    <p>关系性建模要求一开始就把数据模型确定下来，随后的调整很费力。但随着迭代式开发模式的普及，数据结构需具灵活性、易于调整。而且有些数据不适合以关系模型去描述，比如key-value、文档数据库等。</p>
-  </li>
-  <li>
-    <p>对于批量处理的应用，如数据仓库、数据挖掘和机器学习等，数据库事务控制会增加很大的开销，但又不是必须的。</p>
-  </li>
-</ol>
-
-<p>而且，传统的RDMBS实际上是单机系统。虽然RDMBS也有集群版本，但所有的集群必须共享一个存储源(通常是磁盘阵列)。无论有再多的服务器，RMDBS只有一个日志系统、一个统一的事务控制。就好比一个人不能有两个脑袋。从CAP定理来看，RDBMS保证了一致性(Consistency)和可用性(Availability)，但因此必须牺牲分区容受性(Patition Tolerance)。)这致使RDMBS面对大数据时，就会捉襟见肘。</p>
-
-<ol>
-  <li>
-    <p>数据量的局限
-互联网应用的数据达到TB、PB级，不是单机可以存储的。即便通过数据分片，将数据物理地分散在多个存储设备上，也有存储设备本身的限制。而传统的磁盘阵列价格高昂。</p>
-  </li>
-  <li>
-    <p>吞吐量的限制
-无论数据如何分散到多个存储设备，整个数据库还是有中心控制机制。这必然造成锁、消息队列等关键资源的瓶颈，限制了并发性。换言之，传统的RDBMS是中心化的设计，和去中心化设计的思路是相反的。只有去中心化后，才能实现分区化。</p>
-  </li>
-  <li>
-    <p>应用特点不同
-互联网的应用不同于OLTP的特点。一次写入，多次读出；写后一般不会修改；数据以添加的方式写入。</p>
-  </li>
-</ol>
-
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://hack.the-lifematrix.net/blog/2015/06/a-conversation-with-alan-kay/" data-via="" data-counturl="http://hack.the-lifematrix.net/blog/2015/06/a-conversation-with-alan-kay/" >Tweet</a>
+  
+  
+  
 </div>
-  
-  
 
-
-    </article>
-  
-  
-    <article>
+    
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/05/notes-on-the-books-big-data-system/">Notes on the Books Big Data System</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-05-05T14:02:04+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>2:02 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
+        <a class="basic-alignment left" href="/blog/2015/06/concepts-in-lisp/" title="Previous Post: Concepts in LISP">&laquo; Concepts in LISP</a>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/04/color-space/">Color Space</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-04-28T11:07:51+08:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>28</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:07 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Primary Color
-	Color, Blue, and Yellow</p>
-
-<p>Secondary Color
-	Orange, Green and Violet </p>
-
-<p>Tertiary Color
-	Red-Orange, Yellow-Orange, Yellow-Green, Blue-Green, Blue-Violet and Red-Violet</p>
-
-<p>Neutral Color: 不带色彩的颜色。白、黑、灰</p>
-
-<p>Achromatic color 没有色彩。它们包含：白、黑和灰。中性色改变所有色彩的密度和值。</p>
-
-<h3 id="scheme">Scheme</h3>
-
-<h4 id="monochromatic-color-scheme">Monochromatic Color Scheme(单色主题)</h4>
-<p>由任何颜色或中性色的色泽(tint), 色调(tone)和阴影的复合。</p>
-
-<h4 id="analogous-color-scheme">Analogous Color Scheme(相似色主题)</h4>
-<p>在色轮中，相互毗邻的3组颜色组成。</p>
-
-<h4 id="extended-analogous-color-scheme">Extended Analogous Color Scheme(扩展的相似色主题)</h4>
-<p>在色轮中，相互毗邻的4组颜色组成。</p>
-
-<h4 id="complementary-color-scheme">Complementary Color Scheme(互补色主题)</h4>
-<p>在色轮中，相对的两组颜色组成。</p>
-
-<h4 id="split-complementary-color-scheme">Split Complementary Color Scheme(分离互补色主题)</h4>
-<p>由一组颜色与它相对处毗邻的两组颜色组成。</p>
-
-<h4 id="triadic-color-scheme">Triadic Color Scheme(三色系主题)</h4>
-<p>由色轮中等距相隔的三组颜色组成。</p>
-
-<h4 id="section">对比色</h4>
-
-<h3 id="hsv">HSV</h3>
-
-<ul>
-  <li>Value(颜色值)：指一个颜色的相对亮度(brightness)或暗度。</li>
-  <li>Saturation(or purity, 饱和度或纯度)：描述一个颜色有多纯。一个纯粹的颜色是干净而明亮的(clear and bright)，增加黑让它变模糊和暗(muddy and dark)，给它一个阴影。加白让颜色被冲洗(washed out)或着色(tinted)。</li>
-</ul>
-
-<h3 id="section-1">色温</h3>
-<p>颜色可以分为两类：
-* 暖色(aggressive, 前进色)：红、黄、棕
-* 冷色(receding, 后退色)：绿、蓝、紫
-* </p>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/04/understanding-features/">Understanding Features</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-04-27T16:10:06+08:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>4:10 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3 id="feature-detection">Feature Detection</h3>
-
-<h3 id="feature-description">Feature Description</h3>
+    </p>
+  </footer>
+</article>
 
 </div>
-  
-  
 
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/04/an-introduction-to-computer-vision/">An Introduction to Computer Vision</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-04-10T17:58:15+08:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>5:58 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.slideshare.net/alagala/computer-vision-with-android-google-gtug-bangkok-2011?qid=836f92da-83e3-478c-8ad5-63884666fa32&amp;v=qf1&amp;b=&amp;from_search=4">Computer Vision with Android (Google GTUG Bangkok 2011)</a></p>
-
-<p>YCbCr, 类似于彩色电视广播所用的YUV色空间，到RGB转化。
-人的视觉对亮度比对色相更敏感。</p>
-
-<p>灰度图像能从YCbCr直接转化得到，不需进一步处理。</p>
-
-<p>图像边缘探测 Image edge detection</p>
-
-<p>形态学morphology</p>
-
-<p>直方图分析</p>
-
-<p>人脸识别的三种方法：</p>
-
-<ul>
-  <li>EigenFaces</li>
-  <li>FisherFaces</li>
-  <li>Local Binary Paths Histogram(LBPH)</li>
-  <li></li>
-</ul>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/04/ble-beacons-ibeacons/">BLE Beacons iBeacons</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-04-09T18:00:43+08:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>6:00 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>BLE是低功耗蓝牙的意思：BlueTooth LE(low energy)。由于低功耗，电池寿命常。</p>
-
-<h4 id="promixity-vs-location">Promixity vs Location</h4>
-
-<p>定位是指物理位置。而Promixity是强调移动设备接近目标。</p>
-
-<p>Beacon是近场定位。 </p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/04/about-creative-commons/">About Creative Commons</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-04-08T16:33:00+08:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>4:33 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>参考slide share:</p>
-
-<p><a href="http://www.slideshare.net/ramblinglibrarian/creative-commons-what-how-why">http://www.slideshare.net/ramblinglibrarian/creative-commons-what-how-why</a></p>
-
-<p>一个creative commons license包含三个部分：</p>
-
-<ul>
-  <li>机器识别的</li>
-  <li>人可读的</li>
-  <li>法律条文</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/posts/2">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
 <aside class="sidebar">
   
     <section>
@@ -1033,6 +480,7 @@ Facebook, 微信, Flickr的图片分享</li>
 
   
 </aside>
+
 
     </div>
   </div>

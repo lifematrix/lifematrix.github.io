@@ -3,6 +3,30 @@
   
   
   <url>
+    <loc>http://hack.the-lifematrix.net/blog/2015/06/a-conversation-with-alan-kay/</loc>
+    
+    <lastmod>2015-06-30T12:14:50+08:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://hack.the-lifematrix.net/blog/2015/06/concepts-in-lisp/</loc>
+    
+    <lastmod>2015-06-01T12:07:42+08:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://hack.the-lifematrix.net/blog/2015/05/big-data-system-2/</loc>
+    
+    <lastmod>2015-05-20T17:03:39+08:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://hack.the-lifematrix.net/blog/2015/05/big-data-system-1/</loc>
     
     <lastmod>2015-05-08T10:38:19+08:00</lastmod>
@@ -221,21 +245,21 @@
   
   <url>
     <loc>http://hack.the-lifematrix.net/blog/archives/</loc>
-    <lastmod>2015-05-20T14:39:55+08:00</lastmod>
+    <lastmod>2015-07-01T18:36:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://hack.the-lifematrix.net/</loc>
-    <lastmod>2015-05-20T14:39:55+08:00</lastmod>
+    <lastmod>2015-07-01T18:36:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://hack.the-lifematrix.net/resources/</loc>
-    <lastmod>2015-05-20T14:39:55+08:00</lastmod>
+    <lastmod>2015-07-01T18:36:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

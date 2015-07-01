@@ -9,7 +9,7 @@
   <meta name="author" content="Steven Liu <stevenliucx@gmail.com>&#8221;>
 
   
-  <meta name="description" content="Nathan Marz 的新书 Big Data 对大数据系统及Lambda架构有深入和详尽的讨论。加上自己对数据库使用的多年经验和思考，准备写一组博文，作为读书笔记和思考总结。 为什么有大数据系统 大家对关系型数据库(RDBMS)并不陌生。早期的商业系统主要为了处理交易，比如银行存取款、证券交易 &hellip;">
+  <meta name="description" content="Nathan Marz 的新书 Big Data 对大数据系统及Lambda架构有深入和详尽的讨论。加上自己对数据库使用的多年经验和思考，准备写一组博文，作为读书笔记和思考总结。 为何大数据 大数据是与互联网相伴而生的。传统的应用系统和数据库，都是针对企业层面的应用，而且主要用于事务处理。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -103,9 +103,41 @@
 
 <div class="entry-content"><p><a href="http://nathanmarz.com">Nathan Marz</a> 的新书 <a href="http://manning.com/marz/">Big Data</a> 对大数据系统及Lambda架构有深入和详尽的讨论。加上自己对数据库使用的多年经验和思考，准备写一组博文，作为读书笔记和思考总结。</p>
 
-<h1 id="section">为什么有大数据系统</h1>
+<h2 id="section">为何大数据</h2>
 
-<p>大家对关系型数据库(RDBMS)并不陌生。早期的商业系统主要为了处理交易，比如银行存取款、证券交易、销售、采购、订票等。这也称为OLTP(在线事务处理)系统。其对数据操作的特点是，基于索引定位的单(少数)记录操作较多，读写随机，而且高并发性，数据记录的改变反映了资源的变化、状态的迁移或相关活动的触发。OLTP属于业务关键性应用，所以数据的一致性、并发控制和容错，至关重要。而RDBMS比较完美地解决了OLTP对持久化存储的需要，因而占据了主导地位。RDBMS有很多共性：</p>
+<p>大数据是与互联网相伴而生的。传统的应用系统和数据库，都是针对企业层面的应用，而且主要用于事务处理。企业也只是占据整个市场的一定份额，因此数据量有限。而由于网络的规模效应，在互联网上更容易产生“赢者通吃”的结果，所以互联网企业往往面对的是社会化的普遍需求，用户数、数据量和访问量都巨大。大数据表现在：</p>
+
+<ul>
+  <li>
+    <p>数据量大</p>
+
+    <p>用户数少则几百万，上千万，过亿很普遍。随着商业的繁荣、市场细分和个性化需求的挖掘，商品数SKU，经常达到几十万。日均交易上千万笔。
+ 搜索引擎的网页数据库，也达到几千TB。</p>
+  </li>
+  <li>
+    <p>访问量
+ 无论是读取(浏览、查询)还是写入(修改、增加)</p>
+  </li>
+  <li>数据多样化
+ 除过通常的交易类数据，还有：
+    <ul>
+      <li>文档</li>
+      <li>网页
+搜索引擎的网页缓存</li>
+      <li>图片
+Facebook, 微信, Flickr的图片分享</li>
+      <li>视频</li>
+      <li>搜索引擎的索引数据库
+ 这些都不是RDBMS擅长管理的。</li>
+    </ul>
+  </li>
+  <li>数据处理方式
+除过事务型处理外，还有批量处理，如机器学习、在线学习、流式处理等。</li>
+</ul>
+
+<h2 id="section-1">为什么需要大数据系统</h2>
+
+<p>大家对关系型数据库(RDBMS)并不陌生。早期的商业系统主要为了处理交易，比如银行存取款、证券交易、销售、采购、订票等。这也称为OLTP(在线事务处理)系统。其对数据操作的特点是，基于索引定位的单记录(少数记录)操作较多，读写随机，而且高并发性，数据记录的改变反映了资源的变化、状态的迁移或相关活动的触发。OLTP属于业务关键性应用，所以数据的一致性、并发控制和容错，至关重要。而RDBMS比较完美地解决了OLTP对持久化存储的需要，因而占据了主导地位。RDBMS有很多共性：</p>
 
 <ul>
   <li>逻辑结构
@@ -144,7 +176,7 @@
   </li>
 </ol>
 
-<p>而且，传统的RDMBS实际上是单机系统。虽然RDMBS也有集群版本，但所有的集群必须共享一个存储源(通常是磁盘阵列)。无论有再多的服务器，RMDBS只有一个日志系统、一个统一的事务控制。就好比一个人不能有两个脑袋。从CAP定理来看，RDBMS保证了一致性(Consistency)一致性(Availability)，但因此必须牺牲分区容受性(Patition Tolerance)。这致使RDMBS面对大数据时，就会捉襟见肘。</p>
+<p>而且，传统的RDMBS实际上是单机系统。虽然RDMBS也有集群版本，但所有的集群必须共享一个存储源(通常是磁盘阵列)。无论有再多的服务器，RMDBS只有一个日志系统、一个统一的事务控制。就好比一个人不能有两个脑袋。从CAP定理来看，RDBMS保证了一致性(Consistency)和可用性(Availability)，但因此必须牺牲分区容受性(Patition Tolerance)。)这致使RDMBS面对大数据时，就会捉襟见肘。</p>
 
 <ol>
   <li>
@@ -196,6 +228,8 @@
         <a class="basic-alignment left" href="/blog/2015/05/notes-on-the-books-big-data-system/" title="Previous Post: Notes on the books big data system">&laquo; Notes on the books big data system</a>
       
       
+        <a class="basic-alignment right" href="/blog/2015/05/big-data-system-2/" title="Next Post: Lambda Architechture">Lambda Architechture &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -209,23 +243,23 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/06/a-conversation-with-alan-kay/">A Conversation With Alan Kay</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/concepts-in-lisp/">Concepts in LISP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/big-data-system-2/">Lambda Architechture</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/05/big-data-system-1/">Why Big Data System?</a>
       </li>
     
       <li class="post">
         <a href="/blog/2015/05/notes-on-the-books-big-data-system/">Notes on the Books Big Data System</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/04/color-space/">Color Space</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/04/understanding-features/">Understanding Features</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/04/an-introduction-to-computer-vision/">An Introduction to Computer Vision</a>
       </li>
     
   </ul>
