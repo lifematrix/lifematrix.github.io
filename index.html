@@ -323,17 +323,31 @@
 
 <p>The problem with the Cs, as you probably know if you’ve fooled around in detail with them, is that they’re not quite kosher as far as their arithmetic is concerned. They are supposed to be, but they’re not quite up to the IEEE standards. You have to pick a subset of C and you have to have some side information to get to a mathematically perfect transform of your VM.</p>
 
-<p>SF To what do you attribute the long-term love of Smalltalk? There is a certain set of languages that I would assert people seem to love, not just use. I know many people who love C. I know very few who love C++, even though they may make their living on it.</p>
+<p>各种C的问题，正如你可能知道的，如果你已经在细节上虚度时，只要考虑算法他们就不那么合适。他们假定是，但他们没有完全遵守IEEE标准。你不得不选取C的自己，你必须有一些侧面的信息来得到对你虚拟机(VM)在数学上完美的转化。</p>
 
-<p>AK You have to be a different kind of person to love C++. It is a really interesting example of how a well-meant idea went wrong, because [C++ creator] Bjarne Stroustrup was not trying to do what he has been criticized for. His idea was that first, it might be useful if you did to C what Simula did to Algol, which is basically act as a preprocessor for a different kind of architectural template for programming. It was basically for super-good programmers who are supposed to subclass everything, including the storage allocator, before they did anything serious. The result, of course, was that most programmers did not subclass much. So the people I know who like C++ and have done good things in C++ have been serious iron-men who have basically taken it for what it is, which is a kind of macroprocessor. I grew up with macro systems in the early ’60s, and you have to do a lot of work to make them work for you—otherwise, they kill you.</p>
+<p><strong>SF</strong> To what do you attribute the long-term love of Smalltalk? There is a certain set of languages that I would assert people seem to love, not just use. I know many people who love C. I know very few who love C++, even though they may make their living on it.</p>
 
-<p>SF Well, C++, after all, was programmed as a macro processor, in essence.</p>
+<p>你把对Smalltalk长期的热爱归因于什么？有确定的一组语言，我断言人们看起来热爱，而不仅仅是使用。我知道，很多人爱C。我知道很少有人爱C++，尽管他们靠其谋生。</p>
 
-<p>AK Yes, exactly. But so was Simula.</p>
+<p><strong>AK</strong> You have to be a different kind of person to love C++. It is a really interesting example of how a well-meant idea went wrong, because [C++ creator] Bjarne Stroustrup was not trying to do what he has been criticized for. His idea was that first, it might be useful if you did to C what Simula did to Algol, which is basically act as a preprocessor for a different kind of architectural template for programming. It was basically for super-good programmers who are supposed to subclass everything, including the storage allocator, before they did anything serious. The result, of course, was that most programmers did not subclass much. So the people I know who like C++ and have done good things in C++ have been serious iron-men who have basically taken it for what it is, which is a kind of macroprocessor. I grew up with macro systems in the early ’60s, and you have to do a lot of work to make them work for you—otherwise, they kill you.</p>
 
-<p>SF I put Smalltalk in this category of languages that have true devotees—people who genuinely like it or love it, not simply appreciate and use it.</p>
+<p>为了爱C++，你必须成为不同的人。这的确是个有趣的例子，良好用意的想法搞砸了，因为C++的创造者Bjarne Stroustrup没有试图做那些他被批评的事。他的想法是，首先，如果对C做那些Simula对Algol做的事（注：预处理器），那么是可能有用。其根本上是作为一个预处理器，针对一个不同类的编程架构模板。对于超级棒的程序员，在他们做任何正儿八经的事之前，假定可以子类化任何事物，是最基本的，包括对存储分配器。因此，我所知道的那些喜欢C++，并用它做出漂亮工作的人，是严肃的钢铁侠，他们只使用C++原本做的事，作为一种预处理器。在60年代早期，伴随宏系统而成长，你必须做很多事情来让他们为你工作 - 否则，它们会杀了你。</p>
 
-<p>AK In a history of Smalltalk I wrote for ACM, I characterized one way of looking at languages in this way: a lot of them are either the agglutination of features or they’re a crystallization of style. Languages such as APL, Lisp, and Smalltalk are what you might call style languages, where there’s a real center and imputed style to how you’re supposed to do everything. Other languages such as PL/I and, indeed, languages that try to be additive without consolidation have often been more successful. I think the style languages appeal to people who have a certain mathematical laziness to them. Laziness actually pays off later on, because if you wind up spending a little extra time seeing that “oh, yes, this language is going to allow me to do this really, really nicely, and in a more general way than I could do it over here,” usually that comes back to help you when you’ve had a new idea a year down the road. The agglutinative languages, on the other hand, tend to produce agglutinations and they are very, very difficult to untangle when you’ve had that new idea.</p>
+<p><strong>SF</strong> Well, C++, after all, was programmed as a macro processor, in essence.</p>
+
+<p>好的，C++，毕竟，本质上，作为一个宏处理器来编写的。</p>
+
+<p><strong>AK</strong> Yes, exactly. But so was Simula.</p>
+
+<p>是的，确实是。但Simula也是这样。</p>
+
+<p><strong>SF</strong> I put Smalltalk in this category of languages that have true devotees—people who genuinely like it or love it, not simply appreciate and use it.</p>
+
+<p>我把Smalltalk放在有真正热爱者的一类语言，人们真正地喜欢或爱它，不是仅仅欣赏或使用它。</p>
+
+<p><strong>AK</strong> In a history of Smalltalk I wrote for ACM, I characterized one way of looking at languages in this way: a lot of them are either the agglutination of features or they’re a crystallization of style. Languages such as APL, Lisp, and Smalltalk are what you might call style languages, where there’s a real center and imputed style to how you’re supposed to do everything. Other languages such as PL/I and, indeed, languages that try to be additive without consolidation have often been more successful. I think the style languages appeal to people who have a certain mathematical laziness to them. Laziness actually pays off later on, because if you wind up spending a little extra time seeing that “oh, yes, this language is going to allow me to do this really, really nicely, and in a more general way than I could do it over here,” usually that comes back to help you when you’ve had a new idea a year down the road. The agglutinative languages, on the other hand, tend to produce agglutinations and they are very, very difficult to untangle when you’ve had that new idea.</p>
+
+<p>在我为ACM写的一个Smalltalk历史中，</p>
 
 <p>Also, I think the style languages tend to be late-binding languages. The agglutinative languages are usually early-binding. That makes a huge difference in the whole approach. The kinds of bugs you have to deal with, and when you have to deal with them, is completely different.</p>
 
