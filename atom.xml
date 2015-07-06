@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2015-07-06T18:43:38+08:00</updated>
+  <updated>2015-07-06T18:54:31+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -683,15 +683,6 @@ Facebook, 微信, Flickr的图片分享</li>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Notes on the Books Big Data System]]></title>
-    <link href="http://hack.the-lifematrix.net/blog/2015/05/notes-on-the-books-big-data-system/"/>
-    <updated>2015-05-05T14:02:04+08:00</updated>
-    <id>http://hack.the-lifematrix.net/blog/2015/05/notes-on-the-books-big-data-system</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[Color Space]]></title>
     <link href="http://hack.the-lifematrix.net/blog/2015/04/color-space/"/>
     <updated>2015-04-28T11:07:51+08:00</updated>
@@ -739,10 +730,12 @@ Facebook, 微信, Flickr的图片分享</li>
 </ul>
 
 <h3 id="section-1">色温</h3>
-<p>颜色可以分为两类：
-* 暖色(aggressive, 前进色)：红、黄、棕
-* 冷色(receding, 后退色)：绿、蓝、紫
-* </p>
+<p>颜色可以分为两类：</p>
+
+<ul>
+  <li>暖色(aggressive, 前进色)：红、黄、棕</li>
+  <li>冷色(receding, 后退色)：绿、蓝、紫</li>
+</ul>
 
 ]]></content>
   </entry>
@@ -1732,6 +1725,20 @@ http://www.neos-server.org/neos/</li>
   <li>可以通过Bayes’s法则将二者联系起来
 *</li>
 </ul>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Clashsification of Algorithms in Machine Learning]]></title>
+    <link href="http://hack.the-lifematrix.net/blog/2014/10/the-classification-of-algorithms-in-machine-learning/"/>
+    <updated>2014-10-11T16:47:32+08:00</updated>
+    <id>http://hack.the-lifematrix.net/blog/2014/10/the-classification-of-algorithms-in-machine-learning</id>
+    <content type="html"><![CDATA[<h1 id="section">机器学习中算法的分类</h1>
+
+<p>机器学习中算法很多，比如：SVM、Logistics、Decision Tree…。了解这些算法的特点，有助于更好地选择合适的算法解决问题。</p>
+
+<p>模型是机器学习中的中心概念，因为它们是为了解决给定的问题而从数据中所学到的。机器学习模型的可选范围很大，相当可观，乃至让人迷惑。一个原因是机器学习所解决问题的无所不包：分类、回归、聚类、关联性发现，不一而足。事实上，在每个科学和工程的分支中，都能找到这些任务的每个例子。数学家、工程师、心理学家和计算机科学家以及很多其他人发现或经常再次发现，解决这些问题的途径。他们都施加了各自的特定背景，因此在这些模型底层的原因也各不相同。我个人的观点是，这种多样性是件好事情，因为有助于机器学习成为强大而令人兴奋的学科。但是，这也使得写一本机器学习的书没那么容易！幸运的是，仍然可观察到一些公共的主题，这允许我以有些系统性的方法来讨论机器学习。我将讨论三组模型：几何模型，概率模型和逻辑模型。这些分组并非互斥的，例如，有时一个特定类别的模型，兼具几何和概率的解释。但是，这为我们的目的提供了一个好的出发点。</p>
+
 ]]></content>
   </entry>
   
