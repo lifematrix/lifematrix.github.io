@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2015-07-06T19:03:16+08:00</updated>
+  <updated>2015-07-14T17:49:46+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -14,7 +14,89 @@
 
   
   <entry>
-    <title type="html"><![CDATA[与艾伦·凯的对话]]></title>
+    <title type="html"><![CDATA[LISP的基础]]></title>
+    <link href="http://hack.the-lifematrix.net/blog/2015/07/the-roots-of-lisp/"/>
+    <updated>2015-07-14T14:30:54+08:00</updated>
+    <id>http://hack.the-lifematrix.net/blog/2015/07/the-roots-of-lisp</id>
+    <content type="html"><![CDATA[<h3 id="section">前言</h3>
+<p>《黑客与画家》的作者Paul Graham极力推崇Lisp，并使用Lisp获得了巨大的商业成功。他也写了一篇<a href="http://ep.yimg.com/ty/cdn/paulgraham/jmc.ps">《The roots of Lisp》</a>(postscript文件)来介绍Lisp。本文是其文章内容的学习和理解，再加上Lisp Manual 1.5的内容。</p>
+
+<hr />
+
+<p>Lisp的伟大之处，在于John McCarthy采用了类似于欧氏几何的公理化体系。欧氏几何通过几个简单的公理，借助逻辑推演，构建了整个几何体系。其结构之整洁、推理之严密，有一种深深的数学之美和逻辑的力量。MaCarthy在1960年的文章中展示了，如何通过少数几个简单的运算符和函数定义的记号，就可以构建整个编程语言。这个语言被称为Lisp，即列表处理(List Processing的意思。而列表是表达数据和代码的一种简单数据结构。</p>
+
+<p>值得去理解，McCarthy所发现的，不仅仅是计算机历史上的地标，而且是在今天我们的时代里，编程发展所趋向成为的一个模型。迄今为止，存在两个真正干净、一致的编程模型：C模型和Lisp模型。这两个是平地上的高点，在其之间是沼泽地带。随着计算机变得更为强大，正在开发的新语言正稳定地向Lisp模型靠拢。在过去20年中新编程语言的流行配方是采用C计算模型，然后从Lisp模型中抓取一点诸如运行时类型、垃圾回收等零碎的东西，加到里面。</p>
+
+<p>n this article I’m going to try to explain in the simplest possible terms
+what McCarthy discovered. The point is not just to learn about an interest-
+ing theoretical result someone ﬁgured out forty years ago, but to show where
+languages are heading. The unusual thing about Lisp—in fact, the deﬁning
+quality of Lisp—is that it can be written in itself. To understand what Mc-
+Carthy meant by this, we7re going to retrace his steps, with his mathematical
+notation translated into running Common Lisp code.</p>
+
+<p>本文将解释McCarthy发现的最简单的术语。要点不是仅仅学会一个40年前就有人弄明白的有趣的理论结果，而是去看看语言向哪方面去发展。事实上，关于Lisp不寻常的事，Lisp决定性的品质，是它是用自身写成的。为了理解，McCarthy想说明的意思，我们将追溯他的脚步，将他的数学符号转译为可运行的Common Lisp代码。</p>
+
+<h4 id="symbolic-expressions">0. 符号性表达(Symbolic Expressions)</h4>
+
+<p>S表达式中最基本的类型，是原子</p>
+
+<p><strong>原子</strong>符号，是由字母和数字组成的字符串。其首字符必须字母。例如：</p>
+
+<p>’’’
+a
+abc
+a123
+‘’’</p>
+
+<p>一个S表达式，可以递归地定义为：
+1. 一个原子
+2. 形式为(x . y)的表达式，其中x和y都是S表达式</p>
+
+<p>例如： 
+‘’’
+(a . b)
+(a . (b . c))
+(foo . (bar))
+‘’’</p>
+
+<p>更方便的是将列表写成不带点记号的，任意长度的列表
+(A B C D E)
+它等价于 (a (b (c (d e))))</p>
+
+<p>有过编程经验的朋友，会觉得List貌似和数组类似。其实不然。List的长度不固定，它是一种递归结构。在计算机内部的List结构是：</p>
+
+<p><img src="http://hack.the-lifematrix.net/images/lisp/list_structure.png" alt="" /></p>
+
+<h3 id="seven-primitive-operators">1. 7个原语操作符(Seven Primitive Operators)</h3>
+
+<p>In arithmetic the expression 1 + 1 has the value 2. Valid Lisp expressions
+also have values. If an expression 6 yields a value v we say that e returns 1). Our
+next step is to deﬁne what kinds of expressions there can be, and what value
+each kind returns.</p>
+
+<p>在算术中，表达式1+1的值是2.合法的Lisp表达式也有值。如果一个表达式<script type="math/tex">e</script>有个值<script type="math/tex">v</script>，我们说e返回1。</p>
+
+<p>如果一个表达式是一个列表，我们称其第一个元素为操作符，剩下的为参数。我们将定义7个原语操作符：quote, atom, eq, car, cdr, cons 和 cond。</p>
+
+<ol>
+  <li>(quote x)返回x</li>
+  <li>(atom x)</li>
+  <li>(eq x y)</li>
+  <li>(car x)</li>
+  <li>(cdr x)</li>
+  <li>(cons x y)</li>
+  <li>(cond (p1 e1) … (pn en))</li>
+</ol>
+
+<h3 id="denoting-function">2. 函数的表示(denoting function)</h3>
+
+<p>$((lambda (p_1 … p_n) (a_1 … a_n))$</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[译文：与艾伦·凯的对话]]></title>
     <link href="http://hack.the-lifematrix.net/blog/2015/06/a-conversation-with-alan-kay/"/>
     <updated>2015-06-30T12:14:50+08:00</updated>
     <id>http://hack.the-lifematrix.net/blog/2015/06/a-conversation-with-alan-kay</id>
@@ -432,7 +514,13 @@
     <link href="http://hack.the-lifematrix.net/blog/2015/06/concepts-in-lisp/"/>
     <updated>2015-06-01T12:07:42+08:00</updated>
     <id>http://hack.the-lifematrix.net/blog/2015/06/concepts-in-lisp</id>
-    <content type="html"><![CDATA[<h3 id="forms">Forms</h3>
+    <content type="html"><![CDATA[<h3 id="functional-programming">Functional Programming</h3>
+
+<p>The only thing a function can do is calculate something and return it as a result. </p>
+
+<p>函数能做的唯一事情，是算出点东西，然后将它作为结果返回。</p>
+
+<h3 id="forms">Forms</h3>
 
 <p>The things which you type to the LISP interpreter are called forms; the LISP interpreter repeatedly reads a form, evaluates it, and prints the result. This procedure is called the read-eval-print loop.</p>
 
@@ -1725,20 +1813,6 @@ http://www.neos-server.org/neos/</li>
   <li>可以通过Bayes’s法则将二者联系起来
 *</li>
 </ul>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[The Clashsification of Algorithms in Machine Learning]]></title>
-    <link href="http://hack.the-lifematrix.net/blog/2014/10/the-classification-of-algorithms-in-machine-learning/"/>
-    <updated>2014-10-11T16:47:32+08:00</updated>
-    <id>http://hack.the-lifematrix.net/blog/2014/10/the-classification-of-algorithms-in-machine-learning</id>
-    <content type="html"><![CDATA[<h1 id="section">机器学习中算法的分类</h1>
-
-<p>机器学习中算法很多，比如：SVM、Logistics、Decision Tree…。了解这些算法的特点，有助于更好地选择合适的算法解决问题。</p>
-
-<p>模型是机器学习中的中心概念，因为它们是为了解决给定的问题而从数据中所学到的。机器学习模型的可选范围很大，相当可观，乃至让人迷惑。一个原因是机器学习所解决问题的无所不包：分类、回归、聚类、关联性发现，不一而足。事实上，在每个科学和工程的分支中，都能找到这些任务的每个例子。数学家、工程师、心理学家和计算机科学家以及很多其他人发现或经常再次发现，解决这些问题的途径。他们都施加了各自的特定背景，因此在这些模型底层的原因也各不相同。我个人的观点是，这种多样性是件好事情，因为有助于机器学习成为强大而令人兴奋的学科。但是，这也使得写一本机器学习的书没那么容易！幸运的是，仍然可观察到一些公共的主题，这允许我以有些系统性的方法来讨论机器学习。我将讨论三组模型：几何模型，概率模型和逻辑模型。这些分组并非互斥的，例如，有时一个特定类别的模型，兼具几何和概率的解释。但是，这为我们的目的提供了一个好的出发点。</p>
-
 ]]></content>
   </entry>
   

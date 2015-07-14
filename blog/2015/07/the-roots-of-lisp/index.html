@@ -1,0 +1,288 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>LISP的基础 - Life Matrix</title>
+  <meta name="author" content="Steven Liu <stevenliucx@gmail.com>&#8221;>
+
+  
+  <meta name="description" content="前言
+《黑客与画家》的作者Paul Graham极力推崇Lisp，并使用Lisp获得了巨大的商业成功。他也写了一篇《The roots of Lisp》(postscript文件)来介绍Lisp。本文是其文章内容的学习和理解，再加上Lisp Manual 1.5的内容。 Lisp的伟大之处， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://hack.the-lifematrix.net/blog/2015/07/the-roots-of-lisp">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Life Matrix" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+
+  <!-- mathjax config similar to math.stackexchange -->
+  <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+       jax: ["input/TeX", "output/HTML-CSS"],
+       tex2jax: {
+          inlineMath: [ ['$', '$'] ],
+          displayMath: [ ['$$', '$$']],
+          procehssEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+       },
+       messageStyle: "none",
+       "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+     });
+   </script>
+   <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Life Matrix</a></h1>
+  
+    <h2>Hacking, Machine learning</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:hack.the-lifematrix.net" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/resources">Resources</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">LISP的基础</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-07-14T14:30:54+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>2:30 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3 id="section">前言</h3>
+<p>《黑客与画家》的作者Paul Graham极力推崇Lisp，并使用Lisp获得了巨大的商业成功。他也写了一篇<a href="http://ep.yimg.com/ty/cdn/paulgraham/jmc.ps">《The roots of Lisp》</a>(postscript文件)来介绍Lisp。本文是其文章内容的学习和理解，再加上Lisp Manual 1.5的内容。</p>
+
+<hr />
+
+<p>Lisp的伟大之处，在于John McCarthy采用了类似于欧氏几何的公理化体系。欧氏几何通过几个简单的公理，借助逻辑推演，构建了整个几何体系。其结构之整洁、推理之严密，有一种深深的数学之美和逻辑的力量。MaCarthy在1960年的文章中展示了，如何通过少数几个简单的运算符和函数定义的记号，就可以构建整个编程语言。这个语言被称为Lisp，即列表处理(List Processing的意思。而列表是表达数据和代码的一种简单数据结构。</p>
+
+<p>值得去理解，McCarthy所发现的，不仅仅是计算机历史上的地标，而且是在今天我们的时代里，编程发展所趋向成为的一个模型。迄今为止，存在两个真正干净、一致的编程模型：C模型和Lisp模型。这两个是平地上的高点，在其之间是沼泽地带。随着计算机变得更为强大，正在开发的新语言正稳定地向Lisp模型靠拢。在过去20年中新编程语言的流行配方是采用C计算模型，然后从Lisp模型中抓取一点诸如运行时类型、垃圾回收等零碎的东西，加到里面。</p>
+
+<p>n this article I’m going to try to explain in the simplest possible terms
+what McCarthy discovered. The point is not just to learn about an interest-
+ing theoretical result someone ﬁgured out forty years ago, but to show where
+languages are heading. The unusual thing about Lisp—in fact, the deﬁning
+quality of Lisp—is that it can be written in itself. To understand what Mc-
+Carthy meant by this, we7re going to retrace his steps, with his mathematical
+notation translated into running Common Lisp code.</p>
+
+<p>本文将解释McCarthy发现的最简单的术语。要点不是仅仅学会一个40年前就有人弄明白的有趣的理论结果，而是去看看语言向哪方面去发展。事实上，关于Lisp不寻常的事，Lisp决定性的品质，是它是用自身写成的。为了理解，McCarthy想说明的意思，我们将追溯他的脚步，将他的数学符号转译为可运行的Common Lisp代码。</p>
+
+<h4 id="symbolic-expressions">0. 符号性表达(Symbolic Expressions)</h4>
+
+<p>S表达式中最基本的类型，是原子</p>
+
+<p><strong>原子</strong>符号，是由字母和数字组成的字符串。其首字符必须字母。例如：</p>
+
+<p>’’’
+a
+abc
+a123
+‘’’</p>
+
+<p>一个S表达式，可以递归地定义为：
+1. 一个原子
+2. 形式为(x . y)的表达式，其中x和y都是S表达式</p>
+
+<p>例如： 
+‘’’
+(a . b)
+(a . (b . c))
+(foo . (bar))
+‘’’</p>
+
+<p>更方便的是将列表写成不带点记号的，任意长度的列表
+(A B C D E)
+它等价于 (a (b (c (d e))))</p>
+
+<p>有过编程经验的朋友，会觉得List貌似和数组类似。其实不然。List的长度不固定，它是一种递归结构。在计算机内部的List结构是：</p>
+
+<p><img src="http://hack.the-lifematrix.net/images/lisp/list_structure.png" alt="" /></p>
+
+<h3 id="seven-primitive-operators">1. 7个原语操作符(Seven Primitive Operators)</h3>
+
+<p>In arithmetic the expression 1 + 1 has the value 2. Valid Lisp expressions
+also have values. If an expression 6 yields a value v we say that e returns 1). Our
+next step is to deﬁne what kinds of expressions there can be, and what value
+each kind returns.</p>
+
+<p>在算术中，表达式1+1的值是2.合法的Lisp表达式也有值。如果一个表达式<script type="math/tex">e</script>有个值<script type="math/tex">v</script>，我们说e返回1。</p>
+
+<p>如果一个表达式是一个列表，我们称其第一个元素为操作符，剩下的为参数。我们将定义7个原语操作符：quote, atom, eq, car, cdr, cons 和 cond。</p>
+
+<ol>
+  <li>(quote x)返回x</li>
+  <li>(atom x)</li>
+  <li>(eq x y)</li>
+  <li>(car x)</li>
+  <li>(cdr x)</li>
+  <li>(cons x y)</li>
+  <li>(cond (p1 e1) … (pn en))</li>
+</ol>
+
+<h3 id="denoting-function">2. 函数的表示(denoting function)</h3>
+
+<p>$((lambda (p_1 … p_n) (a_1 … a_n))$</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Steven Liu <stevenliucx@gmail.com></span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2015-07-14T14:30:54+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>2:30 pm</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://hack.the-lifematrix.net/blog/2015/07/the-roots-of-lisp/" data-via="" data-counturl="http://hack.the-lifematrix.net/blog/2015/07/the-roots-of-lisp/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/06/a-conversation-with-alan-kay/" title="Previous Post: 译文：与艾伦·凯的对话">&laquo; 译文：与艾伦·凯的对话</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/07/the-roots-of-lisp/">LISP的基础</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/a-conversation-with-alan-kay/">译文：与艾伦·凯的对话</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/concepts-in-lisp/">Concepts in LISP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/big-data-system-2/">Lambda Architechture</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/big-data-system-1/">Why Big Data System?</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Steven Liu <stevenliucx@gmail.com> -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

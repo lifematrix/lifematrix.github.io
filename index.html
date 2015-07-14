@@ -9,7 +9,8 @@
   <meta name="author" content="Steven Liu <stevenliucx@gmail.com>&#8221;>
 
   
-  <meta name="description" content="和Smalltalk创造者一起畅谈 原标题： A Conversation with Alan Kay，Big talk with the creator of Smalltalk—and much more. 原文：http://queue.acm.org/detail.cfm?id= &hellip;">
+  <meta name="description" content="前言
+《黑客与画家》的作者Paul Graham极力推崇Lisp，并使用Lisp获得了巨大的商业成功。他也写了一篇《The roots of Lisp》(postscript文件)来介绍Lisp。本文是其文章内容的学习和理解，再加上Lisp Manual 1.5的内容。 Lisp的伟大之处， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -88,7 +89,109 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2015/06/a-conversation-with-alan-kay/">与艾伦·凯的对话</a></h1>
+      <h1 class="entry-title"><a href="/blog/2015/07/the-roots-of-lisp/">LISP的基础</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-07-14T14:30:54+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>2:30 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3 id="section">前言</h3>
+<p>《黑客与画家》的作者Paul Graham极力推崇Lisp，并使用Lisp获得了巨大的商业成功。他也写了一篇<a href="http://ep.yimg.com/ty/cdn/paulgraham/jmc.ps">《The roots of Lisp》</a>(postscript文件)来介绍Lisp。本文是其文章内容的学习和理解，再加上Lisp Manual 1.5的内容。</p>
+
+<hr />
+
+<p>Lisp的伟大之处，在于John McCarthy采用了类似于欧氏几何的公理化体系。欧氏几何通过几个简单的公理，借助逻辑推演，构建了整个几何体系。其结构之整洁、推理之严密，有一种深深的数学之美和逻辑的力量。MaCarthy在1960年的文章中展示了，如何通过少数几个简单的运算符和函数定义的记号，就可以构建整个编程语言。这个语言被称为Lisp，即列表处理(List Processing的意思。而列表是表达数据和代码的一种简单数据结构。</p>
+
+<p>值得去理解，McCarthy所发现的，不仅仅是计算机历史上的地标，而且是在今天我们的时代里，编程发展所趋向成为的一个模型。迄今为止，存在两个真正干净、一致的编程模型：C模型和Lisp模型。这两个是平地上的高点，在其之间是沼泽地带。随着计算机变得更为强大，正在开发的新语言正稳定地向Lisp模型靠拢。在过去20年中新编程语言的流行配方是采用C计算模型，然后从Lisp模型中抓取一点诸如运行时类型、垃圾回收等零碎的东西，加到里面。</p>
+
+<p>n this article I’m going to try to explain in the simplest possible terms
+what McCarthy discovered. The point is not just to learn about an interest-
+ing theoretical result someone ﬁgured out forty years ago, but to show where
+languages are heading. The unusual thing about Lisp—in fact, the deﬁning
+quality of Lisp—is that it can be written in itself. To understand what Mc-
+Carthy meant by this, we7re going to retrace his steps, with his mathematical
+notation translated into running Common Lisp code.</p>
+
+<p>本文将解释McCarthy发现的最简单的术语。要点不是仅仅学会一个40年前就有人弄明白的有趣的理论结果，而是去看看语言向哪方面去发展。事实上，关于Lisp不寻常的事，Lisp决定性的品质，是它是用自身写成的。为了理解，McCarthy想说明的意思，我们将追溯他的脚步，将他的数学符号转译为可运行的Common Lisp代码。</p>
+
+<h4 id="symbolic-expressions">0. 符号性表达(Symbolic Expressions)</h4>
+
+<p>S表达式中最基本的类型，是原子</p>
+
+<p><strong>原子</strong>符号，是由字母和数字组成的字符串。其首字符必须字母。例如：</p>
+
+<p>’’’
+a
+abc
+a123
+‘’’</p>
+
+<p>一个S表达式，可以递归地定义为：
+1. 一个原子
+2. 形式为(x . y)的表达式，其中x和y都是S表达式</p>
+
+<p>例如： 
+‘’’
+(a . b)
+(a . (b . c))
+(foo . (bar))
+‘’’</p>
+
+<p>更方便的是将列表写成不带点记号的，任意长度的列表
+(A B C D E)
+它等价于 (a (b (c (d e))))</p>
+
+<p>有过编程经验的朋友，会觉得List貌似和数组类似。其实不然。List的长度不固定，它是一种递归结构。在计算机内部的List结构是：</p>
+
+<p><img src="http://hack.the-lifematrix.net/images/lisp/list_structure.png" alt="" /></p>
+
+<h3 id="seven-primitive-operators">1. 7个原语操作符(Seven Primitive Operators)</h3>
+
+<p>In arithmetic the expression 1 + 1 has the value 2. Valid Lisp expressions
+also have values. If an expression 6 yields a value v we say that e returns 1). Our
+next step is to deﬁne what kinds of expressions there can be, and what value
+each kind returns.</p>
+
+<p>在算术中，表达式1+1的值是2.合法的Lisp表达式也有值。如果一个表达式<script type="math/tex">e</script>有个值<script type="math/tex">v</script>，我们说e返回1。</p>
+
+<p>如果一个表达式是一个列表，我们称其第一个元素为操作符，剩下的为参数。我们将定义7个原语操作符：quote, atom, eq, car, cdr, cons 和 cond。</p>
+
+<ol>
+  <li>(quote x)返回x</li>
+  <li>(atom x)</li>
+  <li>(eq x y)</li>
+  <li>(car x)</li>
+  <li>(cdr x)</li>
+  <li>(cons x y)</li>
+  <li>(cond (p1 e1) … (pn en))</li>
+</ol>
+
+<h3 id="denoting-function">2. 函数的表示(denoting function)</h3>
+
+<p>$((lambda (p_1 … p_n) (a_1 … a_n))$</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/06/a-conversation-with-alan-kay/">译文：与艾伦·凯的对话</a></h1>
     
     
       <p class="meta">
@@ -538,7 +641,13 @@
   </header>
 
 
-  <div class="entry-content"><h3 id="forms">Forms</h3>
+  <div class="entry-content"><h3 id="functional-programming">Functional Programming</h3>
+
+<p>The only thing a function can do is calculate something and return it as a result. </p>
+
+<p>函数能做的唯一事情，是算出点东西，然后将它作为结果返回。</p>
+
+<h3 id="forms">Forms</h3>
 
 <p>The things which you type to the LISP interpreter are called forms; the LISP interpreter repeatedly reads a form, evaluates it, and prints the result. This procedure is called the read-eval-print loop.</p>
 
@@ -1066,128 +1175,6 @@ Facebook, 微信, Flickr的图片分享</li>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/04/beautiful-wordpress-themes/">惊艳的WordPress主题</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-04-01T17:00:43+08:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>5:00 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>虽然我已搭建了本技术博客，以分享技术hacking方面的心得。不过，还准备再搭建灵性(Spirit)和艺术(Art)两个领域的博客。对于技术博客，外观要朴质简洁，以突出技术的真知灼见，不要让本质被形式所冲淡。但是，对于灵性和艺术博客，则需要精美的外观，给读者有美好的阅读体验，从而让洞见和高频振动触动读者的心。所以，尽管技术类博客用Octopress+github的方式构建，快速锋利，符合hacker的作风，已经足够。但是，后二者因对形式的要求，则准备用表现力更强的WordPress来搭建。这样，有丰富的主题可以去选择，而且也可自己学习主题的制作。</p>
-
-<p>最近就在网上搜索WordPress主题，发现有很多不错，在这里分享给大家，也作为备忘。</p>
-
-<h2 id="section">免费主题</h2>
-
-<h3 id="dazzling">Dazzling</h3>
-
-<p><a href="http://colorlib.com/dazzling/"><img src="http://hack.the-lifematrix.net/images/wordpress-themes/wordpress-theme-dazzling.png" alt="" /></a></p>
-
-<p>支持响应式布局，特色图片作为标题显示很漂亮。</p>
-
-<h3 id="sparkling">Sparkling</h3>
-
-<p><a href="http://colorlib.com/sparkling/"><img src="http://hack.the-lifematrix.net/images/wordpress-themes/wordpress-theme-sparkling.png" alt="" /></a></p>
-
-<p>支持响应式布局，字体凝重、有表现力。</p>
-
-<h3 id="zerif-lite">Zerif Lite</h3>
-<p><a href="https://wordpress.org/themes/zerif-lite/"><img src="http://hack.the-lifematrix.net/images/wordpress-themes/wordpress-theme-zerif-lite.png" alt="" /></a></p>
-
-<p>简洁，轻量级。</p>
-
-<h3 id="unite">Unite</h3>
-<p><a href="http://colorlib.com/unite/"><img src="http://hack.the-lifematrix.net/images/wordpress-themes/wordpress-theme-unite.png" alt="" /></a></p>
-
-<p>非常温馨纯洁的婚礼博客。</p>
-
-<h3 id="hyperspace">Hyperspace</h3>
-<p><a href="http://colorlib.com/unite/"><img src="http://hack.the-lifematrix.net/images/wordpress-themes/wordpress-theme-hyperspace.png" alt="" /></a></p>
-
-<p>响应式，字体特别，选图生动、性感。</p>
-
-<p>下载地址：<a href="http://ufothemes.com/themes/hyperspace/">http://ufothemes.com/themes/hyperspace/</a></p>
-
-<h2 id="section-1">付费主题</h2>
-<p>有些付费的主题并不一定比免费的好，所以要仔细比较。但是，的确有些主题物有所值，非常惊艳，美的让人窒息。</p>
-
-<h3 id="kornio">Kornio</h3>
-<p><a href="http://demo.centurythemes.com/kornio/"><img src="http://hack.the-lifematrix.net/images/wordpress-themes/wordpress-theme-kornio.png" alt="" /></a></p>
-
-<p>这是个多用途的主题，可用于个人博客和商业网站等。配色很精美，响应式布局的效果很好，我分别在笔记本电脑、手机和iPad上分别测试了。细节考虑周到，比如向下翻页时，菜单栏总是悬浮在窗口顶部，同时Logo图标会变小，以节省空间给内容。这都比免费的主题更胜一筹。</p>
-
-<p>在<a href="https://creativemarket.com/centurythemes/61651-Kornio-Multipurpose-WordPress-Theme">Creative Market</a>售价$35。</p>
-
-<h3 id="harmonux">HarmonUX</h3>
-<p><a href="http://netbiel.pl/harmonux/"><img src="http://hack.the-lifematrix.net/images/wordpress-themes/wordpress-theme-harmonux.png" alt="" /></a></p>
-
-<p>响应式布局做的也不错，这种大图片块的设计很醒目，内容突出，有效率。用途没有前面的Kornio多，但是简洁直接。配色沉稳。</p>
-
-<p>在<a href="https://creativemarket.com/centurythemes/61651-Kornio-Multipurpose-WordPress-Theme">Creative Market</a>售价$39。</p>
-
-<h3 id="santorini">Santorini</h3>
-<p><a href="http://www.cssigniter.com/preview/santorini/"><img src="http://hack.the-lifematrix.net/images/wordpress-themes/wordpress-theme-santorini.png" alt="" /></a></p>
-
-<p>这是酒店类的主题。图片宏大，美的让人窒息。</p>
-
-<p>Blog中图盘加白边和框线的效果很好看。
-<a href="http://www.cssigniter.com/preview/santorini/five-tips-for-a-more-relaxing-vacation/"><img src="http://hack.the-lifematrix.net/images/wordpress-themes/wordpress-theme-santorini-blog.png" alt="" /></a></p>
-
-<p>鼠标停靠时，图片加阴影，并显示博文标题的提示。细节考虑很贴心。
-<a href="http://www.cssigniter.com/preview/santorini/five-tips-for-a-more-relaxing-vacation/"><img src="http://hack.the-lifematrix.net/images/wordpress-themes/wordpress-theme-santorini-blog-img-hover.png" alt="" /></a></p>
-
-<p>在<a href="https://creativemarket.com/cssigniter/49870-Santorini-Resort-Hotel-theme">Creative Market</a>售价$39。</p>
-
-<h3 id="katharine">Katharine</h3>
-<p><a href="http://demos.lovelyconfetti.com/katharine/"><img src="http://hack.the-lifematrix.net/images/wordpress-themes/wordpress-theme-katharine.png" alt="" /></a></p>
-
-<p>女性化主题，风格小清新，有点复古。</p>
-
-<p>在<a href="https://creativemarket.com/crisa28/164482-Ecommerce-feminine-genesis-theme-Kat">Creative Market</a>售价$55。</p>
-
-<p>相对于前面几个主题，感觉这个售价有些不值。</p>
-
-<h3 id="alexander---a-interior-design-theme">Alexander - A Interior Design Theme</h3>
-
-<p><a href="http://r6themes.com/alexander/"><img src="http://hack.the-lifematrix.net/images/wordpress-themes/wordpress-theme-alexander.png" alt="" /></a></p>
-
-<p>这是内在设计的风格，聪明地利用空间，通过极简干净的设计，将空间尽可能留给内容。令人耳目一新。</p>
-
-<p>在<a href="https://creativemarket.com/r6themes/44612-Alexander-A-Interior-Design-Theme">Creative Market</a>售价$45。</p>
-
-<h3 id="novalumen">Novalumen</h3>
-
-<p>https://creativemarket.com/TheGravity/54850-Novalumen-Modern-WordPress-Theme</p>
-
-<p>http://thegravity.net/novalumen/</p>
-
-<h2 id="wordpress">常见Wordpress主题网址</h2>
-
-<ul>
-  <li><a href="https://creativemarket.com/">https://creativemarket.com/</a></li>
-  <li><a href="http://colorlib.com/wp/themes/">http://colorlib.com/wp/themes/</a></li>
-</ul>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -1203,7 +1190,11 @@ Facebook, 微信, Flickr的图片分享</li>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/06/a-conversation-with-alan-kay/">与艾伦·凯的对话</a>
+        <a href="/blog/2015/07/the-roots-of-lisp/">LISP的基础</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/a-conversation-with-alan-kay/">译文：与艾伦·凯的对话</a>
       </li>
     
       <li class="post">
@@ -1216,10 +1207,6 @@ Facebook, 微信, Flickr的图片分享</li>
     
       <li class="post">
         <a href="/blog/2015/05/big-data-system-1/">Why Big Data System?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/04/color-space/">Color Space</a>
       </li>
     
   </ul>
