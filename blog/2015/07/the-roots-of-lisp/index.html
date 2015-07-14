@@ -111,17 +111,9 @@
 
 <p>值得去理解，McCarthy所发现的，不仅仅是计算机历史上的地标，而且是在今天我们的时代里，编程发展所趋向成为的一个模型。迄今为止，存在两个真正干净、一致的编程模型：C模型和Lisp模型。这两个是平地上的高点，在其之间是沼泽地带。随着计算机变得更为强大，正在开发的新语言正稳定地向Lisp模型靠拢。在过去20年中新编程语言的流行配方是采用C计算模型，然后从Lisp模型中抓取一点诸如运行时类型、垃圾回收等零碎的东西，加到里面。</p>
 
-<p>n this article I’m going to try to explain in the simplest possible terms
-what McCarthy discovered. The point is not just to learn about an interest-
-ing theoretical result someone ﬁgured out forty years ago, but to show where
-languages are heading. The unusual thing about Lisp—in fact, the deﬁning
-quality of Lisp—is that it can be written in itself. To understand what Mc-
-Carthy meant by this, we7re going to retrace his steps, with his mathematical
-notation translated into running Common Lisp code.</p>
+<p>本文将解释McCarthy发现的最简单的术语。要点不是仅仅学会一个40年前就有人弄明白的有趣的理论结果，而是去看看语言向哪方面去发展。事实上，关于Lisp不寻常的事–Lisp决定性的品质，是它是用自身写成的。为了理解，McCarthy想说明的意思，我们将追溯他的脚步，将他的数学符号转译为可运行的Common Lisp代码。</p>
 
-<p>本文将解释McCarthy发现的最简单的术语。要点不是仅仅学会一个40年前就有人弄明白的有趣的理论结果，而是去看看语言向哪方面去发展。事实上，关于Lisp不寻常的事，Lisp决定性的品质，是它是用自身写成的。为了理解，McCarthy想说明的意思，我们将追溯他的脚步，将他的数学符号转译为可运行的Common Lisp代码。</p>
-
-<h4 id="symbolic-expressions">0. 符号性表达(Symbolic Expressions)</h4>
+<h3 id="symbolic-expressions">0. 符号性表达(Symbolic Expressions)</h3>
 
 <p>S表达式中最基本的类型，是原子</p>
 
@@ -175,7 +167,7 @@ each kind returns.</p>
 
 <h3 id="denoting-function">2. 函数的表示(denoting function)</h3>
 
-<p>$((lambda (p_1 … p_n) (a_1 … a_n))$</p>
+<script type="math/tex; mode=display">((lambda (p_1 ... p_n) (a_1 ... a_n))</script>
 </div>
 
 
