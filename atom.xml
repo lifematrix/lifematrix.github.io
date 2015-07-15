@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2015-07-14T17:57:15+08:00</updated>
+  <updated>2015-07-15T11:42:14+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -35,22 +35,26 @@
 
 <p><strong>原子</strong>符号，是由字母和数字组成的字符串。其首字符必须字母。例如：</p>
 
-<p>’’’
-a
-abc
-a123
-‘’’</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nv">A</span>
+</span><span class="line"><span class="nv">ABC</span>
+</span><span class="line"><span class="nv">A123</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>一个S表达式，可以递归地定义为：
 1. 一个原子
-2. 形式为(x . y)的表达式，其中x和y都是S表达式</p>
+2. 形式为(X . Y)的表达式，其中X和Y都是S表达式</p>
 
 <p>例如： 
-‘’’
-(a . b)
-(a . (b . c))
-(foo . (bar))
-‘’’</p>
+&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="lisp"><span class="line"><span class="p">(</span><span class="nv">A</span> <span class="o">.</span> <span class="nv">B</span><span class="p">)</span>
+</span><span class="line"><span class="p">(</span><span class="nv">A</span> <span class="o">.</span> <span class="p">(</span><span class="nv">B</span> <span class="o">.</span> <span class="nv">C</span><span class="p">))</span>
+</span><span class="line"><span class="p">(</span><span class="nv">FOO</span> <span class="o">.</span> <span class="p">(</span><span class="nv">BAR</span><span class="p">))</span>
+</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;</p>
 
 <p>更方便的是将列表写成不带点记号的，任意长度的列表
 (A B C D E)
@@ -60,25 +64,53 @@ a123
 
 <p><img src="http://hack.the-lifematrix.net/images/lisp/list_structure.png" alt="" /></p>
 
-<h3 id="seven-primitive-operators">1. 7个原语操作符(Seven Primitive Operators)</h3>
-
-<p>In arithmetic the expression 1 + 1 has the value 2. Valid Lisp expressions
-also have values. If an expression 6 yields a value v we say that e returns 1). Our
-next step is to deﬁne what kinds of expressions there can be, and what value
-each kind returns.</p>
+<h3 id="seven-primitive-operators">7个原语操作符(Seven Primitive Operators)</h3>
 
 <p>在算术中，表达式1+1的值是2.合法的Lisp表达式也有值。如果一个表达式<script type="math/tex">e</script>有个值<script type="math/tex">v</script>，我们说e返回1。</p>
 
 <p>如果一个表达式是一个列表，我们称其第一个元素为操作符，剩下的为参数。我们将定义7个原语操作符：quote, atom, eq, car, cdr, cons 和 cond。</p>
 
 <ol>
-  <li>(quote x)返回x</li>
-  <li>(atom x)</li>
-  <li>(eq x y)</li>
-  <li>(car x)</li>
-  <li>(cdr x)</li>
-  <li>(cons x y)</li>
-  <li>(cond (p1 e1) … (pn en))</li>
+  <li>(quote A)返回$A$, 为了可读性，我们将(quote A)缩写为’A</li>
+</ol>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="err">􏰛􏰏</span><span class="k">quote</span> <span class="nv">a</span><span class="err">􏰐</span> <span class="nv">a</span>
+</span><span class="line"><span class="err">􏰛</span> <span class="err">􏰋</span><span class="nv">a</span>
+</span><span class="line"><span class="nv">a</span>
+</span><span class="line"><span class="err">􏰛</span> <span class="err">􏰏</span><span class="k">quote</span> <span class="err">􏰏</span><span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span><span class="err">􏰐􏰐</span> <span class="err">􏰏</span><span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span><span class="err">􏰐</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+<ol>
+  <li>(atom x)返回原子t，如果x是原子，否则返回空列表。在Lisp中我们用atom t代表布尔值的真值，用空列表()代表假值。</li>
+</ol>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="Lisp"><span class="line"><span class="err">􏰛</span> <span class="err">􏰏</span><span class="nb">atom</span> <span class="no">t</span>
+</span><span class="line"><span class="err">􏰛</span> <span class="err">􏰏</span><span class="nb">atom</span> <span class="err">􏰏􏰐</span>
+</span><span class="line"><span class="err">􏰛</span> <span class="err">􏰏</span><span class="nb">atom</span> <span class="no">t</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ol>
+  <li>
+    <p>(eq x y)返回t，如果x, y的值是相同的原子，或者二者是空列表。</p>
+  </li>
+  <li>
+    <p>(car x)期待x的值是一个列表，并返回它的第一个元素。</p>
+  </li>
+  <li>
+    <p>(cdr x)期待x的值是一个列表，并返回它除过第一个元素之外的所有部分。</p>
+  </li>
+  <li>
+    <p>(cons x y) 期待y的值是一个列表，返回一个列表，其第一个元素是x的值，而后是y的值。</p>
+  </li>
+  <li>
+    <p>(cond ($p_1$ $e_1$) … ($p_n$ $e_n$))的求值如下：表达式$p$会按顺序求值，直到遇到一个为真。当这个表达式找到后，对应的表达式$e$的值，就会被返回作为整个cond表达式的值。</p>
+  </li>
 </ol>
 
 <h3 id="denoting-function">2. 函数的表示(denoting function)</h3>
