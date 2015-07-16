@@ -119,30 +119,31 @@
 
 <p><strong>原子</strong>符号，是由字母和数字组成的字符串。其首字符必须字母。例如：</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
 <span class="line-number">3</span>
-</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nv">A</span>
-</span><span class="line"><span class="nv">ABC</span>
-</span><span class="line"><span class="nv">A123</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+</pre></td><td class="code"><pre><code class=""><span class="line">a
+</span><span class="line">abc
+</span><span class="line">a123</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>一个S表达式，可以递归地定义为：
 1. 一个原子
 2. 形式为(X . Y)的表达式，其中X和Y都是S表达式</p>
 
 <p>例如： 
-&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
+&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
 <span class="line-number">2</span>
 <span class="line-number">3</span>
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="lisp"><span class="line"><span class="p">(</span><span class="nv">A</span> <span class="o">.</span> <span class="nv">B</span><span class="p">)</span>
-</span><span class="line"><span class="p">(</span><span class="nv">A</span> <span class="o">.</span> <span class="p">(</span><span class="nv">B</span> <span class="o">.</span> <span class="nv">C</span><span class="p">))</span>
-</span><span class="line"><span class="p">(</span><span class="nv">FOO</span> <span class="o">.</span> <span class="p">(</span><span class="nv">BAR</span><span class="p">))</span>
-</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;</p>
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class=""><span class="line">(a . b)
+</span><span class="line">(a . (b . c))
+</span><span class="line">(foo . (bar))</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;</p>
 
 <p>更方便的是将列表写成不带点记号的，任意长度的列表
-(A B C D E)
-它等价于 (a (b (c (d e))))</p>
+&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class=""><span class="line">(a b c d e)</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;
+它等价于 
+&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class=""><span class="line">(a (b (c (d e))))</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;</p>
 
 <p>有过编程经验的朋友，会觉得List貌似和数组类似。其实不然。List的长度不固定，它是一种递归结构。在计算机内部的List结构是：</p>
 
@@ -158,71 +159,121 @@
   <li>(quote A)返回$A$, 为了可读性，我们将(quote A)缩写为’A</li>
 </ol>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
 <span class="line-number">3</span>
 <span class="line-number">4</span>
 <span class="line-number">5</span>
 <span class="line-number">6</span>
-</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="k">quote</span> <span class="nv">a</span><span class="p">)</span>
-</span><span class="line"><span class="nv">A</span>
-</span><span class="line"><span class="nb">&gt;</span> <span class="ss">&#39;a</span>
-</span><span class="line"><span class="nv">A</span>
-</span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="k">quote</span> <span class="p">(</span><span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span><span class="p">))</span>
-</span><span class="line"><span class="p">(</span><span class="nv">A</span> <span class="nv">B</span> <span class="nv">C</span><span class="p">)</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">&gt; (quote a)
+</span><span class="line">A
+</span><span class="line">&gt; 'a
+</span><span class="line">A
+</span><span class="line">&gt; (quote (a b c))
+</span><span class="line">(A B C)
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <ol>
   <li>(atom x)返回原子t，如果x是原子，否则返回空列表。在Lisp中我们用atom t代表布尔值的真值，用NIL或空列表代表假值。二者是同一事物。</li>
 </ol>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
 <span class="line-number">3</span>
 <span class="line-number">4</span>
 <span class="line-number">5</span>
 <span class="line-number">6</span>
-</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="err">􏰛</span><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">atom</span> <span class="ss">&#39;a</span><span class="p">)</span>
-</span><span class="line"><span class="no">T</span>
-</span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">atom</span> <span class="o">&#39;</span><span class="p">())</span>
-</span><span class="line"><span class="no">T</span>
-</span><span class="line"><span class="nb">&gt;</span> <span class="p">()</span>
-</span><span class="line"><span class="no">NIL</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">􏰛&gt; (atom 'a)
+</span><span class="line">T
+</span><span class="line">&gt; (atom '())
+</span><span class="line">T
+</span><span class="line">&gt; ()
+</span><span class="line">NIL
 </span></code></pre></td></tr></table></div></figure></notextile></div>
-<p>现在我们有了一个运算法，它的参数会被求值。我们可以看看quote针对什么。一个未被引用的列表，作为参数传给atom这样的运算符，其代码是：</p>
+<p>现在我们有了一个运算符，它的参数会被求值。我们可以看看quote针对什么。一个未被引用的列表，作为参数传给atom这样的运算符，其代码是：</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
-</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">atom</span> <span class="p">(</span><span class="nb">atom</span> <span class="ss">&#39;a</span><span class="p">))</span>
-</span><span class="line"><span class="no">T</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+</pre></td><td class="code"><pre><code class=""><span class="line">&gt; (atom (atom 'a))
+</span><span class="line">T</span></code></pre></td></tr></table></div></figure></notextile></div>
 <p>通过引用一个列表，我们可以避免它被求值。</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
-</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">atom</span> <span class="o">&#39;</span><span class="p">(</span><span class="nb">atom</span> <span class="ss">&#39;a</span><span class="p">))</span>
-</span><span class="line"><span class="no">NIL</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+</pre></td><td class="code"><pre><code class=""><span class="line">&gt; (atom '(atom 'a))
+</span><span class="line">NIL</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>这对应我们在英语中使用引用的方式。Cambridge是麻省的一个镇，有9万人。而“Cambridge”是有9个字母的单词。</p>
 
+<p>引用是可能看似陌生的概念，因为很少有其它语言具有任何类似的东西。它与Lisp最引人注目的特性联系在一起：<strong>代码和数据都由相同的数据结构产生出来，而引用操作符是我们区分它们的方式</strong>。</p>
+
 <ol>
-  <li>
-    <p>(eq x y)返回t，如果x, y的值是相同的原子，或者二者是空列表。</p>
-  </li>
-  <li>
-    <p>(car x)期待x的值是一个列表，并返回它的第一个元素。</p>
-  </li>
-  <li>
-    <p>(cdr x)期待x的值是一个列表，并返回它除过第一个元素之外的所有部分。</p>
-  </li>
-  <li>
-    <p>(cons x y) 期待y的值是一个列表，返回一个列表，其第一个元素是x的值，而后是y的值。</p>
-  </li>
-  <li>
-    <p>(cond ($p_1$ $e_1$) … ($p_n$ $e_n$))的求值如下：表达式$p$会按顺序求值，直到遇到一个为真。当这个表达式找到后，对应的表达式$e$的值，就会被返回作为整个cond表达式的值。</p>
-  </li>
+  <li>(eq x y)返回t，如果x, y的值是相同的原子，或者二者是空列表。</li>
 </ol>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">&gt; (eq 'a 'a)
+</span><span class="line">T
+</span><span class="line">&gt; (eq 'a 'b)
+</span><span class="line">NIL
+</span><span class="line">&gt; (eq '() '())
+</span><span class="line">T</span></code></pre></td></tr></table></div></figure></notextile></div>
+<ol>
+  <li>(car x)期待x的值是一个列表，并返回它的第一个元素。</li>
+</ol>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">&gt; (car '(a b c))
+</span><span class="line">A</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ol>
+  <li>(cdr x)期待x的值是一个列表，并返回它除过第一个元素之外的所有部分。</li>
+</ol>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">&gt; (cdr '(a b c))
+</span><span class="line">(B C)</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ol>
+  <li>(cons x y) 期待y的值是一个列表，返回一个列表，其第一个元素是x的值，而后是y的值。</li>
+</ol>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">&gt; (cons 'a '(b c))
+</span><span class="line">(A B C)
+</span><span class="line">&gt; (cons 'a (cons 'b (cons 'c '())))
+</span><span class="line">(A B C)
+</span><span class="line">&gt; (car (cons 'a '(b c)))
+</span><span class="line">A
+</span><span class="line">&gt; (cdr (cons 'a '(b c)))
+</span><span class="line">(B C)</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ol>
+  <li>(cond ($p_1$ $e_1$) … ($p_n$ $e_n$))的求值如下：表达式$p$会按顺序求值，直到遇到一个为真。当这个表达式找到后，对应的表达式$e$的值，就会被返回作为整个cond表达式的值。</li>
+</ol>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">&gt; (cond ((eq 'a 'b) 'first)
+</span><span class="line">            (t 'second))
+</span><span class="line">SECOND</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>这七个操作符原语的后5个，当对这个操作符开始的表达式求值时，参数总是会被求值。我们称这样的操作符，为<strong>函数</strong>。</p>
 
 <h3 id="denoting-function">2. 函数的表示(denoting function)</h3>
 
@@ -231,6 +282,88 @@
 <p>((lambda ($p_1$ … $p_n$) $e$ ($a_1$ … $a_n$))</p>
 
 <p>被称为函数调用。对其求值的方法如下：先对每个表达式$a_i$求值，然后再对$e$求值。在对$e$求值时，任何出现$p_i$的值，都是最近一次函数调用中对应$a_i$的值。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">&gt; ((lambda (x) (cons x '(b))) 'a)
+</span><span class="line">(A B)
+</span><span class="line">&gt; ((lambda (x y) (cons x (cdr y))) 'z '(a b c))
+</span><span class="line">(Z B C)</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>如果一个表达式：
+($f$ $a_1$ … $a_n$)
+其第一个元素$f$不是一个操作原语，而$f$的值是一个函数(lambda ($p_1$ … $p_2$) $e)，那么表达式的值就是：
+((lambda ($p_1$ … $p_n$) $e$ ($a_1$ … $a_n$))</p>
+
+<p>换言之，在表达式中参数可与当操作符用，如同函数参数一样：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">&gt;  ((lambda (f) (f '(b c))) (lambda (x) (cons 'a x))) 
+</span><span class="line">'(a b c)</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>还有另外一种标记函数的方式，使得函数可以引用它自己，这给我们很方便的途径去定义递归函数。
+记号：
+(label $f$ (lambda ($p_1$ … $p_2$) $e$))
+标记了行为如同(lambda ($p_1$ … $p_2$) $e)的函数。 </p>
+
+<p>我们进一步将 f = (label $f$ (lambda ($p_1$ … $p_2$) $e$))缩写为：
+(defun f ($p_1$ … $p_2$) $e$)</p>
+
+<p>假设我们想定义一个函数(subst $x$ $y$ $z$)，它接收一个表达式$x$, 一个原子$y$, 一个列表$z$，然后返回类似于$z$的列表，但是$z$中每个$y$的实例都会被替换成$x$。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">(defun subst-new (x y z)
+</span><span class="line">    (cond
+</span><span class="line">      ((eq z '()) '())
+</span><span class="line">      ((atom z) (cond ((eq z y) x) ('t z)))
+</span><span class="line">      ('t (cons (subst-new x y (car z))
+</span><span class="line">               (subst-new x y (cdr z))))))</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>刚好我们在这里可以看到如何在cond表达式中得到一个子句。第一个元素是t的子句，总会成功。注意’t和t等价。因此</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">(cond (x y) ('t z))</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>等价于我们可能在其它语言中看到的语法：
+if $x$ then $y$ else $z$</p>
+
+<h3 id="section-1">一些函数</h3>
+
+<p>既然我们有了一个表达函数的方式，我们将用原语操作符的术语来定义一些新的函数。首先，将方便地介绍一系模式的缩写。我们使用c$x$r, 其中$x$是a或d的序列，作为对应car和cdr序列的缩写。因此，例如(cadr $e$)是 (car (cdr $e$))的缩写，它返回$e$的第二个元素。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">&gt; (cadr '((a b) (c d) e))
+</span><span class="line">(C D)
+</span><span class="line">&gt; (caddr '((a b) (c d) e))
+</span><span class="line">E
+</span><span class="line">&gt; (cdar '((a b) (c d) e))
+</span><span class="line">(B)</span></code></pre></td></tr></table></div></figure></notextile></div>
+<p>而且，我们使用(list $e_1$ … $e_n$)代表(cons $e_1$ … (cons $e_n$ ‘()) …)。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">&gt; (cons 'a (cons 'b (cons 'c (cons 'd '()))))
+</span><span class="line">(A B C D)
+</span><span class="line">&gt; (list 'a 'b 'c 'd)
+</span><span class="line">(A B C D)</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>我们现在来定义一些新函数。我们在函数名的尾部加一个句号，这便于和现存的原语函数区分开，也不会和Common Lisp现有的函数搅在一起。</p>
+
 </div>
 
 
