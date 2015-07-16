@@ -165,22 +165,49 @@
 <span class="line-number">2</span>
 <span class="line-number">3</span>
 <span class="line-number">4</span>
-</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="err">􏰛􏰏</span><span class="k">quote</span> <span class="nv">a</span><span class="err">􏰐</span> <span class="nv">a</span>
-</span><span class="line"><span class="err">􏰛</span> <span class="err">􏰋</span><span class="nv">a</span>
-</span><span class="line"><span class="nv">a</span>
-</span><span class="line"><span class="err">􏰛</span> <span class="err">􏰏</span><span class="k">quote</span> <span class="err">􏰏</span><span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span><span class="err">􏰐􏰐</span> <span class="err">􏰏</span><span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span><span class="err">􏰐</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="k">quote</span> <span class="nv">a</span><span class="p">)</span>
+</span><span class="line"><span class="nv">A</span>
+</span><span class="line"><span class="nb">&gt;</span> <span class="ss">&#39;a</span>
+</span><span class="line"><span class="nv">A</span>
+</span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="k">quote</span> <span class="p">(</span><span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span><span class="p">))</span>
+</span><span class="line"><span class="p">(</span><span class="nv">A</span> <span class="nv">B</span> <span class="nv">C</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
+
 <ol>
-  <li>(atom x)返回原子t，如果x是原子，否则返回空列表。在Lisp中我们用atom t代表布尔值的真值，用空列表()代表假值。</li>
+  <li>(atom x)返回原子t，如果x是原子，否则返回空列表。在Lisp中我们用atom t代表布尔值的真值，用NIL或空列表代表假值。二者是同一事物。</li>
 </ol>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
 <span class="line-number">3</span>
-</pre></td><td class="code"><pre><code class="Lisp"><span class="line"><span class="err">􏰛</span> <span class="err">􏰏</span><span class="nb">atom</span> <span class="no">t</span>
-</span><span class="line"><span class="err">􏰛</span> <span class="err">􏰏</span><span class="nb">atom</span> <span class="err">􏰏􏰐</span>
-</span><span class="line"><span class="err">􏰛</span> <span class="err">􏰏</span><span class="nb">atom</span> <span class="no">t</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="err">􏰛</span><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">atom</span> <span class="ss">&#39;a</span><span class="p">)</span>
+</span><span class="line"><span class="no">T</span>
+</span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">atom</span> <span class="o">&#39;</span><span class="p">())</span>
+</span><span class="line"><span class="no">T</span>
+</span><span class="line"><span class="nb">&gt;</span> <span class="p">()</span>
+</span><span class="line"><span class="no">NIL</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
+<p>现在我们有了一个运算法，它的参数会被求值。我们可以看看quote针对什么。一个未被引用的列表，作为参数传给atom这样的运算符，其代码是：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">atom</span> <span class="p">(</span><span class="nb">atom</span> <span class="ss">&#39;a</span><span class="p">))</span>
+</span><span class="line"><span class="no">T</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+<p>通过引用一个列表，我们可以避免它被求值。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">atom</span> <span class="o">&#39;</span><span class="p">(</span><span class="nb">atom</span> <span class="ss">&#39;a</span><span class="p">))</span>
+</span><span class="line"><span class="no">NIL</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>这对应我们在英语中使用引用的方式。Cambridge是麻省的一个镇，有9万人。而“Cambridge”是有9个字母的单词。</p>
 
 <ol>
   <li>
@@ -202,11 +229,11 @@
 
 <h3 id="denoting-function">2. 函数的表示(denoting function)</h3>
 
-<p>接着我们来定义一个记号来描述函数。一个函数被表达为 (lambda ($p_1$ … $p_n$) $e$), 这里$p_1$ … $p_n$ 是原子(被称为参数），而$e$是一个表达式。一个这样的表达式，
-&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="Lisp"><span class="line"><span class="p">((</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">$p_1$</span> <span class="o">...</span> <span class="nv">$p_n$</span><span class="p">)</span> <span class="nv">$e$</span> <span class="p">(</span><span class="nv">$a_1$</span> <span class="o">...</span> <span class="nv">$a_n$</span><span class="p">))</span>
-</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;
-被称为函数调用。对其求值的方法如下：先对每个表达式$a_i$求值，然后再对$e$求值。在对$e$求值时，任何出现$p_i$的值，都是最近一次函数调用中对应$a_i$的值。</p>
+<p>接着我们来定义一个记号来描述函数。一个函数被表达为 (lambda ($p_1$ … $p_n$) $e$), 这里$p_1$ … $p_n$ 是原子(被称为参数），而$e$是一个表达式。一个这样的表达式，</p>
+
+<p>((lambda ($p_1$ … $p_n$) $e$ ($a_1$ … $a_n$))</p>
+
+<p>被称为函数调用。对其求值的方法如下：先对每个表达式$a_i$求值，然后再对$e$求值。在对$e$求值时，任何出现$p_i$的值，都是最近一次函数调用中对应$a_i$的值。</p>
 </div>
   
   
