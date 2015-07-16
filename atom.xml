@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2015-07-16T16:24:49+08:00</updated>
+  <updated>2015-07-16T16:34:38+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -210,8 +210,7 @@
 
 <p>如果一个表达式：
 ($f$ $a_1$ … $a_n$)
-其第一个元素$f$不是一个操作原语，而$f$的值是一个函数(lambda ($p_1$ … $p_2$) $e)，那么表达式的值就是：
-((lambda ($p_1$ … $p_n$) $e$ ($a_1$ … $a_n$))</p>
+其第一个元素$f$不是一个操作原语，而$f$的值是一个函数(lambda ($p_1$ … $p_2$) $e$)，那么表达式的值就是：((lambda ($p_1$ … $p_n$) $e$ ($a_1$ … $a_n$))</p>
 
 <p>换言之，在表达式中参数可与当操作符用，如同函数参数一样：</p>
 
@@ -242,6 +241,13 @@
 </span><span class="line">      ((atom z) (cond ((eq z y) x) ('t z)))
 </span><span class="line">      ('t (cons (subst-new x y (car z))
 </span><span class="line">               (subst-new x y (cdr z))))))</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">
+&gt; (subst-new 'm 'b '(a b (a b c) d))
+</span><span class="line">(A M (A M C) D)
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>刚好我们在这里可以看到如何在cond表达式中得到一个子句。第一个元素是t的子句，总会成功。注意’t和t等价。因此</p>
 
