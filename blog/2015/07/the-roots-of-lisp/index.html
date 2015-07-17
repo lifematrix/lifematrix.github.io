@@ -513,11 +513,77 @@ if $x$ then $y$ else $z$</p>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <ol>
-  <li>(assoc. x y) 收到一个原子$x$和一个由pair.生成的列表形式，然后返回列表$y$中其第一个元素是$y$的列表的第二个元素。</li>
+  <li>(assoc. x y) 收到一个原子$x$和一个由pair.生成的列表形式，然后返回列表$y$中其第一个元素是$x$的列表的第二个元素。</li>
 </ol>
 
-<h3 id="section-2">惊喜</h3>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">defun</span> <span class="nv">assoc.</span> <span class="p">(</span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
+</span><span class="line">    <span class="p">(</span><span class="nb">cond</span>
+</span><span class="line">      <span class="p">((</span><span class="nv">null.</span> <span class="nv">y</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span>
+</span><span class="line">      <span class="p">(</span><span class="no">t</span> <span class="p">(</span><span class="nb">cond</span>
+</span><span class="line">           <span class="p">((</span><span class="nb">eq</span> <span class="nv">x</span> <span class="p">(</span><span class="nb">caar</span> <span class="nv">y</span><span class="p">))</span> <span class="p">(</span><span class="nb">cadar</span> <span class="nv">y</span><span class="p">))</span>
+</span><span class="line">           <span class="p">(</span><span class="no">t</span> <span class="p">(</span><span class="nv">assoc.</span> <span class="nv">x</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">y</span><span class="p">))))))</span>
+</span><span class="line"> <span class="nb">&gt;</span> <span class="p">(</span><span class="nv">assoc.</span> <span class="ss">&#39;a</span> <span class="o">&#39;</span><span class="p">((</span><span class="nv">b</span> <span class="nv">c</span><span class="p">)</span> <span class="p">(</span><span class="nv">a</span> <span class="nv">f</span><span class="p">)</span> <span class="p">(</span><span class="nv">a</span> <span class="nv">g</span><span class="p">)))</span>
+</span><span class="line"><span class="nv">F</span>
+</span><span class="line"> <span class="o">```</span>
+</span><span class="line">
+</span><span class="line">
+</span><span class="line"><span class="err">###</span> <span class="err">惊喜</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+<blockquote>
+  <p>(defun eval. (e a)
+    (cond 
+      ((atom e) (assoc. e a))
+      ((atom (car e))
+       (cond
+         ((eq (car e) ‘quote) (cadr e))
+         ((eq (car e) ‘atom) (atom (eval. (cadr e) a)))
+         ((eq (car e) ‘eq) (eq (eval. (cadr e) a)
+                               (eval. (caddr e) a)))
+         ((eq (car e) ‘car) (car (eval. (cadr e) a)))
+         ((eq (car e) ‘cdr) (cdr (eval. (cadr e) a)))
+         ((eq (car e) ‘cons) (cons (eval. (cadr e) a) 
+                                   (eval. (caddr e) a)))
+         ((eq (car e) ‘cond) (evcon. (cdr e) a))
+         (‘t (eval. (cons (assoc. (car e) a)
+                          (cdr e))
+                    a))))
+      ((eq (caar e) ‘label)
+       (eval. (cons (caddar e) (cdr e))
+              (cons (list (cadar e) (car e)) a)))
+      ((eq (caar e) ‘lambda)
+       (eval. (caddar e)
+              (append. (pair. (cadar e) (evlis. (cdr e) a))
+                       a)))))</p>
+</blockquote>
 
+<blockquote>
+  <p>(defun evcon. (c a)
+    (cond
+      ((eval. (caar c) a) (eval. (cadar c) a))
+      (‘t (evcon. (cdr c) a)))) </p>
+</blockquote>
+
+<blockquote>
+  <p>(defun evlis. (m a)
+    (cond 
+      ((null. m) ‘())
+      (‘t (cons (eval. (car m) a)
+                (evlis. (cdr m) a)))))</p>
+</blockquote>
+
+<p>&#8220;`</p>
 </div>
 
 
