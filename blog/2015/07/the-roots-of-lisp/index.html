@@ -107,15 +107,17 @@
 
 <hr />
 
-<p>Lisp的伟大之处，在于John McCarthy采用了类似于欧氏几何的公理化体系。欧氏几何通过几个简单的公理，借助逻辑推演，构建了整个几何体系。其结构之整洁、推理之严密，有一种深深的数学之美和逻辑的力量。MaCarthy在1960年的文章中展示了，如何通过少数几个简单的运算符和函数定义的记号，就可以构建整个编程语言。这个语言被称为Lisp，即列表处理(List Processing的意思。而列表是表达数据和代码的一种简单数据结构。</p>
+<p>Lisp的伟大之处，在于John McCarthy采用了类似于欧氏几何的公理化体系。欧氏几何通过几个简单的公理，借助逻辑推演，构建了整个几何体系。其结构之整洁、推理之严密，有一种深深的数学之美和逻辑的力量。MaCarthy在1960年的文章中展示了，如何通过少数几个简单的运算符和函数定义的记号，就可以构建整个编程语言。这个语言被称为Lisp，即列表处理(List Processing的意思)。而列表是表达数据和代码的一种简单数据结构。</p>
 
 <p>值得去理解，McCarthy所发现的，不仅仅是计算机历史上的地标，而且是在今天我们的时代里，编程发展所趋向成为的一个模型。迄今为止，存在两个真正干净、一致的编程模型：C模型和Lisp模型。这两个是平地上的高点，在其之间是沼泽地带。随着计算机变得更为强大，正在开发的新语言正稳定地向Lisp模型靠拢。在过去20年中新编程语言的流行配方是采用C计算模型，然后从Lisp模型中抓取一点诸如运行时类型、垃圾回收等零碎的东西，加到里面。</p>
 
-<p>本文将解释McCarthy发现的最简单的术语。要点不是仅仅学会一个40年前就有人弄明白的有趣的理论结果，而是去看看语言向哪方面去发展。事实上，关于Lisp不寻常的事–Lisp决定性的品质，是它是用自身写成的。为了理解，McCarthy想说明的意思，我们将追溯他的脚步，将他的数学符号转译为可运行的Common Lisp代码。</p>
+<p>本文将解释McCarthy发现的最简单的术语。要点不是仅仅学会一个40年前就有人弄明白的有趣的理论结果，而是去看看语言朝哪方面去发展。事实上，关于Lisp不寻常的事 - Lisp决定性的品质，是它是用自身写成的。为了理解McCarthy想说明的意思，我们将追溯他的脚步，将他的数学符号转译为可运行的Common Lisp代码。</p>
 
-<h3 id="symbolic-expressions">0. 符号性表达(Symbolic Expressions)</h3>
+<h3 id="symbolic-expressions">符号性表达(Symbolic Expressions)</h3>
 
-<p>S表达式中最基本的类型，是原子</p>
+<p><em>注：本节是由译者添附，内容来自<a href="http://en.wikipedia.org/wiki/S-expression">http://en.wikipedia.org/wiki/S-expression</a>，先交代基本概念，便于理解</em></p>
+
+<p>S表达式中最基本的类型，是原子。</p>
 
 <p><strong>原子</strong>符号，是由字母和数字组成的字符串。其首字符必须字母。例如：</p>
 
@@ -127,9 +129,12 @@
 </span><span class="line"><span class="nv">a123</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>一个S表达式，可以递归地定义为：
-1. 一个原子
-2. 形式为(X . Y)的表达式，其中X和Y都是S表达式</p>
+<p>一个S表达式，可以递归地定义为：</p>
+
+<ol>
+  <li>一个原子</li>
+  <li>形式为(X . Y)的表达式，其中X和Y都是S表达式</li>
+</ol>
 
 <p>例如： </p>
 
@@ -141,7 +146,7 @@
 </span><span class="line"><span class="p">(</span><span class="nv">foo</span> <span class="o">.</span> <span class="p">(</span><span class="nv">bar</span><span class="p">))</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>更方便的是将列表写成不带点记号的，任意长度的列表</p>
+<p>更方便的是将列表写成不带点记号的任意长度的列表：</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 </pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span> <span class="nv">d</span> <span class="nv">e</span><span class="p">)</span>
@@ -157,15 +162,17 @@
 
 <p><img src="http://hack.the-lifematrix.net/images/lisp/list_structure.png" alt="" /></p>
 
+<p><em>注：此图来自Lisp Manual 1.5</em></p>
+
 <h3 id="seven-primitive-operators">7个原语操作符(Seven Primitive Operators)</h3>
 
-<p>在算术中，表达式1+1的值是2.合法的Lisp表达式也有值。如果一个表达式<script type="math/tex">e</script>有个值<script type="math/tex">v</script>，我们说e返回1。</p>
+<p>在算术中，表达式1+1的值是2。合法的Lisp表达式也有值。如果一个表达式$e$有个值$v$，我们说$e$返回$v$。</p>
 
 <p>如果一个表达式是一个列表，我们称其第一个元素为操作符，剩下的为参数。我们将定义7个原语操作符：quote, atom, eq, car, cdr, cons 和 cond。</p>
 
-<ol>
-  <li>(quote A)返回$A$, 为了可读性，我们将(quote A)缩写为’A</li>
-</ol>
+<p>*注：如下代码均在GNU CLISP 2.49下调试通过，CLISP内部会将符号转换为大写，所以输出时会是大写的符号。这和The roots of Lisp原文的代码输出，略有不同 *</p>
+
+<p>1.(quote A)返回$A$, 为了可读性，我们将(quote A)缩写为’A</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
@@ -181,9 +188,7 @@
 </span><span class="line"><span class="p">(</span><span class="nv">A</span> <span class="nv">B</span> <span class="nv">C</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<ol>
-  <li>(atom x)返回原子t，如果x是原子，否则返回空列表。在Lisp中我们用atom t代表布尔值的真值，用NIL或空列表代表假值。二者是同一事物。</li>
-</ol>
+<p>2.(atom x)返回原子t，如果x是原子，否则返回空列表。在Lisp中我们用atom t代表布尔值的真值，用NIL或空列表代表假值。二者是一回事。</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
@@ -217,9 +222,7 @@
 
 <p>引用是可能看似陌生的概念，因为很少有其它语言具有任何类似的东西。它与Lisp最引人注目的特性联系在一起：<strong>代码和数据都由相同的数据结构产生出来，而引用操作符是我们区分它们的方式</strong>。</p>
 
-<ol>
-  <li>(eq x y)返回t，如果x, y的值是相同的原子，或者二者是空列表。</li>
-</ol>
+<p>3.(eq x y)返回t，如果x, y的值是相同的原子，或者二者是空列表。</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
@@ -234,9 +237,8 @@
 </span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">eq</span> <span class="o">&#39;</span><span class="p">()</span> <span class="o">&#39;</span><span class="p">())</span>
 </span><span class="line"><span class="no">T</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
-<ol>
-  <li>(car x)期待x的值是一个列表，并返回它的第一个元素。</li>
-</ol>
+
+<p>4.(car x)期待x的值是一个列表，并返回它的第一个元素。</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
@@ -244,9 +246,7 @@
 </span><span class="line"><span class="nv">A</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<ol>
-  <li>(cdr x)期待x的值是一个列表，并返回它除过第一个元素之外的所有部分。</li>
-</ol>
+<p>5.(cdr x)期待x的值是一个列表，并返回它除过第一个元素之外的所有部分。</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
@@ -254,9 +254,7 @@
 </span><span class="line"><span class="p">(</span><span class="nv">B</span> <span class="nv">C</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<ol>
-  <li>(cons x y) 期待y的值是一个列表，返回一个列表，其第一个元素是x的值，而后是y的值。</li>
-</ol>
+<p>6.(cons x y) 期待y的值是一个列表，返回一个列表，其第一个元素是x的值，而后是y的值。</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
@@ -276,9 +274,7 @@
 </span><span class="line"><span class="p">(</span><span class="nv">B</span> <span class="nv">C</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<ol>
-  <li>(cond ($p_1$ $e_1$) … ($p_n$ $e_n$))的求值如下：表达式$p$会按顺序求值，直到遇到一个为真。当这个表达式找到后，对应的表达式$e$的值，就会被返回作为整个cond表达式的值。</li>
-</ol>
+<p>7.(cond ($p_1$ $e_1$) … ($p_n$ $e_n$))的求值如下：表达式$p$会按顺序求值，直到遇到一个为真。当这个表达式找到后，对应的表达式$e$的值，就会被返回作为整个cond表达式的值。</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
@@ -641,25 +637,45 @@ LIST
          ‘((y ((a b) (c d)))))
 &lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
 &lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="lisp"><span class="line"><span class="err">变成</span>
-</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="err">对形式为</span> <span class="p">((</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">$p_1$</span> <span class="o">...</span> <span class="nv">$p_n$</span><span class="p">)</span> <span class="nv">$e$</span><span class="p">)</span> <span class="nv">$a_1$</span> <span class="o">...</span> <span class="nv">$a_n$</span><span class="p">)</span><span class="err">的表达式取值，首先调用</span><span class="nv">evlis.,</span> <span class="err">来获得参数</span><span class="p">(</span><span class="nv">$a_1$</span> <span class="o">...</span> <span class="nv">$a_n$</span><span class="p">)</span><span class="err">的一组值</span><span class="p">(</span><span class="nv">$v_1$</span> <span class="o">...</span> <span class="nv">$v_n$</span><span class="p">)</span><span class="o">,</span> <span class="err">然后将</span><span class="p">(</span><span class="nv">$p_1$</span> <span class="nv">$v_1$</span><span class="p">)</span> <span class="o">...</span> <span class="p">(</span><span class="nv">$p_n$</span> <span class="nv">$v_n$</span><span class="p">)</span><span class="err">添加到前面的环境中，然后对</span><span class="nv">$e$</span><span class="err">求值。</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-<blockquote>
-  <p>(eval. ‘((lambda (x y) (cons x (cdr y)))
+</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;
+&gt; (eval. ‘((lambda (x) (cond ((atom x) x)
+                             (‘t (firstatom (cdr x)))))
+           y)
+         ‘((firstatom 
+            (label firstatom (lambda (x) 
+                               (cond ((atom x) x)
+                                     (‘t (firstatom (cdr x)))))))
+           (y ((a b) (c d)))))
+&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="lisp"><span class="line"><span class="err">对形式为</span> <span class="p">((</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">$p_1$</span> <span class="o">...</span> <span class="nv">$p_n$</span><span class="p">)</span> <span class="nv">$e$</span><span class="p">)</span> <span class="nv">$a_1$</span> <span class="o">...</span> <span class="nv">$a_n$</span><span class="p">)</span><span class="err">的表达式取值，首先调用</span><span class="nv">evlis.,</span> <span class="err">来获得参数</span><span class="p">(</span><span class="nv">$a_1$</span> <span class="o">...</span> <span class="nv">$a_n$</span><span class="p">)</span><span class="err">的一组值</span><span class="p">(</span><span class="nv">$v_1$</span> <span class="o">...</span> <span class="nv">$v_n$</span><span class="p">)</span><span class="o">,</span> <span class="err">然后将</span><span class="p">(</span><span class="nv">$p_1$</span> <span class="nv">$v_1$</span><span class="p">)</span> <span class="o">...</span> <span class="p">(</span><span class="nv">$p_n$</span> <span class="nv">$v_n$</span><span class="p">)</span><span class="err">添加到前面的环境中，然后对</span><span class="nv">$e$</span><span class="err">求值。</span>
+</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;
+&gt; (eval. ‘((lambda (x y) (cons x (cdr y)))
            ‘a
            ‘(b c d))
          ‘())
-&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span></figure></notextile></p>
-</blockquote>
-<p>&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="lisp"><span class="line"><span class="err">变成</span>
-</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="lisp"><span class="line"><span class="err">变成</span>
+</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;
 &gt; (eval. ‘(cons x (cdr y))
          ‘((x a) (y (b c d))))
 &#8220;`</p>
 
 <p>最后返回(A C D)。</p>
+
+<h3 id="section-2">尾声</h3>
+
+<p>现在我们已经理解了eval怎么工作的，让我们回退一下考虑这意味着什么。我们现在所拥有的是非同寻常的优雅的计算模型。仅仅使用quote, atom, eq, car, cdr, cons 和 cond, 我们定义了一个函数eval., 它事实上实现了我们的语言，然后使用这些，我们可以定义任何想添加的函数。</p>
+
+<p>当然已经有非常著名的计算模型，图灵机。但是图灵机读起来缺少启迪性。如果你想要一个描述算法的语言，你可能需要更为抽象一点的语言。这就是McCarthy定义Lisp的目的之一。</p>
+
+<p>他在1960年定义的语言少了很多东西。没有副作用、没有顺序执行（不管怎样，它只有和副作用一起才有用）、没有使用的数字、没有动态范围。但是，这些局限可以用令人吃惊的少量代码来改进。Steele和Sussman在著名的论文“解释器的艺术”(The Art of the Interpreter)中，展示如何做这些。</p>
+
+<p>如果你理解McCarthy的eval, 你理解到的不仅仅是编程语言历史上的一个阶梯。这些创意仍然是今天Lisp的语义核心。因此学习McCarthy的原文，在某种程度上，向我们展示了Lisp是什么。它不是McCarthy如此设计为他所发现的东西。它本质上，不是为了人工智能(AI)，快速搭建原型，任何其它这个层面的任务。它是当你试图公理化计算时，你得到的东西。</p>
+
+<p>伴随着时间，中等程度的语言，即由中等程度程序员使用的语言，已经一贯地向Lisp方向去成长。因此，通过理解eval, 你正在理解未来可能的主要计算模型是什么。</p>
+
+<h3 id="section-3">注释</h3>
+
 </div>
 
 
