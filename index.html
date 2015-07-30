@@ -88,7 +88,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2015/07/implementing-arithmetic-in-lisp/">Implementing Arithmetic in Lisp</a></h1>
+      <h1 class="entry-title"><a href="/blog/2015/07/implementing-arithmetic-in-lisp/">在Lisp中实现算术</a></h1>
     
     
       <p class="meta">
@@ -137,23 +137,25 @@
 </span><span class="line"><span class="no">T</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>(reverse. x) 反转整个列表x
-&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
+<p>(reverse. x) 反转整个列表x</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
 <span class="line-number">3</span>
 <span class="line-number">4</span>
 <span class="line-number">5</span>
 <span class="line-number">6</span>
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">defun</span> <span class="nv">reverse.</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">defun</span> <span class="nv">reverse.</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span>
 </span><span class="line">    <span class="p">(</span><span class="nb">cond</span> <span class="p">((</span><span class="nv">null.</span> <span class="nv">x</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span>
 </span><span class="line">          <span class="p">(</span><span class="no">t</span> <span class="p">(</span><span class="nv">concat.</span> <span class="p">(</span><span class="nv">reverse.</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">x</span><span class="p">))</span> <span class="p">(</span><span class="nb">cons</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">x</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())))))</span>
 </span><span class="line">
 </span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">reverse.</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span><span class="p">))</span>
 </span><span class="line"><span class="p">(</span><span class="nv">C</span> <span class="nv">B</span> <span class="nv">A</span><span class="p">)</span>
-</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;</p>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>(findsub. x y) 在y中找元素x，如果找到，返回包含x在内的尾部。找不到，返回空。
-&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
+<p>(findsub. x y) 在y中找元素x，如果找到，返回包含x在内的尾部。找不到，返回空。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
 <span class="line-number">3</span>
 <span class="line-number">4</span>
@@ -162,7 +164,7 @@
 <span class="line-number">7</span>
 <span class="line-number">8</span>
 <span class="line-number">9</span>
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">defun</span> <span class="nv">findsub.</span> <span class="p">(</span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">defun</span> <span class="nv">findsub.</span> <span class="p">(</span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
 </span><span class="line">    <span class="p">(</span><span class="nb">cond</span> <span class="p">((</span><span class="nv">null.</span> <span class="nv">y</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span>
 </span><span class="line">          <span class="p">((</span><span class="nb">eq</span> <span class="nv">x</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">y</span><span class="p">))</span> <span class="nv">y</span><span class="p">)</span>
 </span><span class="line">          <span class="p">(</span><span class="ss">&#39;t</span> <span class="p">(</span><span class="nv">findsub.</span> <span class="nv">x</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">y</span><span class="p">)))))</span>
@@ -171,22 +173,23 @@
 </span><span class="line"><span class="p">(</span><span class="nv">B</span> <span class="nv">C</span> <span class="nv">D</span><span class="p">)</span>
 </span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">findsub.</span> <span class="ss">&#39;f</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span> <span class="nv">d</span><span class="p">))</span>
 </span><span class="line"><span class="no">NIL</span>
-</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;</p>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>(longer. x y) 比较两个列表x和y，哪个更长，即元素更多。
-&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
+<p>(longer. x y) 比较两个列表x和y，哪个更长，即元素更多。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
 <span class="line-number">3</span>
 <span class="line-number">4</span>
 <span class="line-number">5</span>
 <span class="line-number">6</span>
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="lisp"><span class="line"><span class="p">(</span><span class="nb">defun</span> <span class="nv">longer.</span> <span class="p">(</span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nb">defun</span> <span class="nv">longer.</span> <span class="p">(</span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
 </span><span class="line">    <span class="p">(</span><span class="nb">cond</span> <span class="p">((</span><span class="nv">and.</span> <span class="p">(</span><span class="nb">eq</span> <span class="nv">x</span> <span class="o">&#39;</span><span class="p">())</span> <span class="p">(</span><span class="nb">eq</span> <span class="nv">y</span> <span class="o">&#39;</span><span class="p">()))</span> <span class="ss">&#39;EQ</span><span class="p">)</span>
 </span><span class="line">          <span class="p">((</span><span class="nb">eq</span> <span class="nv">y</span> <span class="o">&#39;</span><span class="p">())</span> <span class="ss">&#39;GT</span><span class="p">)</span>
 </span><span class="line">          <span class="p">((</span><span class="nb">eq</span> <span class="nv">x</span> <span class="o">&#39;</span><span class="p">())</span> <span class="ss">&#39;LT</span><span class="p">)</span>
 </span><span class="line">          <span class="p">(</span><span class="no">t</span> <span class="p">(</span><span class="nv">longer.</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">y</span><span class="p">)))))</span>
 </span><span class="line">
-</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;</p>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <h3 id="section-1">实现整数加法</h3>
 
@@ -266,15 +269,16 @@
 </span><span class="line"><span class="mi">5</span>
 </span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;</p>
 
-<p>万事俱备了，可以写最终的加法函数了。但别急，还有点小的问题。我们知道多位数的加法，是先算低位再算高位。但是，我们的数字用列表表示时，是高位在左，低位在右。用lisp的car, cdr要先取出最右边(尾部)的元素很不方便。一个解决办法是，先将列表反转过来计算，计算完毕后，再反转回来。</p>
+<p>万事俱备了，可以写最终的加法函数。但别急，还有点小的问题。我们知道多位数的加法，是先算低位再算高位。但是，我们的数字用列表表示时，是高位在左，低位在右。用lisp的car, cdr要先取出最右边(尾部)的元素很不方便。一个解决办法是，先将列表反转过来计算，计算完毕后，再反转回来。</p>
 
-<p>这个就是整数加法的函数：
-&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
+<p>这个就是整数加法的函数：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="lisp"><span class="line"><span class="p">(</span><span class="nb">defun</span> <span class="nv">intadd.</span> <span class="p">(</span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nb">defun</span> <span class="nv">intadd.</span> <span class="p">(</span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
 </span><span class="line">    <span class="p">(</span><span class="nv">reverse.</span> <span class="p">(</span><span class="nv">intaddreverse.</span> <span class="p">(</span><span class="nv">reverse.</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nv">reverse.</span> <span class="nv">y</span><span class="p">))))</span>
-</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;
-反转后列表的加法函数，intaddreverse. 如下</p>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+<p>反转后列表的加法函数，intaddreverse. 如下</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
@@ -292,20 +296,21 @@
 </span><span class="line">                            <span class="p">(</span><span class="nv">intaddreverse.</span> <span class="p">(</span><span class="nv">intaddreverse.</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">x</span><span class="p">))</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">y</span><span class="p">))))))))</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>看看效果：
-&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
+<p>看看效果：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
 <span class="line-number">3</span>
 <span class="line-number">4</span>
 <span class="line-number">5</span>
 <span class="line-number">6</span>
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">intadd.</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">2</span> <span class="mi">4</span><span class="p">))</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">intadd.</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">2</span> <span class="mi">4</span><span class="p">))</span>
 </span><span class="line"><span class="p">(</span><span class="mi">3</span> <span class="mi">6</span><span class="p">)</span>
 </span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">intadd.</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">2</span> <span class="mi">4</span><span class="p">))</span>
 </span><span class="line"><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">5</span> <span class="mi">8</span><span class="p">)</span>
 </span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">intadd.</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">8</span> <span class="mi">9</span><span class="p">))</span>
 </span><span class="line"><span class="p">(</span><span class="mi">1</span> <span class="mi">3</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)</span>
-</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;</p>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <h3 id="section-2">回顾</h3>
 
@@ -1894,7 +1899,7 @@ Facebook, 微信, Flickr的图片分享</li>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/07/implementing-arithmetic-in-lisp/">Implementing Arithmetic in Lisp</a>
+        <a href="/blog/2015/07/implementing-arithmetic-in-lisp/">在Lisp中实现算术</a>
       </li>
     
       <li class="post">
