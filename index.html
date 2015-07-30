@@ -9,8 +9,7 @@
   <meta name="author" content="Steven Liu <stevenliucx@gmail.com>&#8221;>
 
   
-  <meta name="description" content="前言
-《黑客与画家》的作者Paul Graham极力推崇Lisp，并使用Lisp获得了巨大的商业成功。他也写了一篇《The roots of Lisp》(postscript文件)来介绍Lisp。本文是其文章内容的学习和理解，再加上Lisp Manual 1.5的内容。 Lisp的伟大之处， &hellip;">
+  <meta name="description" content="在上一篇文章中，Paul Graham介绍了Lisp的基础。通过7个原语操作，就可定义一些基本函数，进而实现对表达式求值函数eval.。本文将探索，基于这些Lisp的基本语言素材，如何实现算术。 整个背后的想法是，只要我们定义了语言的原语操作，就可推演出整个语言的体系。数字，本质上也是符号。而算术 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -89,6 +88,249 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2015/07/implementing-arithmetic-in-lisp/">Implementing Arithmetic in Lisp</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-07-27T11:51:18+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:51 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>在上一篇文章中，Paul Graham介绍了Lisp的基础。通过7个原语操作，就可定义一些基本函数，进而实现对表达式求值函数eval.。本文将探索，基于这些Lisp的基本语言素材，如何实现算术。</p>
+
+<p>整个背后的想法是，只要我们定义了语言的原语操作，就可推演出整个语言的体系。数字，本质上也是符号。而算术，则是对符号的操作。</p>
+
+<h3 id="section">预备函数</h3>
+
+<p>我们需要增加几个函数，作为预备：</p>
+
+<p>(neq. x y) 判断x和y是否不相等。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">&gt; (defun neq. (x y)
+</span><span class="line">    (not. (eq x y))) </span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>(member. x y)判断x是否是列表y的元素。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">defun</span> <span class="nv">member.</span> <span class="p">(</span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
+</span><span class="line">    <span class="p">(</span><span class="nb">cond</span> <span class="p">((</span><span class="nv">null.</span> <span class="nv">y</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span>
+</span><span class="line">          <span class="p">((</span><span class="nb">eq</span> <span class="nv">x</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">y</span><span class="p">))</span> <span class="ss">&#39;t</span><span class="p">)</span>
+</span><span class="line">          <span class="p">(</span><span class="ss">&#39;t</span> <span class="p">(</span><span class="nv">member.</span> <span class="nv">x</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">y</span><span class="p">)))))</span>
+</span><span class="line">
+</span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">member.</span> <span class="ss">&#39;b</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span><span class="p">))</span>
+</span><span class="line"><span class="no">T</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>(reverse. x) 反转整个列表x
+&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">defun</span> <span class="nv">reverse.</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span>
+</span><span class="line">    <span class="p">(</span><span class="nb">cond</span> <span class="p">((</span><span class="nv">null.</span> <span class="nv">x</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span>
+</span><span class="line">          <span class="p">(</span><span class="no">t</span> <span class="p">(</span><span class="nv">concat.</span> <span class="p">(</span><span class="nv">reverse.</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">x</span><span class="p">))</span> <span class="p">(</span><span class="nb">cons</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">x</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())))))</span>
+</span><span class="line">
+</span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">reverse.</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span><span class="p">))</span>
+</span><span class="line"><span class="p">(</span><span class="nv">C</span> <span class="nv">B</span> <span class="nv">A</span><span class="p">)</span>
+</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;</p>
+
+<p>(findsub. x y) 在y中找元素x，如果找到，返回包含x在内的尾部。找不到，返回空。
+&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">defun</span> <span class="nv">findsub.</span> <span class="p">(</span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
+</span><span class="line">    <span class="p">(</span><span class="nb">cond</span> <span class="p">((</span><span class="nv">null.</span> <span class="nv">y</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span>
+</span><span class="line">          <span class="p">((</span><span class="nb">eq</span> <span class="nv">x</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">y</span><span class="p">))</span> <span class="nv">y</span><span class="p">)</span>
+</span><span class="line">          <span class="p">(</span><span class="ss">&#39;t</span> <span class="p">(</span><span class="nv">findsub.</span> <span class="nv">x</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">y</span><span class="p">)))))</span>
+</span><span class="line">
+</span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">findsub.</span> <span class="ss">&#39;b</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span> <span class="nv">d</span><span class="p">))</span>
+</span><span class="line"><span class="p">(</span><span class="nv">B</span> <span class="nv">C</span> <span class="nv">D</span><span class="p">)</span>
+</span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">findsub.</span> <span class="ss">&#39;f</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span> <span class="nv">d</span><span class="p">))</span>
+</span><span class="line"><span class="no">NIL</span>
+</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;</p>
+
+<p>(longer. x y) 比较两个列表x和y，哪个更长，即元素更多。
+&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="lisp"><span class="line"><span class="p">(</span><span class="nb">defun</span> <span class="nv">longer.</span> <span class="p">(</span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
+</span><span class="line">    <span class="p">(</span><span class="nb">cond</span> <span class="p">((</span><span class="nv">and.</span> <span class="p">(</span><span class="nb">eq</span> <span class="nv">x</span> <span class="o">&#39;</span><span class="p">())</span> <span class="p">(</span><span class="nb">eq</span> <span class="nv">y</span> <span class="o">&#39;</span><span class="p">()))</span> <span class="ss">&#39;EQ</span><span class="p">)</span>
+</span><span class="line">          <span class="p">((</span><span class="nb">eq</span> <span class="nv">y</span> <span class="o">&#39;</span><span class="p">())</span> <span class="ss">&#39;GT</span><span class="p">)</span>
+</span><span class="line">          <span class="p">((</span><span class="nb">eq</span> <span class="nv">x</span> <span class="o">&#39;</span><span class="p">())</span> <span class="ss">&#39;LT</span><span class="p">)</span>
+</span><span class="line">          <span class="p">(</span><span class="no">t</span> <span class="p">(</span><span class="nv">longer.</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">y</span><span class="p">)))))</span>
+</span><span class="line">
+</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;</p>
+
+<h3 id="section-1">实现整数加法</h3>
+
+<p>我们先实现整数的加法，而且先不考虑负数的情况。我们用列表表示数字，例如1234，表示为(1 2 3 4)。
+高位在左，低位在右，以便符合人的阅读习惯。</p>
+
+<p>我们先定义函数(basecomp. x y)，比较单个数字符号的大小。思路是比较它们在符号列表(0 1 2 3 4 5 6 7 8 9)中的位置，哪个靠前，哪个小。具体的算法，是处理相等的情况，直接返回相等。然后取得含有y的符号列表的尾部，如果包含x，则x要靠后，否则靠前。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nb">defun</span> <span class="nv">basecomp.</span> <span class="p">(</span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
+</span><span class="line">   <span class="p">(</span><span class="nb">cond</span> <span class="p">((</span><span class="nb">eq</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">)</span> <span class="ss">&#39;EQ</span><span class="p">)</span>
+</span><span class="line">         <span class="p">((</span><span class="nv">member.</span> <span class="nv">x</span> <span class="p">(</span><span class="nv">findsub.</span> <span class="nv">y</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span><span class="p">)))</span> <span class="ss">&#39;GT</span><span class="p">)</span>
+</span><span class="line">         <span class="p">(</span><span class="no">t</span> <span class="ss">&#39;LT</span><span class="p">)))</span>
+</span><span class="line">
+</span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">basecomp.</span> <span class="ss">&#39;3</span> <span class="ss">&#39;4</span><span class="p">)</span>
+</span><span class="line"><span class="nv">LT</span>
+</span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">basecomp.</span> <span class="ss">&#39;8</span> <span class="ss">&#39;8</span><span class="p">)</span>
+</span><span class="line"><span class="nv">EQ</span>
+</span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">basecomp.</span> <span class="ss">&#39;9</span> <span class="ss">&#39;7</span><span class="p">)</span>
+</span><span class="line"><span class="nv">GT</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>然后，我们可以定义单个数字的加法，就如同小学时学的加法表一样：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">defun</span> <span class="nv">baseadd.</span> <span class="p">(</span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
+</span><span class="line">    <span class="p">(</span><span class="nb">cond</span>
+</span><span class="line">      <span class="p">((</span><span class="nb">eq</span> <span class="p">(</span><span class="nv">basecomp.</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">)</span> <span class="ss">&#39;GT</span><span class="p">)</span> <span class="p">(</span><span class="nv">baseadd.</span> <span class="nv">y</span> <span class="nv">x</span><span class="p">))</span>
+</span><span class="line">      <span class="p">((</span><span class="nb">eq</span> <span class="nv">x</span> <span class="ss">&#39;0</span><span class="p">)</span> <span class="nv">y</span><span class="p">)</span>
+</span><span class="line">      <span class="p">(</span><span class="no">t</span> <span class="p">(</span><span class="nv">assoc.</span> <span class="nv">y</span> <span class="p">(</span><span class="nv">assoc.</span> <span class="nv">x</span> <span class="o">&#39;</span><span class="p">((</span><span class="mi">1</span> <span class="p">((</span><span class="mi">1</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="mi">2</span> <span class="mi">3</span><span class="p">)</span> <span class="p">(</span><span class="mi">3</span> <span class="mi">4</span><span class="p">)</span> <span class="p">(</span><span class="mi">4</span> <span class="mi">5</span><span class="p">)</span> <span class="p">(</span><span class="mi">5</span> <span class="mi">6</span><span class="p">)</span> <span class="p">(</span><span class="mi">6</span> <span class="mi">7</span><span class="p">)</span> <span class="p">(</span><span class="mi">7</span> <span class="mi">8</span><span class="p">)</span> <span class="p">(</span><span class="mi">8</span> <span class="mi">9</span><span class="p">)</span> <span class="p">(</span><span class="mi">9</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">0</span><span class="p">))))</span>
+</span><span class="line">                            <span class="p">(</span><span class="mi">2</span> <span class="p">((</span><span class="mi">2</span> <span class="mi">4</span><span class="p">)</span> <span class="p">(</span><span class="mi">3</span> <span class="mi">5</span><span class="p">)</span> <span class="p">(</span><span class="mi">4</span> <span class="mi">6</span><span class="p">)</span> <span class="p">(</span><span class="mi">5</span> <span class="mi">7</span><span class="p">)</span> <span class="p">(</span><span class="mi">6</span> <span class="mi">8</span><span class="p">)</span> <span class="p">(</span><span class="mi">7</span> <span class="mi">9</span><span class="p">)</span> <span class="p">(</span><span class="mi">8</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">0</span><span class="p">))</span> <span class="p">(</span><span class="mi">9</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">1</span><span class="p">))))</span>
+</span><span class="line">                            <span class="p">(</span><span class="mi">3</span> <span class="p">((</span><span class="mi">3</span> <span class="mi">6</span><span class="p">)</span> <span class="p">(</span><span class="mi">4</span> <span class="mi">7</span><span class="p">)</span> <span class="p">(</span><span class="mi">5</span> <span class="mi">8</span><span class="p">)</span> <span class="p">(</span><span class="mi">6</span> <span class="mi">9</span><span class="p">)</span> <span class="p">(</span><span class="mi">7</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">0</span><span class="p">))</span> <span class="p">(</span><span class="mi">8</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">1</span><span class="p">))</span> <span class="p">(</span><span class="mi">9</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">2</span><span class="p">))))</span>
+</span><span class="line">                            <span class="p">(</span><span class="mi">4</span> <span class="p">((</span><span class="mi">4</span> <span class="mi">8</span><span class="p">)</span> <span class="p">(</span><span class="mi">5</span> <span class="mi">9</span><span class="p">)</span> <span class="p">(</span><span class="mi">6</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">0</span><span class="p">))</span> <span class="p">(</span><span class="mi">7</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">1</span><span class="p">))</span> <span class="p">(</span><span class="mi">8</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">2</span><span class="p">))</span> <span class="p">(</span><span class="mi">9</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">3</span><span class="p">))))</span>
+</span><span class="line">                            <span class="p">(</span><span class="mi">5</span> <span class="p">((</span><span class="mi">5</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">0</span><span class="p">))</span> <span class="p">(</span><span class="mi">6</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">1</span><span class="p">))</span> <span class="p">(</span><span class="mi">7</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">2</span><span class="p">))</span> <span class="p">(</span><span class="mi">8</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">3</span><span class="p">))</span> <span class="p">(</span><span class="mi">9</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">4</span><span class="p">))))</span>
+</span><span class="line">                            <span class="p">(</span><span class="mi">6</span> <span class="p">((</span><span class="mi">6</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">2</span><span class="p">))</span> <span class="p">(</span><span class="mi">7</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">3</span><span class="p">))</span> <span class="p">(</span><span class="mi">8</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">4</span><span class="p">))</span> <span class="p">(</span><span class="mi">9</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">5</span><span class="p">))))</span>
+</span><span class="line">                            <span class="p">(</span><span class="mi">7</span> <span class="p">((</span><span class="mi">7</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">4</span><span class="p">))</span> <span class="p">(</span><span class="mi">8</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">5</span><span class="p">))</span> <span class="p">(</span><span class="mi">9</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">6</span><span class="p">))))</span>
+</span><span class="line">                            <span class="p">(</span><span class="mi">8</span> <span class="p">((</span><span class="mi">8</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">6</span><span class="p">))</span> <span class="p">(</span><span class="mi">9</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">7</span><span class="p">))))</span>
+</span><span class="line">                            <span class="p">(</span><span class="mi">9</span> <span class="p">((</span><span class="mi">9</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">8</span><span class="p">))))))))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>先按照x, 再按y，查找加法表，返回结果。如果有进位，就返回列表，比如(1 5)。由于加法表，要求y&gt;=x。所以用到比较函数basecomp.，如果x大于y，则将次序调换在调用baseadd.。如果不要求x和y的次序，亦可，但加法表要多写一倍，这是冗余而无趣的工作。</p>
+
+<p>试试我们的一位数加法：
+&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">baseadd.</span> <span class="ss">&#39;2</span> <span class="ss">&#39;3</span><span class="p">)</span>
+</span><span class="line"><span class="mi">5</span>
+</span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">baseadd.</span> <span class="ss">&#39;8</span> <span class="ss">&#39;7</span><span class="p">)</span>
+</span><span class="line"><span class="p">(</span><span class="mi">1</span> <span class="mi">5</span><span class="p">)</span>
+</span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">baseadd.</span> <span class="ss">&#39;5</span> <span class="ss">&#39;0</span><span class="p">)</span>
+</span><span class="line"><span class="mi">5</span>
+</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;</p>
+
+<p>万事俱备了，可以写最终的加法函数了。但别急，还有点小的问题。我们知道多位数的加法，是先算低位再算高位。但是，我们的数字用列表表示时，是高位在左，低位在右。用lisp的car, cdr要先取出最右边(尾部)的元素很不方便。一个解决办法是，先将列表反转过来计算，计算完毕后，再反转回来。</p>
+
+<p>这个就是整数加法的函数：
+&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
+<span class="line-number">2</span>
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="lisp"><span class="line"><span class="p">(</span><span class="nb">defun</span> <span class="nv">intadd.</span> <span class="p">(</span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
+</span><span class="line">    <span class="p">(</span><span class="nv">reverse.</span> <span class="p">(</span><span class="nv">intaddreverse.</span> <span class="p">(</span><span class="nv">reverse.</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nv">reverse.</span> <span class="nv">y</span><span class="p">))))</span>
+</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;
+反转后列表的加法函数，intaddreverse. 如下</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nb">defun</span> <span class="nv">intaddreverse.</span> <span class="p">(</span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
+</span><span class="line">    <span class="p">(</span><span class="nb">cond</span> <span class="p">((</span><span class="nv">null.</span> <span class="nv">x</span><span class="p">)</span> <span class="nv">y</span><span class="p">)</span>
+</span><span class="line">          <span class="p">((</span><span class="nv">null.</span> <span class="nv">y</span><span class="p">)</span> <span class="nv">x</span><span class="p">)</span>
+</span><span class="line">          <span class="p">(</span><span class="no">t</span> <span class="p">(</span><span class="nb">cond</span> <span class="p">((</span><span class="nb">atom</span> <span class="p">(</span><span class="nv">baseadd.</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">y</span><span class="p">)))</span>
+</span><span class="line">                    <span class="p">(</span><span class="nb">cons</span> <span class="p">(</span><span class="nv">baseadd.</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">y</span><span class="p">))</span> <span class="p">(</span><span class="nv">intaddreverse.</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">y</span><span class="p">))))</span>
+</span><span class="line">                   <span class="p">(</span><span class="no">t</span> <span class="p">(</span><span class="nb">cons</span> <span class="p">(</span><span class="nb">cadr</span> <span class="p">(</span><span class="nv">baseadd.</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">y</span><span class="p">)))</span>
+</span><span class="line">                            <span class="p">(</span><span class="nv">intaddreverse.</span> <span class="p">(</span><span class="nv">intaddreverse.</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">x</span><span class="p">))</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">y</span><span class="p">))))))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>看看效果：
+&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">intadd.</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">2</span> <span class="mi">4</span><span class="p">))</span>
+</span><span class="line"><span class="p">(</span><span class="mi">3</span> <span class="mi">6</span><span class="p">)</span>
+</span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">intadd.</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">2</span> <span class="mi">4</span><span class="p">))</span>
+</span><span class="line"><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">5</span> <span class="mi">8</span><span class="p">)</span>
+</span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">intadd.</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">8</span> <span class="mi">9</span><span class="p">))</span>
+</span><span class="line"><span class="p">(</span><span class="mi">1</span> <span class="mi">3</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)</span>
+</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;</p>
+
+<h3 id="section-2">回顾</h3>
+
+<p>上面通过简单的符号计算规则，就实现了整数的加法运算，让我们更进一步理解，一切计算皆是符号的本质。当然，基本规则的定义稍有冗余。上面定义了自然数的大小和加法表。更简洁的定义，只需包含三个部分：</p>
+
+<ul>
+  <li>自然数 $a_0$ = 1</li>
+  <li>$a_n$ = $a_{n-1}$ + 1</li>
+  <li>十进制的进位和表示法</li>
+</ul>
+
+<p>循着类似的思路，减法运算也可定义出来。</p>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2015/07/the-roots-of-lisp/">LISP的基础</a></h1>
     
     
@@ -116,11 +358,11 @@
 
 <p>本文将解释McCarthy发现的最简单的术语。要点不是仅仅学会一个40年前就有人弄明白的有趣的理论结果，而是去看看语言朝哪方面去发展。事实上，关于Lisp不寻常的事 - Lisp决定性的品质，是它是用自身写成的。为了理解McCarthy想说明的意思，我们将追溯他的脚步，将他的数学符号转译为可运行的Common Lisp代码。</p>
 
-<h3 id="symbolic-expressions">符号性表达(Symbolic Expressions)</h3>
+<h3 id="symbolic-expressions">符号性表达式(Symbolic Expressions)</h3>
 
 <p><em>注：本节是由译者添附，内容来自<a href="http://en.wikipedia.org/wiki/S-expression">http://en.wikipedia.org/wiki/S-expression</a>，先交代基本概念，便于理解</em></p>
 
-<p>S表达式中最基本的类型，是原子。</p>
+<p>符号表达式，即S表达式中最基本的类型，是原子。</p>
 
 <p><strong>原子</strong>符号，是由字母和数字组成的字符串。其首字符必须字母。例如：</p>
 
@@ -458,7 +700,7 @@ if $x$ then $y$ else $z$</p>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <ol>
-  <li>(append. x y)收到两个列表，将它们联接起来。</li>
+  <li>(concat. x y)收到两个列表，将它们联接起来。</li>
 </ol>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
@@ -468,14 +710,16 @@ if $x$ then $y$ else $z$</p>
 <span class="line-number">5</span>
 <span class="line-number">6</span>
 <span class="line-number">7</span>
-</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">defun</span> <span class="nv">append.</span> <span class="p">(</span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">defun</span> <span class="nv">concat.</span> <span class="p">(</span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
 </span><span class="line">    <span class="p">(</span><span class="nb">cond</span> <span class="p">((</span><span class="nv">null.</span> <span class="nv">x</span><span class="p">)</span> <span class="nv">y</span><span class="p">)</span>
-</span><span class="line">          <span class="p">(</span><span class="no">t</span> <span class="p">(</span><span class="nb">cons</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nv">append.</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">x</span><span class="p">)</span> <span class="nv">y</span><span class="p">)))))</span>
-</span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">append.</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">a</span> <span class="nv">b</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">c</span> <span class="nv">d</span><span class="p">))</span>
+</span><span class="line">          <span class="p">(</span><span class="no">t</span> <span class="p">(</span><span class="nb">cons</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nv">concat.</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">x</span><span class="p">)</span> <span class="nv">y</span><span class="p">)))))</span>
+</span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">concat.</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">a</span> <span class="nv">b</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">c</span> <span class="nv">d</span><span class="p">))</span>
 </span><span class="line"><span class="p">(</span><span class="nv">A</span> <span class="nv">B</span> <span class="nv">C</span> <span class="nv">D</span><span class="p">)</span>
-</span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">append.</span> <span class="o">&#39;</span><span class="p">()</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">c</span> <span class="nv">d</span><span class="p">))</span>
+</span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">concat.</span> <span class="o">&#39;</span><span class="p">()</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">c</span> <span class="nv">d</span><span class="p">))</span>
 </span><span class="line"><span class="p">(</span><span class="nv">C</span> <span class="nv">D</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>*注：原文此函数命名为append，觉得concat 更适合一些 *</p>
 
 <p>*注：这里用到了前面定义的函数null. *</p>
 
@@ -567,7 +811,7 @@ if $x$ then $y$ else $z$</p>
               (cons (list (cadar e) (car e)) a)))
       ((eq (caar e) ‘lambda)
        (eval. (caddar e)
-              (append. (pair. (cadar e) (evlis. (cdr e) a))
+              (concat. (pair. (cadar e) (evlis. (cdr e) a))
                        a)))))</p>
 </blockquote>
 
@@ -1635,46 +1879,6 @@ Facebook, 微信, Flickr的图片分享</li>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/04/about-creative-commons/">About Creative Commons</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-04-08T16:33:00+08:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>4:33 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>参考slide share:</p>
-
-<p><a href="http://www.slideshare.net/ramblinglibrarian/creative-commons-what-how-why">http://www.slideshare.net/ramblinglibrarian/creative-commons-what-how-why</a></p>
-
-<p>一个creative commons license包含三个部分：</p>
-
-<ul>
-  <li>机器识别的</li>
-  <li>人可读的</li>
-  <li>法律条文</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -1690,6 +1894,10 @@ Facebook, 微信, Flickr的图片分享</li>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/07/implementing-arithmetic-in-lisp/">Implementing Arithmetic in Lisp</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/07/the-roots-of-lisp/">LISP的基础</a>
       </li>
     
@@ -1703,10 +1911,6 @@ Facebook, 微信, Flickr的图片分享</li>
     
       <li class="post">
         <a href="/blog/2015/05/big-data-system-2/">Lambda Architechture</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/05/big-data-system-1/">Why Big Data System?</a>
       </li>
     
   </ul>

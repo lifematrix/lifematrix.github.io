@@ -113,11 +113,11 @@
 
 <p>本文将解释McCarthy发现的最简单的术语。要点不是仅仅学会一个40年前就有人弄明白的有趣的理论结果，而是去看看语言朝哪方面去发展。事实上，关于Lisp不寻常的事 - Lisp决定性的品质，是它是用自身写成的。为了理解McCarthy想说明的意思，我们将追溯他的脚步，将他的数学符号转译为可运行的Common Lisp代码。</p>
 
-<h3 id="symbolic-expressions">符号性表达(Symbolic Expressions)</h3>
+<h3 id="symbolic-expressions">符号性表达式(Symbolic Expressions)</h3>
 
 <p><em>注：本节是由译者添附，内容来自<a href="http://en.wikipedia.org/wiki/S-expression">http://en.wikipedia.org/wiki/S-expression</a>，先交代基本概念，便于理解</em></p>
 
-<p>S表达式中最基本的类型，是原子。</p>
+<p>符号表达式，即S表达式中最基本的类型，是原子。</p>
 
 <p><strong>原子</strong>符号，是由字母和数字组成的字符串。其首字符必须字母。例如：</p>
 
@@ -455,7 +455,7 @@ if $x$ then $y$ else $z$</p>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <ol>
-  <li>(append. x y)收到两个列表，将它们联接起来。</li>
+  <li>(concat. x y)收到两个列表，将它们联接起来。</li>
 </ol>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
@@ -465,14 +465,16 @@ if $x$ then $y$ else $z$</p>
 <span class="line-number">5</span>
 <span class="line-number">6</span>
 <span class="line-number">7</span>
-</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">defun</span> <span class="nv">append.</span> <span class="p">(</span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">defun</span> <span class="nv">concat.</span> <span class="p">(</span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
 </span><span class="line">    <span class="p">(</span><span class="nb">cond</span> <span class="p">((</span><span class="nv">null.</span> <span class="nv">x</span><span class="p">)</span> <span class="nv">y</span><span class="p">)</span>
-</span><span class="line">          <span class="p">(</span><span class="no">t</span> <span class="p">(</span><span class="nb">cons</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nv">append.</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">x</span><span class="p">)</span> <span class="nv">y</span><span class="p">)))))</span>
-</span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">append.</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">a</span> <span class="nv">b</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">c</span> <span class="nv">d</span><span class="p">))</span>
+</span><span class="line">          <span class="p">(</span><span class="no">t</span> <span class="p">(</span><span class="nb">cons</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nv">concat.</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">x</span><span class="p">)</span> <span class="nv">y</span><span class="p">)))))</span>
+</span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">concat.</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">a</span> <span class="nv">b</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">c</span> <span class="nv">d</span><span class="p">))</span>
 </span><span class="line"><span class="p">(</span><span class="nv">A</span> <span class="nv">B</span> <span class="nv">C</span> <span class="nv">D</span><span class="p">)</span>
-</span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">append.</span> <span class="o">&#39;</span><span class="p">()</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">c</span> <span class="nv">d</span><span class="p">))</span>
+</span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">concat.</span> <span class="o">&#39;</span><span class="p">()</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">c</span> <span class="nv">d</span><span class="p">))</span>
 </span><span class="line"><span class="p">(</span><span class="nv">C</span> <span class="nv">D</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>*注：原文此函数命名为append，觉得concat 更适合一些 *</p>
 
 <p>*注：这里用到了前面定义的函数null. *</p>
 
@@ -564,7 +566,7 @@ if $x$ then $y$ else $z$</p>
               (cons (list (cadar e) (car e)) a)))
       ((eq (caar e) ‘lambda)
        (eval. (caddar e)
-              (append. (pair. (cadar e) (evlis. (cdr e) a))
+              (concat. (pair. (cadar e) (evlis. (cdr e) a))
                        a)))))</p>
 </blockquote>
 
@@ -711,6 +713,8 @@ LIST
         <a class="basic-alignment left" href="/blog/2015/06/a-conversation-with-alan-kay/" title="Previous Post: 译文：与艾伦·凯的对话">&laquo; 译文：与艾伦·凯的对话</a>
       
       
+        <a class="basic-alignment right" href="/blog/2015/07/implementing-arithmetic-in-lisp/" title="Next Post: Implementing arithmetic in Lisp">Implementing arithmetic in Lisp &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -722,6 +726,10 @@ LIST
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/07/implementing-arithmetic-in-lisp/">Implementing Arithmetic in Lisp</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/07/the-roots-of-lisp/">LISP的基础</a>
@@ -737,10 +745,6 @@ LIST
     
       <li class="post">
         <a href="/blog/2015/05/big-data-system-2/">Lambda Architechture</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/05/big-data-system-1/">Why Big Data System?</a>
       </li>
     
   </ul>
