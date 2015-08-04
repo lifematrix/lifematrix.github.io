@@ -522,12 +522,6 @@ if $x$ then $y$ else $z$</p>
 <span class="line-number">6</span>
 <span class="line-number">7</span>
 <span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
 </pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">defun</span> <span class="nv">assoc.</span> <span class="p">(</span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
 </span><span class="line">    <span class="p">(</span><span class="nb">cond</span>
 </span><span class="line">      <span class="p">((</span><span class="nv">null.</span> <span class="nv">y</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span>
@@ -536,57 +530,11 @@ if $x$ then $y$ else $z$</p>
 </span><span class="line">           <span class="p">(</span><span class="no">t</span> <span class="p">(</span><span class="nv">assoc.</span> <span class="nv">x</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">y</span><span class="p">))))))</span>
 </span><span class="line"> <span class="nb">&gt;</span> <span class="p">(</span><span class="nv">assoc.</span> <span class="ss">&#39;a</span> <span class="o">&#39;</span><span class="p">((</span><span class="nv">b</span> <span class="nv">c</span><span class="p">)</span> <span class="p">(</span><span class="nv">a</span> <span class="nv">f</span><span class="p">)</span> <span class="p">(</span><span class="nv">a</span> <span class="nv">g</span><span class="p">)))</span>
 </span><span class="line"><span class="nv">F</span>
-</span><span class="line"> <span class="o">```</span>
-</span><span class="line">
-</span><span class="line">
-</span><span class="line"><span class="err">###</span> <span class="err">惊喜</span>
-</span><span class="line">
-</span><span class="line"><span class="err">我们能够定义函数，完成级联列表、用一个表达式替换另一个等等。一个优雅的记号，但这又能怎么样呢？现在惊喜来了。我们也能证明，可以写一个函数作为语言自己的解释器：一个将任意</span><span class="nv">Lisp</span><span class="err">表达式作为参数，并返回其值，见下：</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
-<blockquote>
-  <p>(defun eval. (e a)
-    (cond 
-      ((atom e) (cond ((eq e t) t)
-                      ((eq e ‘()) ‘())
-                      (t (assoc. e a))))
-      ((atom (car e))
-       (cond
-         ((eq (car e) ‘quote) (cadr e))
-         ((eq (car e) ‘atom) (atom (eval. (cadr e) a)))
-         ((eq (car e) ‘eq) (eq (eval. (cadr e) a)
-                               (eval. (caddr e) a)))
-         ((eq (car e) ‘car) (car (eval. (cadr e) a)))
-         ((eq (car e) ‘cdr) (cdr (eval. (cadr e) a)))
-         ((eq (car e) ‘cons) (cons (eval. (cadr e) a) 
-                                   (eval. (caddr e) a)))
-         ((eq (car e) ‘cond) (evcon. (cdr e) a))
-         (t (eval. (cons (assoc. (car e) a)
-                          (cdr e))
-                    a))))
-      ((eq (caar e) ‘label)
-       (eval. (cons (caddar e) (cdr e))
-              (cons (list (cadar e) (caddar e)) a)))
-      ((eq (caar e) ‘lambda)
-       (eval. (caddar e)
-              (concat. (pair. (cadar e) (evlis. (cdr e) a))
-                       a)))
-      (t e)))</p>
-</blockquote>
 
-<blockquote>
-  <p>(defun evcon. (c a)
-    (cond
-      ((eval. (caar c) a) (eval. (cadar c) a))
-      (t (evcon. (cdr c) a)))) </p>
-</blockquote>
+<h3 id="section-2">惊喜</h3>
 
-<blockquote>
-  <p>(defun evlis. (m a)
-    (cond 
-      ((null. m) ‘())
-      (t (cons (eval. (car m) a)
-                (evlis. (cdr m) a)))))</p>
-</blockquote>
+<p>我们能够定义函数，完成级联列表、用一个表达式替换另一个等等。一个优雅的记号，但这又能怎么样呢？现在惊喜来了。我们也能证明，可以写一个函数作为语言自己的解释器：一个将任意Lisp表达式作为参数，并返回其值，见下：</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
@@ -594,103 +542,218 @@ if $x$ then $y$ else $z$</p>
 <span class="line-number">4</span>
 <span class="line-number">5</span>
 <span class="line-number">6</span>
-</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">*</span> <span class="err">注：原文的代码存在小</span><span class="nv">bug</span><span class="err">，这里修正了。一是对布尔常量的求值，要返回布尔量，不再从环境</span><span class="nv">a</span><span class="err">中查找；二是</span><span class="o">,</span> <span class="nv">label</span> <span class="err">表达式的解析。</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">defun</span> <span class="nv">eval.</span> <span class="p">(</span><span class="nv">e</span> <span class="nv">a</span><span class="p">)</span>
+</span><span class="line">    <span class="p">(</span><span class="nb">cond</span>
+</span><span class="line">      <span class="p">((</span><span class="nb">atom</span> <span class="nv">e</span><span class="p">)</span> <span class="p">(</span><span class="nb">cond</span> <span class="p">((</span><span class="nb">eq</span> <span class="nv">e</span> <span class="no">t</span><span class="p">)</span> <span class="no">t</span><span class="p">)</span>
+</span><span class="line">                      <span class="p">((</span><span class="nb">eq</span> <span class="nv">e</span> <span class="o">&#39;</span><span class="p">())</span> <span class="o">&#39;</span><span class="p">())</span>
+</span><span class="line">                      <span class="p">(</span><span class="no">t</span> <span class="p">(</span><span class="nv">assoc.</span> <span class="nv">e</span> <span class="nv">a</span><span class="p">))))</span>
+</span><span class="line">      <span class="p">((</span><span class="nb">atom</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">e</span><span class="p">))</span>
+</span><span class="line">       <span class="p">(</span><span class="nb">cond</span>
+</span><span class="line">         <span class="p">((</span><span class="nb">eq</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">e</span><span class="p">)</span> <span class="ss">&#39;quote</span><span class="p">)</span> <span class="p">(</span><span class="nb">cadr</span> <span class="nv">e</span><span class="p">))</span>
+</span><span class="line">         <span class="p">((</span><span class="nb">eq</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">e</span><span class="p">)</span> <span class="ss">&#39;atom</span><span class="p">)</span> <span class="p">(</span><span class="nb">atom</span> <span class="p">(</span><span class="nv">eval.</span> <span class="p">(</span><span class="nb">cadr</span> <span class="nv">e</span><span class="p">)</span> <span class="nv">a</span><span class="p">)))</span>
+</span><span class="line">         <span class="p">((</span><span class="nb">eq</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">e</span><span class="p">)</span> <span class="ss">&#39;eq</span><span class="p">)</span> <span class="p">(</span><span class="nb">eq</span> <span class="p">(</span><span class="nv">eval.</span> <span class="p">(</span><span class="nb">cadr</span> <span class="nv">e</span><span class="p">)</span> <span class="nv">a</span><span class="p">)</span>
+</span><span class="line">                               <span class="p">(</span><span class="nv">eval.</span> <span class="p">(</span><span class="nb">caddr</span> <span class="nv">e</span><span class="p">)</span> <span class="nv">a</span><span class="p">)))</span>
+</span><span class="line">         <span class="p">((</span><span class="nb">eq</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">e</span><span class="p">)</span> <span class="ss">&#39;car</span><span class="p">)</span> <span class="p">(</span><span class="nb">car</span> <span class="p">(</span><span class="nv">eval.</span> <span class="p">(</span><span class="nb">cadr</span> <span class="nv">e</span><span class="p">)</span> <span class="nv">a</span><span class="p">)))</span>
+</span><span class="line">         <span class="p">((</span><span class="nb">eq</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">e</span><span class="p">)</span> <span class="ss">&#39;cdr</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr</span> <span class="p">(</span><span class="nv">eval.</span> <span class="p">(</span><span class="nb">cadr</span> <span class="nv">e</span><span class="p">)</span> <span class="nv">a</span><span class="p">)))</span>
+</span><span class="line">         <span class="p">((</span><span class="nb">eq</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">e</span><span class="p">)</span> <span class="ss">&#39;cons</span><span class="p">)</span> <span class="p">(</span><span class="nb">cons</span> <span class="p">(</span><span class="nv">eval.</span> <span class="p">(</span><span class="nb">cadr</span> <span class="nv">e</span><span class="p">)</span> <span class="nv">a</span><span class="p">)</span>
+</span><span class="line">                                   <span class="p">(</span><span class="nv">eval.</span> <span class="p">(</span><span class="nb">caddr</span> <span class="nv">e</span><span class="p">)</span> <span class="nv">a</span><span class="p">)))</span>
+</span><span class="line">         <span class="p">((</span><span class="nb">eq</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">e</span><span class="p">)</span> <span class="ss">&#39;cond</span><span class="p">)</span> <span class="p">(</span><span class="nv">evcon.</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">e</span><span class="p">)</span> <span class="nv">a</span><span class="p">))</span>
+</span><span class="line">         <span class="p">(</span><span class="no">t</span> <span class="p">(</span><span class="nv">eval.</span> <span class="p">(</span><span class="nb">cons</span> <span class="p">(</span><span class="nv">assoc.</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">e</span><span class="p">)</span> <span class="nv">a</span><span class="p">)</span>
+</span><span class="line">                          <span class="p">(</span><span class="nb">cdr</span> <span class="nv">e</span><span class="p">))</span>
+</span><span class="line">                    <span class="nv">a</span><span class="p">))))</span>
+</span><span class="line">      <span class="p">((</span><span class="nb">eq</span> <span class="p">(</span><span class="nb">caar</span> <span class="nv">e</span><span class="p">)</span> <span class="ss">&#39;label</span><span class="p">)</span>
+</span><span class="line">       <span class="p">(</span><span class="nv">eval.</span> <span class="p">(</span><span class="nb">cons</span> <span class="p">(</span><span class="nb">caddar</span> <span class="nv">e</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">e</span><span class="p">))</span>
+</span><span class="line">              <span class="p">(</span><span class="nb">cons</span> <span class="p">(</span><span class="nb">list</span> <span class="p">(</span><span class="nb">cadar</span> <span class="nv">e</span><span class="p">)</span> <span class="p">(</span><span class="nb">caddar</span> <span class="nv">e</span><span class="p">))</span> <span class="nv">a</span><span class="p">)))</span>
+</span><span class="line">      <span class="p">((</span><span class="nb">eq</span> <span class="p">(</span><span class="nb">caar</span> <span class="nv">e</span><span class="p">)</span> <span class="ss">&#39;lambda</span><span class="p">)</span>
+</span><span class="line">       <span class="p">(</span><span class="nv">eval.</span> <span class="p">(</span><span class="nb">caddar</span> <span class="nv">e</span><span class="p">)</span>
+</span><span class="line">              <span class="p">(</span><span class="nv">concat.</span> <span class="p">(</span><span class="nv">pair.</span> <span class="p">(</span><span class="nb">cadar</span> <span class="nv">e</span><span class="p">)</span> <span class="p">(</span><span class="nv">evlis.</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">e</span><span class="p">)</span> <span class="nv">a</span><span class="p">))</span>
+</span><span class="line">                       <span class="nv">a</span><span class="p">)))</span>
+</span><span class="line">      <span class="p">(</span><span class="no">t</span> <span class="nv">e</span><span class="p">)))</span>
 </span><span class="line">
+</span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">defun</span> <span class="nv">evcon.</span> <span class="p">(</span><span class="nv">c</span> <span class="nv">a</span><span class="p">)</span>
+</span><span class="line">    <span class="p">(</span><span class="nb">cond</span>
+</span><span class="line">      <span class="p">((</span><span class="nv">eval.</span> <span class="p">(</span><span class="nb">caar</span> <span class="nv">c</span><span class="p">)</span> <span class="nv">a</span><span class="p">)</span> <span class="p">(</span><span class="nv">eval.</span> <span class="p">(</span><span class="nb">cadar</span> <span class="nv">c</span><span class="p">)</span> <span class="nv">a</span><span class="p">))</span>
+</span><span class="line">      <span class="p">(</span><span class="no">t</span> <span class="p">(</span><span class="nv">evcon.</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">c</span><span class="p">)</span> <span class="nv">a</span><span class="p">))))</span>
 </span><span class="line">
-</span><span class="line"><span class="err">这个函数</span><span class="nv">eval.</span><span class="err">比我们之前看到的任何函数都要长。让我们看看它是如何工作的。</span>
+</span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">defun</span> <span class="nv">evlis.</span> <span class="p">(</span><span class="nv">m</span> <span class="nv">a</span><span class="p">)</span>
+</span><span class="line">    <span class="p">(</span><span class="nb">cond</span>
+</span><span class="line">      <span class="p">((</span><span class="nv">null.</span> <span class="nv">m</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span>
+</span><span class="line">      <span class="p">(</span><span class="no">t</span> <span class="p">(</span><span class="nb">cons</span> <span class="p">(</span><span class="nv">eval.</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">m</span><span class="p">)</span> <span class="nv">a</span><span class="p">)</span>
+</span><span class="line">                <span class="p">(</span><span class="nv">evlis.</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">m</span><span class="p">)</span> <span class="nv">a</span><span class="p">)))))</span>
 </span><span class="line">
-</span><span class="line"><span class="err">这个函数有两个参数：</span><span class="nv">e,</span> <span class="err">将要求值的表达式，以及</span><span class="nv">a,</span> <span class="err">原子所给定值的列表，在函数调用中以参数表现出来。这个列表被称之为</span><span class="nb">*</span><span class="err">“环境”</span><span class="nb">*</span><span class="p">(</span><span class="nv">environment</span><span class="p">)</span><span class="err">，是由</span><span class="nv">pair.</span><span class="err">创建的形式。</span><span class="nv">eval.</span><span class="err">的骨架是由带有</span><span class="nv">4</span><span class="err">个子句的</span><span class="nb">cond</span><span class="err">表达式。我们如何对表达式求值取决于它的类别。第一个子句处理原子。如果</span><span class="nv">e</span><span class="err">是一个原子，我们在环境中查找它的值。</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
-<blockquote>
-  <p>(eval. ‘x ‘((y b) (x a)))
-A
-&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span></figure></notextile></p>
-</blockquote>
-<p>&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="lisp"><span class="line"><span class="nv">eval.</span><span class="err">的第二个子句是一个</span><span class="nv">cond,</span> <span class="err">处理格式为</span><span class="p">(</span><span class="nv">$a$</span> <span class="o">...</span><span class="p">)</span><span class="err">的表达式，而</span><span class="nv">$a$</span><span class="err">是原子。这些包含所有对原语操作符的使用，每个子句处理其中一个：</span>
-</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
-&gt; (eval. ‘(eq ‘a ‘a) ‘())
-T
-&gt; (eval. ‘(cons x ‘(b c)) 
-         ‘((x a) (y b)))
-(A B C)
-&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="lisp"><span class="line"><span class="err">所有这些（除过</span> <span class="k">quote</span><span class="p">)</span><span class="err">调用</span><span class="nv">eval.</span> <span class="err">去查找参数的值。</span>
-</span><span class="line">
-</span><span class="line"><span class="err">最后两个子句更为复杂，为了给</span><span class="nb">cond</span><span class="err">表达式求值，我们调用一个附属函数</span><span class="nv">evcon.,</span> <span class="err">它递归式地遍历子句，寻找其第一个元素返回</span><span class="nc">t</span><span class="err">的子句。当它找到时，就返回其第二个元素。</span>
-</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;
-&gt; (eval. ‘(cond ((atom x) ‘atom)
-                (‘t ‘list))
-         ‘((x ‘(a b))))
-LIST
-&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="lisp"><span class="line"><span class="nv">eval.</span><span class="err">第二个子句的最后一部分，处理作为函数的调用。它通过将原子替换为它的值，并对得到的表达式求值。</span>
-</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;
-&gt; (eval. ‘(f ‘(b c))
-         ‘((f (lambda (x) (cons ‘a x)))))
-&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="lisp"><span class="line"><span class="err">定价于</span>
-</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;
-&gt; (eval. ‘((lambda (x) (cons ‘a x) ‘(b c))
-         ‘((f (lambda (x) (cons ‘a x)))))
-&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="lisp"><span class="line"><span class="err">最后返回</span><span class="p">(</span><span class="nv">A</span> <span class="nv">B</span> <span class="nv">C</span><span class="p">)</span><span class="err">。</span>
-</span><span class="line">
-</span><span class="line"><span class="nv">eval.</span><span class="err">的最后两个子句处理函数调用，其第一个元素是实际的</span> <span class="k">lambda</span><span class="err">或</span><span class="nv">label</span><span class="err">表达式。对</span><span class="nv">label</span><span class="err">表达式的求值是，将函数名和函数自身的列表压入环境中，然后对一个表达式调用</span><span class="nv">eval.</span><span class="err">求值，其中用内部的</span><span class="k">lambda</span><span class="err">表达式替换</span><span class="nv">label</span><span class="err">表达式。即：</span>
-</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;
-&gt; (eval. ‘((label firstatom (lambda (x)
-                              (cond ((atom x) x)
-                                    (‘t (firstatom (car x))))))
-           y)
-         ‘((y ((a b) (c d)))))
-&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="lisp"><span class="line"><span class="err">变成</span>
-</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;
-&gt; (eval. ‘((lambda (x) (cond ((atom x) x)
-                             (‘t (firstatom (car x)))))
-           y)
-         ‘((firstatom (lambda (x) 
-                        (cond ((atom x) x)
-                              (t (firstatom (car x))))))
-           (y ((a b) (c d)))))</p>
+
+<ul>
+  <li>注：原文的代码存在小bug，这里修正了。一是对布尔常量的求值，要返回布尔量，不再从环境a中查找；二是, label 表达式的解析。</li>
+</ul>
+
+<p>这个函数eval.比我们之前看到的任何函数都要长。让我们看看它是如何工作的。</p>
+
+<p>这个函数有两个参数：e, 将要求值的表达式，以及a, 原子所给定值的列表，在函数调用中以参数表现出来。这个列表被称之为<em>“环境”</em>(environment)，是由pair.创建的形式。eval.的骨架是由带有4个子句的cond表达式。我们如何对表达式求值取决于它的类别。第一个子句处理原子。如果e是一个原子，我们在环境中查找它的值。</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="err">原文的代码是将</span><span class="nv">label</span><span class="err">表达式，替换为如下：</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-<blockquote>
-  <p>(eval. ‘((lambda (x) (cond ((atom x) x)
-                             (‘t (firstatom (cdr x)))))
-           y)
-         ‘((firstatom 
-            (label firstatom (lambda (x) 
-                               (cond ((atom x) x)
-                                     (‘t (firstatom (cdr x)))))))
-           (y ((a b) (c d)))))
-&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
 <span class="line-number">2</span>
-<span class="line-number">3</span></figure></notextile></p>
-</blockquote>
-<p>&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="lisp"><span class="line"><span class="err">这样当函数递归调用时，每次都要解析</span><span class="nv">label</span><span class="err">，导致不断有</span><span class="nv">label</span><span class="err">定义添加到环境中。这是小</span><span class="nv">bug</span><span class="err">，本文代码做了修正。</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">eval.</span> <span class="ss">&#39;x</span> <span class="o">&#39;</span><span class="p">((</span><span class="nv">y</span> <span class="nv">b</span><span class="p">)</span> <span class="p">(</span><span class="nv">x</span> <span class="nv">a</span><span class="p">)))</span>
+</span><span class="line"><span class="nv">A</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>eval.的第二个子句是一个cond, 处理格式为($a$ …)的表达式，而$a$是原子。这些包含所有对原语操作符的使用，每个子句处理其中一个：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">eval.</span> <span class="o">&#39;</span><span class="p">(</span><span class="nb">eq</span> <span class="ss">&#39;a</span> <span class="ss">&#39;a</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span>
+</span><span class="line"><span class="no">T</span>
+</span><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">eval.</span> <span class="o">&#39;</span><span class="p">(</span><span class="nb">cons</span> <span class="nv">x</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">b</span> <span class="nv">c</span><span class="p">))</span>
+</span><span class="line">         <span class="o">&#39;</span><span class="p">((</span><span class="nv">x</span> <span class="nv">a</span><span class="p">)</span> <span class="p">(</span><span class="nv">y</span> <span class="nv">b</span><span class="p">)))</span>
+</span><span class="line"><span class="p">(</span><span class="nv">A</span> <span class="nv">B</span> <span class="nv">C</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+<p>所有这些（除过 quote)调用eval. 去查找参数的值。</p>
+
+<p>最后两个子句更为复杂，为了给cond表达式求值，我们调用一个附属函数evcon., 它递归式地遍历子句，寻找其第一个元素返回t的子句。当它找到时，就返回其第二个元素。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">eval.</span> <span class="o">&#39;</span><span class="p">(</span><span class="nb">cond</span> <span class="p">((</span><span class="nb">atom</span> <span class="nv">x</span><span class="p">)</span> <span class="ss">&#39;atom</span><span class="p">)</span>
+</span><span class="line">                <span class="p">(</span><span class="ss">&#39;t</span> <span class="ss">&#39;list</span><span class="p">))</span>
+</span><span class="line">         <span class="o">&#39;</span><span class="p">((</span><span class="nv">x</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">a</span> <span class="nv">b</span><span class="p">))))</span>
+</span><span class="line"><span class="nv">LIST</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>eval.第二个子句的最后一部分，处理作为函数的调用。它通过将原子替换为它的值，并对得到的表达式求值。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">eval.</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">f</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">b</span> <span class="nv">c</span><span class="p">))</span>
+</span><span class="line">         <span class="o">&#39;</span><span class="p">((</span><span class="nv">f</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">&#39;a</span> <span class="nv">x</span><span class="p">)))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>定价于</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">eval.</span> <span class="o">&#39;</span><span class="p">((</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">&#39;a</span> <span class="nv">x</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">b</span> <span class="nv">c</span><span class="p">))</span>
+</span><span class="line">         <span class="o">&#39;</span><span class="p">((</span><span class="nv">f</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">&#39;a</span> <span class="nv">x</span><span class="p">)))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>最后返回(A B C)。</p>
+
+<p>eval.的最后两个子句处理函数调用，其第一个元素是实际的 lambda或label表达式。对label表达式的求值是，将函数名和函数自身的列表压入环境中，然后对一个表达式调用eval.求值，其中用内部的lambda表达式替换label表达式。即：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">eval.</span> <span class="o">&#39;</span><span class="p">((</span><span class="nv">label</span> <span class="nv">firstatom</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span>
+</span><span class="line">                              <span class="p">(</span><span class="nb">cond</span> <span class="p">((</span><span class="nb">atom</span> <span class="nv">x</span><span class="p">)</span> <span class="nv">x</span><span class="p">)</span>
+</span><span class="line">                                    <span class="p">(</span><span class="ss">&#39;t</span> <span class="p">(</span><span class="nv">firstatom</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">x</span><span class="p">))))))</span>
+</span><span class="line">           <span class="nv">y</span><span class="p">)</span>
+</span><span class="line">         <span class="o">&#39;</span><span class="p">((</span><span class="nv">y</span> <span class="p">((</span><span class="nv">a</span> <span class="nv">b</span><span class="p">)</span> <span class="p">(</span><span class="nv">c</span> <span class="nv">d</span><span class="p">)))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>变成</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">eval.</span> <span class="o">&#39;</span><span class="p">((</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">cond</span> <span class="p">((</span><span class="nb">atom</span> <span class="nv">x</span><span class="p">)</span> <span class="nv">x</span><span class="p">)</span>
+</span><span class="line">                             <span class="p">(</span><span class="ss">&#39;t</span> <span class="p">(</span><span class="nv">firstatom</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">x</span><span class="p">)))))</span>
+</span><span class="line">           <span class="nv">y</span><span class="p">)</span>
+</span><span class="line">         <span class="o">&#39;</span><span class="p">((</span><span class="nv">firstatom</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span>
+</span><span class="line">                        <span class="p">(</span><span class="nb">cond</span> <span class="p">((</span><span class="nb">atom</span> <span class="nv">x</span><span class="p">)</span> <span class="nv">x</span><span class="p">)</span>
+</span><span class="line">                              <span class="p">(</span><span class="no">t</span> <span class="p">(</span><span class="nv">firstatom</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">x</span><span class="p">))))))</span>
+</span><span class="line">           <span class="p">(</span><span class="nv">y</span> <span class="p">((</span><span class="nv">a</span> <span class="nv">b</span><span class="p">)</span> <span class="p">(</span><span class="nv">c</span> <span class="nv">d</span><span class="p">)))))</span>
 </span><span class="line">
-</span><span class="line"><span class="err">对形式为</span> <span class="p">((</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">$p_1$</span> <span class="o">...</span> <span class="nv">$p_n$</span><span class="p">)</span> <span class="nv">$e$</span><span class="p">)</span> <span class="nv">$a_1$</span> <span class="o">...</span> <span class="nv">$a_n$</span><span class="p">)</span><span class="err">的表达式取值，首先调用</span><span class="nv">evlis.,</span> <span class="err">来获得参数</span><span class="p">(</span><span class="nv">$a_1$</span> <span class="o">...</span> <span class="nv">$a_n$</span><span class="p">)</span><span class="err">的一组值</span><span class="p">(</span><span class="nv">$v_1$</span> <span class="o">...</span> <span class="nv">$v_n$</span><span class="p">)</span><span class="o">,</span> <span class="err">然后将</span><span class="p">(</span><span class="nv">$p_1$</span> <span class="nv">$v_1$</span><span class="p">)</span> <span class="o">...</span> <span class="p">(</span><span class="nv">$p_n$</span> <span class="nv">$v_n$</span><span class="p">)</span><span class="err">添加到前面的环境中，然后对</span><span class="nv">$e$</span><span class="err">求值。</span>
-</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
-&gt; (eval. ‘((lambda (x y) (cons x (cdr y)))
-           ‘a
-           ‘(b c d))
-         ‘())
-&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="lisp"><span class="line"><span class="err">变成</span>
-</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;
-&gt; (eval. ‘(cons x (cdr y))
-         ‘((x a) (y (b c d))))
-&#8220;`</p>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>原文的代码是将label表达式，替换为如下：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">eval.</span> <span class="o">&#39;</span><span class="p">((</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">cond</span> <span class="p">((</span><span class="nb">atom</span> <span class="nv">x</span><span class="p">)</span> <span class="nv">x</span><span class="p">)</span>
+</span><span class="line">                             <span class="p">(</span><span class="ss">&#39;t</span> <span class="p">(</span><span class="nv">firstatom</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">x</span><span class="p">)))))</span>
+</span><span class="line">           <span class="nv">y</span><span class="p">)</span>
+</span><span class="line">         <span class="o">&#39;</span><span class="p">((</span><span class="nv">firstatom</span>
+</span><span class="line">            <span class="p">(</span><span class="nv">label</span> <span class="nv">firstatom</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span>
+</span><span class="line">                               <span class="p">(</span><span class="nb">cond</span> <span class="p">((</span><span class="nb">atom</span> <span class="nv">x</span><span class="p">)</span> <span class="nv">x</span><span class="p">)</span>
+</span><span class="line">                                     <span class="p">(</span><span class="ss">&#39;t</span> <span class="p">(</span><span class="nv">firstatom</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">x</span><span class="p">)))))))</span>
+</span><span class="line">           <span class="p">(</span><span class="nv">y</span> <span class="p">((</span><span class="nv">a</span> <span class="nv">b</span><span class="p">)</span> <span class="p">(</span><span class="nv">c</span> <span class="nv">d</span><span class="p">)))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>这样当函数递归调用时，每次都要解析label，导致不断有label定义添加到环境中。这是小bug，本文代码做了修正。</p>
+
+<p>对形式为 ((lambda ($p_1$ … $p_n$) $e$) $a_1$ … $a_n$)的表达式取值，首先调用evlis., 来获得参数($a_1$ … $a_n$)的一组值($v_1$ … $v_n$), 然后将($p_1$ $v_1$) … ($p_n$ $v_n$)添加到前面的环境中，然后对$e$求值。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">eval.</span> <span class="o">&#39;</span><span class="p">((</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span> <span class="p">(</span><span class="nb">cons</span> <span class="nv">x</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">y</span><span class="p">)))</span>
+</span><span class="line">           <span class="ss">&#39;a</span>
+</span><span class="line">           <span class="o">&#39;</span><span class="p">(</span><span class="nv">b</span> <span class="nv">c</span> <span class="nv">d</span><span class="p">))</span>
+</span><span class="line">         <span class="o">&#39;</span><span class="p">())</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>变成</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">eval.</span> <span class="o">&#39;</span><span class="p">(</span><span class="nb">cons</span> <span class="nv">x</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">y</span><span class="p">))</span>
+</span><span class="line">         <span class="o">&#39;</span><span class="p">((</span><span class="nv">x</span> <span class="nv">a</span><span class="p">)</span> <span class="p">(</span><span class="nv">y</span> <span class="p">(</span><span class="nv">b</span> <span class="nv">c</span> <span class="nv">d</span><span class="p">))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>最后返回(A C D)。</p>
 
-<h3 id="section-2">尾声</h3>
+<h3 id="section-3">尾声</h3>
 
 <p>现在我们已经理解了eval怎么工作的，让我们回退一下考虑这意味着什么。我们现在所拥有的是非同寻常的优雅的计算模型。仅仅使用quote, atom, eq, car, cdr, cons 和 cond, 我们定义了一个函数eval., 它事实上实现了我们的语言，然后使用这些，我们可以定义任何想添加的函数。</p>
 
@@ -702,7 +765,7 @@ LIST
 
 <p>伴随着时间，中等程度的语言，即由中等程度程序员使用的语言，已经一贯地向Lisp方向去成长。因此，通过理解eval, 你正在理解未来可能的主要计算模型是什么。</p>
 
-<h3 id="section-3">注释</h3>
+<h3 id="section-4">注释</h3>
 
 </div>
 
