@@ -1052,7 +1052,7 @@ if $x$ then $y$ else $z$</p>
 
 <p>我跳过了从带点的对(pair)中构造列表，因为你并不需要靠它们去理解eval。我也没提到apply，但apply(非常早期的形式，其目的是引用参数)正是McCarthy在1960年称之的普遍函数(universal function)；而eval只是个apply调用的子例程，去完成所有工作。</p>
 
-<p>我定义了<strong>list</strong>和<strong>c$x$rs</strong>, 作为缩写，因为McCarthy也这么做。事实上，<strong>c$x$rs</strong>可以作为通常函数来定义。如果我们修改eval，list也可以这么做（定义为通常函数）。正如我们可以容易地让函数接受任意数目的函数。</p>
+<p>我定义了list和c$x$rs, 作为缩写，因为McCarthy也这么做。事实上，c$x$rs可以作为通常函数来定义。如果我们修改eval，list也可以这么做（定义为通常函数）。正如我们可以容易地让函数接受任意数目的函数。</p>
 
 <p>McCarthy只用了5个原语操作符。他使用了cond和quote，但可能把它们作为元语言的一部分。他同样也没定义逻辑运算符and和not，但这不是个问题，因为有足够的版本将其定义为函数。</p>
 
@@ -1080,9 +1080,28 @@ if $x$ then $y$ else $z$</p>
 </span><span class="line">         <span class="p">(</span><span class="nb">cons</span> <span class="p">(</span><span class="nb">list</span> <span class="ss">&#39;e</span> <span class="nv">e</span><span class="p">)</span> <span class="p">(</span><span class="nb">cons</span> <span class="p">(</span><span class="nb">list</span> <span class="ss">&#39;a</span> <span class="nv">a</span><span class="p">)</span> <span class="nv">a</span><span class="p">)))</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>在McCarthy的代码中有个小bug。第16行是(等价于) <strong>(evlis. (cdr e) a)</strong>， 而非<strong>(cdr e)</strong>，这将使得对一个命名函数的调用中参数被求值两遍。这暗示，当论文提交时，eval的这一描述还未曾在IBM 704机器语言中实现过。这也说明，对于任何长度的代码，如果没有运行过，确定其正确性是很困难的。</p>
+<p>在McCarthy的代码中有个小bug。第16行是(等价于) (evlis. (cdr e) a)， 而非(cdr e)，这将使得对一个命名函数的调用中参数被求值两遍。这暗示，当论文提交时，eval的这一描述还未曾在IBM 704机器语言中实现过。这也说明，对于任何长度的代码，如果没有运行过，确定其正确性是很困难的。</p>
 
-<p>我在McCarthy的代码中还遇到另一个问题。在给出eval的定义后，他继续给出了高阶函数的例子，即把其它函数作为参数的函数。他定义<strong>maplist</strong>:</p>
+<p>我在McCarthy的代码中还遇到另一个问题。在给出eval的定义后，他继续给出了高阶函数的例子，即把其它函数作为参数的函数。他定义maplist:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">label</span> <span class="nb">maplist</span>
+</span><span class="line">         <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">x</span> <span class="nv">f</span><span class="p">)</span>
+</span><span class="line">           <span class="p">(</span><span class="nb">cond</span> <span class="p">((</span><span class="nb">null</span> <span class="nv">x</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span>
+</span><span class="line">                 <span class="p">(</span><span class="ss">&#39;t</span> <span class="p">(</span><span class="nb">cons</span> <span class="p">(</span><span class="nv">f</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">maplist</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">x</span><span class="p">)</span> <span class="nv">f</span><span class="p">))))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>然后用它来写一个简单的函数diff，做符号微分。但是diff向maplist传递了一个以x作为参数的函数，然后对它的引用被maplist中的参数x捕获。</p>
+
+<ul>
+  <li>作者注：目前Lisp程序员使用mapcar而非maplist。这个例子也澄清了一个神话：为什么maplist会在Common Lisp中。它是期初的映射函数，而mapcar是后来添加的。*</li>
+</ul>
+
+<p>这是动态范围之危险的一个极富说服力的证据，因为它，恰恰Lisp高阶函数的第一个例子就被搞坏了。有可能McCarthy在1960年并未完全意识到动态范围的含义。动态范围在Lisp的实现中保留了令人惊讶的很长的时间，直到Sussman和Steele在1975年开发了Scheme。语法范围没有将eval的实现搞得太复杂，但是更难以写出编译器。</p>
+
 </div>
   
   
