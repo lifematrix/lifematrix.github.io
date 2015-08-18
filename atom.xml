@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2015-08-18T11:04:13+08:00</updated>
+  <updated>2015-08-18T11:16:41+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -24,16 +24,19 @@
 
 <center> 
 MASSACHUSETTSINSTYTUTECHTTECHNOLOCY ARTIFICIAL INTELLIGENCE LABORATORY
-
+<br />
 
 AI Memo No.453                May 1978
+<br />
 
 <strong>The Art of the Interpreter
 <br />
 or, The Modularity Complex
 (Parts Zero, One, and Two)</strong>
 
+<br />
 by
+<br />
 
 Guy Lewis Steele Jr.* and Gerald Jay Sussman**
 
