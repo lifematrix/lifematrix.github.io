@@ -1,0 +1,470 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>The Art of Interpreter I - Life Matrix</title>
+  <meta name="author" content="Steven Liu <stevenliucx@gmail.com>&#8221;>
+
+  
+  <meta name="description" content="原文地址：http://c2.com/cgi/wiki?TheArtOfTheInterpreter MASSACHUSETTSINSTYTUTECHTTECHNOLOCY ARTIFICIAL INTELLIGENCE LABORATORY AI Memo No.453 May 1978 The &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-i">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Life Matrix" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+
+  <!-- mathjax config similar to math.stackexchange -->
+  <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+       jax: ["input/TeX", "output/HTML-CSS"],
+       tex2jax: {
+          inlineMath: [ ['$', '$'] ],
+          displayMath: [ ['$$', '$$']],
+          procehssEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+       },
+       messageStyle: "none",
+       "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+     });
+   </script>
+   <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Life Matrix</a></h1>
+  
+    <h2>Hacking, Machine learning</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:hack.the-lifematrix.net" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/resources">Resources</a></li>
+  <li><a href="/lisp-resource">Lisp Resource</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">The Art of Interpreter I</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-08-18T10:22:59+08:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:22 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>原文地址：<a href="http://c2.com/cgi/wiki?TheArtOfTheInterpreter">http://c2.com/cgi/wiki?TheArtOfTheInterpreter</a>
+<br /></p>
+<hr />
+
+<center> 
+MASSACHUSETTSINSTYTUTECHTTECHNOLOCY ARTIFICIAL INTELLIGENCE LABORATORY
+
+
+AI Memo No.453                May 1978
+
+<strong>The Art of the Interpreter
+<br />
+or, The Modularity Complex
+(Parts Zero, One, and Two)</strong>
+
+by
+
+Guy Lewis Steele Jr.* and Gerald Jay Sussman**
+
+</center>
+
+<h3 id="section">摘要</h3>
+<p>Abstract:</p>
+
+<p>We examine the effects of various language design decisions on the
+programming styles available to a user of the language, with particular
+emphasis on the ability to incrementally construct modular systems. At
+each step we exhibit an interactive meta-circular interpreter for the
+language under consideration. Each new interpreter is the result of an
+incremental change to a previous interpreter.</p>
+
+<p>我们检验了现存编程风格上的语言设计决策对语言使用者的影响，特别关注增量构造模块化系统的能力。在每一个步，针对所考虑的语言，我们展示了一个交互式的元-循环解释器。每个新的解释器都是对先前解释器增量修改的结果。</p>
+
+<p>We explore the consequences of various variable binding disciplines
+and the introduction of side effects. We find that dynamic scoping is
+unsuitable for constructing procedural abstractions, but has another role
+as an agent of modularity, being a structured form of side effect. More
+general side effects are also found to be necessary to promote modular
+style. We find that the notion of side effect and the notion of equality
+(object identity) are mutually constraining; to define one is to define
+the other.</p>
+
+<p>我们探索了不同变量绑定纪律的后果，并引入了副作用(side-effect)。我们发现，动态范围不适合构造过程的抽象，但是有作为模块代理的另一作用，是副作用的一个结构化形式。也发现了更多普遍的副作用，对提升模块化风格是必要的。我们发现副作用的记号和相等的记号(对象同一性)是相互约束的。为了定义其中一个，就必须定义另一个。</p>
+
+<p>The interpreters we exhibit are all written in a simple dialect of
+LISP, and all implement LISP-like languages. A subset of these interpreters constitute a partial historical reconstruction of the actual evolution of LISP.</p>
+
+<p>我们展示的解释器都用LISP的简单方言写出，它们都实现了类LISP的语言。这些解释器的子集包含LISP实际进化的部分历史再现。</p>
+
+<p>Keywords: abstraction, actors, applicative order, bindings, control structures, debugging, dynamic scoping, environments, fluid variables, FUNARG
+problem, functional objects, interactive programming, lambda-calculus.
+lexical scoping, LISP, modularity, procedural data, recursion equations,referential transparency, SCHEME, side effects, static scoping, structured programming</p>
+
+<p>This report describes research done at the Artificial Intelligence
+Laboratory of the Massachusetts Institute of Technology. Support for the
+laboratory’s artificial intelligence research is provided in part by the</p>
+
+<p>Advanced Research Projects Agency of the Department of Defense under Office
+of Naval Research contract N000l4-75-C-0643.</p>
+
+<h3 id="section-1">内容</h3>
+
+<ul>
+  <li>Introduction
+    <ul>
+      <li>Modularity</li>
+      <li>LISP-like Languages</li>
+      <li>Structure of the Paper</li>
+    </ul>
+  </li>
+  <li>Part Zero-— LISP and Interpreters
+    <ul>
+      <li>Recursion{Equations</li>
+      <li>An Interpreter for LISP Recursion Equations</li>
+    </ul>
+  </li>
+  <li>Part One —— Variable Scoping Disciplines
+    <ul>
+      <li>Procedures as Data</li>
+      <li>Local Procedures</li>
+      <li>Lexical Scoping</li>
+      <li>Top Levels versus Referential Transparency</li>
+    </ul>
+  </li>
+  <li>Part Two — State
+    <ul>
+      <li>Decomposition of State</li>
+      <li>Side Effects and Local State</li>
+      <li>Side Effects in the Interpreter</li>
+      <li>Equipotency of SETQ and RPLACA</li>
+      <li>Side Effects and Equality</li>
+      <li>Dynamic Scoping as a State-Decomposition Discipline</li>
+    </ul>
+  </li>
+  <li>Summary</li>
+  <li>Acknowledgements</li>
+  <li>Notes
+    <ul>
+      <li>{Can George do Better?}</li>
+      <li>{Debugging}</li>
+      <li>{Driver Loop with Side Effects}</li>
+      <li>{EVALQUOTE}</li>
+      <li>{Gaussian}</li>
+      <li>{LABEL5}</li>
+      <li>{LABEL5 with Side Effects}*</li>
+      <li>{Primitive Operators}</li>
+      <li>{PROGN wizardry}</li>
+      <li>{QUOTE Mapping}</li>
+      <li>{QUOTE Shafts the Compiler}</li>
+      <li>{RPLACA Can Alter CAR Instead}</li>
+      <li>{S—expression Postulates and Notation}</li>
+      <li>{This ain’t A-lists}</li>
+      <li>{Value Quibb1e}</li>
+      <li>{Weber}</li>
+      <li>{Y-operator}</li>
+    </ul>
+  </li>
+  <li>References</li>
+</ul>
+
+<h3 id="section-2">介绍</h3>
+<p>Introduction</p>
+
+<h4 id="section-3">模块化</h4>
+<p>Modularity</p>
+
+<p>The entities constructed by programming are extremely complex.
+Accurate construction of large programs would be impossible without
+specific techniques for controlling this complexity. Most such techniques
+are based on finding ways to decompose a problem into almost independently
+solvable subproblems, allowing a programmer to concentrate on one
+subproblem at a time, ignoring the others. when the subproblems are
+solved, the programmer must be able to combine the solutions with a minimum
+of unanticipated interactions. To the extent that a decomposition succeeds
+in breaking a programming problem into manageable pieces, we say that the
+resulting program is modular; each part of the solution is called a
+module. we1l—designed programming languages provide features which support
+the construction of modular programs.</p>
+
+<p>One decomposition strategy is the packaging of common patterns of
+the use of a language. For example, in Algol a for loop captures a common
+pattern of if and ggtg statements. Packages of common patterns are not
+necessarily merely abbreviations to save typing. While a simple
+abbreviation has little abstraction power because a user must know what the
+abbreviation expands into, a good package encapsulates a higher level
+concept which has meaning independent of its implementation. Once a
+package is constructed the programmer can use it directly, without regard
+for the details it contains, precisely because it corresponds to a single
+notion he uses in dealing with the programming problem.</p>
+
+<p>A package is most useful if its behavior is independent of the
+context of its use, thus reducing possible interference with other
+packages. Such a package is called referentially transparent.
+Intuitively, referential transparency requires that the meanings of parts
+of a program be apparent and not change, so that such meanings can be
+reliably depended upon. In particular, names internal to one module should
+not affect or be affected by other modules — the external behavior of a
+module should be independent of the choice of names for its local
+identifiers. . ‘ ‘</p>
+
+<p>To make a nmdular program, it is often necessary to think of a
+computational process as having state. In such cases, if the state can be
+naturally divided into independent parts, an important decomposition may be
+the division of the program into pieces which separately deal with the
+parts of the state.</p>
+
+<p>we will discuss various stylistic techniques for achieving
+modularity. One would expect these techniques to complement each other.
+we will instead discover that they can come into conflict. Pushing one to
+an extreme in a language can seriously compromise others.
+Steele and Sussman 2 The Art of the Interpreter</p>
+
+<p>LISP-like Languages</p>
+
+<p>Of the hundreds or thousands of computer languages which have been
+invented, there is one particular family of languages whose common ancestor
+was the original LISP, developed by McCarthy and others in the late 1950’s.
+[LISP History] These languages are generally characterized by in simple,
+fully parenthesized (“Cambridge Polish”) syntax; the ability to manipulate
+general, linked—list data structures; a standard representation for
+programs of the language in terms of these structures; and an interactive
+programming system based on an interpreter for the standard representation.
+Examples of such languages are LISP 1.5 [LISP 1.5M], MacLISP [Moon],
+InterLISP [Teitelman], CONNIVER [HcDermott and Sussman], QA4 [Rulifson],
+PLASMA [Smith and Hewitt] [Hewitt and Smith], and SCHEME [SCHEME] [Revised
+Report]. we will call this family the LISP—like languages.</p>
+
+<p>The various members of this family differ in some interesting and
+often subtle ways. These differences have a profound impact on the styles
+of programming each may encourage or support. We will explore some of
+these differences by examining a series of small (“toy”) evaluators which
+exhibit these differences without the clutter of “extra features” provided
+in real, production versions of LISP~like language systems.</p>
+
+<p>The series of evaluators to be considered partially constitute a
+reconstruction of what we believe to be the paths along which the family
+evolved. These paths can be explained after the fact by viewing the</p>
+
+<p>historical changes to the language as being guided by the requirements of
+various aspects of modularity.</p>
+
+<p>Structure of the Paper</p>
+
+<p>Our discussion is divided into several parts, which form a linear
+progression. In addition, there are numerous large digressions which
+explore interesting side developments. These digressions are placed at the
+end as notes, cross-referenced to and from the text.</p>
+
+<p>we exhibit a large number of LISP interpreters whose code differs
+from one to another in small ways (though their behavior differs greatly!).
+In order to avoid writing identical pieces of code over and over, each
+figure exhibits only routines which differ, and also contains cross-
+references to preceding figures from which missing routines for that figure
+are to be drawn.</p>
+
+<p>Part Zero introduces the restricted dialect of the LISP language in
+which most of our examples are written. It also discusses the basic
+structure of an interpreter, and exhibits a meta-circular interpreter for
+the language.g</p>
+
+<p>Part One introduces procedural data as an abstraction mechanism,
+and considers its impact on variable scoping disciplines in the language.
+we are forced through a series of such disciplines as unexpected
+interactions are uncovered and fixed. Interpreters are exhibited for
+dynamic scoping and lexical scoping.</p>
+
+<p>Part Two considers the problems associated with the decomposition
+Steele and Sussman 3 The Art of the Interpreter</p>
+
+<p>of state. Side effects are introduced as a mechanism for effecting such
+decompositions. we find that the notion of side effect is inextricably</p>
+
+<p>wound up with the notion of identity. Dynamic scoping is retrospectively
+viewed as a restricted kind of side effect.</p>
+
+<p>with this we summarize and conclude with many tantalizing questions
+yet‘unanswered.</p>
+
+<p>In Part Three (in a separate paper) we will find that the
+introduction of side effects forces the issue of the order of evaluation of
+expressions. We will contrast call-by-name and its variants with call—by-
+value, and discuss how these control disciplines arise as a consequence of
+different models of- packaging. In particular, call-by-name‘ arises
+naturally from the syntactic nature of the Algol 60_copy rule. As before,
+many little interpreters for these disciplines will be exhibited. A</p>
+
+<p>In Part Four we will be led to generalize the notion of a syntactic</p>
+
+<p>package. We will discuss meta-procedures, which deal with the
+representations of procedures. The distinction between a procedure and its
+representation will be more carefully considered. Macro processors,</p>
+
+<p>algebraic simplifiers, and compilers will be considered as meta-procedures.t</p>
+
+<p>Various interpreters, compilers, and simplifiers will be exhibited.
+Steele and Sussman 4 The Art of‘the Interpreter</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Steven Liu <stevenliucx@gmail.com></span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2015-08-18T10:22:59+08:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:22 am</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-i/" data-via="" data-counturl="http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-i/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/08/haskell-resources/" title="Previous Post: Haskell Resources">&laquo; Haskell Resources</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/08/the-art-of-interpreter-i/">The Art of Interpreter I</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/08/haskell-resources/">Haskell Resources</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/implementing-arithmetic-in-lisp/">在Lisp中实现算术</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/the-roots-of-lisp/">LISP的根本</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/a-conversation-with-alan-kay/">译文：与艾伦·凯的对话</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Steven Liu <stevenliucx@gmail.com> -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
