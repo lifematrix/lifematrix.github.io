@@ -236,17 +236,19 @@ Accurate construction of large programs would be impossible without
 specific techniques for controlling this complexity. Most such techniques
 are based on finding ways to decompose a problem into almost independently
 solvable subproblems, allowing a programmer to concentrate on one
-subproblem at a time, ignoring the others. when the subproblems are
+subproblem at a time, ignoring the others. When the subproblems are
 solved, the programmer must be able to combine the solutions with a minimum
 of unanticipated interactions. To the extent that a decomposition succeeds
 in breaking a programming problem into manageable pieces, we say that the
 resulting program is modular; each part of the solution is called a
-module. we1l—designed programming languages provide features which support
+module. Well—designed programming languages provide features which support
 the construction of modular programs.</p>
+
+<p>编程产生的实体极端复杂。如果没有控制这一复杂性的特定技术，要准确无误地构造大型程序是不可能的。绝大多数这样的技术是基于寻找一些方法，将问题分解为几乎独立可求解的子问题，允许程序员一次聚焦于一个子问题，而忽略其它的。当自问题被解决了，程序员必须能够以最小的不可预见的互作用，将解决方案组合在一起。如果一个分解达到了成功地将一个编程问题拆分成可管理部分的程度，我们称如此生成的程序是模块化的；解决方案的每个部分称为一个模块。设计良好的编程语言提供了支持构建模块化程序的特性。</p>
 
 <p>One decomposition strategy is the packaging of common patterns of
 the use of a language. For example, in Algol a for loop captures a common
-pattern of if and ggtg statements. Packages of common patterns are not
+pattern of if and goto statements. Packages of common patterns are not
 necessarily merely abbreviations to save typing. While a simple
 abbreviation has little abstraction power because a user must know what the
 abbreviation expands into, a good package encapsulates a higher level
@@ -254,6 +256,8 @@ concept which has meaning independent of its implementation. Once a
 package is constructed the programmer can use it directly, without regard
 for the details it contains, precisely because it corresponds to a single
 notion he uses in dealing with the programming problem.</p>
+
+<p>一个分解策略是将使用一个语言的共同模式打包。例如，在Algol中，一个for loop 语句捕获了if和goto语句的共同模式。共同模式的包并非只是为了节约打字的缩写而需的。虽然一个简单的缩写没有什么抽象能力，因为用户必须知道缩写扩展成什么，但是一个好的包，能在更高层次的概念上封装，具有独立于实现的含义。一旦一个包构造出来，程序员能直接使用它，不需要考虑它包含的细节，正好是因为程序员在处理编程问题时将它作为单一的记号来使用。</p>
 
 <p>A package is most useful if its behavior is independent of the
 context of its use, thus reducing possible interference with other
@@ -263,20 +267,26 @@ of a program be apparent and not change, so that such meanings can be
 reliably depended upon. In particular, names internal to one module should
 not affect or be affected by other modules — the external behavior of a
 module should be independent of the choice of names for its local
-identifiers. . ‘ ‘</p>
+identifiers.</p>
 
-<p>To make a nmdular program, it is often necessary to think of a
+<p>如果一个包的行为独立于使用它的上下文，它是最有用的，从而减少了与其它包可能的干扰。这样的包被称为<strong>引用透明(referentially transparent)</strong>。直觉地，引用透明要求一个程序某部分的意思是明明白白的，不会改变，从而能可靠地依赖此意思。特别地，一个模块内部的名字不能影响到其它模块，或者被影响 – 一个模块的外部行为必须独立于它局部标识符的名字的选择。</p>
+
+<p>To make a modular program, it is often necessary to think of a
 computational process as having state. In such cases, if the state can be
 naturally divided into independent parts, an important decomposition may be
 the division of the program into pieces which separately deal with the
 parts of the state.</p>
 
-<p>we will discuss various stylistic techniques for achieving
-modularity. One would expect these techniques to complement each other.
-we will instead discover that they can come into conflict. Pushing one to
-an extreme in a language can seriously compromise others.
-Steele and Sussman 2 The Art of the Interpreter</p>
+<p>为了编写模块化程序，经常有必要想起带状态的计算过程。在这些案例中，如果状态能被自然地分解为独立的部分，一种重要的分解可能是将程序划分为独立处理状态各部分的片段。</p>
 
+<p>We will discuss various stylistic techniques for achieving
+modularity. One would expect these techniques to complement each other.
+We will instead discover that they can come into conflict. Pushing one to
+an extreme in a language can seriously compromise others.</p>
+
+<p>我们将讨论达到模块化的不同的风格化技术。有人会期待这些技术会相互补充。相反，我们将发现它们会产生冲突。在语言中，将一个推到极致能严重地损害其它的。</p>
+
+<h3 id="lisp">类LISP语言</h3>
 <p>LISP-like Languages</p>
 
 <p>Of the hundreds or thousands of computer languages which have been
@@ -290,22 +300,27 @@ programming system based on an interpreter for the standard representation.
 Examples of such languages are LISP 1.5 [LISP 1.5M], MacLISP [Moon],
 InterLISP [Teitelman], CONNIVER [HcDermott and Sussman], QA4 [Rulifson],
 PLASMA [Smith and Hewitt] [Hewitt and Smith], and SCHEME [SCHEME] [Revised
-Report]. we will call this family the LISP—like languages.</p>
+Report]. We will call this family the LISP—like languages.</p>
+
+<p>在成百上千被发明的计算机语言中，有特殊的一个语言家族，其祖先是原始的LISP，由McCarthy和其他人在1950年代后期开发出来。这些语言的特征是：通常都与简单、封闭括号的语法(Cambridge Polish)；能够操作普遍的、链式列表数据结构；以这些结构的方式对程序的标准表示；有基于标准表示解释器的一个交互式编程系统。这样语言的例子是LISP 1.5, MacLISP, InterLISP, CONNIVER, QA4, PLASMA和Scheme。我们称这个家族为类LISP语言。</p>
 
 <p>The various members of this family differ in some interesting and
 often subtle ways. These differences have a profound impact on the styles
 of programming each may encourage or support. We will explore some of
 these differences by examining a series of small (“toy”) evaluators which
 exhibit these differences without the clutter of “extra features” provided
-in real, production versions of LISP~like language systems.</p>
+in real, production versions of LISP-like language systems.</p>
+
+<p>这个家族的各种成员的不同之处，在一些有趣和经常微妙的地方。这些差别对鼓励或支持每种编程风格有深刻的影响。我们将探索这些差别的一些，通过检视一系列小(玩具)求值器，这些求值器展示了这些差别，而没有被类LISP语言系统的真实、生产性版本所提供的“附加特性”搞乱。</p>
 
 <p>The series of evaluators to be considered partially constitute a
 reconstruction of what we believe to be the paths along which the family
-evolved. These paths can be explained after the fact by viewing the</p>
-
-<p>historical changes to the language as being guided by the requirements of
+evolved. These paths can be explained after the fact by viewing the historical changes to the language as being guided by the requirements of
 various aspects of modularity.</p>
 
+<p>这些被考虑的求值器系列，部分构成了一个再现，我们认为是此语言家族进化所沿着的路径。这些路径可以被这样的事实来解释，即看到对语言历史上所做的改变，是被模块化各种方面的需求推动引导着。</p>
+
+<h4 id="section-4">文章的结构</h4>
 <p>Structure of the Paper</p>
 
 <p>Our discussion is divided into several parts, which form a linear
@@ -313,54 +328,54 @@ progression. In addition, there are numerous large digressions which
 explore interesting side developments. These digressions are placed at the
 end as notes, cross-referenced to and from the text.</p>
 
-<p>we exhibit a large number of LISP interpreters whose code differs
+<p>我们的讨论分为几个部分，它们形成线性的推进。此外，有很多大的题外话，去探索有趣的侧面开发。这些题外话放在最后作为注解，被交叉引用到或来自正文。</p>
+
+<p>We exhibit a large number of LISP interpreters whose code differs
 from one to another in small ways (though their behavior differs greatly!).
 In order to avoid writing identical pieces of code over and over, each
 figure exhibits only routines which differ, and also contains cross-
 references to preceding figures from which missing routines for that figure
 are to be drawn.</p>
 
+<p>我们展示很多LISP解释器，它们的代码相互间有很小的差别（但是它们的行为差别巨大）。为了避免到处写出相同的片段，每个图仅展示不同的例程，也包含一个交叉引用到前面的图，在那里图中缺失的例程被画出来。</p>
+
 <p>Part Zero introduces the restricted dialect of the LISP language in
 which most of our examples are written. It also discusses the basic
 structure of an interpreter, and exhibits a meta-circular interpreter for
-the language.g</p>
+the language.</p>
+
+<p>第零部分介绍了LISP语言中受限制的方言，我们大多数的例子都它写成。这部分也讨论解释器的基本结构，并展示了语言的一个元-循环解释器。</p>
 
 <p>Part One introduces procedural data as an abstraction mechanism,
 and considers its impact on variable scoping disciplines in the language.
-we are forced through a series of such disciplines as unexpected
+We are forced through a series of such disciplines as unexpected
 interactions are uncovered and fixed. Interpreters are exhibited for
 dynamic scoping and lexical scoping.</p>
 
-<p>Part Two considers the problems associated with the decomposition
-Steele and Sussman 3 The Art of the Interpreter</p>
+<p>第一部分介绍作为一个抽象机制的过程数据，并考虑它在语言的变量范围规则中的影响。随着未曾预期的交互性被发现和修正，我们被迫使穿越一些列这样的规则。为了动态范围和词法范围而展示了解释器。</p>
 
-<p>of state. Side effects are introduced as a mechanism for effecting such
-decompositions. we find that the notion of side effect is inextricably</p>
+<p>Part Two considers the problems associated with the decomposition of state. Side effects are introduced as a mechanism for effecting such decompositions. We find that the notion of side effect is inextricably wound up with the notion of identity. Dynamic scoping is retrospectively viewed as a restricted kind of side effect.</p>
 
-<p>wound up with the notion of identity. Dynamic scoping is retrospectively
-viewed as a restricted kind of side effect.</p>
+<p>第三部分考虑与分解状态相伴的问题。副作用被引入，作为影响如此分解的一个机制。我们发现，副作用的记号无法摆脱地与相等性的记号缠绕在一起。回想起来，动态范围被看作一种受限的副作用类别。</p>
 
-<p>with this we summarize and conclude with many tantalizing questions
-yet‘unanswered.</p>
+<p>With this we summarize and conclude with many tantalizing questions yet unanswered.</p>
+
+<p>带着这些，我们总结并给出结论，很多扰人的问题尚未有答案。</p>
 
 <p>In Part Three (in a separate paper) we will find that the
 introduction of side effects forces the issue of the order of evaluation of
 expressions. We will contrast call-by-name and its variants with call—by-
 value, and discuss how these control disciplines arise as a consequence of
-different models of- packaging. In particular, call-by-name‘ arises
-naturally from the syntactic nature of the Algol 60_copy rule. As before,
-many little interpreters for these disciplines will be exhibited. A</p>
+different models of packaging. In particular, call-by-name arises
+naturally from the syntactic nature of the Algol 60 copy rule. As before,
+many little interpreters for these disciplines will be exhibited. </p>
 
-<p>In Part Four we will be led to generalize the notion of a syntactic</p>
+<p>在第三部分(一个单独的论文)，我们将发现，副作用的引入将催生表达式求值的次序问题。我们将通过名称调用(call-by-name)及它的变体，与通过值调用，进行比较。然后讨论这些控制记录如何作为不同包建模的结果而产生。特别地，按名称调用自然地从Algol 60拷贝机制的语法属性中自然产生。正如以前，这些规则的很多小解释器也被展示出来。</p>
 
-<p>package. We will discuss meta-procedures, which deal with the
-representations of procedures. The distinction between a procedure and its
-representation will be more carefully considered. Macro processors,</p>
+<p>In Part Four we will be led to generalize the notion of a syntactic package. We will discuss meta-procedures, which deal with the representations of procedures. The distinction between a procedure and its representation will be more carefully considered. Macro processors, algebraic simplifiers, and compilers will be considered as meta-procedures. Various interpreters, compilers, and simplifiers will be exhibited.</p>
 
-<p>algebraic simplifiers, and compilers will be considered as meta-procedures.t</p>
+<p>在第四部分，我们将导向推广语法包的记号。我们将讨论元过程，这处理过程的表示。过程及其表示的区分将被更加仔细地考虑。宏处理器，代数化简器和编译器，将被看做元过程。不同的解释器、编译器和化简器将被展示。</p>
 
-<p>Various interpreters, compilers, and simplifiers will be exhibited.
-Steele and Sussman 4 The Art of‘the Interpreter</p>
 </div>
 
 
@@ -396,6 +411,8 @@ Steele and Sussman 4 The Art of‘the Interpreter</p>
         <a class="basic-alignment left" href="/blog/2015/08/haskell-resources/" title="Previous Post: Haskell Resources">&laquo; Haskell Resources</a>
       
       
+        <a class="basic-alignment right" href="/blog/2015/08/the-art-of-interpreter-ii/" title="Next Post: The Art of Interpreter II">The Art of Interpreter II &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -407,6 +424,10 @@ Steele and Sussman 4 The Art of‘the Interpreter</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/08/the-art-of-interpreter-ii/">The Art of Interpreter II</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/08/the-art-of-interpreter-i/">The Art of Interpreter I</a>
@@ -422,10 +443,6 @@ Steele and Sussman 4 The Art of‘the Interpreter</p>
     
       <li class="post">
         <a href="/blog/2015/07/the-roots-of-lisp/">LISP的根本</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/06/a-conversation-with-alan-kay/">译文：与艾伦·凯的对话</a>
       </li>
     
   </ul>
