@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2015-08-24T14:41:56+08:00</updated>
+  <updated>2015-08-24T14:47:21+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[The Art of Interpreter II]]></title>
-    <link href="http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-ii/"/>
+    <link href="http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-Part-0/"/>
     <updated>2015-08-18T16:52:51+08:00</updated>
-    <id>http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-ii</id>
+    <id>http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-Part-0</id>
     <content type="html"><![CDATA[<h3 id="lisp">第零部分： LISP和解释器</h3>
 <p>Part Zero 
 LISP and Interpreters</p>
@@ -584,16 +584,16 @@ not have to occur. This is because no extra information is saved if there
 is nothing left to do on return from a recursive call. See [SCHEME] and
 [Debunking] for a more thorough discussion of this.</p>
 
-<p>我们的递归方程语言没有特殊的迭代或循环构造物，如同Algol的for语句或者FORTRAN的DO循环。通过安排递归过程去调用它们自身或相互调用，构造出所有的循环。例如，通过对子句列表的后续”尾部(tails)”调用自身，EVCOND(见图2)对COND的子句实现了迭代。现在这样的迭代调用可能让熟悉其它语言(比如Algol, FORTRAN, PL/I, 等等)的读者在直觉层面觉得实现真实的程序不太有效率。甚至想当然认识，调用可以更快一些，它们应该看似以返回地址和其它控制信息的形式消耗了空间。然而，对递归函数求值器的检验显示，这个现象没有发生。这是因为，如果从递归调用中没有剩下什么事情去做，那么没有额外的信息要被保存。</p>
+<p>我们的递归方程语言没有特殊的迭代或循环构造物，如同Algol的for语句或者FORTRAN的DO循环。通过安排递归过程去调用它们自身或相互调用，构造出所有的循环。例如，通过对子句列表的后续”尾部(tails)”调用自身，EVCOND(见图2)对COND的子句实现了迭代。现在这样的迭代调用可能让熟悉其它语言(比如Algol, FORTRAN, PL/I, 等等)的读者在直觉层面觉得实现真实的程序不太有效率。甚至想当然认识，调用可以更快一些，它们应该看似以返回地址和其它控制信息的形式消耗了空间。然而，对递归函数求值器的检验显示，这个现象没有发生。这是因为，如果从递归调用中没有剩下什么事情去做，那么没有额外的信息要被保存。参见[SCHEME]和[Debunking]，对此有更彻底的讨论。</p>
 
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[The Art of Interpreter I]]></title>
-    <link href="http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-i/"/>
+    <link href="http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-Introduction/"/>
     <updated>2015-08-18T10:22:59+08:00</updated>
-    <id>http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-i</id>
+    <id>http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-Introduction</id>
     <content type="html"><![CDATA[<p>原文地址：<a href="http://c2.com/cgi/wiki?TheArtOfTheInterpreter">http://c2.com/cgi/wiki?TheArtOfTheInterpreter</a>
 <br /></p>
 <hr />

@@ -21,7 +21,7 @@ Church’s λ— &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-ii">
+  <link rel="canonical" href="http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-Part-0">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Life Matrix" type="application/atom+xml">
@@ -671,7 +671,7 @@ not have to occur. This is because no extra information is saved if there
 is nothing left to do on return from a recursive call. See [SCHEME] and
 [Debunking] for a more thorough discussion of this.</p>
 
-<p>我们的递归方程语言没有特殊的迭代或循环构造物，如同Algol的for语句或者FORTRAN的DO循环。通过安排递归过程去调用它们自身或相互调用，构造出所有的循环。例如，通过对子句列表的后续”尾部(tails)”调用自身，EVCOND(见图2)对COND的子句实现了迭代。现在这样的迭代调用可能让熟悉其它语言(比如Algol, FORTRAN, PL/I, 等等)的读者在直觉层面觉得实现真实的程序不太有效率。甚至想当然认识，调用可以更快一些，它们应该看似以返回地址和其它控制信息的形式消耗了空间。然而，对递归函数求值器的检验显示，这个现象没有发生。这是因为，如果从递归调用中没有剩下什么事情去做，那么没有额外的信息要被保存。</p>
+<p>我们的递归方程语言没有特殊的迭代或循环构造物，如同Algol的for语句或者FORTRAN的DO循环。通过安排递归过程去调用它们自身或相互调用，构造出所有的循环。例如，通过对子句列表的后续”尾部(tails)”调用自身，EVCOND(见图2)对COND的子句实现了迭代。现在这样的迭代调用可能让熟悉其它语言(比如Algol, FORTRAN, PL/I, 等等)的读者在直觉层面觉得实现真实的程序不太有效率。甚至想当然认识，调用可以更快一些，它们应该看似以返回地址和其它控制信息的形式消耗了空间。然而，对递归函数求值器的检验显示，这个现象没有发生。这是因为，如果从递归调用中没有剩下什么事情去做，那么没有额外的信息要被保存。参见[SCHEME]和[Debunking]，对此有更彻底的讨论。</p>
 
 </div>
 
@@ -696,7 +696,7 @@ is nothing left to do on return from a recursive call. See [SCHEME] and
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-ii/" data-via="" data-counturl="http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-ii/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-Part-0/" data-via="" data-counturl="http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-Part-0/" >Tweet</a>
   
   
   
@@ -705,7 +705,7 @@ is nothing left to do on return from a recursive call. See [SCHEME] and
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2015/08/the-art-of-interpreter-i/" title="Previous Post: The Art of Interpreter I">&laquo; The Art of Interpreter I</a>
+        <a class="basic-alignment left" href="/blog/2015/08/the-art-of-interpreter-Introduction/" title="Previous Post: The Art of Interpreter I">&laquo; The Art of Interpreter I</a>
       
       
     </p>
@@ -721,11 +721,11 @@ is nothing left to do on return from a recursive call. See [SCHEME] and
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/08/the-art-of-interpreter-ii/">The Art of Interpreter II</a>
+        <a href="/blog/2015/08/the-art-of-interpreter-Part-0/">The Art of Interpreter II</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2015/08/the-art-of-interpreter-i/">The Art of Interpreter I</a>
+        <a href="/blog/2015/08/the-art-of-interpreter-Introduction/">The Art of Interpreter I</a>
       </li>
     
       <li class="post">
