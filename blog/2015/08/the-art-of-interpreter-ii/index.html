@@ -124,17 +124,19 @@ would define the factorial function by the following two equations:</p>
 
 <p>与流行的说法相反，LISP最初不是从邱奇的λ演算中派生出来的。最早的LISP没有一个对自由变量和过程对象的良好定义的记号。早期的LISP程序与递归方程类似，在符号表达式(“S-expressions”)上定义函数。他们不同于纯粹递归函数理论公式，是在于引入了条件表达式构造(经常称为”McCarthy条件”)，从而避免“模式导向的调用”。也就是，在递归函数理论中，可以通过如下两个方程定义阶乘函数：</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">factorial(0) = 1
-</span><span class="line">factoria1(successor(x)) = successor(x) * factorial(x)</span></code></pre></td></tr></table></div></figure></notextile></div>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nv">factorial</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="nb">=</span> <span class="mi">1</span>
+</span><span class="line"><span class="nv">factoria1</span><span class="p">(</span><span class="nv">successor</span><span class="p">(</span><span class="nv">x</span><span class="p">))</span> <span class="nb">=</span> <span class="nv">successor</span><span class="p">(</span><span class="nv">x</span><span class="p">)</span> <span class="nb">*</span> <span class="nv">factorial</span><span class="p">(</span><span class="nv">x</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>In early LISP, however, one would have written:</p>
 
 <p>但是在早期的LISP中，需要写成这样：</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">factoria1[x] = [x=0 -&gt; 1; T -&gt; x*factorial[x-1]]</span></code></pre></td></tr></table></div></figure></notextile></div>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nv">factoria1[x]</span> <span class="nb">=</span> <span class="nv">[x=0</span> <span class="nv">-&gt;</span> <span class="mi">1</span><span class="c1">; T -&gt; x*factorial[x-1]]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>where “[a -&gt; b; T —&gt; c]” essentially means “if a then b else c”. The
 recursive function theory version depends on selecting which of two
@@ -163,8 +165,9 @@ recursive. For example,</p>
 
 <p>对于我们的目的，我们只需要S表达式特殊的情形，称为atom和list。一个“原子”是不可分割的数字对象，我们表示为字母和数字的串；如果只用到数字，那么原子就被认为是数字。许多特殊的字符，比如”-“和”+“，被认为是字母；我们将在后面看到，没有必要特别地将它们保留下来作为操作符号。一个列表是S表达式的序列(可能是空的)，表示为按顺序写S表达式，用空格分开，在一组括号中间。原子”F00”, “43”和”BAR”的列表写为”(FOO 43 BA)”。注意列表的定义是递归的。例如：</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">(DEFINE (SECOND X) (CAR (CUR X)))</span></code></pre></td></tr></table></div></figure></notextile></div>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">SECOND</span> <span class="nv">X</span><span class="p">)</span> <span class="p">(</span><span class="nv">CAR</span> <span class="p">(</span><span class="nv">CUR</span> <span class="nv">X</span><span class="p">)))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>is a list of three things: the atomic symbol DEFINE, a list of the two
 atomic symbols SECOND and X, and another list of two other things.</p>
@@ -198,37 +201,41 @@ conditional) we write the S-expression</p>
 
 <p>其含义是对判定式p_i按顺序求值，直到发现一个为真，此时$e_j$会被取出作为条件的值。我们将S表达式写为：</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">(COND (p_1 e_1) (p_2 e_2) ... (p_n e_n))</span></code></pre></td></tr></table></div></figure></notextile></div>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">COND</span> <span class="p">(</span><span class="nv">p_1</span> <span class="nv">e_1</span><span class="p">)</span> <span class="p">(</span><span class="nv">p_2</span> <span class="nv">e_2</span><span class="p">)</span> <span class="o">...</span> <span class="p">(</span><span class="nv">p_n</span> <span class="nv">e_n</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>we can now encode sets of LISP recursion equations as S-expressions. For the equation</p>
 
 <p>我们能将一组LISP递归等式编码为S表达式的形式。对于等式：</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">factoria1[x] = [x=0 -&gt; 1; T -&gt; x*factoria1[x-1]]</span></code></pre></td></tr></table></div></figure></notextile></div>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nv">factoria1[x]</span> <span class="nb">=</span> <span class="nv">[x=0</span> <span class="nv">-&gt;</span> <span class="mi">1</span><span class="c1">; T -&gt; x*factoria1[x-1]]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>we write the S-expression</p>
 
 <p>我们将S表达式写为：</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
 <span class="line-number">3</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">(DEFINE (FACTORIAL x)
-</span><span class="line">	(COND ((= X 0) 1)
-</span><span class="line">		  (T (* x (FACTORIAL (- x 1))))))</span></code></pre></td></tr></table></div></figure></notextile></div>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">FACTORIAL</span> <span class="nv">x</span><span class="p">)</span>
+</span><span class="line">	<span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nb">=</span> <span class="nv">X</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class="line">		  <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nb">*</span> <span class="nv">x</span> <span class="p">(</span><span class="nv">FACTORIAL</span> <span class="p">(</span><span class="nb">-</span> <span class="nv">x</span> <span class="mi">1</span><span class="p">))))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>(we could also have written</p>
 
 <p>(我们也能写为：</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
 <span class="line-number">3</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">(DEFINE (FACTORIAL X) (cond ((=
-</span><span class="line">x 0) 1) (T (* x (FACTORIAL (- x
-</span><span class="line">1))))))</span></code></pre></td></tr></table></div></figure></notextile></div>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">FACTORIAL</span> <span class="nv">X</span><span class="p">)</span> <span class="p">(</span><span class="nb">cond</span> <span class="p">((</span><span class="nb">=</span>
+</span><span class="line"><span class="nv">x</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nb">*</span> <span class="nv">x</span> <span class="p">(</span><span class="nv">FACTORIAL</span> <span class="p">(</span><span class="nb">-</span> <span class="nv">x</span>
+</span><span class="line"><span class="mi">1</span><span class="p">))))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>but we conventionally lay out S-expressions so that they are easy to read.)</p>
 
@@ -276,7 +283,7 @@ feature), and produces a list of its arguments.</p>
 
 <p>我们现在可用LISP写一些有趣的程序，来处理S表达式。例如，我们写一个断言EQUAL, 它确定两个S表达式有相同的CAR-CDR结构。</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
 <span class="line-number">3</span>
 <span class="line-number">4</span>
@@ -284,14 +291,15 @@ feature), and produces a list of its arguments.</p>
 <span class="line-number">6</span>
 <span class="line-number">7</span>
 <span class="line-number">8</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">(DEFINE (EQUAL X Y)
-</span><span class="line">          (COND ((NUMBERP X)
-</span><span class="line">                 (COND ((NUMBERP Y) (= X Y))
-</span><span class="line">                       (T NIL)))
-</span><span class="line">                ((ATOM X) (EQ X Y))
-</span><span class="line">                ((ATOM Y) NIL)
-</span><span class="line">                ((EQUAL (CAR X) (CAR Y)) 
-</span><span class="line">                 (EQUAL (CDR X) (CDR Y)))))</span></code></pre></td></tr></table></div></figure></notextile></div>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">EQUAL</span> <span class="nv">X</span> <span class="nv">Y</span><span class="p">)</span>
+</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NUMBERP</span> <span class="nv">X</span><span class="p">)</span>
+</span><span class="line">                 <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NUMBERP</span> <span class="nv">Y</span><span class="p">)</span> <span class="p">(</span><span class="nb">=</span> <span class="nv">X</span> <span class="nv">Y</span><span class="p">))</span>
+</span><span class="line">                       <span class="p">(</span><span class="no">T</span> <span class="no">NIL</span><span class="p">)))</span>
+</span><span class="line">                <span class="p">((</span><span class="nv">ATOM</span> <span class="nv">X</span><span class="p">)</span> <span class="p">(</span><span class="nv">EQ</span> <span class="nv">X</span> <span class="nv">Y</span><span class="p">))</span>
+</span><span class="line">                <span class="p">((</span><span class="nv">ATOM</span> <span class="nv">Y</span><span class="p">)</span> <span class="no">NIL</span><span class="p">)</span>
+</span><span class="line">                <span class="p">((</span><span class="nv">EQUAL</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">X</span><span class="p">)</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">Y</span><span class="p">))</span>
+</span><span class="line">                 <span class="p">(</span><span class="nv">EQUAL</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">X</span><span class="p">)</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">Y</span><span class="p">)))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Here we have used the standard names T and NIL to represent ture and false.
 (Traditionally NIL is also considered to be the empty list, but we will
@@ -305,8 +313,9 @@ variable X is the atomic symbol “FOO”. we might try writing:</p>
 
 <p>因为LISP程序表示为LISP数据结构(S表达式)，在表达常量时有些困难。比如，假设我们想确定变量X的值是否为原子符号”F00”，我们可能试图写为：</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">(EQ X FOO)</span></code></pre></td></tr></table></div></figure></notextile></div>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">EQ</span> <span class="nv">X</span> <span class="nv">FOO</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>This doesn’t work. The occurrence of “FOO” does not refer to the atomic
 symbol FOO as a constant; it is treated as a variable, just as “X” is.</p>
@@ -322,16 +331,18 @@ write our test as “(EQ X (QUOTE FOO)”. Similarly,</p>
 
 <p>本质的问题是，我们想能够在程序中将任何S表达式按照常量的方式书写，但是一些S表达式必须被用来表示其它一些，比如变量和过程调用。为了解决这个问题，我们发明了一个新记号：(QUOTE X)在程序中表示常数S表达式X。{注释： QUOTE Mapping} 因此我们能将我们的测试写为：(EQ X (QUOTE FOO)。类似的：</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">(EQUAL X (LIST Y Z))</span></code></pre></td></tr></table></div></figure></notextile></div>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">EQUAL</span> <span class="nv">X</span> <span class="p">(</span><span class="nv">LIST</span> <span class="nv">Y</span> <span class="nv">Z</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>constructs a list from the values of Y and z, and compares the result to
 the value of X, while</p>
 
 <p>从X和Y的值中构造一个列表，然后将结果与X的值比较，而：</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">(EQUAL X (QUOTE (LIST Y Z)))</span></code></pre></td></tr></table></div></figure></notextile></div>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">EQUAL</span> <span class="nv">X</span> <span class="p">(</span><span class="nv">QUOTE</span> <span class="p">(</span><span class="nv">LIST</span> <span class="nv">Y</span> <span class="nv">Z</span><span class="p">)))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>compares the value of X to the constant S-expression “(LIST Y Z)”. Because
 the QUOTE construction is used so frequently in LISP, we use an abbreviated
@@ -360,8 +371,9 @@ procedures, and no definitions of procedures within other procedures.</p>
 
 <p>驱动循环的读取 form的过程定义：</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">(DEFINE (F A B C ...) &lt;expression in A B C ... and F G H ...&gt;)</span></code></pre></td></tr></table></div></figure></notextile></div>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">F</span> <span class="nv">A</span> <span class="nv">B</span> <span class="nv">C</span> <span class="o">...</span><span class="p">)</span> <span class="nv">&lt;expression</span> <span class="nv">in</span> <span class="nv">A</span> <span class="nv">B</span> <span class="nv">C</span> <span class="o">...</span> <span class="nb">and</span> <span class="nv">F</span> <span class="nv">G</span> <span class="nv">H</span> <span class="o">...</span><span class="nb">&gt;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>and saves them. It can also read in requests to apply some defined
 procedure to some arguments (or, more generally, to evaluate any
@@ -380,233 +392,275 @@ presented here as a set of such definitions, and so is meta—circular.</p>
 is made to apply the procedure to the arguments. (It is necessary to state
 this explicitly here, as it is not inherent in the form of the meta-circular definition. See [Reynolds] for an explication of this problem.)</p>
 
+<p>语言打算被按应用的次序去求值；也就是，对一个过程所有的参数都被完全求值之后，才试图将过程应用到参数上。(有必要在这里这里显式地说，这不是元循环定义的形式本自具有的。看[Reynolds]对这个问题的解释。)</p>
+
 <p>The driver loop (see Figure 1) is conceptually started by a request
 to invoke DRIVER with no arguments. Its task is to first print the message
 “LITHP ITH LITHTENING” (a tradition of sorts) and then invoke DRIVER—LOOP.
-The expression &lt;THE-PRIMITIVE-PROCEDURES) is intended to represent a constant
-list structure, containing definitions of primitive procedures, to be
-supplied to DRIVER—LO0P.</p>
+The expression <the-primitive-procedures> is intended to represent a constant
+list structure, containing definitions of primitive procedures, to be supplied to DRIVER—LOOP.</the-primitive-procedures></p>
 
-<p>(DEFINE (DRIVER)
-(DRIVER-LOOP (THE-PRIMITIVE—PROCEDURES) (PRINT ‘|LITHP ITH LITHTENlNG|)))</p>
+<p>驱动循环(看图1)是概念性第启动，通过请求不带参数的调用DRIVER。它的任务首先是打印消息“”LITHP ITH LITHTENING”，然后调用DRIVER-LOOP。表达式<the-primitive-procedures>目的是打印一个常量列表结构，包含原语过程的定义，以便提供给DRIVER—LOOP。</the-primitive-procedures></p>
 
-<p>(DEFINE (DRIVER—LO0P PROCEDURES HUNOZ)
-(DRIVER—LOOP—l PROCEDURES (READ)))</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">DRIVER</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">DRIVER-LOOP</span> <span class="nv">&lt;THE-PRIMITIVE</span><span class="err">—</span><span class="nv">PROCEDURES&gt;</span> <span class="p">(</span><span class="nv">PRINT</span> <span class="ss">&#39;|LITHP ITH LITHTENlNG|</span><span class="p">)))</span>
+</span><span class="line">
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">DRIVER</span><span class="err">—</span><span class="nv">LOOP</span> <span class="nv">PROCEDURES</span> <span class="nv">HUNOZ</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">DRIVER</span><span class="err">—</span><span class="nv">LOOP</span><span class="err">—</span><span class="nv">l</span> <span class="nv">PROCEDURES</span> <span class="p">(</span><span class="nv">READ</span><span class="p">)))</span>
+</span><span class="line">
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">DRIVER-LOOP-1</span> <span class="nv">PROCEDURES</span> <span class="nv">FORM</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">ATOM</span> <span class="nv">FORM</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">DRIVER-LOOP</span> <span class="nv">PROCEDURES</span> <span class="p">(</span><span class="nv">PRINT</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="nv">FORM</span> <span class="o">&#39;</span><span class="p">()</span> <span class="nv">PROCEDURES</span><span class="p">))))</span>
+</span><span class="line">              <span class="p">((</span><span class="nv">EQ</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">FORM</span><span class="p">)</span> <span class="ss">&#39;DEFINE</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">DRIVER-LOOP</span> <span class="p">(</span><span class="nv">BIND</span> <span class="p">(</span><span class="nv">LIST</span> <span class="p">(</span><span class="nv">CAADR</span> <span class="nv">FORM</span><span class="p">))</span>
+</span><span class="line">                                  <span class="p">(</span><span class="nv">LIST</span> <span class="p">(</span><span class="nv">LIST</span> <span class="p">(</span><span class="nv">CDADR</span> <span class="nv">FORM</span><span class="p">)</span> <span class="p">(</span><span class="nv">CADDR</span> <span class="nv">FORM</span><span class="p">)))</span>
+</span><span class="line">                                  <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">                            <span class="p">(</span><span class="nv">PRINT</span> <span class="p">(</span><span class="nv">CAADR</span> <span class="nv">FORM</span><span class="p">))))</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">DRIVER-LOOP</span> <span class="nv">PROCEDURES</span> <span class="p">(</span><span class="nv">PRINT</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="nv">FORM</span> <span class="o">&#39;</span><span class="p">()</span> <span class="nv">PROCEDURES</span><span class="p">))))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>(DEFINE (DRIVER-LOOP-1 PROCEDURES FORM)
-(COND ((ATOM FORM)
-(DRIVER-LOOP PROCEDURES (PRINT (EVAL FORM ‘() PROCEDURES))))
-((EO (CAR FORM) ‘DEFINE)
-(DRIVER-LOOP (BIND (LIST (CAADR FORM))
-(LIST (LIST (CDADR FORM) (CADDR FORM)))
-PROCEDURES)
-(PRINT (CAADR FORM))))
-(T (DRIVER-LOOP PROCEDURES (PRINT (EVAL FORM ‘() PROCEDURES))))))</p>
-
-<p>Figure 1
-Top Level Driver Loop for a Recursion Equations Interpreter</p>
+<center>
+Figure 1
+<br />
+Top Level Driver Loop for a Recursion Equations Interpreter
+</center>
 
 <p>DRIVER-LOOP reads an S—expression from the input stream and passes
 it, along with the current procedure definitions, to DRIVER-LOOP-1. This
-procedure in turn determines whether the input S-expression is a</p>
+procedure in turn determines whether the input S-expression is a definition. If it is, then it uses amp (described below) to produce an augmented set of procedure definitions, prints the name of the defined procedure, and calls DRIVER-LOOP to repeat the process. The augmented set of procedures is passed to DRIVER-LOOP, and so the variable PROCEDURES always contains all the accumulated definitions ever read. If the input S-expression is not a definition, then it is given to the evaluator EVAL, whose purpose is to determine the values of expressions. {Note Value Quibble} The set of currently defined procedures is also passed to EVAL.</p>
 
-<p>definition. If it is, then it uses amp (described below) to produce an_</p>
-
-<p>augmented set of procedure definitions, prints the name of the defined
-procedure, and calls DRIVER-LOOP to repeat the process. The augmented set of
-procedures is passed to DRIVER-LOOP, and so the variable PROCEDURES always
-contains all the accumulated definitions ever read. If the input S-
-expression is not a definition, then it is given to the evaluator EVAL,
-whose purpose is) to determine the values of expressions. {Note Value
-Quibble) The set of currently defined procedures is also passed to EVAL.</p>
+<p>DRIVER-LOOP 从输入流读一个S表达式，然后将它，连同当前的过程定义，给DRIVER-LOOP-1。这个过程然后确定输入的S表达式是否是一个定义。如果是，则它利用amp(下面描述)来产生一个过程定义的扩充集，打印定义所定义过程的名字，然后调用DRIVER-LOOP来重复过程。扩充的过程集被传输给DRIVER-LOOP，从而变量PROCEDURES总是包含所有曾经读取的累计的定义。如果输入的S表达式不是一个定义，那么它会交给求值器eval，其目的是确定变量的值。{注释：Value Quibble} 当前所定义的过程集也会传输给EVAL。</p>
 
 <p>The process carried on by the driver loop is often called the “top
-level”;— all user programs and requests are run‘ “under” it. The growing</p>
+level”; all user programs and requests are run‘ “under” it. The growing set of procedure definitions is called the “top—level environment”; this environment changes in the course of the user interaction, and contains the state of the machine as perceived by the user. It is within this environment that user programs are executed. </p>
 
-<p>set of procedure definitions is called the “top—level environment”; this _</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"> <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="nv">EXP</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">ATOM</span> <span class="nv">EXP</span><span class="p">)</span>
+</span><span class="line">                 <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">EQ</span> <span class="nv">EXP</span> <span class="err">‘</span><span class="nv">NlL</span><span class="p">)</span> <span class="ss">&#39;NIL</span><span class="p">)</span>
+</span><span class="line">                       <span class="p">((</span><span class="nv">EQ</span> <span class="nv">EXP</span> <span class="ss">&#39;T</span><span class="p">)</span> <span class="ss">&#39;T</span><span class="p">)</span>
+</span><span class="line">                       <span class="p">((</span><span class="nv">NUMBERP</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">EXP</span><span class="p">)</span>
+</span><span class="line">                       <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">VALUE</span> <span class="nv">EXP</span> <span class="nv">ENV</span><span class="p">))))</span>
+</span><span class="line">                <span class="p">((</span><span class="nv">EQ</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="ss">&#39;QUOTE</span><span class="p">)</span>
+</span><span class="line">                 <span class="p">(</span><span class="nv">CADR</span> <span class="nv">ExP</span><span class="p">))</span>
+</span><span class="line">                <span class="p">((</span><span class="nv">EQ</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="ss">&#39;COND</span><span class="p">)</span>
+</span><span class="line">                 <span class="p">(</span><span class="nv">EVCOND</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">))</span>
+</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">APPLY</span> <span class="p">(</span><span class="nv">VALUE</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">                          <span class="p">(</span><span class="nv">EVLIS</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">                          <span class="nv">PROCEDURES</span><span class="p">))))</span>
+</span><span class="line">
+</span><span class="line">  <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">APPLY</span> <span class="nv">FUN</span> <span class="nv">ARGS</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">PRIMOP</span> <span class="nv">FUN</span><span class="p">)</span> <span class="p">(</span><span class="nv">PRIMOP-APPLY</span> <span class="nv">FUN</span> <span class="nv">ARGS</span><span class="p">))</span>
+</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CADR</span> <span class="nv">FUN</span><span class="p">)</span>
+</span><span class="line">                         <span class="p">(</span><span class="nv">BIND</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">FUN</span><span class="p">)</span> <span class="nv">ARGS</span> <span class="o">&#39;</span><span class="p">())</span>
+</span><span class="line">                         <span class="nv">PROCEDURES</span><span class="p">))))</span>
+</span><span class="line">
+</span><span class="line">  <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">EVCOND</span> <span class="nv">CLAUSES</span> <span class="nv">ENV</span> <span class="nv">PROCEDURED</span><span class="p">)</span>
+</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="p">(</span><span class="nv">ERROR</span><span class="p">))</span>
+</span><span class="line">                <span class="p">((</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CAAR</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">                 <span class="p">(</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CADAR</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">))</span>
+</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">EVCOND</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">))))</span>
+</span><span class="line">
+</span><span class="line">  <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">EVLIS</span> <span class="nv">ARGLIST</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">ARGLIST</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span>
+</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">CONS</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">ARGLIST</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">                         <span class="p">(</span><span class="nv">EVLIS</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">ARGLIST</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>environment changes in the course of the user interaction, and contains the
-state of the machine as perceived by the user._ It is within this
-environment that user programs are executed. ‘
-Steele and Sussman 9 The Art of the Inter reter
-<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__E</strong>__</p>
-
-<p>(DEFINE (EVAL EXP ENV PROCEDURES)
-(coND ((ATOM EXP)
-(COND ((Eo EXP ‘NlL) ‘NIL)</p>
-
-<p>((Eo EXP ‘7) ‘1)
-((NUMBERP EXP) EXP)
-(T (vALDE EXP ENV))))</p>
-
-<p>((Eo (cAR ExP) ‘QUOTE)</p>
-
-<p>(CADR ExP))</p>
-
-<p>((EQ (cAR EXP) ‘COND)</p>
-
-<p>(EVCOND (cDR EXP) ENV PRocEDuREs))
-(T (APPLY (VALUE (CAR EXP) PROCEDURES)
-(EVLIS (cDR EXP) ENV PROCEDURES)
-PRocEDuREs))))</p>
-
-<p>(DEFINE (APPLY FUN ARGS PRocEDuREs)
-(COND ((PRlMOP FUN) (PRIMOP-APPLY FUN ARes))
-(T (EVAL (CADR FUN)
-(BIND (cAR FUN) ARGS ‘())
-PRocEDuREs))))</p>
-
-<p>(DEFINE (EVCOND CLAUSES ENV PROCEDURED)
-(COND ((NULL CLAUSES) (ERROR))
-((EVAL (CAAR CLAUSES) ENV PROCEDURES)
-(EVAL (CADAR CLAUSES) ENV PROCEDURES))
-(T (EVCOND (COR CLAUSES) ENV PROCEDURES))))</p>
-
-<p>(DEFINE (EVLIS ARGLIST ENV PROCEDURES)
-(COND ((NULL ARGLIST) ‘())
-(T (CONS (EVAL (CAR ARGLIST) ENV PROCEDURES)
-(EVLIS (CDR ARGLIST) ENV PROCEDURES)))))</p>
-
-<p>Figure 2
-Evaluator for a Recursion Equations Interpreter</p>
+<center>                    
+Figure 2
+<br />
+Evaluator for a Recursion Equations Interpreter
+</center>
 
 <p>The evaluator proper (see Figure 2) is divided into two conceptual
-components: EvAL and APHX. EVAL classifies expressions and directs their
+components: EVAL and APPLY. EVAL classifies expressions and directs their
 evaluation. Simple expressions (such as constants and variables) can be
 evaluated directly. For the complex case of procedure invocations
 (technically called “combinations”), EVAL looks up the procedure
 definition, recursively evaluates the arguments (using EVLIS), and then
 calls APPLY. APPLY classifies procedures and directs their application.
 Simple procedures (primitive operators) are applied directly. For the
-Complex case of user-defined procedures, ANY uses DIND to build an
+complex case of user-defined procedures, APPLY uses BIND to build an
 environment, a kind of symbol table, associating the formal parameters from
 the procedure definition with the actual argument values provided by EVAL.
 The body of the procedure definition is then passed to EVAL, along with the
-environment just constructed, which is used to determine the values of
-Steele and Sussman ‘ ‘ 10 The Art of the Inter reter</p>
+environment just constructed, which is used to determine the values of variables occurring in the body.</p>
 
-<p>variables occurring in the body.</p>
+<p>求值器章节(见图2)被分为两概念部分：EVAL和APPLY。EVAL 将表达式分类并引导他们的求值。简单的表达式(比如常量和变量)能直接求值。对于过程调用这样复杂的情形(技术上称为“组合”)，EVAL查找过程定义，递归地对参数求值(使用EVLLIS)，然后调用APPLY。APPLY区分过程，然后引导它们的应用。简单的过程(原语过程)，被直接应用。对于用户所定义过程这样复杂的情形，APPLY使用BIND来构造一个环境，一种符号表，将来自过程定义的正规参数与EVAL所提供的真实参数值关联起来。然后，过程定义体连同构造的环境，被传给EVAL，这个环境用以确定函数体中出现的变量值。</p>
 
-<p>In more detail, EvAL is a case analysis on the structure of the S-
+<p>In more detail, EVAL is a case analysis on the structure of the S-
 expression EXP. If it is an atom, there are several subcases. The special
 atoms T and NIL are defined to evaluate to T and NIL (this is strictly for
 convenience, because they are used as truth values). Similarly, for
 convenience numeric atoms evaluate to themselves. (These cases could be
-eliminated by requiring the user to write lots of QUOTE forms: ‘T, ‘N1L,
+eliminated by requiring the user to write lots of QUOTE forms: ‘T, ‘NIL,
 ‘43, etc. This would have been quite inconvenient in early LISP, before
-the “”” notation had been introduced; one would have had to write (QUOTE
+the “’” notation had been introduced; one would have had to write (QUOTE
 43), etc.) Atomic symbols, however, encode variables; the value
-associated with that symbol is extracted from the environment Euy using the
-function VALUE (see below). - .</p>
+associated with that symbol is extracted from the environment ENV using the
+function VALUE (see below).</p>
+
+<p>说的更详细一些，EVAL是对S表达式EXP的结构的情形分析。如果它是一个原子，会有几种子情况。特别的原子T和NIL被定义，以便求值出T和NIL(严格说，这是为了方便，因为它们被当真值使用)。类似地，为了方便，数值的原子被定义求值为它们自己。(这种情况可以省掉，通过要求用户写大量的QUOTE forms： ‘T, ‘NIL, ‘43 等等。在”&#8217;”记号被引入之前，这在早期的LISP中很不方便；一个人不得不 (QUOTE 43)，等等) 但是，原子符号编码了变量；使用函数VALUE，把与符号关联的值从环境ENV中提取出来(见下)。</p>
 
 <p>If the expression to be evaluated is not atomic, then it may be a
-QUOTE form, a coup form, or a combination. For a Quote: form, EVAL extracts
-the S-expression constant using CADR. Conditionals are handled by -EVCOND,
+QUOTE form, a COND form, or a combination. For a QUOTE form, EVAL extracts
+the S-expression constant using CADR. Conditionals are handled by EVCOND,
 which calls EVAL on a predicate expression; if the predicate is true,
-EVCOND evaluates the corresponding result expression (by calling EVAL, of</p>
+EVCOND evaluates the corresponding result expression (by calling EVAL, of course); if the predicate is false, EVCOND calls itself to test the predicate of the next clause of the COND body. For combinations, the procedure is obtained, the arguments evaluated (using EVLIST), and APPLY called as described earlier. Notice that VALUE is used to get the procedure definition from the set PROCEDURES; we can do this because, as an engineering trick, we arrange for ENV and PROCEDURES to have the same structure, because they are both symbol tables.</p>
 
-<p>course); if the predicate is false, EVCOND calls itself to test the”</p>
+<p>如果被求值的表达式不是原子的，那么它可能是一个QUOTE form，一个COND form，或者一个组合。对一个QUOTE form, EVAL使用CADR提取S表达式的常熟。条件语句由EVCOND处理，它在一个判定表达式上调用EVAL；如果判定是真的，EVCOND对相应的结果表达式求值(当然，通过调用EVAL)；如果判定式为假，EVCOND调用自身去测试COND 主体中下一个子句的判定式。对于组合，先得到过程，然后对参数求值(使用EVLIST)，然后如前面所描述那样调用APPLY。注意VALUE被用以从集合PROCEDURES中得到变量定义；我们可以这么做，是因为作为工程的技巧，我们组织ENV和PROCEDURES让他们有相同的结构，因为它们都是符号表。</p>
 
-<p>predicate of the next clause of the COND body. For combinations, the
-procedure is obtained, the arguments evaluated (using EvL1s), and APPLY
-called as described earlier. Notice that VALUE is used to get the
-procedure definition from the set PROCEDURES; we can do this because, as an</p>
+<p>EVLIS is a simple recursive function which calls EVAL on successive arguments in ARGLIST and produces a list of the values in order. </p>
 
-<p>engineering trick, we arrange for ENV and PROCEDURES to have the same
-structure, because they are both symbol tables.</p>
+<p>EVLIS是个简单的函数，它对ARGLIST中相继的参数调用EVAL，然后顺序产生值的列表。</p>
 
-<p>EVLIS is a simple recursive function which calls EVAL on successive
-arguments in ARGLIST and produces a list of the values in order.</p>
+<p>APPLY distinguishes two kinds of procedures: primitive and user-defined. For now we avoid describing the precise implementation of primitive procedures by assuming the existence of a predicate PRIMOP which is true only of primitive procedures, and a function PRIMOP-APPLY which deals with the application of such primitive procedures. (See {Note Primitive Operators} for the details of a possible implementation of PRIMOP and PRIMOP-APPLY.) We consider primitive procedures to be a kind of atomic S-expression other than numbers and atomic symbols; we define no particular written notation for them here. However, primitive procedures are not to be confused with the atomic symbols used as their names. The result of (VALUE ‘CAR PROCEDURES) is not the atomic symbol CAR, but rather some bizarre object which is meaningful only to PRIMOP-APPLY.</p>
 
-<p>APPLY distinguishes two kinds of procedures: primitive and user-
-defined. For now we avoid describing the precise implementation of
-primitive procedures by assuming the existence of a predicate PRIMOP which
-is true only of primitive procedures, and a function PRmoP-APPLY which deals
-with the application of such primitive procedures. (See’{Note Primitive
-Operators} for the details of a possible implementation of PRIMOP and PRmoP-
-APPLY.) we consider primitive procedures to be a kind of atomic S-
-expression other-than numbers and atomic symbols; we define no particular
-written notation for them here. However, primitive procedures are not to
-be confused with the atomic symbols used as their names. The result of
-(VALUE ‘CAR PROCEDURES) is not the atomic symbol CAR, but rather some bizarre
-object which is meaningful only to PRIMOP-APPLY.</p>
+<p>APPLY区分两种类型的过程：原语和用户定义。迄今我们避免描述原语过程的准确定义，通过假设存在一个判定式PRIMOP，它只对原语过程为真，同时有一个函数PRIMOP-APPLY，它处理如此原语过程的应用。(参看 {Note Primitive Operators} 详细了解PRIMOP和PRIMOP-APPLY的可能实现的细节。) 我们认为原语过程是一类原子表达式，而非数字或原子符号；我们这里为她们诶有定义特别的书写记号。但是，原语过程不能与使用它们名字的原子符号混淆。(VALUE ‘CAR PROCEDURES)的结果不是原子符号CAR，而是有些奇怪的对象，它只对PRIMOP-APPLY有意义。</p>
 
-<p>User-defined procedures are represented here as lists. These lists</p>
+<p>User-defined procedures are represented here as lists. These lists are constructed by DRIVER-LOOP-1. The car of the list is the list of formal parameters, and the cadr is the body of the definition.</p>
 
-<p>are constructed by DRIVER-LOOP-1. The car of the list is the list of formal
-parameters, and the cadr is the body of the definition.
-Steele and Sussman 11 The Art of the Inter reter
-<strong>__</strong><strong>__</strong><strong>__</strong><strong><em>~</em></strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__E</strong>___</p>
+<p>用户定义的过程在这里用列表表示。这些列表通过DRIVER-LOOP-1构造。list的car部分，是正规参数的列表，而cadr部分是过程定义的主体。</p>
 
-<p>(DEFINE (BIND VARS ARGS ENV)
-(COND ((= (LENGTH VARS) (LENGTH ARGS))
-(CONS (CONS VARS ARGS) ENV))
-(T (ERROR))))</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line">  <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">BIND</span> <span class="nv">VARS</span> <span class="nv">ARGS</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nb">=</span> <span class="p">(</span><span class="nv">LENGTH</span> <span class="nv">VARS</span><span class="p">)</span> <span class="p">(</span><span class="nv">LENGTH</span> <span class="nv">ARGS</span><span class="p">))</span>
+</span><span class="line">                 <span class="p">(</span><span class="nv">CONS</span> <span class="p">(</span><span class="nv">CONS</span> <span class="nv">VARS</span> <span class="nv">ARGS</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">))</span>
+</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">ERROR</span><span class="p">))))</span>
+</span><span class="line">
+</span><span class="line">  <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">VALUE</span> <span class="nv">NAME</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">          <span class="p">(</span><span class="nv">VALUEI</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">LOOKUP</span> <span class="nv">NAME</span> <span class="nv">ENV</span><span class="p">)))</span>
+</span><span class="line">
+</span><span class="line">  <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">VALUEI</span> <span class="nv">NAME</span> <span class="nv">SLOT</span><span class="p">)</span>
+</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">EQ</span> <span class="nv">SLOT</span> <span class="ss">&#39;&amp;UNBOUND</span><span class="p">)</span> <span class="p">(</span><span class="nv">ERROR</span><span class="p">))</span>
+</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">SLOT</span><span class="p">))))</span>
+</span><span class="line">
+</span><span class="line">  <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">LOOKUP</span> <span class="nv">NAME</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">ENV</span><span class="p">)</span> <span class="ss">&#39;&amp;UNBOUND</span><span class="p">)</span>
+</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">LOOKUPI</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">CAAR</span> <span class="nv">ENV</span><span class="p">)</span> <span class="p">(</span><span class="nv">CDAR</span> <span class="nv">ENV</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">))))</span>
+</span><span class="line">
+</span><span class="line">  <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">LOOKUPI</span> <span class="nv">NAME</span> <span class="nv">VARS</span> <span class="nv">VALS</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">VARS</span><span class="p">)</span> <span class="p">(</span><span class="nv">LOOKUP</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">CON</span> <span class="nv">ENV</span><span class="p">)))</span>
+</span><span class="line">                <span class="p">((</span><span class="nv">EQ</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">VARS</span><span class="p">))</span> <span class="nv">VALS</span><span class="p">)</span>
+</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">LOOKUPI</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">con</span> <span class="nv">VARS</span><span class="p">)</span> <span class="p">(</span><span class="nv">CON</span> <span class="nv">VALS</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>(DEFINE (VALUE NAME ENV)
-‘ (VALUEI NAME (LOOKUP NAME ENv)))</p>
-
-<p>(DEFINE (VALUEI NAME SLOT)
-(CQND ((E0 SLOT ‘&amp;UNBOUND) (ERROR))
-(T (CAR SLOT))))</p>
-
-<p>(DEFINE (LOOKUP NAME ENv)
-(coND ((NULL ENv) ‘&amp;UNBOUND)
-(T (LOOKUPI NAME (CAAR ENv) (CDAR ENv) ENV))))</p>
-
-<p>(DEFINE (LOOKUPI NAME VARS vALs ENv)
-(COND ((NULL VARS) (LOOKUP NAME (con ENV)))
-((EQ NAME (CAR VARS)) vALs)
-(T (LOOKUPI NAME (con VARS) (con VALS) ENV))))</p>
-
-<p>Figure 3
-Utility Routines for Maintaining Environments</p>
+<center>
+Figure 3
+<br />
+Utility Routines for Maintaining Environments
+</center>
 
 <p>The interpreter uses several utility procedures for maintaining
 symbol tables (see Figure 3). A symbol table is represented as a list of
 buckets; each bucket is a list whose car is a list of names and whose cdr
 is a list of corresponding values. {Note This ain’t A—lists} If a variable
-name occurs in more than one bucket. the leftmost such bucket has priority;
-in this way new symbol defnntions added to the front of the list can
+name occurs in more than one bucket, the leftmost such bucket has priority;
+in this way new symbol definitions added to the front of the list can
 supersede old ones.</p>
+
+<p>解释器使用几个工具过程来维护符号表(见图3)。一个符号表被表示为桶的列表；每个桶也是个列表，其car是列表的名字，而cdr是对应值的列表。{Note This ain’t A—lists} 如果一个变量名出现在多个桶，最左边的桶优先；新的符号定义添加到符号的前端，按照这个方式，旧的会被取代。</p>
 
 <p>BIND takes a list of names, a list of values, and a symbol table,
 and produces a new symbol table which is the old one augmented by an extra
-bucket containing the new set of associations. (It‘also performs a useful
-error check —-LENGTH returns the length of a list.)</p>
+bucket containing the new set of associations. (It’s also performs a useful
+error check —- LENGTH returns the length of a list.)</p>
 
-<p>VMDE is essentially an interface to Loomw. we define it because
-later. in Part Three, we will want to use different versions of- vALuE1</p>
+<p>BIND 获得一个名字的列表，一个值的列表，一个符号表，然后将旧的符号表扩展一个桶，桶里包含关联的新集合，由此产生一个新的符号表。(它也执行一个有用的错误检查 —- LENGTH 返回列表的长度)</p>
 
-<p>without changing the underlying algorithm in Loomw. The check for &amp;UNBOUND
-catches incorrect references to undefined variables.</p>
+<p>VALUE is essentially an interface to LOOKUP. We define it because later, in Part Three, we will want to use different versions of VALUE1 without changing the underlying algorithm in LOOKUP. The check for &amp;UNBOUND catches incorrect references to undefined variables.</p>
 
-<p>Loomw takes a name and a symbol table, and returns that portion off</p>
+<p>VALUE 本质上是LOOKUP的接口。我们随后在第三部分定义它，我们将想使用不同版本的VALUE1，而不改变LOOKUP的基础算法。 对 &amp;UNBOUND 的检查捕获对未定义变量的不正确的引用。 </p>
 
-<p>a bucket whose car is the associated value. (This definition will be more
-useful later than one in which the value itself is returned.)</p>
+<p>LOOKUP takes a name and a symbol table, and returns that portion of a bucket whose car is the associated value. (This definition will be more useful later than one in which the value itself is returned.)</p>
 
-<p>Note carefully the use of the variable PmmEmmEs in the
-interpreter. when omvERlomL1 calls EVM_ it passes the current list of
-defined procedures (both primitive and user-defined). DRIvEm¢ooP-1 is the
-only routine which augments the value of PmmEmmEs, and this value is only
-Steele and Sussman 12 The Art of the Inter reter</p>
+<p>LOOKUP 取得一个名字和一个符号表，然后返回桶的一部分，其car是关联的值。(这个定义随后将比返回值本身更加重要)</p>
 
-<p>used in EVAL, when it is passed to VALUE. However, a_l_l of the routines
-APPLY, evconp, and evus have to know about PROCEDURES, and dutifully pass it
+<p>Note carefully the use of the variable PROCEDURES in the
+interpreter. When DRIVER-LOOP-1 calls EVAL it passes the current list of
+defined procedures (both primitive and user-defined). DRIVER-LOOP-1 is the
+only routine which augments the value of PROCEDURES, and this value is only
+used in EVAL, when it is passed to VALUE. However, <u>all</u> of the routines
+APPLY, EVCOND, and EVLIS have to know about PROCEDURES, and dutifully pass it
 along so that it may be eventually used by EVAL. The set of definitions
 must be passed along because there is no provision for free variables or
 side effects; there is no way to have “memory” or “state” other than in
 passed variables. The absence of free variables effectively causes our
 language to be referentially transparent. However, we sense a disturbing
 lack of modularity in the use of PROCEDURES (and, to a lesser extent, in the
-use of ENV — look at cvcorm and EVLI‘S). we will return to this point later.</p>
+use of ENV — look at EVCOND and EVLIS). We will return to this point later.</p>
+
+<p>仔细地注意在解释器中使用变量PROCEDURES。当DRIVER-LOOP-1调用EVAL，它传入所定义过程的当前列表(既有原语的，也有用户定义的)。DRIVER-LOOP-1 是唯一例程，它扩展PROCEDURES的值，并且这个值只在EVAL中使用，当它被传给VALUE时。但是，所有例程APPLY, EVCOND, EVLIS都必须知道PROCEDURES, 并尽责地顺延传递它，从而它可能最终被EVAL用到。定义的集合必须被顺延传递，因为对自由变量或副作用没有预先准备; 也没有方法去有“内存”或“状态”，除了在传递的变量中。缺少自由变量实际上致使我们的语言是引用透明的。但是，我们感觉到在PROCEDURES中缺少模块化的一种不安(并且，在较小的程度，在ENV的使用中 — 看看EVCOND和EVLIS)。我们后面再回到这个话题。</p>
 
 <p>Our recursion equations language has no special iteration or
-looping constructs, such as the Algol for statement or the FORTRAN D0 loop.
+looping constructs, such as the Algol <u>for</u> statement or the FORTRAN DO loop.
 All loops are constructed by arranging for recursive procedures to call
 themselves or each other. For example, EVCOND (see Figure 2) iterates over
-the clauses of a couo by calling itself on successive “tails” of the list
+the clauses of a COND by calling itself on successive “tails” of the list
 of clauses. Now such recursive calls may strike the reader familiar with
 other languages (such as Algol, FORTRAN, PL/I, etc.) on an intuitive level
 as being rather inefficient for implementing real programs. Even granted
@@ -615,9 +669,9 @@ of return addresses and other control information. Examination of the
 recursion equations evaluator will show, however, that this phenomenon does
 not have to occur. This is because no extra information is saved if there
 is nothing left to do on return from a recursive call. See [SCHEME] and
-[Debunking] for a more thorough discussion of this.
-Steele and Sussman 13 I The Art of the Inter reter
-<strong><em>.</em></strong><strong>__</strong>~<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><em>£</em>___</p>
+[Debunking] for a more thorough discussion of this.</p>
+
+<p>我们的递归方程语言没有特殊的迭代或循环构造物，如同Algol的for语句或者FORTRAN的DO循环。通过安排递归过程去调用它们自身或相互调用，构造出所有的循环。例如，通过对子句列表的后续”尾部(tails)”调用自身，EVCOND(见图2)对COND的子句实现了迭代。现在这样的迭代调用可能让熟悉其它语言(比如Algol, FORTRAN, PL/I, 等等)的读者在直觉层面觉得实现真实的程序不太有效率。甚至想当然认识，调用可以更快一些，它们应该看似以返回地址和其它控制信息的形式消耗了空间。然而，对递归函数求值器的检验显示，这个现象没有发生。这是因为，如果从递归调用中没有剩下什么事情去做，那么没有额外的信息要被保存。</p>
 
 </div>
 
