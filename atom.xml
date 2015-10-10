@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2015-08-24T14:47:21+08:00</updated>
+  <updated>2015-10-10T17:57:09+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -14,10 +14,1143 @@
 
   
   <entry>
-    <title type="html"><![CDATA[The Art of Interpreter II]]></title>
-    <link href="http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-Part-0/"/>
+    <title type="html"><![CDATA[为什么学习Lisp?]]></title>
+    <link href="http://hack.the-lifematrix.net/blog/2015/10/why-learn-lisp/"/>
+    <updated>2015-10-08T10:38:18+08:00</updated>
+    <id>http://hack.the-lifematrix.net/blog/2015/10/why-learn-lisp</id>
+    <content type="html"><![CDATA[<p><em>本文的主要内容来自Paul Graham的<a href="http://www.paulgraham.com/acl.html">《ANSI Common Lisp》</a>，以及作者自己的思考。</em></p>
+
+<h2 id="section">计算和编程语言</h2>
+
+<p>人类的进化，总是试图将智能带进物质，让物质按照人的期望去做事。其一是实用性目的，能替代人的重复性工作或难以做到的工作，让人的生活水准提高，或步入更高的创造层次。其二是人性固有的好奇心，求知的渴求和成就感的满足。将智能带入物质，是个不断进化的过程。从最初的机械式自动化设备，比如钟表、抽水马桶、纺织机械等，到现在的计算机。进化的越高端，智能越能直接通过物质去表达。</p>
+
+<p>智能也包括很多层次，最基础和最低端，是逻辑。计算机的出现，得以让逻辑直接物质上去表达。计算机提供指令，完成基本的逻辑和数字运算。编程语言，是人与计算机沟通的方式。编程语言抽象层次越高，越接近人的思维。抽象层次越低，越接近机器指令。利用编程语言，编写较高层次的逻辑，就是软件。计算机，让人类可以在逻辑层次而非物理层面去创造，这就是所谓的软件–逻辑产品。</p>
+
+<p>人类思维的本质，喜欢内在的秩序，如果事物过于纷乱，无法找到规律或秩序，人就会难以驾驭它。当然某些混乱，并不意味着失控，而是更大更高秩序的展现。如果有太多复杂和详细的逻辑要表达，人就会难以理解，以至于出现思维的失误，具体到软件上，就是BUG。</p>
+
+<p>例如，如果汇编语言来编写WORD这样的软件，其工作量将增加几十倍。如果我们将软件团队的所有成员，看成一个更大的大脑。那么，这个大脑在处理复杂逻辑上，有其极限。达到临界点时，增加人手，会让沟通成本增加，反而降低效率。为了处理复杂的逻辑，或编写更为庞大精巧的软件，就必须在较高的层次去思考、设计和编码。这就是编程语言的重要性。<strong>编程语言决定了对问题的思考方式</strong>。</p>
+
+<p>一旦人不需要直接去创造物理产品，而着力创造逻辑产品的时候，人的思维就会从物理的束缚中解脱出来，达到更大的自由度。所以软件的开发、升级、创新，会呈现出越来越大的活力。每个生活领域、每个商业分支等，都会有很多逻辑可以用软件来表达，由此人类生活的各个方面都会有软件渗透进去，编程语言会起到更大的作用。</p>
+
+<p>所以，编程语言自身的进化和发展，代表了人类对逻辑的表达能力的提升。从汇编、到C、到java，抽象度在提高，软件可以编写地更为复杂、巨大。</p>
+
+<p>一个好的语言，要具备这几点：
+* 表达力
+* 核的精炼
+* 扩展的丰富
+* 性能
+* 开发效率</p>
+
+<p>表达力指语言的抽象能力，对事物的概括能力。精炼的核，保证了语言本质的简洁，容易理解和掌握。扩展的丰富，代表了语言的适应力和不断进化的能力。性能，指语言的实现在物理机器上运行的效率。开发效率，包括写代码的速度、错误率等。</p>
+
+<p>通过Graham的介绍，Lisp就是这样优秀的语言。</p>
+
+<h2 id="lisp-">Lisp 的特点</h2>
+
+<p>John McCarthy在1960年代左右发明了Lisp语言。继Fortran之后，Lisp是仍在使用的最古老的语言。更值得注意的是，Lisp仍然处于编程语言技术的前沿。懂Lisp的程序员会告诉你，Lisp的有些东西把它和别的语言区分开。</p>
+
+<p>Lisp语言的独特性，部分源于它被设计为<strong>可进化</strong>的语言。你可以利用Lisp来定义新的操作符。当新的抽象变得流行时(例如，面向对象编程)，它总是能在Lisp轻易实现。就像DNA，这样的语言不会过时。</p>
+
+<h3 id="section-1">新的工具</h3>
+
+<h4 id="section-2">语法闭包</h4>
+
+<p>学习Lisp是因为它能让你做在其它语言中做不了的事情。如果你只想让语言做一些简单的事，比如写一个函数，返回小于$n$的所有数之和，那么Lisp和C差别不大。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="Lisp"><span class="line"><span class="c1">; Lisp</span>
+</span><span class="line">
+</span><span class="line"><span class="p">(</span><span class="nb">defun</span> <span class="nv">sum</span> <span class="p">(</span><span class="nv">n</span><span class="p">)</span>
+</span><span class="line">  <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">s</span> <span class="mi">0</span><span class="p">))</span>
+</span><span class="line">    <span class="p">(</span><span class="nb">dotimes</span> <span class="p">(</span><span class="nv">i</span> <span class="nv">n</span> <span class="nv">s</span><span class="p">)</span>
+</span><span class="line">      <span class="p">(</span><span class="nb">incf</span> <span class="nv">s</span> <span class="nv">i</span><span class="p">))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+</pre></td><td class="code"><pre><code class="C"><span class="line"><span class="cm">/* C */</span>
+</span><span class="line"><span class="kt">int</span> <span class="nf">sum</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
+</span><span class="line">	<span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class="line">	<span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span class="line">		<span class="n">s</span> <span class="o">+=</span> <span class="n">i</span><span class="p">;</span>
+</span><span class="line">	<span class="k">return</span> <span class="n">s</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>如果你想写一个函数，它接收参数$n$，返回一个将任何数加$n$的函数。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="Lisp"><span class="line"><span class="p">(</span><span class="nb">defun</span> <span class="nv">addn</span> <span class="p">(</span><span class="nv">n</span><span class="p">)</span>
+</span><span class="line">  <span class="nf">#&#39;</span><span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span>
+</span><span class="line">      <span class="p">(</span><span class="nb">+</span> <span class="nv">x</span> <span class="nv">n</span><span class="p">)))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+<p>那么C就做不到了。</p>
+
+<p>你可能会想，为什么没有人曾经这么想呢？<em>编程语言叫你不要去想那么语言提供不了的东西</em>。为了在语言之中写程序，你必须在语言之中思考。比如，很多人开始用Basic写程序，就不会去想递归，因为在Basic中就没有递归这回事。他只能考虑迭代算法。</p>
+
+<p>上面的例子，叫词法闭包(lexical closures)，Lisp程序员一直在使用，但是在其它语言中却看不到。</p>
+
+<h4 id="section-3">同象性</h4>
+
+<p>Lisp另一个更有价值的特点是，其代码和数据具有相同的结构，亦或代码用数据结构的形式表达。这意味着，程序员通过操作数据，就可以形成新的代码。也就是，可以能编写程序的程序。这在Lisp中，通过宏来实现。</p>
+
+<p>通过宏、闭包和运行时类型，Lisp超越了面向对象编程。</p>
+
+<h3 id="section-4">新的技术</h3>
+
+<p>Lisp所带有的新事物 – 自动内存管理，明显的类型化，闭包等等，都会让编程更容易。这些组合在一起，就形成临界质量，让新的编程方式成为可能。</p>
+
+<p>Lisp设计为可以扩展的：它允许你自己定义新的运算符。扩展Lisp并不比用它写程序更困难。事实上，这很容易(而且如此有用)，以至于成为Lisp编程的标准实践。正如你可以写程序向下通向语言，你也可以构建语言向上通向你的程序。你自底向上工作，正如自顶向下。</p>
+
+<p>几乎任何程序都能从裁剪语言适应它的需要中获益，但是程序越复杂，自底向上的编程就越有价值。一个自底向上的程序，可以写成一系列的层，每一个作为上一层的一种编程语言。TEX是最早以这种方式写出的程序。你可以在任何语言中以自底向上的方式写程序，但Lisp是这种方式最为自然的工具。</p>
+
+<p>自底向上编程自然地产生了可扩展的软件。如果你采用了自底向上的编程原理一直到你程序的最顶层，那么这一层就会成为给用户的编程语言<em>(注：如果最上层是自然语言，那就意味着软件可以和用户对话了，哈哈)</em>。因为扩展性的想法如此根植于Lisp之中，使得它成为编写可扩展软件的理想语言。1980年代最成功的软件中有三个，都提供Lisp作为扩展语言：Gnu Emacs, Autocad 和 Interleaf。</p>
+
+<p>自底向上工作，也是获得可复用软件的最佳途径。编写可复用软件的核心是，将普遍和特殊分开。自底向上编程本质上就创造了这样一种分离。不是将你的精力全部放在单一的、庞大的应用上，你将你的部分精力用于构造语言，部分（成比例的相应小一些）用于在其上编写应用。对这个应用特殊的地方，将集中在最顶层。其下的层将形成一个语言，来写这样的应用。什么能够比编程语言更具复用性的？</p>
+
+<p>Lisp 不但允许你编写更为精巧的程序，也能让你更快地编写。Lisp程序常常短小 – 语言给你了更大的概念，所以不必用那么多。正如Frederick Brooks指出的，写程序花的时间绝大多数取决于它的长度。但就这个事实，写Lisp程序需要的时间更少。这个效果被Lisp的动态特征放大了：在Lisp中，编辑-编译-测试的循环是如此简短，以至于编程是实时的。</p>
+
+<p>更高的抽象和交互式环境能改变组织开发软件的方式。<strong>快速原型</strong>术语描述了开始于Lisp的一种编程方式：在Lisp中，你能花比写规约更少的时间来写原型。而且，这个原型是如此抽象，相比用英语写下来的规约，它是更好的规约。Lisp允许你从原型到生产性软件的平滑过渡。当Common Lisp程序在编写时留意速度，并用现代编译器编译，它们能运行地像用任何其他高层次编写的程序一样快。</p>
+
+<h3 id="section-5">新的策略</h3>
+
+<p>Lisp使得一种新的编程策略成为可能。这一策略将在未来更常看到。随着编程环境更加强大，语言变得更为抽象，Lisp风格的编程将逐渐取代旧有的计划-实施模式(plan-implement model)。</p>
+
+<p>在旧的模式中，Bug从不假设会发生。详尽的规约，提前煞费苦心地做出来，被假定能保证程序可以完美地运行。这在理论上听起来很好。不幸地是，规约也是由人书写且实施的。实际上，计划-实施模式的效果并不那么好。</p>
+
+<p><em>(注：规约也是人写的，也会出错，而且因为是文字性的，其错误更不易排查，只能通过同行不断评审来保证。换句话说，自然语言本就不适合描述逻辑。需求可能需要用文字来描述。规约，或者软件功能特征的定义，可以用原型的方式来表达。当然，有些特性的逻辑层次较深，不是操作原型一下子就能看到。这是辅以文字说明是必要的。也就是增加原型说明的文档。)</em></p>
+
+<p>作为OS/360项目的经理，Fredericks Brooks 对传统策略很熟悉，对其结果也很了如指掌：</p>
+
+<pre><code>任何OS/360的用户都知道，它本应该更好些...而且，交付延迟了，
+它使用了比计划更多的内存，成本比预计高了几倍，直到多个发行版之后才运行良好
+</code></pre>
+
+<p>这就是对那个时代最成功之一的软件系统的描述。</p>
+
+<p>旧模式的问题是忽略了人性的弱点。在旧模式中，你打赌规约中没有包含任何严重的缺陷，实现它们只是简单地翻译成代码。经验显示这是个糟糕的赌注。更安全的打赌是，规约会被误导，代码中满是bug。</p>
+
+<p>这恰就是新的编程模型所假定的。与其希望人们不犯错，不如努力让出错的成本降低。错误的成本是修正它需要的时间。如果有强大的语言和良好的编程环境，成本就会极大降低。由此，编程风格就较少地取决于计划，更多依赖于探索(exploration)。</p>
+
+<p>计划是必要的恶：它是对风险的反应。一件事危险越大，事先计划就越重要。强大的工具降低了风险，因此也降低了对计划的需要。然后，你程序的设计就能从可能是最有价值的可用信息源中获益 – 实施它的经验。</p>
+
+<p>自从1960年代，Lisp风格就在这个方向上进化。你能在Lisp中如此之快地写出原型，以至于你能经历几次设计和实现的迭代，而在旧的模型中，你才刚刚写完规约。你不用过于担心设计缺陷，因为你能马上发现它们。而且你不用担心有太多的bug。<strong>当你用函数风格编程时，bug只会有局部影响(When you program in functional style, bugs can only have local effects)</strong>。当你使用非常抽象的语言，有些bug(例如悬空指针，dangling pointers)将不再可能。剩下的也会很容易发现，因为你的程序更为简短。当你有个交互环境，你能立即修正bug，而不用忍受编辑、编译和测试的漫长周期。</p>
+
+<p>Lisp风格进化了这种方式，因为它奏效。听起来很奇怪，较少的计划意味着更好的设计。技术的历史充满了类似的案例。绘画中一个相似的改变，发生在15世纪。在油画流行之前，画家们使用一种介质，称为蛋清颜料(tempera)，它不能被掺杂或涂掉重画。出错的成本很高，这常常让画家变得保守。然后出现了油画，这在风格上是极大的变化。油彩允许二次思考(Oil “allows for second thoughts”)。这提供了决定性优势去处理诸如人物肖像这样有难度的题材。</p>
+
+<p>新的介质并没有让画家的日子轻松一些。它让崭新的、更有进取心的绘画方式变为可能。Janson写到：</p>
+
+<pre><code>没有油彩，佛兰芒画师们对视觉现实的征服将受到很大限制。因此，也从技术角度看，
+他们值得被成为“现代绘画之父”。因为，从那时起，油彩就成为画家的基本颜料。
+</code></pre>
+
+<p>就材料而言，蛋清颜料并不比油彩差。但是油彩的灵活性给了想象力更大的空间 – 这是决定性因素。</p>
+
+<p>编程如今也在经历类似的变化。新的媒介被成为“面向对象的动态语言”，简言之，Lisp。这并不是说我们所有的软件在几年里都会用Lisp去编写。从蛋清颜料到油彩的变迁，没有在一夜之间完成。开始，油彩只是在领先的艺术中心流行，经常会与蛋清颜料组合使用。我们现在就处于这个阶段。Lisp用在大学、研究实验室和少数前沿的公司。同时，从Lisp中借用的想法越来越多地出现在主流：交互式编程环境、垃圾回收、运行时类型等，不一而足。</p>
+
+<p>更强大的工具正在将风险从探索中拿掉。对于程序员来说，这是好消息，这意味着我们能着手更为进取心的目标。油画的使用已经说明了这一效果。紧随它的采用，绘画史上的黄金时代来临了。已经有信号出来，类似的事情将发生在编程中。</p>
+
+<h2 id="lisp">Lisp于当下</h2>
+
+<p>Paul Graham 的书写于1996年，20年过去了，Lisp并没有成为编程语言的主流。不过, 他所阐述的Lisp的优点的确都大量被其它编程语言采用。</p>
+
+<p>1990年代Web的出现将编程带入新的时代。之前更多的是单机运行的系统。在Web环境下，代码更新到服务器端就意味着发布，所以不经编译的解释性语言会加快测试-修正-发布的循环。而且，Web的前端要求内容与逻辑的集成，PHP这种将代码嵌入HTML中的解释性语言就大为流行(也包括Asp.net, JSP等)。其它的解释性语言如Perl, Python, Ruby也在不同社区蓬勃发展。</p>
+
+<p>垃圾回收或自动内存管理，已经被Java和.Net等广泛采用。</p>
+
+<p>那么Lisp为什么没有成为主流，为大多数程序员所接受呢？作者的分析是：</p>
+
+<ul>
+  <li>
+    <p>Lisp的学习曲线比较陡，不是快速上手的语言。Lisp的编程思维，与通常的过程化编程有很大的不同。过程化编程，更多地表达的是一种平铺式的线性逻辑。用过程化思维编程，代码量大且代码复用率低，但是当开发者素质不高时，这种方法反而便于任务的分解和沟通，达到快速开发。而Lisp则需要极高的抽象能力，对开发者水平要求很高，相互间要在高层次上沟通。所以Lisp适合于比较有生命力的、复用度高、逻辑复杂的产品类开发，一次开发，长期使用。而传统的过程化语言，适合于短平快的项目型开发。</p>
+  </li>
+  <li>
+    <p>Lisp的优势，不在于直接用它去编写某个应用领域的程序。而是通过宏、闭包等工具，构建新的语言，这种语言有较高的抽象度，能更直接地描述应用领域中的问题。这样之后的编程量和错误率，都会大为减少(换言之，抽象度越高、代码量越小的程序，编写地越快而且错误率越低)。虽然这个思路是正确而有效的，但缺乏有经验的开发者这样去做。</p>
+  </li>
+  <li>
+    <p>Lisp在国内的计算机科学教育中缺少足够的重视。很多技术人员只追踪流行的技术，而缺少技术本质的了解。就象<a href="http://hack.the-lifematrix.net/blog/2015/06/a-conversation-with-alan-kay/">Alan Kay所说</a>，很多计算机的本科教育成了Java培训。</p>
+  </li>
+  <li>
+    <p>采用Lisp编程，由于需要人的素质高，不适于短平快的项目。所以在注重速度的互联网时代，很难被商业公司选择。</p>
+  </li>
+</ul>
+
+<p>技术总在发展。Lisp虽然没有成为主流，但它的基因和生命力还在。在未来，Lisp能否扩大它的影响力？笔者认为是可能的。</p>
+
+<ul>
+  <li>
+    <p>Web快速发展，产生了很多快速开发的方法，但都属于过渡性技术。比如HTML，javascript，PHP。如何让Web页面更具交互性，如何将内容和逻辑合理地分离，如何适应移动端的Web应用开发，以及Web应用与本地应用的结合，都会对技术提出更高的要求。我们已经到了需要清晰、规范、合理的Web开发模式的时候，HTML5和CSS3都是这方面的尝试。但是，仍感觉是过度性的，尤其CSS3。</p>
+  </li>
+  <li>
+    <p>未来需要一些高质量的平台或框架类的产品，尤其是针对问题域提供高度抽象的语言，Lisp会有用武之地。</p>
+  </li>
+  <li>
+    <p>随着Lisp的传播，当更多高水平开发者认识到Lisp的价值，会用Lisp开发出来一些“杀手级”产品。</p>
+  </li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Art of Interpreter: Part One]]></title>
+    <link href="http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-part-1/"/>
+    <updated>2015-08-24T14:50:59+08:00</updated>
+    <id>http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-part-1</id>
+    <content type="html"><![CDATA[<h3 id="section">第一部分：变量范围</h3>
+<p>Part One
+Variable Scoping Disciplines</p>
+
+<h4 id="procedures-as-data">Procedures as Data</h4>
+
+<p>The simple LISP described in Part Zero can be a pleasant medium for
+encoding rather complex algorithms, including those of symbolic
+mathematics. Often lists are used for representing such structures as the
+set of coefficients of a polynomial or coordinates of a space vector. Many
+problems require one to perform an operation on each element of a list and
+produce a new list of the results. For example, it may be useful to make a list of the squares of each of the elements in a vector. We would write this as follows:</p>
+
+<p>在第零部分描述的简单LISP，可以作为令人愉快的媒介，去编码相当复杂的算法，包括那些符号数学。列表经常用于表示比如多项式系数或者空间向量的坐标等这样的结构。许多问题需要人去执行对列表每个元素的操作，并产生一个作为结果的新列表。例如，产生向量中每个元素平方的列表，可能是有用的。我们这么写：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">SOUARELIST</span> <span class="nv">L</span><span class="p">)</span>
+</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">L</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span>
+</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">CONS</span> <span class="p">(</span><span class="nv">SQUARE</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">L</span><span class="p">))</span>
+</span><span class="line">                         <span class="p">(</span><span class="nv">SOUARELIST</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">L</span><span class="p">))))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>We find ourselves writing this pattern over and over again:</p>
+
+<p>我们发现我们自己一再地写这样的模式：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">fLIST</span> <span class="nv">L</span><span class="p">)</span>
+</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">L</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span>
+</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">CONS</span> <span class="p">(</span><span class="nv">f</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">L</span><span class="p">))</span>
+</span><span class="line">                         <span class="p">(</span><span class="nv">fLlST</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">L</span><span class="p">))))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>where f is a function defined on the elements of our list. It would be
+nice to be able to define an entity of the programming language which would
+capture this abstract pattern. The “obvious” solution is to write the variable function as a functional variable which can be accepted as an argument:</p>
+
+<p>这f是一个定义在列表元素上的函数。如果能够定义一个编程语言的实体可以捕捉这一抽象模式，会是极好的。“明显的”解决方法是写一个可变的函数作为函数化变量，它可以作为一个参数被接受。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">MAPCAR</span> <span class="nv">F</span> <span class="nv">L</span><span class="p">)</span>
+</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">L</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span>
+</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">CONS</span> <span class="p">(</span><span class="nv">F</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">L</span><span class="p">))</span>
+</span><span class="line">                         <span class="p">(</span><span class="nv">MAPCAR</span> <span class="nv">F</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">L</span><span class="p">))))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>(MAPCAR is the traditional name of this abstraction.) Using this we could
+say:</p>
+
+<p>(MAPCAR是这一抽象的传统名字) 利用此，我们可以写出：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">MAPCAR</span> <span class="nv">SQUARE</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Unfortunately, this will not work in our recursion equations interpreter.
+Why not?</p>
+
+<p>不幸的是，这不能在我们的递归方程解释器中运行。为什么不行？</p>
+
+<p>The essence of the problem is that our interpreter segregates procedures from other kinds of objects. We refer to F as a procedure but it was passed in as a variable. Procedures are only looked up in the PROCEDURES symbol table, but variables are bound in ENV. Moreover, in the call to MAPCAR, SQUARE is used as a variable, which is looked up in ENV, but its definition is only available in PROCEDURES.</p>
+
+<p>问题的关键是，我们的解释器将过程从其它类型的对象分离开。我们将F引用为一个过程，但是它作为变量传递。过程只在PROCEDURES符号表中查找，但是变量在绑定在ENV里。而且，对MAPCAR的调用，SQUARE被当做变量来使用，它将在ENV中查找，但是它的定义只存在于PROCEDURES。</p>
+
+<p>Let’s merge the two symbol tables… How could that hurt?
+让我们将两个符号表合并起来… 这有如何损害？</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">DRIVER-LOOP-1</span> <span class="nv">ENV</span> <span class="nv">FORM</span><span class="p">)</span>
+</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">ATOM</span> <span class="nv">FORM</span><span class="p">)</span>
+</span><span class="line">                 <span class="p">(</span><span class="nv">DRIVER</span><span class="err">—</span><span class="nv">LOOP</span> <span class="nv">ENV</span> <span class="p">(</span><span class="nv">PRINT</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="nv">FORM</span> <span class="nv">ENV</span><span class="p">))))</span>
+</span><span class="line">                <span class="p">((</span><span class="nv">EQ</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">FORM</span><span class="p">)</span> <span class="ss">&#39;DEFINE</span><span class="p">)</span>
+</span><span class="line">                 <span class="p">(</span><span class="nv">DRIVER-LOOP</span> <span class="p">(</span><span class="nv">BIND</span> <span class="p">(</span><span class="nv">LIST</span> <span class="p">(</span><span class="nv">CAADR</span> <span class="nv">FORM</span><span class="p">))</span>
+</span><span class="line">                                    <span class="p">(</span><span class="nv">LIST</span> <span class="p">(</span><span class="nv">LIST</span> <span class="ss">&#39;&amp;PROCEDURE</span> <span class="p">(</span><span class="nv">CDADR</span> <span class="nv">FORM</span><span class="p">)</span> <span class="p">(</span><span class="nv">CADDR</span> <span class="nv">FORM</span><span class="p">)))</span>
+</span><span class="line">                                    <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">                              <span class="p">(</span><span class="nv">PRINT</span> <span class="p">(</span><span class="nv">CAADR</span> <span class="nv">FORM</span><span class="p">))))</span>
+</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">DRIVER-LOOP</span> <span class="nv">ENV</span> <span class="p">(</span><span class="nv">PRINT</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="nv">FORM</span> <span class="nv">ENV</span><span class="p">))))))</span>
+</span><span class="line">
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p><em>For DRIVER—LOOP see Figure 1.
+For EVAL see Figure 5.
+For BIND see Figure 3.</em></p>
+
+<center>
+Figure 4
+<br />
+Modified Driver Loop for Treating Procedures as Objects
+</center>
+
+<p>We will eliminate PROCEDURES, and use ENV to contain both procedures
+and other objects. The driver loop requires no particular changes (see
+Figure 4), except for eliminating the argument 1) in the calls to EVAL. We
+will change the name PROCEDURES to ENV throughout as well, but of course that
+isn’t logically necessary, because our language is referentially
+transparent. (snicker!) {Note EVALQUOTE}</p>
+
+<p>我们去掉了PROCEDURES，然后使用ENV包含过程和其它对象。在调用EVAL时，driver loop 没有要求特别的改变(看图4，除过去掉参数1)。我们也将改变PROCEDURES的名字为ENV，但是当然在逻辑上是不必要的，因为我们的语言是引用透明的。(窃笑!) {Note EVALQUOTE}</p>
+
+<p>(We have introduced a funny object &amp;PROCEDURES which we use to flag
+procedural objects. In the previous interpreter it was impossible for the
+user to request application of an object which was not either a primitive
+operator or a procedure produced by a DEFINE form. Now that procedures
+mingle freely with other data objects, it is desirable to be able to
+distinguish them, e.g. for error checking in APPLY. We also have some
+deeper motivations having to do with avoiding the confusion of a procedure
+with its textual representation, but we do not want to deal with this issue
+yet.)</p>
+
+<p>(我们已经引入了一个有趣的对象&amp;PROCEDURES，我们用来标记过程兑现。在前面的解释器中，对用户来说，不可能请求应用一个对象，它既不是原语操作符，也不是由DEFINE form生成的一个过程。既然过程可以自由地与其它数据对象混合，能够将它们区分开，是可取的，例如对于APPLY中的错误检查。我们也有一些更深的动机不得不避免过程与它的文本表达之间的混淆，但是我们还不想处理这个议题。)</p>
+
+<p>To fix up the evaluator, we eliminate all occurrences of PROCEDURES.
+In EVAL, where the name of a procedure in a combination is looked up, we
+change it to perform the lookup in ENV. Finally, there is a problem in
+APPLY: if the call to EVAL to evaluate the body is simply</p>
+
+<p>为了修补求值器，我们去掉所有PROCEDURES的出现。在EVAL中，在组合里面查找过程的名字，我们改变它，以便在ENV中执行查找。最后，在APPLY中有个问题：如果为了对求值主题而对EVAL的调用，简单地是：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CADDR</span> <span class="nv">FUN</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">BIND</span> <span class="p">(</span><span class="nv">CADR</span> <span class="nv">FUN</span><span class="p">)</span> <span class="nv">ARGS</span> <span class="o">&#39;</span><span class="p">()))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>then the new ENV given to EVAL does not have the procedure definitions in
+it. Moreover, APPLY does not even have access to an environment which
+contains the procedure definitions (because its parameter PROCEDURES was
+deleted)! We can easily fix this. When APPLY is called from EVAL, ENV can be passed along (as PROCEDURES used to be), and the call to EVAL from APPLY
+can be changed to</p>
+
+<p>那么传递给EVAL的新的ENV，不能在它其中包含过程定义。而且，APPLY甚至不能访问包含过程定义的环境(因为它的参数PROCEDURES被删除了)。我们能容易地修正这个。当从EVAL中调用APPLY时，ENV能单独地给传递，然后从APPLY中对EVAL的调用，能够被改为：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CADDR</span> <span class="nv">FUN</span><span class="p">)</span>
+</span><span class="line">      <span class="p">(</span><span class="nv">BIND</span> <span class="p">(</span><span class="nv">CADR</span> <span class="nv">FUN</span><span class="p">)</span> <span class="nv">ARGS</span> <span class="nv">ENV</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>In this way the environment passed to EVAL will contain the new variable
+bindings added to the old environment containing the procedure definitions.
+(See Figure 5.) This is indeed a good characteristic: if the name of a
+defined procedure is used as a local variable (procedural or otherwise), the new binding takes precedence locally, temporarily superseding the global definition.</p>
+
+<p>在这个方式下，新的变量绑定将添加到包含过程定义的旧环境中，作为传递给EVAL的环境(见图5)。这的确是一个好的特征：如果一个被定义的过程的名字，被作为局部变量使用(过程的或其它)，那么新的绑定将采用局部优先，临时地替换全局的定义。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="nv">EXP</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">ATOM</span> <span class="nv">EXP</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NUMBERP</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">EXP</span><span class="p">)</span>
+</span><span class="line">                     <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">VALUE</span> <span class="nv">EXP</span> <span class="nv">ENV</span><span class="p">))))</span>
+</span><span class="line">              <span class="p">((</span><span class="nv">EQ</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="ss">&#39;QUOTE</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">CADR</span> <span class="nv">EXP</span><span class="p">))</span>
+</span><span class="line">              <span class="p">((</span><span class="nv">EQ</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="ss">&#39;COND</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">EVCOND</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">))</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">APPLY</span> <span class="p">(</span><span class="nv">VALUE</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">                        <span class="p">(</span><span class="nv">EVLIS</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">                        <span class="nv">ENV</span><span class="p">))))</span>
+</span><span class="line">
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">APPLY</span> <span class="nv">FUN</span> <span class="nv">ARGS</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">PRIMOP</span> <span class="nv">FUN</span><span class="p">)</span> <span class="p">(</span><span class="nv">PRIMOP-APPLY</span> <span class="nv">FUN</span> <span class="nv">ARGS</span><span class="p">))</span>
+</span><span class="line">              <span class="p">((</span><span class="nv">EQ</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">FUN</span><span class="p">)</span> <span class="ss">&#39;&amp;PROCEDURE</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CADDR</span> <span class="nv">FUN</span><span class="p">)</span>
+</span><span class="line">                     <span class="p">(</span><span class="nv">BIND</span> <span class="p">(</span><span class="nv">CADR</span> <span class="nv">FUN</span><span class="p">)</span> <span class="nv">ARGS</span> <span class="nv">ENV</span><span class="p">)))</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">ERROR</span><span class="p">))))</span>
+</span><span class="line">
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">EVCOND</span> <span class="nv">CLAUSES</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="p">(</span><span class="nv">ERROR</span><span class="p">))</span>
+</span><span class="line">              <span class="p">((</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CAAR</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CADAR</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">))</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">EVCOND</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">))))</span>
+</span><span class="line">
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">EVLIS</span> <span class="nv">ARGLIST</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">ARGLIST</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">CONS</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">ARGLIST</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">                       <span class="p">(</span><span class="nv">EVLIS</span> <span class="p">(</span><span class="nv">CON</span> <span class="nv">ARGLIST</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">)))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p><em>For VALUE and BIND see Figure 3.</em></p>
+
+<center>
+Figure 5
+<br />
+Evaluator for Treating Procedures as Objects
+</center>
+
+<p>Another good thing about this version of the interpreter is that
+the gross non-modularity of the scattered occurrences of PROCEDURES has
+disappeared. The problem has not been solved, of course, but we certainly
+feel relieved that the particular manifestation has been removed!</p>
+
+<p>这个版本解释器的另一个好处是，散落出现的PROCEDURES的显而易见的非模块性消失了。当然，问题还没有解决，但是我们确实感觉到轻松一些，特别的表现已经被移除了。</p>
+
+<p>By the way, we also eliminated the explicit tests for T and NIL in
+EVAL, assuming that we can simply put their initial values in the initial
+environment provided by DRIVER.</p>
+
+<p>顺便，我们也去掉了EVAL中对T和NIL显式地测试，假设我们能简单第将他们的初始值放在DRIVER提供的初始环境中。</p>
+
+<p>An interesting property of this interpreter is that free variables
+now have been given a meaning, though we originally did not intend this.
+Indeed, in the original recursion equations interpreter, there were free
+variables in a sense: all procedural variables were free (but they could
+be used only in operator position in a combination). In our new interpreter, thanks to the merging of the procedural and variable environments, we may have not only bound procedure names, but also free variable names, for after all the two kinds of names are now one.</p>
+
+<p>这个解释器的一个有趣的属性是，自由变量已经被给出一个含义，尽管我们开始不是有意为之。事实上，在原始的递归方程解释器，存在自由变量有点意思：所有的过程变量是自由的(但是它们只能在组合的操作符位置被使用)。在我们新的解释器，感谢过程和变量环境的合并，我们不但有绑定的过程名，也有自由变量的名字，因为毕竟现在这两类名字合一了。</p>
+
+<p>This interpreter differs in only small details from the one in LISP
+1.5 [LISP 1.5M]. Both have dynamically scoped free variables (we will
+elaborate on this point later). We might note that the reference to VALUE
+in EVAL when computing the first argument for APPLY can be replaced by a
+reference to EVAL; this does the same thing if a variable appears in the
+operator position of a combination, and allows the additional general
+ability to use any expression to compute the procedure. This difference in
+fact appears in the LISP 1.5 interpreter. There are other slight
+differences, such as the representation of primitive operators and the
+handling of procedures which are not primitive or user—defined. Aside from
+these, the greatest difference between our interpreter and LISP 1.5’s is
+the use of lambda notation. This we will meet in the next section.</p>
+
+<p>这个解释器只和LISP 1.5 [LISP 1.5M]中的解释器有细小的差别。两者都有动态范围的自由变量(我们将在后面详述这点)。我们可能注意到，当为APPLY计算第一个参数时，在EVAL中对VALUE的引用，可以被到EVAL的引用代替；如果一个变量出现在组合的操作符位置，这是做相同的事，并且允许附加的普遍能力去使用任何表达式来计算过程。这个差异事实上出现在LISP 1.5解释器里。这有轻微的不同，比如对原语操作符的表示以及对不是原语或用户定义的过程的处理。除此之外，我们的解释器与LISP 1.5的最大区别是对lambda 记号的使用。我们将在下一节讨论。</p>
+
+<h4 id="section-1">局部过程</h4>
+<p>Local Procedures</p>
+
+<p>We now have the ability to define and use the MAPCAR procedure.
+After some more experience in programming, however, we find that, having
+abstracted the common pattern from our loops, that the remaining part (the
+functional argument) tends to be different for each invocation of MAPCAR.
+Unfortunately, our language for all practical purposes requires that we use
+a name to refer to the functional arguments, because the only way we have
+to denote new procedures is to DEFINE names for them. We soon tire of
+thinking up new unique names for trivial procedures:</p>
+
+<p>我们现在有能力定义和使用MAPCAR过程。但是，有过一些编程经验之后，我们发现，在从我们的循环提取的共通模式之后，对每个MAPCAR的调用，剩下的部分常常不同。不幸的是，我们的语言针对所有实际目的，要求我们使用一个名字去引用函数化参数，因为我们表示一个新过程的唯一方式，是为它们定义名字。我们很快对无关紧要的过程想一个新的唯一的名字感到厌倦。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">FOOBAR-43</span> <span class="nv">X</span><span class="p">)</span> <span class="p">(</span><span class="nb">*</span> <span class="p">(</span><span class="nb">+</span> <span class="nv">X</span> <span class="mi">4</span><span class="p">)</span> <span class="mi">3</span><span class="p">))</span>
+</span><span class="line">
+</span><span class="line"><span class="o">...</span> <span class="p">(</span><span class="nv">MAPCAR</span> <span class="nv">FOOBAR-43</span> <span class="nv">L</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>We run the risk of name conflicts; also, it would be nice to be able to
+write the procedure definition at the single point of use.</p>
+
+<p>我们承担名字冲突的风险；而且，能够在唯一使用点去写过程的定义，是极好的。</p>
+
+<p>More abstractly, given that procedures have become referenceable
+objects in the language, it would be nice to have a notation for them as
+objects, or rather in way to write an S-expression in code that would
+evaluate to a procedure. LISP [LISP 1M] adapted such a notation from the
+λ-calculus of Alonzo Church [Church]:</p>
+
+<p>更抽象地，如果过程在语言中变成可引用的对象，那么有一个把他们当做对象的记号，是不错的，而非在代码中写一个对过程求值的S-表达式。LISP [LISP 1M] 从Alonzo Church那里采纳了这样的记号[Church]：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">LAMBDA</span> <span class="p">(</span><span class="nv">variables</span><span class="p">)</span> <span class="nv">&lt;body&gt;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Comparing this with the DEFINE notation, we see that it has the same parts:
+a keyword so that it can be recognized; a list of parameters; and a body.
+The only difference is the omission of an irrelevant name. It is just the
+right thing.</p>
+
+<p>将它与DEFINE记号比较，我们看到，它有相同的部分：一个关键字，从而它能被识别；一个参数列表；和一个主题。唯一的区别是省略了无关紧要的名字。它恰恰是正确的事。</p>
+
+<p>Given this, we can simply write</p>
+
+<p>如果有这个，我们能简单地写：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">MAPCAR</span> <span class="p">(</span><span class="nv">LAMBDA</span> <span class="p">(</span><span class="nv">X</span><span class="p">)</span> <span class="p">(</span><span class="nb">*</span> <span class="nv">X</span> <span class="nv">X</span><span class="p">))</span> <span class="nv">L</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>rather than having to define SQUARE as a separate procedure. An additional
+benefit is that this notation makes it very easy for a compiler to examine
+this code and produce an efficient iterative implementation, because all
+the relevant code is present locally (assuming the compiler knows about
+MAPCAR).</p>
+
+<p>而非必须将SQUARE定义为单独的过程。一个附加的好处是，这个记号让编译器很容易检验这个代码，并产生有效的迭代实现，因为所有相关的代码都在局部提供了(假设编译器知道MAPCAR)。</p>
+
+<p>Installing this notation requires only a two-line change in EVAL (see Figure 6).</p>
+
+<p>加上这一记号仅需EVAL有两行代码的改变。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="nv">EXP</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">ATOM</span> <span class="nv">EXP</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NUMBERP</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">EXP</span><span class="p">)</span>
+</span><span class="line">                     <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">VALUE</span> <span class="nv">EXP</span> <span class="nv">ENV</span><span class="p">))))</span>
+</span><span class="line">              <span class="p">((</span><span class="nv">EQ</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="ss">&#39;QUOTE</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">CADR</span> <span class="nv">ExP</span><span class="p">))</span>
+</span><span class="line">              <span class="p">((</span><span class="nv">EQ</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="ss">&#39;COND</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">EVCOND</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">))</span>
+</span><span class="line">              <span class="p">((</span><span class="nv">EQ</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="ss">&#39;LAMBDA</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">CONS</span> <span class="ss">&#39;&amp;PROCEDURE</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">EXP</span><span class="p">)))</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">APPLY</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">                        <span class="p">(</span><span class="nv">EVLIS</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">                        <span class="nv">ENV</span><span class="p">))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p><em>For VALUE see Figure 3.</em>
+<em>For APPLY, EVCOND, and EVLIS see Figure 5.</em></p>
+
+<center>
+Figure 6
+<br />
+Evaluator for LAMBDA-notation (Dynamically Scoped)
+</center>
+
+<p>(The reader might have noticed that all EVAL does for a LAMBDA-
+expression is replace the word LAMBDA with the word &amp;PROCEDURE, and that we
+could avoid that work by uniformly using LAMBDA instead of &amp; PROCEDURE as the
+flag for an procedural object. Given then that EVAL on a LAMBDA-expression
+is an identity operation, we can eliminate the handling of LAMBDA in EVAL
+merely by requiring the user to write ‘(LAMBDA …) instead of (LAMBDA .).
+Although the implementors of most LISPs have in fact done just this ever
+since LISP 1, it is a very bad idea. EVAL is supposed to process
+expressions and produce their values, and the fact that it might be
+implemented as an identity operation is no business of the user. The
+confusion between a procedural object and an expression having that object
+as its value will lead to serious trouble. (Imagine confusing 15 with
+(+ 7 8), and trying to take the car of the former instead of the latter, or
+trying to add 3 to the latter instead of the former!) The quoted LAMBDA-
+expression engineering trick discourages the implementation of a
+referentially transparent LISP. In Part Four we will see the extreme
+difficulties for a LISP compiler (or other program-understander) caused by
+the blatant destruction of referential transparency. {Note QUOTE Shafts
+the Compiler})</p>
+
+<p>(读者可能注意到EVAL对一个LAMBDA表达式所做的所有事，就是将词LAMBDA替换为词&amp;PROCEDURE，我们能避免这个工作，通过统一使用LAMBDA而非&amp;PROCEDURE作为一个过程对象的标记。然后如果EVAL在LAMBDA表达式上是一个恒等操作，我们能去掉对EVAL中对LAMBDA的处理，仅仅通过要求用户写’(LAMBDA …) 而非 (LAMBDA .)。虽然自从LISP1，绝大多数LISP的实现器事实上恰恰这么做的，但这是个坏主意。EVAL被假定去处理表达式并产生它们的值，它可能以恒等操作来实现的事实不是用户的事情。过程对象和一个带有那个对象作为其值的表达式，会混淆，这将导致严重的麻烦。(想象混淆 15 和 (+ 7 8)，试试对前者而非后者取car，或者给后者而非前者加3! ) 被引用的LAMBDA表达式工程技巧，阻碍了实现一个引用透明的LISP。在第4部分，我们将看到由于对引用透明性明显的破坏，导致的LISP编译器的极端困难。{Note QUOTE Shafts
+the Compiler})</p>
+
+<p>The ability to use free variables and local procedures gives us
+additional freedom to express interesting procedures. For example, we can
+define a procedure SCALE which multiplies a vector of arbitrary length by a
+scalar. If the vector is represented as a list of components, then we can
+use MAPCAR and a local procedure with a free variable:</p>
+
+<p>使用自由变量和局部过程的能力，给我们额外的自由去表达有趣的过程。例如，我们能定义一个过程SCALE，它能让任意长度的向量乘以一个标量。如果向量被表达为分量的列表，那么我们使用MAPCAR和一个带有自由变量的：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">SCALE</span> <span class="nv">S</span> <span class="nv">V</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">MAPCAR</span> <span class="p">(</span><span class="nv">LAMBDA</span> <span class="p">(</span><span class="nv">X</span><span class="p">)</span> <span class="p">(</span><span class="nb">*</span> <span class="nv">X</span> <span class="nv">S</span><span class="p">))</span>
+</span><span class="line">                <span class="nv">V</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Everything would be just peachy keen, except for one small glitch.
+Suppose that the programmer who wrote SCALE for some reason chose the name L
+rather than S to represent the scalar:</p>
+
+<p>所有事情都看起来是极好的，除过一个小差池。假使写SCALE的程序员由于某些原因，选择了名字L而非去表达标量。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">SCALE</span> <span class="nv">L</span> <span class="nv">V</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">MAPCAR</span> <span class="p">(</span><span class="nv">LAMBDA</span> <span class="p">(</span><span class="nv">X</span><span class="p">)</span> <span class="p">(</span><span class="nb">*</span> <span class="nv">X</span> <span class="nv">L</span><span class="p">))</span>
+</span><span class="line">                <span class="nv">V</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Although the version with S works, the version with L does not work. This
+happens because MAPCAR also uses the name L for one of its arguments (that
+is, a “local” variable). The reference to L in the LAMBDA-expression in
+SCALE refers to the L bound in MAPCAR and not to the one bound by SCALE. In
+general, free variable references in one procedure refer to the bindings of
+variables in other procedures higher up in the chain of calls. This
+discipline is called dynamic scoping of variables, because the connection
+between binding and reference is established dynamically, changing as
+different procedures are executed.</p>
+
+<p>虽然带S的版本能运行，但是带L的版本却不行。这是因为MAPCAR使用名字L作为它的参数 (也就是，一个局部变量)。在SCALE中的LAMBDA表达式中对L的引用，引用了绑定在MAPCA中的L，而不是由SCALE绑定的那个。普遍地讲，在一个过程中自由变量的引用指向了在调用链中更高层次的其它过程。这个纪律称为变量的动态绑定，因为绑定和引用之间的连接是动态建立的，随着所执行过程的不同而变化。</p>
+
+<p>That the behavior of the SCALAR program depends on the choice of
+names for its local variables is a violation of referential transparency.
+The modularity of the MAPCAR abstraction has been destroyed, because no one
+can use that abstraction without understanding the details of its
+implementation. This is the famous “FUNARG problem” [Moses] [LISP
+History].</p>
+
+<p>SCALAR程序的行为依赖于它局部变量名称的选择，这一行为，是对引用透明性的侵犯。MAPCAR抽象的模块化被破坏了，因为如果不了解其实现的细节，没有人能使用此抽象。这是著名的”FUNARG 问题“[Moses] [LISP
+History]。</p>
+
+<p>If we are to avoid such conflicts between different uses of the same name, we must arrange our language so that the choice of names locally cannot have global repercussions. More specifically, we must have the ability to bind a variable in such a way that it will have a truly local meaning (though in general we might not want all variables to be strictly local -— we will consider later the possibility of having several types of variables).</p>
+
+<p>如果我们要避免相同名称的不同使用之间的冲突，我们必须组织我们的语言使得在局部选择的名字不具有全局的余波。更明确第，我们必须能够这样绑定一个变量，使得它有真正的局部含义 （尽管通常我们不可能想让所有变量都是严格局部的 – 我们将随后考虑有这几种变量类型的可能性)。</p>
+
+<h4 id="section-2">词法范围</h4>
+<p>Lexical Scoping</p>
+
+<p>We now construct an interpreter in which all variables have
+strictly local usage. This discipline is called lexical scoping of
+variables, and has been used in many programming languages, including Algol
+60 [Naur]. The term “lexical” refers to the fact that all references to a
+local variable binding are textually apparent in the program. The term
+static binding is also used, indicating that the connection between binding
+and reference is unchanging at run time.</p>
+
+<p>我们现在构造一个解释器，在其中所有的变量都是严格局部使用的。这个纪律被称为变量的词法范围，而且已经被用在很多语言，包括Algol 60  [Naur]。术语”词法”指代这样的事实，所有对一个局部变量绑定的引用，都在程序中文笔可见。术语静态绑定也被使用了，指示绑定和引用在运行时是不改变的。</p>
+
+<p>The difficulty in SCALE is that the body of the LAMBDA-expression
+(* X L) is evaluated using the ENV which was available to EVAL (and so passed
+to APPLY) when it was working on the body of MAPCAR. But we want the (* x L)
+to be evaluated using the ENV which was available when the body of SCALE was
+being evaluated. Somehow we must arrange for this environment to be available for evaluating(* X L).</p>
+
+<p>在SCALE中的困难是，LAMBDA表达式 (* X L) 通过使用ENV被求值。当EVAL对MAPCAR的主体工作时，ENV对EVAL是可用的(因此被传递给APPLY)。但是我们想使用ENV对(* X L)求值时，ENV在SCALE的主体被求值时是可用的。我们必须安排这个环境从而对求值(* X L)是可用的。</p>
+
+<p>The correct environment was available at the time the LAMBDA-
+expression was evaluated to produce a &amp;PROCEDURE—object. Why not just tack
+the environment at that point onto the end of the &amp;PROCEDURE-object so that
+it can be used when the procedure is applied?</p>
+
+<p>当前的环境在LAMBDA表达式被求值而产生&amp;PROCEDURE对象是可用的。为什么不在&amp;PROCEDURE对象终止的店商跟踪环境，从而环境能在过程应用时被用到？</p>
+
+<p>This is in fact the right thing to do. The object we want to give
+to MAPCAR must be not just the text describing the computation to be
+performed, but also the meanings of the free variables referenced in that
+text. Only the combination of the two can correctly specify the
+computation which reflects the complete meaning of the abstract function to
+be mapped. This is the first place where we find it crucial to distinguish
+the three ideas: (1) The program — the text describing a procedure, e.g.
+in the form of an S-expression; (2) The procedure which is executed by the
+computer; and (3) The mathematical function or other conceptual operation
+computed by the execution of the procedure.</p>
+
+<p>这就是事实上要做的正确事情。我们想给MAPCAR的对象必须不仅是描述计算的问题，而且要有引用在文本中的自由变量的含义。只有组合这二者才能正确地指定计算，它可以反映所映射函数的完全含义。这就是我们发现区分三个想法如此重要的第一个地方：(1) 程序 - 描述过程的问题，例如，以S表达式的形式；(2) 被计算机执行的过程; 以及 (3) 执行过程所要计算的数学函数或其它概念性计算。</p>
+
+<p>To install lexical scoping in our interpreter, we must change the treatment of LAMBDA—expressions in EVAL to make the current environment ENV part of the &amp;PROCEDURE-object. We say that the procedure is closed in the current environment, and the &amp;PROCEDURE-object is therefore called a closure of the procedure, or a closed procedure. We must also change APPLY to bind the new variable—value associations onto the environment in the &amp;PROCEDURE-object, rather than onto that passed by EVAL. When we have done this, we see that in fact the environment passed by ENV is not used, so we can eliminate the parameter ENV from the definition of APPLY, and change the invocation of APPLY that occurs in EVAL. Thus, while the handling of LAMBDA-expressions has become more complicated, the handling of ENV has been correspondingly simplified. (See Figure 7.)</p>
+
+<p>为了在我们的解释器中安装词法范围，我们必须改变EVAL中对LAMBDA表达式的处理，让当前环境是&amp;PROCEDURE-object对象的一部分。我们说过程在当前环境被关闭，&amp;PROCEDURE 对象因此被称为过程的闭包，或者一个闭合的过程。我们也必须改变APPLY，以便将新的对象-值联合绑定到&amp;PROCEDURE对象的环境中，而非到由EVAL传递的那个对象。当我们这么做之后，我们看见事实上，由ENV传递的对象没有被用到，因此我们能将参数ENV从APPLY的的定义去掉，并改变发生在EVAL中对APPLY的调用。因此，尽管处理LAMBDA-表达式变得更复杂了，但是对ENV的处理却相应地简单了。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="nv">EXP</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">ATOM</span> <span class="nv">EXP</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NUMBERP</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">EXP</span><span class="p">)</span>
+</span><span class="line">                     <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">VALUE</span> <span class="nv">EXP</span> <span class="nv">ENV</span><span class="p">))))</span>
+</span><span class="line">              <span class="p">((</span><span class="nv">EQ</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="ss">&#39;QUOTE</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">CADR</span> <span class="nv">EXP</span><span class="p">))</span>
+</span><span class="line">              <span class="p">((</span><span class="nv">EQ</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="ss">&#39;LAMBDA</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">LIST</span> <span class="ss">&#39;&amp;PROCEDURE</span> <span class="p">(</span><span class="nv">CADR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="p">(</span><span class="nv">CADDR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">))</span>
+</span><span class="line">              <span class="p">((</span><span class="nv">EQ</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="ss">&#39;COND</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">EVCOND</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">))</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">APPLY</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">                        <span class="p">(</span><span class="nv">EVLIS</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">)))))</span>
+</span><span class="line">
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">APPLY</span> <span class="nv">FUN</span> <span class="nv">ARGS</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">PRIMOP</span> <span class="nv">FUN</span><span class="p">)</span> <span class="p">(</span><span class="nv">PRIMOP-APPLY</span> <span class="nv">FUN</span> <span class="nv">ARGS</span><span class="p">))</span>
+</span><span class="line">              <span class="p">((</span><span class="nv">EQ</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">FUN</span><span class="p">)</span> <span class="ss">&#39;&amp;PROCEDURE</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CADDR</span> <span class="nv">FUN</span><span class="p">)</span>
+</span><span class="line">                     <span class="p">(</span><span class="nv">BIND</span> <span class="p">(</span><span class="nv">CADR</span> <span class="nv">FUN</span><span class="p">)</span> <span class="nv">ARGS</span> <span class="p">(</span><span class="nv">CADDDR</span> <span class="nv">FUN</span><span class="p">))))</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">ERROR</span><span class="p">))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p><em>For VALUE and BIND see Figure 3.
+For EVCOND and EVLIS see Figure 5.</em></p>
+
+<center>
+Figure 7
+<br />
+Evaluator for Lexically Scoped LAMBDA—notation
+</center>
+
+<p>Had we previously adopted the trick described in the preceding
+section, wherein the user was required to write ‘UAMMm H.) rather than
+(LAMBDA…), it would have been more difficult to adjust the interpreter to
+accommodate lexical scoping — it would have involved a large change rather</p>
+
+<p>. than a small tweak. (The change from dynamic scoping to lexical scoping</p>
+
+<p>does involve a gross change of programming style, and this is undoubtedly
+why, once dynamic scoping had historically become the standard discipline,
+the quotation problem was never cleared up. We will see later that dynamic
+Steele and Sussman 22 The Art of the Inter rater</p>
+
+<p>scoping is a valuable technique for producing modularity, but we see no
+virtue at all in the confusion produced by quoted LMm0A-expressions. While
+quoted LAMBUA-expressions do produce dynamic scoping, the support of dynamic
+scoping does not depend on the quotation of LMmnA—expressions.)</p>
+
+<p>while lexical scoping solves our problems of referential
+transparency, we will see later that we must in turn pay a large price for</p>
+
+<p>it —— but it is not a price of run—time efficiency (contrary to popular
+belief)!</p>
+
+<p>Let’s see what we have bought. One thing we can do is generalize
+MAPCAR. After yet more programming experience we find that we write many
+MANMR-like procedures. For example, we might need a kind of HMWAR where
+the function F always returns a list, and we want to produce not a list of
+the lists, but the concatenation of the lists. We might also want to take
+the sum or the product of all the numbers in a list, or the sum of the cars
+of all elements in a list. The general pattern-is that we 1ook.at each
+element of a list, do something to it, and then somehow combine the results
+of all these elementwise operations. Another application might be to check
+for duplicates in a list; for each element we want to see whether another
+copy follows it in the list. We further generalize the pattern to look at
+successive trailing segments of the list; we can always take the car to
+Steele and Sussman A 23 The Art of the Inter reter
+<strong>__</strong><strong>__</strong>,<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><em>JL</em>___</p>
+
+<p>get a single element.
+we could simply add more procedural parameters to MMAR:</p>
+
+<p>(DEFINE (MAP F OP 10 L)
+(COND ((NuLL L) 10)
+(T (oP (F L)
+(MAP F OP ID (CDR L))))))
+Using this, we can make a copy of the list L:
+(MAP CAR CONS ‘() L)
+we can simulate (MMARF Ln
+(MAP (LAMBDA (X) (F (CAR x))) cows ‘() L)</p>
+
+<p>Indeed, we can write:</p>
+
+<p>(DEFINE (MAPCAR F L) ‘
+(MAP (LAMBDA (X) (F (CAR  CONS ‘() L))</p>
+
+<p>We can sum the elements of L:
+(MAP CAR + 0 L)</p>
+
+<p>we can take the product of the elements of L:</p>
+
+<p>(MAP CAR A 1 L)</p>
+
+<p>we can count the pairs of duplicate elements of L:</p>
+
+<p>(MAP (LAMBDA (x) x)
+(LAMBDA (Y N) (coup ((MEMBER (CAR Y) (con Y))
+(+ N 1))</p>
+
+<p>(T N)))
+0</p>
+
+<p>L)</p>
+
+<p>If we have occasion to take the sum over lots of lists in different</p>
+
+<p>places, we might want to package the operation “sum over list“ —- we get
+awfully tired of writing “CAR4-0”. we can write:</p>
+
+<p>(DEFINE (MAPGEN r OP ID)
+(LAMBDA (L) (MAP F op 10 L)))</p>
+
+<p>The result of (MMmENcAP+-o) we might call sun-— it is a procedure of one
+argument which will sum the elements of a list. The reason we wrote a
+procedure to construct sum, rather than just writing:
+Steele and Sussman 24 ‘ The Art of the Inter reter
+<strong>__</strong><strong>__</strong><strong>__</strong>~<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__<em>£</em></strong>_</p>
+
+<p>(DEFINE (sum L)
+(MAP CAR + o L))</p>
+
+<p>is that MANHN serves as a generalized constructor of such procedures, thus
+capturing an interesting abstraction-— we might call the result of (MAPGEN
+CAR « 1), for example. PRONET, and so on. L</p>
+
+<p>What is interesting about this is that we can write procedures
+which construct other procedures. This is not to be confused with the
+ability to construct S-expression representations. of procedures; that
+ability is shared by all of the interpreters we have examined. The ability
+to construct procedures was not available in the dynamically scoped
+interpreter. In solving the violation of referential transparency we seem
+to have stumbled across a source of additional abstractive power. While
+the MAP example may seem strained, this example is quite natural: given a
+numerical function, to produce a new function which numerically
+approximates the derivative of the first.</p>
+
+<p>(DEFINE (DERIVATIVE F AX)
+(LAMBDA (x)
+(/ (— (F (+ X AX))
+(F X))
+AXH)</p>
+
+<p>Notice that this is not a symbolic process dealing with the representation
+of F. The DEMVAHVE procedure knows nothing about the internal structure of
+F. All it does is construct a new procedure which uses F only by invoking
+it. The program tmaxvnnvz captures (in approximation) the abstraction of</p>
+
+<p>“derivative” as a mapping from the space of numerical (and reasonably well-
+behaved!) functions to itself.</p>
+
+<p>The ability to define procedures which construct other procedures
+is powerful. we,can use it to construct procedures which behave like data</p>
+
+<p>objects. For example, since the only constraints which cons must (so far)
+obey are the algebraic identities:</p>
+
+<p>(CAR-(CONS a 3)) = a and (con (cons a ﬁ)) = 3</p>
+
+<p>the value of (emu a G) can be thought of as a procedure which produces a or</p>
+
+<p>8 on demand (cf. [Hewitt and Smith] [Fischer]). We can write this as
+follows: i</p>
+
+<p>(DEFINE (cows A o)
+(LAMBDA (M)
+(COND ((= M o) A)
+((= M 1) D))))</p>
+
+<p>(DEFINE (CAR X) (X 0))</p>
+
+<p>(DEFINE (COR X) (X 1))
+Steele and Sussman 25 The Art of the Inter reter
+<strong>__</strong><strong>__H</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__<em>£</em></strong>_</p>
+
+<p>Here we have envisioned the value of unusa G) as a vector of two elements,
+with zero—origin indexing. However, this definition of cows makes use of
+the primitive operator =. we can define the “primitive operators“ cons,
+CAR, and can without using another primitive operator at all! Following
+[Church], we write:</p>
+
+<p>(DEFINE (cows A 0)
+(LAMBQA (M) (M A D)))</p>
+
+<p>(DEFINE (CAR X)
+(X (LAMBDA (A D) A)))</p>
+
+<p>(DEFINE (CUR X)
+(X (LAMBDA (A D) D)))</p>
+
+<p>Rather than using 0 and 1 (i.e. data objects) as selectors, we instead use
+(LAMBOA (A 0) A) and (LAMBDA(A D) 0) (i.e. procedures).</p>
+
+<p>we can think of the LMmnA-expression which appears as the body of
+the definition of DERWATWE or of ams as a prototype for new procedures.
+when DERIVATIVE or cows is called, this prototype is instantiated as a
+closure, with certain variables free to the prototype bound to the
+arguments given to the constructor.</p>
+
+<p>At this point it looks like we have solved all our problems. We
+started with a referentially transparent but expressively weak language.
+We augmented it with procedural objects and a notation for them in order to
+capture certain notions of abstraction and modularity. In doing this we
+lost the referential transparency. we have now regained it, and in the
+process uncovered even more powerful abstraction capabilities.</p>
+
+<p>Top Levels versus Referential Transparency</p>
+
+<p>“The Three Laws of Thermodynamics:
+1. You can’t win.
+2. You can’t break even.
+3. You can’t get out of the game.”
+— Unknown</p>
+
+<p>There is no free lunch. We have ignored a necessary change to the
+top level driver loop. we have changed the format of avmmemme-objects.
+onxvkk-LooP—1 constructs &amp;PRmxnuR£—objects; it must be rewritten to
+accommodate the change. We must include an environment in each such
+object. The obvious fix is shown in Figure 8.
+Steele and Sussman 26 The Art of the Inter reter
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>£</strong>___</p>
+
+<p>(DEFINE (DRIVER—LO0P-1 ENV FORM)
+(COND ((ATOM FORM)
+(DRIVER-LOOP ENV (PRINT (EVAL FORM ENV))))
+((EO (CAR FORM) ‘DEFINE)
+(DRIVER-LOOP (BIND (LIST (CAADR FORM))
+(LIST (LIST ‘&amp;PROCEDURE
+(CDADR FORM)
+(CADDR FORM)
+ENV))
+ENV)</p>
+
+<p>(PRINT (CAADR FORM))))
+(T (DRIVER-LOOP ENV (PRINT (EVAL FORM ENV))))))</p>
+
+<p>For onxvewioov see Figure 1.
+For BIND see Figure 3.
+For EVAL see Figure 7.</p>
+
+<p>Figure 8
+Modified Driver Loop for Lexically Scoped LAMBDA-notation</p>
+
+<p>It doesn’t work. This patch does put the finishing touch on the
+preservation of referential transparency. It does it so well, that each
+new definition can only refer to previously defined names! We have lost
+the ability to make forward references. we can’t redefine a procedure
+which had a bug in it and expect old references to use the new definition.
+In fact, we cannot use DEFHE to make a recursive procedure. {Note Y-
+operator} The avmmsmme-object for each defined procedure contains an
+environment having only the previously defined procedures.</p>
+
+<p>We are finally confronted with the fact that we have been seeking
+the impossible._ We have tried to attain complete referential transparency
+(in the expectation that modularity would be enhanced), while trying also
+to retain the notion of an incremental, interactive top—level loop for
+reading definitions. But the very existence of such a top level inherently
+constitutes a violation of referential transparency. A piece of code can
+be read in which refers to an as yet undefined identifier (the name of a
+procedure, for example), and then later a definition for that identifier
+read in (thereby altering the meaning of the reference).</p>
+
+<p>If we stubbornly insist on maintaining absolute referential
+transparency in our language, we are forced to eliminate the incremental
+top level loop. A program must be constructed monolithically. We must
+read in all our procedure definitions at once, close them all together, and
+then take one or more shots at running them. (This is the way many Algol
+implementations work; development of large systems can be very difficult
+if parts cannot be separately constructed and compiled.) We are forced to
+give up interactive debugging, because we cannot redefine erroneous</p>
+
+<p>procedures easily. We are forced to give up incremental compilation of
+separate modules.
+.St’ee1e and Sussman 27 The Art of the Inter rater</p>
+
+<p>we have thrown the baby out with the bath water. The very purpose
+of referential transparency is to permit programs to be divided into parts
+so that each part can be separately specified without a description of its
+implementation. The desirable result is that pieces can be separately
+written and debugged. {Note Debugging}</p>
+
+<p>On the other hand, if we give up absolute referential transparency,
+we can fix the top level_ loop. The basic problem is that we really want
+procedures defined at top l.eve.l to be able to refer to procedures defined
+later. The problem with pure lexical scoping is that the apnocaouke-objects
+are created too early, when the desired environment is not yet available.
+we must arrange for them to be constructed at a later time. We could
+simply use the environment in use by the caller at the time of invocation
+(reverting to dynamic scoping). But dynamic scoping would lose a great
+deal of referential transparency and abstractive power. Procedures must
+not be allowed to refer to variables internal to other procedures, but only
+to top—1eve1 variables existing at the time they are called. Therefore
+only the future top-level environment is to be included in the &amp;PROCEDURE-
+object when it is eventually constructed. In this way free variable
+references will be dynamic only with respect to the top-level environment.</p>
+
+<p>Considering our dynamically-scoped interpreter above (see Figure
+5). we would be led toimodify APPLY again, to combine the best properties
+of the dynamically and lexically scoped interpreters. Indeed, the two
+kinds of function can easily coexist. We borrow the code involving the
+passing of PROCEDURES (including the DRIVER-LOOP, modified to initialize euv to
+PROCEDURES) from the recursion-equations interpreter (Figures 1 and 2), the
+code for using this top—level environment from the dynamically—scoped
+interpreter (Figure 5), and the code for constructing 8-PROCEDURE-Objects for
+LAMaoA-expressions from the lexically-scoped interpreter (Figure 7).. The
+result appears in Figure 9. ‘
+Steele and Sussman ‘ 26 The Art of the Inter reter
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>J1</strong>___</p>
+
+<p>(DEFINE (EVAL EXP ENv PROCEDURES)
+(coND ((ATOM EXP)
+(COND ((NUMBERP EXP) EXP)
+(T (VALUE EXP ENv))))</p>
+
+<p>((Eo (CAR EXP) ‘QUOTE)</p>
+
+<p>(CADR ExP))
+((Eo (cAR EXP) ‘LAMBDA)</p>
+
+<p>(LIST ‘&amp;PROCEDURE (CADR EXP) (CADDR EXP) ENV))
+((Eo (CAR EXP) ‘COND)</p>
+
+<p>(EvcoND (CUR EXP) ENv PRocEDuREs))</p>
+
+<p>(T (APPLY (EvAL (CAR EXP) ENv PROCEDURES)</p>
+
+<p>(EvLIs (CUR EXP) ENV PROCEDURES)
+PRocEDuREs))))</p>
+
+<p>(DEFINE (APPLY FUN ARGS PRocEDuREs)
+(COND ((PRlMOP FUN) (PRIMOP—APPLY run ARGS))
+((Eo (CAR run) ‘&amp;PROCEDURE)
+(EVAL (cADDR FUN)
+(BIND (CADR FUN) ARGS (CADDDR FUN))
+PROCEDURES))
+(T (EVAL (cADR FUN)
+(BIND (cAR FUN) ARGS PRocEouREs)
+PRocEDuREs))))</p>
+
+<p>(DEFINE (DRIVER-LooP-I PROCEDURES FORM)
+(coND ((AToN FORM)
+(DRIVER-LooP PROCEDURES
+(PRINT (EVAL FORM PROCEDURES PRocEDuREs))))
+((Eo (cAR FORM) ‘DEFlNE)
+(DRIVER-LOOP (BIND (LIST (cAADR FORM))
+(LIST (LIsT (CDAUR FORM) (CADDR FORM)))
+PROCEDURES)
+(PRINT (cAADR FORM))))
+(T (DRIVER-LooP PROCEDURES
+(PRINT (EVAL FORM PROCEDURES PRocEDuREs))))))</p>
+
+<p>For DRIVER-LooP see Figure 1.
+For VALUE and BIND see Figure 3.
+For EvcoND and EvLIs see Figure 2.</p>
+
+<p>Figure 9
+An Evaluator for Local Lexical Scoping
+and Dynamic Top-Level References</p>
+
+<p>Ugh bletch, PmmEmmEs is back! Also, there are two kinds of user-
+defined procedural objects floating around. There happens to be another
+way to fix the top level, which yields additional flavor. We note that
+Steele and Sussman 29 The Art of the Inter reter</p>
+
+<p>during any one processing cycle of EVAL/APPLY, PROCEDURES remains constant.
+We can thus choose to associate the top level environment with a top-level
+procedure at a time earlier than invocation time in APPLY. we also note
+that LOOKUPI will have its hands on the top-level environment anyway just
+before it locates the definition of a top-level procedure. Exploiting this
+idea yields an alternate solution. {Note LABELS}</p>
+
+<p>In the new driver (see Figure 10) loop we no longer use BIND to
+augment the top-level environment whenever a new definition is made. We
+instead have all of the top-level definitions in one frame of the
+environment. when a new definition is to be made we extract the list of
+names and the list of values for the old definitions from the old
+environment and make a new top—leve1 environment with the lists of names
+and values separately augmented.</p>
+
+<p>Instead of creating aprzocwune-objects, this driver loop creates
+&amp;LABELED-Objects, which have the same format except that they contain no
+environment. A a.LAB£LEo—object is purely internal and can never be seen by
+a user program. when LOOKUPI encounters such an object as the value of a
+variable, it immediately creates the corresponding apnoceounrobject, using
+the environment a-t hand, which turns out to be the top-level environment.
+Stee1e and Sussman 30 The Art of the Inter reter
+<strong>__<em>.</em></strong><strong>__</strong><strong>i</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__.</strong><strong>__</strong><strong>__</strong><strong>__JL</strong>__</p>
+
+<p>(DEFINE (DRIVER—LO0P-1 ENV roan)
+(cono ((ATOM FORM)
+(DRIVER-LOOP ENV (PRINT (EVAL FORM ENV))))
+((50 (CAR FORM) ‘DEFlNE)
+(DRIVER-LOOP (LIST (cons (cons (CAADR FORM) (CAAR ENV))
+(cons (LIST ‘&amp;LABELEO
+(CDADR roan)
+(CADUR FORM))
+(CDAR ENV))))
+(PRINT (CAADR FORM))))
+(T (DRIVER-LOOP ENV (PRINT (EVAL roan euv))))))</p>
+
+<p>(DEFINE (LOOKUP1 NAME VARS VALS ENV)
+(couo ((NULL VARS)
+(LOOKUP NAME (con ENV)))
+((50 NAME (CAR VARS)) 4
+(COND ((ATOM (CAR VALS)) VALS)</p>
+
+<p>((50 (CAAR VALS) ‘&amp;LABELED)
+(LIST ‘&amp;PROCEDURE (CADAR VALS) (CADDAR VALS) euv))
+(T VALS)))</p>
+
+<p>(T (LOOKUPI NAME (CDR VARS) (COR VALS) ENV))))</p>
+
+<p>_ For DRIVERJDOP see Figure 1.
+For LOOKUP see Figure 3.
+For EVAL see Figure 7.</p>
+
+<p>Figure 10
+An Alternative Solution for Local Lexical Scoping
+and Dynamic Top-Level References
+(Modified Top—Leve1 Driver Loop and Environment Lookup)
+Steele and Sussman 31 The Art of the Inter reter
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__JL</strong>__</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Art of Interpreter: Part Zero]]></title>
+    <link href="http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-part-0/"/>
     <updated>2015-08-18T16:52:51+08:00</updated>
-    <id>http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-Part-0</id>
+    <id>http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-part-0</id>
     <content type="html"><![CDATA[<h3 id="lisp">第零部分： LISP和解释器</h3>
 <p>Part Zero 
 LISP and Interpreters</p>
@@ -334,7 +1467,7 @@ list structure, containing definitions of primitive procedures, to be supplied t
 </span><span class="line">        <span class="p">(</span><span class="nv">DRIVER-LOOP</span> <span class="nv">&lt;THE-PRIMITIVE</span><span class="err">—</span><span class="nv">PROCEDURES&gt;</span> <span class="p">(</span><span class="nv">PRINT</span> <span class="ss">&#39;|LITHP ITH LITHTENlNG|</span><span class="p">)))</span>
 </span><span class="line">
 </span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">DRIVER</span><span class="err">—</span><span class="nv">LOOP</span> <span class="nv">PROCEDURES</span> <span class="nv">HUNOZ</span><span class="p">)</span>
-</span><span class="line">        <span class="p">(</span><span class="nv">DRIVER</span><span class="err">—</span><span class="nv">LOOP</span><span class="err">—</span><span class="nv">l</span> <span class="nv">PROCEDURES</span> <span class="p">(</span><span class="nv">READ</span><span class="p">)))</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">DRIVER</span><span class="err">—</span><span class="nv">LOOP</span><span class="err">—</span><span class="mi">1</span> <span class="nv">PROCEDURES</span> <span class="p">(</span><span class="nv">READ</span><span class="p">)))</span>
 </span><span class="line">
 </span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">DRIVER-LOOP-1</span> <span class="nv">PROCEDURES</span> <span class="nv">FORM</span><span class="p">)</span>
 </span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">ATOM</span> <span class="nv">FORM</span><span class="p">)</span>
@@ -392,36 +1525,36 @@ level”; all user programs and requests are run‘ “under” it. The growing 
 <span class="line-number">28</span>
 <span class="line-number">29</span>
 <span class="line-number">30</span>
-</pre></td><td class="code"><pre><code class="lisp"><span class="line"> <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="nv">EXP</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
-</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">ATOM</span> <span class="nv">EXP</span><span class="p">)</span>
-</span><span class="line">                 <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">EQ</span> <span class="nv">EXP</span> <span class="err">‘</span><span class="nv">NlL</span><span class="p">)</span> <span class="ss">&#39;NIL</span><span class="p">)</span>
-</span><span class="line">                       <span class="p">((</span><span class="nv">EQ</span> <span class="nv">EXP</span> <span class="ss">&#39;T</span><span class="p">)</span> <span class="ss">&#39;T</span><span class="p">)</span>
-</span><span class="line">                       <span class="p">((</span><span class="nv">NUMBERP</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">EXP</span><span class="p">)</span>
-</span><span class="line">                       <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">VALUE</span> <span class="nv">EXP</span> <span class="nv">ENV</span><span class="p">))))</span>
-</span><span class="line">                <span class="p">((</span><span class="nv">EQ</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="ss">&#39;QUOTE</span><span class="p">)</span>
-</span><span class="line">                 <span class="p">(</span><span class="nv">CADR</span> <span class="nv">ExP</span><span class="p">))</span>
-</span><span class="line">                <span class="p">((</span><span class="nv">EQ</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="ss">&#39;COND</span><span class="p">)</span>
-</span><span class="line">                 <span class="p">(</span><span class="nv">EVCOND</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">))</span>
-</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">APPLY</span> <span class="p">(</span><span class="nv">VALUE</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
-</span><span class="line">                          <span class="p">(</span><span class="nv">EVLIS</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
-</span><span class="line">                          <span class="nv">PROCEDURES</span><span class="p">))))</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="nv">EXP</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">ATOM</span> <span class="nv">EXP</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">EQ</span> <span class="nv">EXP</span> <span class="ss">&#39;NIL</span><span class="p">)</span> <span class="ss">&#39;NIL</span><span class="p">)</span>
+</span><span class="line">                     <span class="p">((</span><span class="nv">EQ</span> <span class="nv">EXP</span> <span class="ss">&#39;T</span><span class="p">)</span> <span class="ss">&#39;T</span><span class="p">)</span>
+</span><span class="line">                     <span class="p">((</span><span class="nv">NUMBERP</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">EXP</span><span class="p">)</span>
+</span><span class="line">                     <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">VALUE</span> <span class="nv">EXP</span> <span class="nv">ENV</span><span class="p">))))</span>
+</span><span class="line">              <span class="p">((</span><span class="nv">EQ</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="ss">&#39;QUOTE</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">CADR</span> <span class="nv">EXP</span><span class="p">))</span>
+</span><span class="line">              <span class="p">((</span><span class="nv">EQ</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="ss">&#39;COND</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">EVCOND</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">))</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">APPLY</span> <span class="p">(</span><span class="nv">VALUE</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">                        <span class="p">(</span><span class="nv">EVLIS</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">                        <span class="nv">PROCEDURES</span><span class="p">))))</span>
 </span><span class="line">
-</span><span class="line">  <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">APPLY</span> <span class="nv">FUN</span> <span class="nv">ARGS</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
-</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">PRIMOP</span> <span class="nv">FUN</span><span class="p">)</span> <span class="p">(</span><span class="nv">PRIMOP-APPLY</span> <span class="nv">FUN</span> <span class="nv">ARGS</span><span class="p">))</span>
-</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CADR</span> <span class="nv">FUN</span><span class="p">)</span>
-</span><span class="line">                         <span class="p">(</span><span class="nv">BIND</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">FUN</span><span class="p">)</span> <span class="nv">ARGS</span> <span class="o">&#39;</span><span class="p">())</span>
-</span><span class="line">                         <span class="nv">PROCEDURES</span><span class="p">))))</span>
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">APPLY</span> <span class="nv">FUN</span> <span class="nv">ARGS</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">PRIMOP</span> <span class="nv">FUN</span><span class="p">)</span> <span class="p">(</span><span class="nv">PRIMOP-APPLY</span> <span class="nv">FUN</span> <span class="nv">ARGS</span><span class="p">))</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CADR</span> <span class="nv">FUN</span><span class="p">)</span>
+</span><span class="line">                       <span class="p">(</span><span class="nv">BIND</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">FUN</span><span class="p">)</span> <span class="nv">ARGS</span> <span class="o">&#39;</span><span class="p">())</span>
+</span><span class="line">                       <span class="nv">PROCEDURES</span><span class="p">))))</span>
 </span><span class="line">
-</span><span class="line">  <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">EVCOND</span> <span class="nv">CLAUSES</span> <span class="nv">ENV</span> <span class="nv">PROCEDURED</span><span class="p">)</span>
-</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="p">(</span><span class="nv">ERROR</span><span class="p">))</span>
-</span><span class="line">                <span class="p">((</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CAAR</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
-</span><span class="line">                 <span class="p">(</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CADAR</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">))</span>
-</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">EVCOND</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">))))</span>
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">EVCOND</span> <span class="nv">CLAUSES</span> <span class="nv">ENV</span> <span class="nv">PROCEDURED</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="p">(</span><span class="nv">ERROR</span><span class="p">))</span>
+</span><span class="line">              <span class="p">((</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CAAR</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CADAR</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">))</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">EVCOND</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">))))</span>
 </span><span class="line">
-</span><span class="line">  <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">EVLIS</span> <span class="nv">ARGLIST</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
-</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">ARGLIST</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span>
-</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">CONS</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">ARGLIST</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
-</span><span class="line">                         <span class="p">(</span><span class="nv">EVLIS</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">ARGLIST</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)))))</span>
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">EVLIS</span> <span class="nv">ARGLIST</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">ARGLIST</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">CONS</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">ARGLIST</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">                       <span class="p">(</span><span class="nv">EVLIS</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">ARGLIST</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)))))</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <center>                    
@@ -500,26 +1633,26 @@ EVCOND evaluates the corresponding result expression (by calling EVAL, of course
 <span class="line-number">18</span>
 <span class="line-number">19</span>
 <span class="line-number">20</span>
-</pre></td><td class="code"><pre><code class="lisp"><span class="line">  <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">BIND</span> <span class="nv">VARS</span> <span class="nv">ARGS</span> <span class="nv">ENV</span><span class="p">)</span>
-</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nb">=</span> <span class="p">(</span><span class="nv">LENGTH</span> <span class="nv">VARS</span><span class="p">)</span> <span class="p">(</span><span class="nv">LENGTH</span> <span class="nv">ARGS</span><span class="p">))</span>
-</span><span class="line">                 <span class="p">(</span><span class="nv">CONS</span> <span class="p">(</span><span class="nv">CONS</span> <span class="nv">VARS</span> <span class="nv">ARGS</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">))</span>
-</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">ERROR</span><span class="p">))))</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">BIND</span> <span class="nv">VARS</span> <span class="nv">ARGS</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nb">=</span> <span class="p">(</span><span class="nv">LENGTH</span> <span class="nv">VARS</span><span class="p">)</span> <span class="p">(</span><span class="nv">LENGTH</span> <span class="nv">ARGS</span><span class="p">))</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">CONS</span> <span class="p">(</span><span class="nv">CONS</span> <span class="nv">VARS</span> <span class="nv">ARGS</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">))</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">ERROR</span><span class="p">))))</span>
 </span><span class="line">
-</span><span class="line">  <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">VALUE</span> <span class="nv">NAME</span> <span class="nv">ENV</span><span class="p">)</span>
-</span><span class="line">          <span class="p">(</span><span class="nv">VALUEI</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">LOOKUP</span> <span class="nv">NAME</span> <span class="nv">ENV</span><span class="p">)))</span>
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">VALUE</span> <span class="nv">NAME</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">VALUEI</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">LOOKUP</span> <span class="nv">NAME</span> <span class="nv">ENV</span><span class="p">)))</span>
 </span><span class="line">
-</span><span class="line">  <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">VALUEI</span> <span class="nv">NAME</span> <span class="nv">SLOT</span><span class="p">)</span>
-</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">EQ</span> <span class="nv">SLOT</span> <span class="ss">&#39;&amp;UNBOUND</span><span class="p">)</span> <span class="p">(</span><span class="nv">ERROR</span><span class="p">))</span>
-</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">SLOT</span><span class="p">))))</span>
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">VALUEI</span> <span class="nv">NAME</span> <span class="nv">SLOT</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">EQ</span> <span class="nv">SLOT</span> <span class="ss">&#39;&amp;UNBOUND</span><span class="p">)</span> <span class="p">(</span><span class="nv">ERROR</span><span class="p">))</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">SLOT</span><span class="p">))))</span>
 </span><span class="line">
-</span><span class="line">  <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">LOOKUP</span> <span class="nv">NAME</span> <span class="nv">ENV</span><span class="p">)</span>
-</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">ENV</span><span class="p">)</span> <span class="ss">&#39;&amp;UNBOUND</span><span class="p">)</span>
-</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">LOOKUPI</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">CAAR</span> <span class="nv">ENV</span><span class="p">)</span> <span class="p">(</span><span class="nv">CDAR</span> <span class="nv">ENV</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">))))</span>
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">LOOKUP</span> <span class="nv">NAME</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">ENV</span><span class="p">)</span> <span class="ss">&#39;&amp;UNBOUND</span><span class="p">)</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">LOOKUPI</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">CAAR</span> <span class="nv">ENV</span><span class="p">)</span> <span class="p">(</span><span class="nv">CDAR</span> <span class="nv">ENV</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">))))</span>
 </span><span class="line">
-</span><span class="line">  <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">LOOKUPI</span> <span class="nv">NAME</span> <span class="nv">VARS</span> <span class="nv">VALS</span> <span class="nv">ENV</span><span class="p">)</span>
-</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">VARS</span><span class="p">)</span> <span class="p">(</span><span class="nv">LOOKUP</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">CON</span> <span class="nv">ENV</span><span class="p">)))</span>
-</span><span class="line">                <span class="p">((</span><span class="nv">EQ</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">VARS</span><span class="p">))</span> <span class="nv">VALS</span><span class="p">)</span>
-</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">LOOKUPI</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">con</span> <span class="nv">VARS</span><span class="p">)</span> <span class="p">(</span><span class="nv">CON</span> <span class="nv">VALS</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">))))</span>
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">LOOKUPI</span> <span class="nv">NAME</span> <span class="nv">VARS</span> <span class="nv">VALS</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">VARS</span><span class="p">)</span> <span class="p">(</span><span class="nv">LOOKUP</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">ENV</span><span class="p">)))</span>
+</span><span class="line">              <span class="p">((</span><span class="nv">EQ</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">VARS</span><span class="p">))</span> <span class="nv">VALS</span><span class="p">)</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">LOOKUPI</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">VARS</span><span class="p">)</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">VALS</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">))))</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <center>
@@ -590,7 +1723,7 @@ is nothing left to do on return from a recursive call. See [SCHEME] and
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[The Art of Interpreter I]]></title>
+    <title type="html"><![CDATA[The Art of Interpreter: Introduction]]></title>
     <link href="http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-Introduction/"/>
     <updated>2015-08-18T10:22:59+08:00</updated>
     <id>http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-Introduction</id>
@@ -3142,190 +4275,6 @@ Sparse features: 26个最高频度的feats。</p>
   <li>NEOS Server: State-of-the-Art Solvers for Numerical Optimization
 http://www.neos-server.org/neos/</li>
 </ul>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[译文：扁平化设计的原理]]></title>
-    <link href="http://hack.the-lifematrix.net/blog/2014/11/the-principles-of-flat-design/"/>
-    <updated>2014-11-19T10:28:07+08:00</updated>
-    <id>http://hack.the-lifematrix.net/blog/2014/11/the-principles-of-flat-design</id>
-    <content type="html"><![CDATA[<p><em>原文地址：<a href="http://designmodo.com/flat-design-principles/">http://designmodo.com/flat-design-principles/</a></em></p>
-
-<p><a href="http://designmodo.com/flat-design/">扁平化设计</a> – 设计社区简直没有停止讨论。</p>
-
-<p>感觉很强烈。大多数设计者，要么没有充分掌握它，要么绝对地厌恶它。</p>
-
-<p>我是站在中间的某处。好的设计是关乎创造一些有用的东西，能奏效。如果答案是以扁平化的时尚去设计，那就这么做。但是，趋势可能不是对所有项目奏效，因此不能强制。</p>
-
-<p>因此，让我们检视一下是什么让东西扁平化。这里有<strong>5个相当明显的特征</strong>。先逐个看看，然后对<strong>“近乎”扁平化设计</strong>做些介绍。</p>
-
-<h3 id="no-added-effects-">No Added Effects 没有附加的效果</h3>
-
-<p><a href="http://www.triplagent.com/"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/TriplAgent.jpg" alt="TriplAgent" /></a></p>
-
-<p><a href="http://www.intothearctic.gp/"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/intothearctic.jpg" alt="intothearctic" /></a></p>
-
-<p><a href="http://dribbble.com/shots/947749-Task-app"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Task-app.jpg" alt="Task-app" /></a></p>
-
-<p><strong>扁平化设计</strong>得名于所使用的形状。扁平化设计使用了一个明显的二维风格，它纯粹就是扁平的。</p>
-
-<p>这个概念的实现不带装饰 - 去掉阴影、斜面边缘(bevel)、压纹(embossing)、梯度和其它增加深度的工具。每个元素或盒子，从图像框(image frame)到按钮、到导航工具，是干净挺括的，少了羽化边缘或阴影。</p>
-
-<p>没有添加什么让元素看着更真实，比如在<a href="http://designmodo.com/skeuomorphism-ui-design/">拟物风格设计(skeuomorphic design)</a>的项目中让元素看着象3D的设计技巧。扁平化设计中使用的层，借鉴了其它项目，但是层没有交叉，剩下一个明显的背景图片、前端图片或按钮、文本和导航。</p>
-
-<p>那么它如何奏效？去掉所有附加物，扁平化设计有一个独特的外观和感觉。这依赖于设计上清晰的层次感和元素的放置，从而使得成功的项目易于让用户去理解和交互。虽然越来越多的网站正在使用扁平化设计原理，但是对app和移动设计，它可能甚至更受欢迎。由于较小的屏幕，会有更少的按钮和选项，让一个扁平化界面相当易于使用。</p>
-
-<h3 id="simple-elements-">Simple Elements 简单元素</h3>
-<p><a href="http://dribbble.com/shots/917819-iPad-Calendar-Login"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/iPad-Calendar-Login.jpg" alt="iPad-Calendar-Login" /></a></p>
-
-<p><a href="http://dribbble.com/shots/962125-Filetypes"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Filetypes.jpg" alt="Filetypes" /></a></p>
-
-<p><a href="http://designmodo.com/square/"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/square-ui.jpg" alt="square-ui" /></a></p>
-
-<p><a href="http://simonemarcarino.com/"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Simone-Marcarino.jpg" alt="Simone-Marcarino" /></a></p>
-
-<p>扁平化设计使用很多简单的用户界面元素，比如按钮、图标。设计者经常坚守简单的形状，比如矩形、圆或正方形，并让每个形状突出。形状的边缘可以是完全的尖角、正方形或包含弯度。</p>
-
-<p>每个界面元素必须简单并易于点击或轻拍。交互必须对用户是直觉式的，不需很多设计内的解释。</p>
-
-<p>除过简单的风格，在可点击的按钮上加黑体和颜色，来促进使用。但是<strong>不要将简单元素与简单设计混淆</strong>，扁平化设计概念能恰恰象其它任何设计方案一样复杂。</p>
-
-<p>起步时需要帮助吗？Designmodo提供很多采用扁平化风格的UI工具 - 从<a href="http://designmodo.com/square-free/">Square UI Free</a>到<a href="http://designmodo.com/flat-free/">Flat UI Free</a>, 一个带有基本组件的简单PSD/HTML UI kit; 以及从 <a href="http://designmodo.com/square/">Square UI</a>到<a href="http://designmodo.com/flat/">Flat UI Pro</a>，针对网站和APP设计项目的完整PSD/HTML UI包。</p>
-
-<h3 id="focus-on-typography-">Focus on Typography 聚焦于版式</h3>
-<p><a href="http://courtneyandrew.com/"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/courtneyandrew.jpg" alt="courtneyandrew" /></a></p>
-
-<p><a href="https://plover.co/"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Plover.jpg" alt="Plover" /></a></p>
-
-<p><a href="http://www.flatmate.se/"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Flatmate.jpg" alt="Plover" /></a></p>
-
-<p>因为扁平化设计中元素的简单性，版式就极端重要。</p>
-
-<p>字体的格调必须与整个设计方案匹配 - 一个高度修饰的字体在超级简单的设计上，可能看起来有些奇怪。字体必须醒目，措辞也须简单而有效，从某种程度上让最终的产品在视觉上和文字上都有一致的格调。</p>
-
-<p>考虑一个简单的无衬线字体族，带有丰富的变体和字重，用于扁平化设计网站的主要版式。用一种新的字体作为一个艺术元素，来增加意想不到的润色，但要仔细，别走过头使用了特殊的字体。</p>
-
-<p>字体也必须告诉用户如何使用这个设计。标签按钮和其它元素能增加易用性和交互性。</p>
-
-<h3 id="focus-on-color-">Focus on Color 聚焦于颜色</h3>
-<p><a href="http://dribbble.com/shots/968439-Close-landing-page"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Close-landing-page.jpg" alt="Close-landing-page" /></a></p>
-
-<p><a href="http://dribbble.com/shots/963964-Online-Radio"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Online-Radio.jpg" alt="Online-Radio" /></a></p>
-
-<p><a href="http://dribbble.com/shots/1021883-Squirrel-Settings"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Squirrel-Settings.jpg" alt="Squirrel-Settings" /></a></p>
-
-<p>颜色占扁平化设计的很大部分。<a href="http://designmodo.com/flat-design-colors/">扁平化设计调色板</a> 经常比其它网站要明亮和鲜艳的多。</p>
-
-<p>扁平化设计项目的调色板也经常包括更多的色调。虽然大多数调色板至多聚焦在2到3个颜色，但扁平化设计调色板可能均等使用6~8种颜色。</p>
-
-<p>色调往往有活力(vibrant) – 想想颜色轮(the color wheel)上最纯粹的颜色 – 没有染色(tint)或格调(tone)。主要和其次的颜色都受欢迎。而且，也频繁使用特定类型的颜色；在扁平化设计趋势的这波周期中，怀旧色(retro color)， 包括鲜肉色(salmon)、紫色(purple)、绿色和蓝色，特别流行。</p>
-
-<h3 id="minimalist-approach-">Minimalist Approach 极简策略</h3>
-<p><a href="http://dribbble.com/shots/981593-Personal-Site"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Personal-Site.jpg" alt="Close-landing-page" /></a></p>
-
-<p><a href="http://fltdsgn.com/"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Dropbox.jpg" alt="Dropbox" /></a></p>
-
-<p><a href="http://ournameismud.co.uk/"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Mud.jpg" alt="Mud" /></a></p>
-
-<p>扁平化设计本质上就简单，因此能与整个极简设计策略很好地工作。</p>
-
-<p>在整个网站设计上避免过多浮华的装饰。简单的颜色和文本可能就够了。如果你想增加视觉材料(visuals)，就选择简单的照片。</p>
-
-<p>一些使用扁平化设计的零售网站，比如Svpply，做了很棒的工作，将物品放置在简单的背景上。(必须指出，相片的确有一些自然的深度，但是仍然与设计的整体扁平化吻合。）</p>
-
-<h3 id="almost-flat-design-">“Almost” Flat Design 近乎扁平化设计</h3>
-<p><a href="http://hack.the-lifematrix.net/images/flat-design-principles/Nagging-popup.jpg">![Nagging-popup]</a>](http://dribbble.com/shots/1024811-Nagging-popup)</p>
-
-<p><a href="http://dribbble.com/shots/1054539-Calc"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Calc.jpg" alt="Calc" /></a></p>
-
-<p><a href="http://dribbble.com/shots/992907-SimpleMail-Full-View-The-easy-way-to-email-anything"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/SimpleMail.jpg" alt="SimpleMail" /></a></p>
-
-<p><a href="http://dribbble.com/shots/1053618-Coming-project"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Coming-project.jpg" alt="Coming-project" /></a></p>
-
-<p><a href="http://dribbble.com/shots/1001719-Music-Web-Application"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Music-Web-Application.jpg" alt="Music-Web-Application" /></a></p>
-
-<p>更多设计者常常赞同的一个风格是“近乎”扁平化设计。</p>
-
-<p>在近乎扁平化设计中，扁平风格的基本方案被使用，但是会在设计方案中增加一些效果。例如，按钮，可能包含轻微的梯度或去掉阴影。设计者通常选择一个效果，然后在一个近乎扁平化项目项目中专门地使用。</p>
-
-<p>比起扁平化设计背后“无效果”想法的一些僵硬性，这个风格允许多一点灵活性。</p>
-
-<p>设计者喜欢它，因为添加了深度和纹理。用户喜欢它，因为风格没那么锐利，有助于指导合适的迭代。另一方面，设计者不喜欢它，因为它以缺少一种真正风格定义的方式，去联姻了两种风格。</p>
-
-<h3 id="more-on-flat-design-">More on Flat Design 更多关于扁平化设计</h3>
-<p>Designmodo 已经是扁平化设计趋势讨论的引领者。阅读我们过去的文章，了解更多关于扁平化设计。</p>
-
-<ul>
-  <li><a href="http://designmodo.com/flat-design">Flat Design: Can you Benefit from the Trend?</a></li>
-  <li><a href="http://designmodo.com/flat-design-examples/">Flat Web Design: Beautiful Examples of Websites</a></li>
-  <li><a href="http://designmodo.com/flat-icons-examples/">Beautiful Examples of Flat Icon Design</a></li>
-  <li><a href="http://designmodo.com/flat-design-colors/">Making it Work: Flat Design and Color Trends</a></li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[译文：扁平化设计：趋势或者革命？]]></title>
-    <link href="http://hack.the-lifematrix.net/blog/2014/11/flat-web-design-trend-or-revolution/"/>
-    <updated>2014-11-09T15:15:44+08:00</updated>
-    <id>http://hack.the-lifematrix.net/blog/2014/11/flat-web-design-trend-or-revolution</id>
-    <content type="html"><![CDATA[<p><em>原文地址: <a href="http://blog.usabilla.com/flat-web-design-trend-or-revolution/">http://blog.usabilla.com/flat-web-design-trend-or-revolution/</a></em></p>
-
-<p>有时，新的做事方法潜入我们的生活或工作习惯。其原因，可能是不断变化的个人偏好、新技术，或跟随潮流的简单冲动。Web设计上一个新近的趋势是扁平化设计。扁平化针对二维的屏幕，描画二维的设计(Flat describes a two dimensional design for a two dimensional screen)。</p>
-
-<p>在最近几年，拟物风格(skeuomorphism)的特点是现代和以用户为中心的设计。现在，看起来我们已经有些习惯于数字时代；我们很多人甚至不记得，在设计中所试图展现的东西在现实生活中的对应物。</p>
-
-<p>通过扁平化设计，我们向接受web独特而抽象的属性迈进一步。但是，我们是在应付一个临时的趋势，或者正在面对我们如何为web设计的一次革命？这里有5个原因，为什么扁平化web设计可能是一个好的习惯。</p>
-
-<h1 id="web">1. 扁平化web设计是诚实的</h1>
-<p><img src="http://hack.the-lifematrix.net/images/flat-web-design-trend-or-revolution/Screen-shot-2013-04-04-at-11.29.jpg" alt="" />
-<em><a href="http://www.windowsphone.com/en-us">Windows phone</a>网站用大量的颜色、排版和清晰的结构，展示了扁平化Windows设计。</em></p>
-
-<p>大概扁平化设计的核心概念是<strong>“诚实”</strong>。你想知道这意味着什么？很简单：扁平化设计承认屏幕设计的二维属性(Flat design acknowledges the two dimensional nature of screen design)。不试图去添加任何三维的效果，或者诱使用户认为他们在和一个并非扁平屏幕的东西交互。</p>
-
-<p>这里没有阴影、没有梯度、没有模式、没有3-D效果，或没有代表真实世界事物的设计元素(design elements representing real-world things)。相反，扁平化设计使用颜色、排版、很多留白(a lot of white space)和严格的网格系统来实现一个清晰、可用的界面。</p>
-
-<h1 id="web-1">2. 扁平化Web设计引领潮流</h1>
-<p><img src="http://hack.the-lifematrix.net/images/flat-web-design-trend-or-revolution/Screen-shot-2013-04-04-at-11.26.jpg" alt="" />
-<em><a href="http://www.rdio.com/">Rdio</a>采用了带有很多色彩和大量留白的扁平化设计</em></p>
-
-<p>有些习惯来自于时尚。我们想跟上时代，这就是为什么我们跟随潮流。扁平化设计引领潮流 – 它新鲜、清晰、明亮和现代。它与web设计的其它潮流相伴而来(it goes hand in hand with other trends in web design)，比如排版和留白的使用。而且，亮色(bright colors)也找到了它们的路，回到了现代设计者的意识中。</p>
-
-<p>正如任何其他趋势，我们不知道扁平化设计会持续多久。它可能是一个时期(phase)，但它也可能只触发web设计领域很小的革新。只要我们不知道它将是什么，就不要试图盲目跟随潮流。在将你的设计扁平化之前，确信你的目标对象(target group)准备好了，而且你的网站适合这种策略。</p>
-
-<h1 id="section">3. 扁平化设计具备可用性</h1>
-
-<p><img src="http://hack.the-lifematrix.net/images/flat-web-design-trend-or-revolution/Screen-shot-2013-04-04-at-11.30.jpg" alt="" />
-<em><a href="http://foundation.zurb.com/index.php">Foundation</a>将所有设计元素消减到合理的最小程度。每个设计元素都对网站的可用性做出贡献。</em></p>
-
-<p>扁平化设计不但吸引人，而且具备可用性 — 如果做得恰当，这是显然的(if done right, obviously)。扁平化设计是简单并消减到最小程度。其创意是，移除所有让人分心的元素，真正关注在内容和你用户的目标上。使用可视化的暗示，比如颜色、排版来引导你的用户，帮助他们达到他们的目标。</p>
-
-<p>避免分心，并不是把扁平化设计等同于最小化设计。这就是它变得微妙的地方。脱光你的设计，让它尽可能简单清晰 - 但是确保你没有移除对用户成功使用网站必不可少的暗示。</p>
-
-<h1 id="section-1">4. 扁平化设计很快捷</h1>
-
-<p><img src="http://hack.the-lifematrix.net/images/flat-web-design-trend-or-revolution/Screen-shot-2013-04-04-at-11.25.jpg" alt="" />
-<em><a href="http://www.geckoboard.com/plans-and-pricing/">Geckoboard</a> 的扁平和精简设计很有说服力。在只看了页面一眼之后，他们的定价就一目了然。</em></p>
-
-<p>扁平化设计显露了效率(Flat web design radiates efficiency)。因为不用分心，你的视线直接被吸引到网站最本质的地方。你不但能达到目标，而且你能确信你能在很短的时间内做到。虽然一个不同的网站也能做到可用性，但是扁平化设计不会耻于炫耀(a flat design is not ashamed to brag about it)。</p>
-
-<p>在这个情形下，炫耀并非坏事。如果你能说服你的访问者，他们将发现他们要找的 - 甚至在他们开始看之前 - 在更好的转换率方面，你已经移除了很大的障碍(you have taken a huge hurdle in terms of a better conversion)。</p>
-
-<h1 id="section-2">5. 扁平化网站设计能扩展</h1>
-
-<p><img src="http://hack.the-lifematrix.net/images/flat-web-design-trend-or-revolution/Screen-shot-2013-04-04-at-11.24.jpg" alt="" />
-<em><a href="http://oak.is/">Oak</a> 采用了带有大量排版、留白和色彩的扁平化设计。网站是可响应的，内容很容易在不同屏幕尺寸扩展。</em></p>
-
-<p>最后一点并非最不重要(Last but not least)，扁平化设计易于扩展。这点和web设计中最近的另一个趋势：响应性设计(responsive design），是一致的。移动互联网正变得越来越重要，你必须考虑你的网站在不同的屏幕尺寸上看着象会怎样。虽然实际的图像和其它设计效果难以扩展，但是扁平化设计元素，比如颜色和排版，很容易适应更小的屏幕。</p>
-
-<p>例如，在扁平化设计中，有颜色的链接，将取代仔细风格化的按钮(instead of having a carefully styled button, in flat web design a colored link will do)。一个模式化的背景图像变成一个朴素的背景颜色(a plain background color)。而且，通过使用不同的颜色，不同的内容区域在横跨多个设备时，可以容易地识别。</p>
-
-<h1 id="section-3">6. 趋势或革命？</h1>
-
-<p>你怎么思考扁平化设计？这是有些要认真对待的东西吗？你看到了伴随这一极简设计策略而来的好处吗？或者你反对，认为这只是一个我们不必过于兴奋的趋势？请给出你的评论(Let us know in the comments)。</p>
-
 ]]></content>
   </entry>
   

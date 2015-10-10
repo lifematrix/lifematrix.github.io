@@ -11,14 +11,6 @@
   </url>
   
   <url>
-    <loc>http://hack.the-lifematrix.net/blog/2015/09/map-reduce-in-lisp/</loc>
-    
-    <lastmod>2015-09-24T10:49:21+08:00</lastmod>
-    
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
     <loc>http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-part-1/</loc>
     
     <lastmod>2015-08-24T14:50:59+08:00</lastmod>
@@ -261,28 +253,28 @@
   
   <url>
     <loc>http://hack.the-lifematrix.net/blog/archives/</loc>
-    <lastmod>2015-10-10T17:52:18+08:00</lastmod>
+    <lastmod>2015-10-10T17:57:09+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://hack.the-lifematrix.net/</loc>
-    <lastmod>2015-10-10T17:52:18+08:00</lastmod>
+    <lastmod>2015-10-10T17:57:09+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://hack.the-lifematrix.net/lisp-resource/</loc>
-    <lastmod>2015-10-10T17:52:18+08:00</lastmod>
+    <lastmod>2015-10-10T17:57:09+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://hack.the-lifematrix.net/resources/</loc>
-    <lastmod>2015-10-10T17:52:18+08:00</lastmod>
+    <lastmod>2015-10-10T17:57:09+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

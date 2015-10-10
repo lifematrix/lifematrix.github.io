@@ -9,7 +9,7 @@
   <meta name="author" content="Steven Liu <stevenliucx@gmail.com>&#8221;>
 
   
-  <meta name="description" content="Feature Detection Feature Description ">
+  <meta name="description" content="Nathan Marz 的新书 Big Data 对大数据系统及Lambda架构有深入和详尽的讨论。加上自己对数据库使用的多年经验和思考，准备写一组博文，作为读书笔记和思考总结。 为何大数据 大数据是与互联网相伴而生的。传统的应用系统和数据库，都是针对企业层面的应用，而且主要用于事务处理。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -54,7 +54,7 @@
   <header role="banner"><hgroup>
   <h1><a href="/">Life Matrix</a></h1>
   
-    <h2>Hacking, Machine learning</h2>
+    <h2>Hacking, Machine learning, Lisp</h2>
   
 </hgroup>
 
@@ -83,6 +83,204 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/05/big-data-system-1/">Why Big Data System?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-05-08T10:38:19+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:38 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://nathanmarz.com">Nathan Marz</a> 的新书 <a href="http://manning.com/marz/">Big Data</a> 对大数据系统及Lambda架构有深入和详尽的讨论。加上自己对数据库使用的多年经验和思考，准备写一组博文，作为读书笔记和思考总结。</p>
+
+<h2 id="section">为何大数据</h2>
+
+<p>大数据是与互联网相伴而生的。传统的应用系统和数据库，都是针对企业层面的应用，而且主要用于事务处理。企业也只是占据整个市场的一定份额，因此数据量有限。而由于网络的规模效应，在互联网上更容易产生“赢者通吃”的结果，所以互联网企业往往面对的是社会化的普遍需求，用户数、数据量和访问量都巨大。大数据表现在：</p>
+
+<ul>
+  <li>
+    <p>数据量大</p>
+
+    <p>用户数少则几百万，上千万，过亿很普遍。随着商业的繁荣、市场细分和个性化需求的挖掘，商品数SKU，经常达到几十万。日均交易上千万笔。
+ 搜索引擎的网页数据库，也达到几千TB。</p>
+  </li>
+  <li>
+    <p>访问量
+ 无论是读取(浏览、查询)还是写入(修改、增加)</p>
+  </li>
+  <li>数据多样化
+ 除过通常的交易类数据，还有：
+    <ul>
+      <li>文档</li>
+      <li>网页
+搜索引擎的网页缓存</li>
+      <li>图片
+Facebook, 微信, Flickr的图片分享</li>
+      <li>视频</li>
+      <li>搜索引擎的索引数据库
+ 这些都不是RDBMS擅长管理的。</li>
+    </ul>
+  </li>
+  <li>数据处理方式
+除过事务型处理外，还有批量处理，如机器学习、在线学习、流式处理等。</li>
+</ul>
+
+<h2 id="section-1">为什么需要大数据系统</h2>
+
+<p>大家对关系型数据库(RDBMS)并不陌生。早期的商业系统主要为了处理交易，比如银行存取款、证券交易、销售、采购、订票等。这也称为OLTP(在线事务处理)系统。其对数据操作的特点是，基于索引定位的单记录(少数记录)操作较多，读写随机，而且高并发性，数据记录的改变反映了资源的变化、状态的迁移或相关活动的触发。OLTP属于业务关键性应用，所以数据的一致性、并发控制和容错，至关重要。而RDBMS比较完美地解决了OLTP对持久化存储的需要，因而占据了主导地位。RDBMS有很多共性：</p>
+
+<ul>
+  <li>逻辑结构
+    <ul>
+      <li>基于关系代数的逻辑结构和建模方法</li>
+      <li>SQL结构化查询语言</li>
+    </ul>
+  </li>
+  <li>数据一致性保证
+    <ul>
+      <li>事务处理</li>
+      <li>锁机制</li>
+      <li>日志</li>
+    </ul>
+  </li>
+  <li>容错
+    <ul>
+      <li>数据文件镜像</li>
+      <li>备份与恢复</li>
+      <li>高可用性复制</li>
+    </ul>
+  </li>
+</ul>
+
+<p>那么为什么会有大数据和NoSQL数据库的出现呢？这就要说到RDBMS的局限，因为它是基于关系代数设计的：</p>
+
+<ol>
+  <li>
+    <p>由于关系代数强调的是遵循范式和数据一致性，所以在性能上不是最优的。数据文件存放在磁盘上，而磁盘IO速度远低于内存速度，很多数据库的优化都不得不绕过范式，实现更快的性能。</p>
+  </li>
+  <li>
+    <p>关系性建模要求一开始就把数据模型确定下来，随后的调整很费力。但随着迭代式开发模式的普及，数据结构需具灵活性、易于调整。而且有些数据不适合以关系模型去描述，比如key-value、文档数据库等。</p>
+  </li>
+  <li>
+    <p>对于批量处理的应用，如数据仓库、数据挖掘和机器学习等，数据库事务控制会增加很大的开销，但又不是必须的。</p>
+  </li>
+</ol>
+
+<p>而且，传统的RDMBS实际上是单机系统。虽然RDMBS也有集群版本，但所有的集群必须共享一个存储源(通常是磁盘阵列)。无论有再多的服务器，RMDBS只有一个日志系统、一个统一的事务控制。就好比一个人不能有两个脑袋。从CAP定理来看，RDBMS保证了一致性(Consistency)和可用性(Availability)，但因此必须牺牲分区容受性(Patition Tolerance)。)这致使RDMBS面对大数据时，就会捉襟见肘。</p>
+
+<ol>
+  <li>
+    <p>数据量的局限
+互联网应用的数据达到TB、PB级，不是单机可以存储的。即便通过数据分片，将数据物理地分散在多个存储设备上，也有存储设备本身的限制。而传统的磁盘阵列价格高昂。</p>
+  </li>
+  <li>
+    <p>吞吐量的限制
+无论数据如何分散到多个存储设备，整个数据库还是有中心控制机制。这必然造成锁、消息队列等关键资源的瓶颈，限制了并发性。换言之，传统的RDBMS是中心化的设计，和去中心化设计的思路是相反的。只有去中心化后，才能实现分区化。</p>
+  </li>
+  <li>
+    <p>应用特点不同
+互联网的应用不同于OLTP的特点。一次写入，多次读出；写后一般不会修改；数据以添加的方式写入。</p>
+  </li>
+</ol>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/04/color-space/">Color Space</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-04-28T11:07:51+08:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>28</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:07 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Primary Color
+	Color, Blue, and Yellow</p>
+
+<p>Secondary Color
+	Orange, Green and Violet </p>
+
+<p>Tertiary Color
+	Red-Orange, Yellow-Orange, Yellow-Green, Blue-Green, Blue-Violet and Red-Violet</p>
+
+<p>Neutral Color: 不带色彩的颜色。白、黑、灰</p>
+
+<p>Achromatic color 没有色彩。它们包含：白、黑和灰。中性色改变所有色彩的密度和值。</p>
+
+<h3 id="scheme">Scheme</h3>
+
+<h4 id="monochromatic-color-scheme">Monochromatic Color Scheme(单色主题)</h4>
+<p>由任何颜色或中性色的色泽(tint), 色调(tone)和阴影的复合。</p>
+
+<h4 id="analogous-color-scheme">Analogous Color Scheme(相似色主题)</h4>
+<p>在色轮中，相互毗邻的3组颜色组成。</p>
+
+<h4 id="extended-analogous-color-scheme">Extended Analogous Color Scheme(扩展的相似色主题)</h4>
+<p>在色轮中，相互毗邻的4组颜色组成。</p>
+
+<h4 id="complementary-color-scheme">Complementary Color Scheme(互补色主题)</h4>
+<p>在色轮中，相对的两组颜色组成。</p>
+
+<h4 id="split-complementary-color-scheme">Split Complementary Color Scheme(分离互补色主题)</h4>
+<p>由一组颜色与它相对处毗邻的两组颜色组成。</p>
+
+<h4 id="triadic-color-scheme">Triadic Color Scheme(三色系主题)</h4>
+<p>由色轮中等距相隔的三组颜色组成。</p>
+
+<h4 id="section">对比色</h4>
+
+<h3 id="hsv">HSV</h3>
+
+<ul>
+  <li>Value(颜色值)：指一个颜色的相对亮度(brightness)或暗度。</li>
+  <li>Saturation(or purity, 饱和度或纯度)：描述一个颜色有多纯。一个纯粹的颜色是干净而明亮的(clear and bright)，增加黑让它变模糊和暗(muddy and dark)，给它一个阴影。加白让颜色被冲洗(washed out)或着色(tinted)。</li>
+</ul>
+
+<h3 id="section-1">色温</h3>
+<p>颜色可以分为两类：</p>
+
+<ul>
+  <li>暖色(aggressive, 前进色)：红、黄、棕</li>
+  <li>冷色(receding, 后退色)：绿、蓝、紫</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -781,230 +979,6 @@ http://www.neos-server.org/neos/</li>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/11/the-principles-of-flat-design/">译文：扁平化设计的原理</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-11-19T10:28:07+08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>10:28 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><em>原文地址：<a href="http://designmodo.com/flat-design-principles/">http://designmodo.com/flat-design-principles/</a></em></p>
-
-<p><a href="http://designmodo.com/flat-design/">扁平化设计</a> – 设计社区简直没有停止讨论。</p>
-
-<p>感觉很强烈。大多数设计者，要么没有充分掌握它，要么绝对地厌恶它。</p>
-
-<p>我是站在中间的某处。好的设计是关乎创造一些有用的东西，能奏效。如果答案是以扁平化的时尚去设计，那就这么做。但是，趋势可能不是对所有项目奏效，因此不能强制。</p>
-
-<p>因此，让我们检视一下是什么让东西扁平化。这里有<strong>5个相当明显的特征</strong>。先逐个看看，然后对<strong>“近乎”扁平化设计</strong>做些介绍。</p>
-
-<h3 id="no-added-effects-">No Added Effects 没有附加的效果</h3>
-
-<p><a href="http://www.triplagent.com/"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/TriplAgent.jpg" alt="TriplAgent" /></a></p>
-
-<p><a href="http://www.intothearctic.gp/"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/intothearctic.jpg" alt="intothearctic" /></a></p>
-
-<p><a href="http://dribbble.com/shots/947749-Task-app"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Task-app.jpg" alt="Task-app" /></a></p>
-
-<p><strong>扁平化设计</strong>得名于所使用的形状。扁平化设计使用了一个明显的二维风格，它纯粹就是扁平的。</p>
-
-<p>这个概念的实现不带装饰 - 去掉阴影、斜面边缘(bevel)、压纹(embossing)、梯度和其它增加深度的工具。每个元素或盒子，从图像框(image frame)到按钮、到导航工具，是干净挺括的，少了羽化边缘或阴影。</p>
-
-<p>没有添加什么让元素看着更真实，比如在<a href="http://designmodo.com/skeuomorphism-ui-design/">拟物风格设计(skeuomorphic design)</a>的项目中让元素看着象3D的设计技巧。扁平化设计中使用的层，借鉴了其它项目，但是层没有交叉，剩下一个明显的背景图片、前端图片或按钮、文本和导航。</p>
-
-<p>那么它如何奏效？去掉所有附加物，扁平化设计有一个独特的外观和感觉。这依赖于设计上清晰的层次感和元素的放置，从而使得成功的项目易于让用户去理解和交互。虽然越来越多的网站正在使用扁平化设计原理，但是对app和移动设计，它可能甚至更受欢迎。由于较小的屏幕，会有更少的按钮和选项，让一个扁平化界面相当易于使用。</p>
-
-<h3 id="simple-elements-">Simple Elements 简单元素</h3>
-<p><a href="http://dribbble.com/shots/917819-iPad-Calendar-Login"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/iPad-Calendar-Login.jpg" alt="iPad-Calendar-Login" /></a></p>
-
-<p><a href="http://dribbble.com/shots/962125-Filetypes"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Filetypes.jpg" alt="Filetypes" /></a></p>
-
-<p><a href="http://designmodo.com/square/"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/square-ui.jpg" alt="square-ui" /></a></p>
-
-<p><a href="http://simonemarcarino.com/"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Simone-Marcarino.jpg" alt="Simone-Marcarino" /></a></p>
-
-<p>扁平化设计使用很多简单的用户界面元素，比如按钮、图标。设计者经常坚守简单的形状，比如矩形、圆或正方形，并让每个形状突出。形状的边缘可以是完全的尖角、正方形或包含弯度。</p>
-
-<p>每个界面元素必须简单并易于点击或轻拍。交互必须对用户是直觉式的，不需很多设计内的解释。</p>
-
-<p>除过简单的风格，在可点击的按钮上加黑体和颜色，来促进使用。但是<strong>不要将简单元素与简单设计混淆</strong>，扁平化设计概念能恰恰象其它任何设计方案一样复杂。</p>
-
-<p>起步时需要帮助吗？Designmodo提供很多采用扁平化风格的UI工具 - 从<a href="http://designmodo.com/square-free/">Square UI Free</a>到<a href="http://designmodo.com/flat-free/">Flat UI Free</a>, 一个带有基本组件的简单PSD/HTML UI kit; 以及从 <a href="http://designmodo.com/square/">Square UI</a>到<a href="http://designmodo.com/flat/">Flat UI Pro</a>，针对网站和APP设计项目的完整PSD/HTML UI包。</p>
-
-<h3 id="focus-on-typography-">Focus on Typography 聚焦于版式</h3>
-<p><a href="http://courtneyandrew.com/"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/courtneyandrew.jpg" alt="courtneyandrew" /></a></p>
-
-<p><a href="https://plover.co/"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Plover.jpg" alt="Plover" /></a></p>
-
-<p><a href="http://www.flatmate.se/"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Flatmate.jpg" alt="Plover" /></a></p>
-
-<p>因为扁平化设计中元素的简单性，版式就极端重要。</p>
-
-<p>字体的格调必须与整个设计方案匹配 - 一个高度修饰的字体在超级简单的设计上，可能看起来有些奇怪。字体必须醒目，措辞也须简单而有效，从某种程度上让最终的产品在视觉上和文字上都有一致的格调。</p>
-
-<p>考虑一个简单的无衬线字体族，带有丰富的变体和字重，用于扁平化设计网站的主要版式。用一种新的字体作为一个艺术元素，来增加意想不到的润色，但要仔细，别走过头使用了特殊的字体。</p>
-
-<p>字体也必须告诉用户如何使用这个设计。标签按钮和其它元素能增加易用性和交互性。</p>
-
-<h3 id="focus-on-color-">Focus on Color 聚焦于颜色</h3>
-<p><a href="http://dribbble.com/shots/968439-Close-landing-page"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Close-landing-page.jpg" alt="Close-landing-page" /></a></p>
-
-<p><a href="http://dribbble.com/shots/963964-Online-Radio"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Online-Radio.jpg" alt="Online-Radio" /></a></p>
-
-<p><a href="http://dribbble.com/shots/1021883-Squirrel-Settings"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Squirrel-Settings.jpg" alt="Squirrel-Settings" /></a></p>
-
-<p>颜色占扁平化设计的很大部分。<a href="http://designmodo.com/flat-design-colors/">扁平化设计调色板</a> 经常比其它网站要明亮和鲜艳的多。</p>
-
-<p>扁平化设计项目的调色板也经常包括更多的色调。虽然大多数调色板至多聚焦在2到3个颜色，但扁平化设计调色板可能均等使用6~8种颜色。</p>
-
-<p>色调往往有活力(vibrant) – 想想颜色轮(the color wheel)上最纯粹的颜色 – 没有染色(tint)或格调(tone)。主要和其次的颜色都受欢迎。而且，也频繁使用特定类型的颜色；在扁平化设计趋势的这波周期中，怀旧色(retro color)， 包括鲜肉色(salmon)、紫色(purple)、绿色和蓝色，特别流行。</p>
-
-<h3 id="minimalist-approach-">Minimalist Approach 极简策略</h3>
-<p><a href="http://dribbble.com/shots/981593-Personal-Site"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Personal-Site.jpg" alt="Close-landing-page" /></a></p>
-
-<p><a href="http://fltdsgn.com/"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Dropbox.jpg" alt="Dropbox" /></a></p>
-
-<p><a href="http://ournameismud.co.uk/"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Mud.jpg" alt="Mud" /></a></p>
-
-<p>扁平化设计本质上就简单，因此能与整个极简设计策略很好地工作。</p>
-
-<p>在整个网站设计上避免过多浮华的装饰。简单的颜色和文本可能就够了。如果你想增加视觉材料(visuals)，就选择简单的照片。</p>
-
-<p>一些使用扁平化设计的零售网站，比如Svpply，做了很棒的工作，将物品放置在简单的背景上。(必须指出，相片的确有一些自然的深度，但是仍然与设计的整体扁平化吻合。）</p>
-
-<h3 id="almost-flat-design-">“Almost” Flat Design 近乎扁平化设计</h3>
-<p><a href="http://hack.the-lifematrix.net/images/flat-design-principles/Nagging-popup.jpg">![Nagging-popup]</a>](http://dribbble.com/shots/1024811-Nagging-popup)</p>
-
-<p><a href="http://dribbble.com/shots/1054539-Calc"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Calc.jpg" alt="Calc" /></a></p>
-
-<p><a href="http://dribbble.com/shots/992907-SimpleMail-Full-View-The-easy-way-to-email-anything"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/SimpleMail.jpg" alt="SimpleMail" /></a></p>
-
-<p><a href="http://dribbble.com/shots/1053618-Coming-project"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Coming-project.jpg" alt="Coming-project" /></a></p>
-
-<p><a href="http://dribbble.com/shots/1001719-Music-Web-Application"><img src="http://hack.the-lifematrix.net/images/flat-design-principles/Music-Web-Application.jpg" alt="Music-Web-Application" /></a></p>
-
-<p>更多设计者常常赞同的一个风格是“近乎”扁平化设计。</p>
-
-<p>在近乎扁平化设计中，扁平风格的基本方案被使用，但是会在设计方案中增加一些效果。例如，按钮，可能包含轻微的梯度或去掉阴影。设计者通常选择一个效果，然后在一个近乎扁平化项目项目中专门地使用。</p>
-
-<p>比起扁平化设计背后“无效果”想法的一些僵硬性，这个风格允许多一点灵活性。</p>
-
-<p>设计者喜欢它，因为添加了深度和纹理。用户喜欢它，因为风格没那么锐利，有助于指导合适的迭代。另一方面，设计者不喜欢它，因为它以缺少一种真正风格定义的方式，去联姻了两种风格。</p>
-
-<h3 id="more-on-flat-design-">More on Flat Design 更多关于扁平化设计</h3>
-<p>Designmodo 已经是扁平化设计趋势讨论的引领者。阅读我们过去的文章，了解更多关于扁平化设计。</p>
-
-<ul>
-  <li><a href="http://designmodo.com/flat-design">Flat Design: Can you Benefit from the Trend?</a></li>
-  <li><a href="http://designmodo.com/flat-design-examples/">Flat Web Design: Beautiful Examples of Websites</a></li>
-  <li><a href="http://designmodo.com/flat-icons-examples/">Beautiful Examples of Flat Icon Design</a></li>
-  <li><a href="http://designmodo.com/flat-design-colors/">Making it Work: Flat Design and Color Trends</a></li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/11/flat-web-design-trend-or-revolution/">译文：扁平化设计：趋势或者革命？</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-11-09T15:15:44+08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:15 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><em>原文地址: <a href="http://blog.usabilla.com/flat-web-design-trend-or-revolution/">http://blog.usabilla.com/flat-web-design-trend-or-revolution/</a></em></p>
-
-<p>有时，新的做事方法潜入我们的生活或工作习惯。其原因，可能是不断变化的个人偏好、新技术，或跟随潮流的简单冲动。Web设计上一个新近的趋势是扁平化设计。扁平化针对二维的屏幕，描画二维的设计(Flat describes a two dimensional design for a two dimensional screen)。</p>
-
-<p>在最近几年，拟物风格(skeuomorphism)的特点是现代和以用户为中心的设计。现在，看起来我们已经有些习惯于数字时代；我们很多人甚至不记得，在设计中所试图展现的东西在现实生活中的对应物。</p>
-
-<p>通过扁平化设计，我们向接受web独特而抽象的属性迈进一步。但是，我们是在应付一个临时的趋势，或者正在面对我们如何为web设计的一次革命？这里有5个原因，为什么扁平化web设计可能是一个好的习惯。</p>
-
-<h1 id="web">1. 扁平化web设计是诚实的</h1>
-<p><img src="http://hack.the-lifematrix.net/images/flat-web-design-trend-or-revolution/Screen-shot-2013-04-04-at-11.29.jpg" alt="" />
-<em><a href="http://www.windowsphone.com/en-us">Windows phone</a>网站用大量的颜色、排版和清晰的结构，展示了扁平化Windows设计。</em></p>
-
-<p>大概扁平化设计的核心概念是<strong>“诚实”</strong>。你想知道这意味着什么？很简单：扁平化设计承认屏幕设计的二维属性(Flat design acknowledges the two dimensional nature of screen design)。不试图去添加任何三维的效果，或者诱使用户认为他们在和一个并非扁平屏幕的东西交互。</p>
-
-<p>这里没有阴影、没有梯度、没有模式、没有3-D效果，或没有代表真实世界事物的设计元素(design elements representing real-world things)。相反，扁平化设计使用颜色、排版、很多留白(a lot of white space)和严格的网格系统来实现一个清晰、可用的界面。</p>
-
-<h1 id="web-1">2. 扁平化Web设计引领潮流</h1>
-<p><img src="http://hack.the-lifematrix.net/images/flat-web-design-trend-or-revolution/Screen-shot-2013-04-04-at-11.26.jpg" alt="" />
-<em><a href="http://www.rdio.com/">Rdio</a>采用了带有很多色彩和大量留白的扁平化设计</em></p>
-
-<p>有些习惯来自于时尚。我们想跟上时代，这就是为什么我们跟随潮流。扁平化设计引领潮流 – 它新鲜、清晰、明亮和现代。它与web设计的其它潮流相伴而来(it goes hand in hand with other trends in web design)，比如排版和留白的使用。而且，亮色(bright colors)也找到了它们的路，回到了现代设计者的意识中。</p>
-
-<p>正如任何其他趋势，我们不知道扁平化设计会持续多久。它可能是一个时期(phase)，但它也可能只触发web设计领域很小的革新。只要我们不知道它将是什么，就不要试图盲目跟随潮流。在将你的设计扁平化之前，确信你的目标对象(target group)准备好了，而且你的网站适合这种策略。</p>
-
-<h1 id="section">3. 扁平化设计具备可用性</h1>
-
-<p><img src="http://hack.the-lifematrix.net/images/flat-web-design-trend-or-revolution/Screen-shot-2013-04-04-at-11.30.jpg" alt="" />
-<em><a href="http://foundation.zurb.com/index.php">Foundation</a>将所有设计元素消减到合理的最小程度。每个设计元素都对网站的可用性做出贡献。</em></p>
-
-<p>扁平化设计不但吸引人，而且具备可用性 — 如果做得恰当，这是显然的(if done right, obviously)。扁平化设计是简单并消减到最小程度。其创意是，移除所有让人分心的元素，真正关注在内容和你用户的目标上。使用可视化的暗示，比如颜色、排版来引导你的用户，帮助他们达到他们的目标。</p>
-
-<p>避免分心，并不是把扁平化设计等同于最小化设计。这就是它变得微妙的地方。脱光你的设计，让它尽可能简单清晰 - 但是确保你没有移除对用户成功使用网站必不可少的暗示。</p>
-
-<h1 id="section-1">4. 扁平化设计很快捷</h1>
-
-<p><img src="http://hack.the-lifematrix.net/images/flat-web-design-trend-or-revolution/Screen-shot-2013-04-04-at-11.25.jpg" alt="" />
-<em><a href="http://www.geckoboard.com/plans-and-pricing/">Geckoboard</a> 的扁平和精简设计很有说服力。在只看了页面一眼之后，他们的定价就一目了然。</em></p>
-
-<p>扁平化设计显露了效率(Flat web design radiates efficiency)。因为不用分心，你的视线直接被吸引到网站最本质的地方。你不但能达到目标，而且你能确信你能在很短的时间内做到。虽然一个不同的网站也能做到可用性，但是扁平化设计不会耻于炫耀(a flat design is not ashamed to brag about it)。</p>
-
-<p>在这个情形下，炫耀并非坏事。如果你能说服你的访问者，他们将发现他们要找的 - 甚至在他们开始看之前 - 在更好的转换率方面，你已经移除了很大的障碍(you have taken a huge hurdle in terms of a better conversion)。</p>
-
-<h1 id="section-2">5. 扁平化网站设计能扩展</h1>
-
-<p><img src="http://hack.the-lifematrix.net/images/flat-web-design-trend-or-revolution/Screen-shot-2013-04-04-at-11.24.jpg" alt="" />
-<em><a href="http://oak.is/">Oak</a> 采用了带有大量排版、留白和色彩的扁平化设计。网站是可响应的，内容很容易在不同屏幕尺寸扩展。</em></p>
-
-<p>最后一点并非最不重要(Last but not least)，扁平化设计易于扩展。这点和web设计中最近的另一个趋势：响应性设计(responsive design），是一致的。移动互联网正变得越来越重要，你必须考虑你的网站在不同的屏幕尺寸上看着象会怎样。虽然实际的图像和其它设计效果难以扩展，但是扁平化设计元素，比如颜色和排版，很容易适应更小的屏幕。</p>
-
-<p>例如，在扁平化设计中，有颜色的链接，将取代仔细风格化的按钮(instead of having a carefully styled button, in flat web design a colored link will do)。一个模式化的背景图像变成一个朴素的背景颜色(a plain background color)。而且，通过使用不同的颜色，不同的内容区域在横跨多个设备时，可以容易地识别。</p>
-
-<h1 id="section-3">6. 趋势或革命？</h1>
-
-<p>你怎么思考扁平化设计？这是有些要认真对待的东西吗？你看到了伴随这一极简设计策略而来的好处吗？或者你反对，认为这只是一个我们不必过于兴奋的趋势？请给出你的评论(Let us know in the comments)。</p>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/3">&larr; Older</a>
@@ -1022,23 +996,23 @@ http://www.neos-server.org/neos/</li>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/08/the-art-of-interpreter-Part-0/">The Art of Interpreter II</a>
+        <a href="/blog/2015/10/why-learn-lisp/">为什么学习Lisp?</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2015/08/the-art-of-interpreter-Introduction/">The Art of Interpreter I</a>
+        <a href="/blog/2015/08/the-art-of-interpreter-part-1/">The Art of Interpreter: Part One</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/08/the-art-of-interpreter-part-0/">The Art of Interpreter: Part Zero</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/08/the-art-of-interpreter-Introduction/">The Art of Interpreter: Introduction</a>
       </li>
     
       <li class="post">
         <a href="/blog/2015/08/haskell-resources/">Haskell Resources</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/07/implementing-arithmetic-in-lisp/">在Lisp中实现算术</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/07/the-roots-of-lisp/">LISP的根本</a>
       </li>
     
   </ul>

@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>The Art of Interpreter II - Life Matrix</title>
+  <title>The Art of Interpreter: Part Zero - Life Matrix</title>
   <meta name="author" content="Steven Liu <stevenliucx@gmail.com>&#8221;>
 
   
@@ -21,7 +21,7 @@ Church’s λ— &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-Part-0">
+  <link rel="canonical" href="http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-part-0">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Life Matrix" type="application/atom+xml">
@@ -57,7 +57,7 @@ Church’s λ— &hellip;">
   <header role="banner"><hgroup>
   <h1><a href="/">Life Matrix</a></h1>
   
-    <h2>Hacking, Machine learning</h2>
+    <h2>Hacking, Machine learning, Lisp</h2>
   
 </hgroup>
 
@@ -89,7 +89,7 @@ Church’s λ— &hellip;">
   
   <header>
     
-      <h1 class="entry-title">The Art of Interpreter II</h1>
+      <h1 class="entry-title">The Art of Interpreter: Part Zero</h1>
     
     
       <p class="meta">
@@ -421,7 +421,7 @@ list structure, containing definitions of primitive procedures, to be supplied t
 </span><span class="line">        <span class="p">(</span><span class="nv">DRIVER-LOOP</span> <span class="nv">&lt;THE-PRIMITIVE</span><span class="err">—</span><span class="nv">PROCEDURES&gt;</span> <span class="p">(</span><span class="nv">PRINT</span> <span class="ss">&#39;|LITHP ITH LITHTENlNG|</span><span class="p">)))</span>
 </span><span class="line">
 </span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">DRIVER</span><span class="err">—</span><span class="nv">LOOP</span> <span class="nv">PROCEDURES</span> <span class="nv">HUNOZ</span><span class="p">)</span>
-</span><span class="line">        <span class="p">(</span><span class="nv">DRIVER</span><span class="err">—</span><span class="nv">LOOP</span><span class="err">—</span><span class="nv">l</span> <span class="nv">PROCEDURES</span> <span class="p">(</span><span class="nv">READ</span><span class="p">)))</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">DRIVER</span><span class="err">—</span><span class="nv">LOOP</span><span class="err">—</span><span class="mi">1</span> <span class="nv">PROCEDURES</span> <span class="p">(</span><span class="nv">READ</span><span class="p">)))</span>
 </span><span class="line">
 </span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">DRIVER-LOOP-1</span> <span class="nv">PROCEDURES</span> <span class="nv">FORM</span><span class="p">)</span>
 </span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">ATOM</span> <span class="nv">FORM</span><span class="p">)</span>
@@ -479,36 +479,36 @@ level”; all user programs and requests are run‘ “under” it. The growing 
 <span class="line-number">28</span>
 <span class="line-number">29</span>
 <span class="line-number">30</span>
-</pre></td><td class="code"><pre><code class="lisp"><span class="line"> <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="nv">EXP</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
-</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">ATOM</span> <span class="nv">EXP</span><span class="p">)</span>
-</span><span class="line">                 <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">EQ</span> <span class="nv">EXP</span> <span class="err">‘</span><span class="nv">NlL</span><span class="p">)</span> <span class="ss">&#39;NIL</span><span class="p">)</span>
-</span><span class="line">                       <span class="p">((</span><span class="nv">EQ</span> <span class="nv">EXP</span> <span class="ss">&#39;T</span><span class="p">)</span> <span class="ss">&#39;T</span><span class="p">)</span>
-</span><span class="line">                       <span class="p">((</span><span class="nv">NUMBERP</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">EXP</span><span class="p">)</span>
-</span><span class="line">                       <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">VALUE</span> <span class="nv">EXP</span> <span class="nv">ENV</span><span class="p">))))</span>
-</span><span class="line">                <span class="p">((</span><span class="nv">EQ</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="ss">&#39;QUOTE</span><span class="p">)</span>
-</span><span class="line">                 <span class="p">(</span><span class="nv">CADR</span> <span class="nv">ExP</span><span class="p">))</span>
-</span><span class="line">                <span class="p">((</span><span class="nv">EQ</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="ss">&#39;COND</span><span class="p">)</span>
-</span><span class="line">                 <span class="p">(</span><span class="nv">EVCOND</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">))</span>
-</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">APPLY</span> <span class="p">(</span><span class="nv">VALUE</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
-</span><span class="line">                          <span class="p">(</span><span class="nv">EVLIS</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
-</span><span class="line">                          <span class="nv">PROCEDURES</span><span class="p">))))</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="nv">EXP</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">ATOM</span> <span class="nv">EXP</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">EQ</span> <span class="nv">EXP</span> <span class="ss">&#39;NIL</span><span class="p">)</span> <span class="ss">&#39;NIL</span><span class="p">)</span>
+</span><span class="line">                     <span class="p">((</span><span class="nv">EQ</span> <span class="nv">EXP</span> <span class="ss">&#39;T</span><span class="p">)</span> <span class="ss">&#39;T</span><span class="p">)</span>
+</span><span class="line">                     <span class="p">((</span><span class="nv">NUMBERP</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">EXP</span><span class="p">)</span>
+</span><span class="line">                     <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">VALUE</span> <span class="nv">EXP</span> <span class="nv">ENV</span><span class="p">))))</span>
+</span><span class="line">              <span class="p">((</span><span class="nv">EQ</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="ss">&#39;QUOTE</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">CADR</span> <span class="nv">EXP</span><span class="p">))</span>
+</span><span class="line">              <span class="p">((</span><span class="nv">EQ</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="ss">&#39;COND</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">EVCOND</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">))</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">APPLY</span> <span class="p">(</span><span class="nv">VALUE</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">                        <span class="p">(</span><span class="nv">EVLIS</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">                        <span class="nv">PROCEDURES</span><span class="p">))))</span>
 </span><span class="line">
-</span><span class="line">  <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">APPLY</span> <span class="nv">FUN</span> <span class="nv">ARGS</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
-</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">PRIMOP</span> <span class="nv">FUN</span><span class="p">)</span> <span class="p">(</span><span class="nv">PRIMOP-APPLY</span> <span class="nv">FUN</span> <span class="nv">ARGS</span><span class="p">))</span>
-</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CADR</span> <span class="nv">FUN</span><span class="p">)</span>
-</span><span class="line">                         <span class="p">(</span><span class="nv">BIND</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">FUN</span><span class="p">)</span> <span class="nv">ARGS</span> <span class="o">&#39;</span><span class="p">())</span>
-</span><span class="line">                         <span class="nv">PROCEDURES</span><span class="p">))))</span>
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">APPLY</span> <span class="nv">FUN</span> <span class="nv">ARGS</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">PRIMOP</span> <span class="nv">FUN</span><span class="p">)</span> <span class="p">(</span><span class="nv">PRIMOP-APPLY</span> <span class="nv">FUN</span> <span class="nv">ARGS</span><span class="p">))</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CADR</span> <span class="nv">FUN</span><span class="p">)</span>
+</span><span class="line">                       <span class="p">(</span><span class="nv">BIND</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">FUN</span><span class="p">)</span> <span class="nv">ARGS</span> <span class="o">&#39;</span><span class="p">())</span>
+</span><span class="line">                       <span class="nv">PROCEDURES</span><span class="p">))))</span>
 </span><span class="line">
-</span><span class="line">  <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">EVCOND</span> <span class="nv">CLAUSES</span> <span class="nv">ENV</span> <span class="nv">PROCEDURED</span><span class="p">)</span>
-</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="p">(</span><span class="nv">ERROR</span><span class="p">))</span>
-</span><span class="line">                <span class="p">((</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CAAR</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
-</span><span class="line">                 <span class="p">(</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CADAR</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">))</span>
-</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">EVCOND</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">))))</span>
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">EVCOND</span> <span class="nv">CLAUSES</span> <span class="nv">ENV</span> <span class="nv">PROCEDURED</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="p">(</span><span class="nv">ERROR</span><span class="p">))</span>
+</span><span class="line">              <span class="p">((</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CAAR</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CADAR</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">))</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">EVCOND</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">))))</span>
 </span><span class="line">
-</span><span class="line">  <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">EVLIS</span> <span class="nv">ARGLIST</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
-</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">ARGLIST</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span>
-</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">CONS</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">ARGLIST</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
-</span><span class="line">                         <span class="p">(</span><span class="nv">EVLIS</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">ARGLIST</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)))))</span>
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">EVLIS</span> <span class="nv">ARGLIST</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">ARGLIST</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">CONS</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">ARGLIST</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">                       <span class="p">(</span><span class="nv">EVLIS</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">ARGLIST</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)))))</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <center>                    
@@ -587,26 +587,26 @@ EVCOND evaluates the corresponding result expression (by calling EVAL, of course
 <span class="line-number">18</span>
 <span class="line-number">19</span>
 <span class="line-number">20</span>
-</pre></td><td class="code"><pre><code class="lisp"><span class="line">  <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">BIND</span> <span class="nv">VARS</span> <span class="nv">ARGS</span> <span class="nv">ENV</span><span class="p">)</span>
-</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nb">=</span> <span class="p">(</span><span class="nv">LENGTH</span> <span class="nv">VARS</span><span class="p">)</span> <span class="p">(</span><span class="nv">LENGTH</span> <span class="nv">ARGS</span><span class="p">))</span>
-</span><span class="line">                 <span class="p">(</span><span class="nv">CONS</span> <span class="p">(</span><span class="nv">CONS</span> <span class="nv">VARS</span> <span class="nv">ARGS</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">))</span>
-</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">ERROR</span><span class="p">))))</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">BIND</span> <span class="nv">VARS</span> <span class="nv">ARGS</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nb">=</span> <span class="p">(</span><span class="nv">LENGTH</span> <span class="nv">VARS</span><span class="p">)</span> <span class="p">(</span><span class="nv">LENGTH</span> <span class="nv">ARGS</span><span class="p">))</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">CONS</span> <span class="p">(</span><span class="nv">CONS</span> <span class="nv">VARS</span> <span class="nv">ARGS</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">))</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">ERROR</span><span class="p">))))</span>
 </span><span class="line">
-</span><span class="line">  <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">VALUE</span> <span class="nv">NAME</span> <span class="nv">ENV</span><span class="p">)</span>
-</span><span class="line">          <span class="p">(</span><span class="nv">VALUEI</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">LOOKUP</span> <span class="nv">NAME</span> <span class="nv">ENV</span><span class="p">)))</span>
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">VALUE</span> <span class="nv">NAME</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">VALUEI</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">LOOKUP</span> <span class="nv">NAME</span> <span class="nv">ENV</span><span class="p">)))</span>
 </span><span class="line">
-</span><span class="line">  <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">VALUEI</span> <span class="nv">NAME</span> <span class="nv">SLOT</span><span class="p">)</span>
-</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">EQ</span> <span class="nv">SLOT</span> <span class="ss">&#39;&amp;UNBOUND</span><span class="p">)</span> <span class="p">(</span><span class="nv">ERROR</span><span class="p">))</span>
-</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">SLOT</span><span class="p">))))</span>
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">VALUEI</span> <span class="nv">NAME</span> <span class="nv">SLOT</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">EQ</span> <span class="nv">SLOT</span> <span class="ss">&#39;&amp;UNBOUND</span><span class="p">)</span> <span class="p">(</span><span class="nv">ERROR</span><span class="p">))</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">SLOT</span><span class="p">))))</span>
 </span><span class="line">
-</span><span class="line">  <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">LOOKUP</span> <span class="nv">NAME</span> <span class="nv">ENV</span><span class="p">)</span>
-</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">ENV</span><span class="p">)</span> <span class="ss">&#39;&amp;UNBOUND</span><span class="p">)</span>
-</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">LOOKUPI</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">CAAR</span> <span class="nv">ENV</span><span class="p">)</span> <span class="p">(</span><span class="nv">CDAR</span> <span class="nv">ENV</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">))))</span>
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">LOOKUP</span> <span class="nv">NAME</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">ENV</span><span class="p">)</span> <span class="ss">&#39;&amp;UNBOUND</span><span class="p">)</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">LOOKUPI</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">CAAR</span> <span class="nv">ENV</span><span class="p">)</span> <span class="p">(</span><span class="nv">CDAR</span> <span class="nv">ENV</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">))))</span>
 </span><span class="line">
-</span><span class="line">  <span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">LOOKUPI</span> <span class="nv">NAME</span> <span class="nv">VARS</span> <span class="nv">VALS</span> <span class="nv">ENV</span><span class="p">)</span>
-</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">VARS</span><span class="p">)</span> <span class="p">(</span><span class="nv">LOOKUP</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">CON</span> <span class="nv">ENV</span><span class="p">)))</span>
-</span><span class="line">                <span class="p">((</span><span class="nv">EQ</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">VARS</span><span class="p">))</span> <span class="nv">VALS</span><span class="p">)</span>
-</span><span class="line">                <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">LOOKUPI</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">con</span> <span class="nv">VARS</span><span class="p">)</span> <span class="p">(</span><span class="nv">CON</span> <span class="nv">VALS</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">))))</span>
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">LOOKUPI</span> <span class="nv">NAME</span> <span class="nv">VARS</span> <span class="nv">VALS</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">VARS</span><span class="p">)</span> <span class="p">(</span><span class="nv">LOOKUP</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">ENV</span><span class="p">)))</span>
+</span><span class="line">              <span class="p">((</span><span class="nv">EQ</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">VARS</span><span class="p">))</span> <span class="nv">VALS</span><span class="p">)</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">LOOKUPI</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">VARS</span><span class="p">)</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">VALS</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">))))</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <center>
@@ -696,7 +696,7 @@ is nothing left to do on return from a recursive call. See [SCHEME] and
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-Part-0/" data-via="" data-counturl="http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-Part-0/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-part-0/" data-via="" data-counturl="http://hack.the-lifematrix.net/blog/2015/08/the-art-of-interpreter-part-0/" >Tweet</a>
   
   
   
@@ -705,8 +705,10 @@ is nothing left to do on return from a recursive call. See [SCHEME] and
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2015/08/the-art-of-interpreter-Introduction/" title="Previous Post: The Art of Interpreter I">&laquo; The Art of Interpreter I</a>
+        <a class="basic-alignment left" href="/blog/2015/08/the-art-of-interpreter-Introduction/" title="Previous Post: The Art of Interpreter: Introduction">&laquo; The Art of Interpreter: Introduction</a>
       
+      
+        <a class="basic-alignment right" href="/blog/2015/08/the-art-of-interpreter-part-1/" title="Next Post: The Art of Interpreter: Part One">The Art of Interpreter: Part One &raquo;</a>
       
     </p>
   </footer>
@@ -721,23 +723,23 @@ is nothing left to do on return from a recursive call. See [SCHEME] and
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/08/the-art-of-interpreter-Part-0/">The Art of Interpreter II</a>
+        <a href="/blog/2015/10/why-learn-lisp/">为什么学习Lisp?</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2015/08/the-art-of-interpreter-Introduction/">The Art of Interpreter I</a>
+        <a href="/blog/2015/08/the-art-of-interpreter-part-1/">The Art of Interpreter: Part One</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/08/the-art-of-interpreter-part-0/">The Art of Interpreter: Part Zero</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/08/the-art-of-interpreter-Introduction/">The Art of Interpreter: Introduction</a>
       </li>
     
       <li class="post">
         <a href="/blog/2015/08/haskell-resources/">Haskell Resources</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/07/implementing-arithmetic-in-lisp/">在Lisp中实现算术</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/07/the-roots-of-lisp/">LISP的根本</a>
       </li>
     
   </ul>
