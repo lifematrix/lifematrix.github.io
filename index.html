@@ -9,7 +9,8 @@
   <meta name="author" content="Steven Liu <stevenliucx@gmail.com>&#8221;>
 
   
-  <meta name="description" content="本文的主要内容来自Paul Graham的《ANSI Common Lisp》，以及作者自己的思考。 计算和编程语言 人类的进化，总是试图将智能带进物质，让物质按照人的期望去做事。其一是实用性目的，能替代人的重复性工作或难以做到的工作，让人的生活水准提高，或步入更高的创造层次。 &hellip;">
+  <meta name="description" content="
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -89,6 +90,35 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2015/10/talk-about-tex/">Talk About TEX</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-15T11:02:49+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:02 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2015/10/why-learn-lisp/">为什么学习Lisp?</a></h1>
     
     
@@ -121,12 +151,15 @@
 
 <p>所以，编程语言自身的进化和发展，代表了人类对逻辑的表达能力的提升。从汇编、到C、到java，抽象度在提高，软件可以编写地更为复杂、巨大。</p>
 
-<p>一个好的语言，要具备这几点：
-* 表达力
-* 核的精炼
-* 扩展的丰富
-* 性能
-* 开发效率</p>
+<p>一个好的语言，要具备这几点：</p>
+
+<ul>
+  <li>表达力</li>
+  <li>核的精炼</li>
+  <li>扩展的丰富</li>
+  <li>性能</li>
+  <li>开发效率</li>
+</ul>
 
 <p>表达力指语言的抽象能力，对事物的概括能力。精炼的核，保证了语言本质的简洁，容易理解和掌握。扩展的丰富，代表了语言的适应力和不断进化的能力。性能，指语言的实现在物理机器上运行的效率。开发效率，包括写代码的速度、错误率等。</p>
 
@@ -3766,94 +3799,6 @@ if $x$ then $y$ else $z$</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/05/big-data-system-2/">Lambda Architechture</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-05-20T17:03:39+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>5:03 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2 id="what-is-data-system">What is Data System</h2>
-
-<p>query = function(all data)</p>
-
-<h2 id="section">大数据系统的要求</h2>
-
-<p>一个数据系统，就是要向应用提供数据的存储、加工、修改和查询的系统。<a href="http://manning.com/marz/">Big Data</a>一书中，总结大数据系统必须满足如下要求：</p>
-
-<ul>
-  <li>容错性
-包含两方面，物理容错性和人为容错性
-    <ul>
-      <li>物理容错性
-由于允许数据分区，也就是分布式存储。那不可避免有些机器会宕机或者系统软件等出现故障，导致其不可访问。局部的错误，不会导致整体系统不可访问。</li>
-      <li>人为容错性
-程序可能有bug, 对数据进行错误的修改。那么应该有办法恢复，然后用修正后的程序重新计算。</li>
-    </ul>
-  </li>
-  <li>
-    <p>可扩展性
-这是一个广泛使用，但容易引起混淆的概念。这里指的是，通过增加资源，系统在更大负载下，保持性能的能力。尽管系统有扩展性，但<strong>线性扩展性</strong>，才是有意义的。如果是与负载呈平方或者四次方的扩展性，是不实用的。</p>
-  </li>
-  <li>
-    <p>低延迟的读或修改
-绝大多数应用对于读，需要很小的延迟，在几毫米到几百毫秒。而对于修改的延迟，不同的应用要求不同，从几毫秒到几小时不等。</p>
-  </li>
-  <li>
-    <p>普遍性(Generalization)
-一个普遍的系统应能支持很大范围的应用，比如财务管理系统、社交媒体分析、科学应用、社交网络等等。</p>
-  </li>
-  <li>
-    <p>延展性(Extensibility)
-可延展的系统，允许以较小的开发成本增加新的特性或功能。</p>
-  </li>
-  <li>
-    <p>维护最小化(Minimal maintenance)</p>
-
-    <p>维护是对开发者收的税。维护是为了确保系统平滑运行而需要做的工作。最小化维护量的一个重要举措，是选择部署复杂度尽可能小的部件。</p>
-  </li>
-  <li>
-    <p>可调试性(Debuggability)</p>
-
-    <p>一个大数据系统必须在出错时，提供必要的信息来调试系统。其关键是能够追踪，对于系统中的每个值，恰恰是什么导致了这个值。</p>
-  </li>
-</ul>
-
-<h2 id="lambda-">Lambda 架构</h2>
-
-<p>本书主要是介绍Lambda架构，作为大数据的新范式，见下图：</p>
-
-<p><img src="../images/bigdata/LambdaArchitecture.png" alt="" /></p>
-
-<p>Lambda架构认为，</p>
-
-<ul>
-  <li>batch view = function(all data)</li>
-  <li>realtime view = function(realtime view, new data)</li>
-  <li>query = function(batch view. realtime view)</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -3869,6 +3814,10 @@ if $x$ then $y$ else $z$</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/10/talk-about-tex/">Talk About TEX</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/10/why-learn-lisp/">为什么学习Lisp?</a>
       </li>
     
@@ -3882,10 +3831,6 @@ if $x$ then $y$ else $z$</p>
     
       <li class="post">
         <a href="/blog/2015/08/the-art-of-interpreter-Introduction/">The Art of Interpreter: Introduction</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/08/haskell-resources/">Haskell Resources</a>
       </li>
     
   </ul>
