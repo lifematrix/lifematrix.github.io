@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2015-10-15T11:11:53+08:00</updated>
+  <updated>2015-10-16T18:37:37+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -14,11 +14,44 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Talk About TEX]]></title>
+    <title type="html"><![CDATA[由TEX想到的]]></title>
     <link href="http://hack.the-lifematrix.net/blog/2015/10/talk-about-tex/"/>
     <updated>2015-10-15T11:02:49+08:00</updated>
     <id>http://hack.the-lifematrix.net/blog/2015/10/talk-about-tex</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<p>IT技术的飞速发展、不断升级换代，一方面的确给这个行业带来极大的活力和机会，但也给业者带来知识老化和智力投资过时的困惑。</p>
+
+<p>但是，我们的确看到有很多成功的软件产品，它们跨越了技术快速发展的短周期，而在相当长的时间跨度下，保持产品的稳定和不断演进，并与新技术共舞，不断完善自己，变得更为完美。例如TEX，计算机科学家Donald Knuth于1970年代研发出的数学排版软件。他的初衷是发现自己撰写的论文在数学期刊印刷出来后，不够美观，而且当时没有很好的计算机排版软件，于是就自己着手研究开发。TEX及其扩展LaTex，至今仍被广泛地应用在专业期刊书籍出版，并作为插件被几乎被所有包含数学公式的网页所采用。</p>
+
+<p>《黑客与画家》的作者Paul Graham，在介绍为什么学习Lisp时，讲到通过定义针对应用域的语言，来达到高复用性，并将TEX作为典范。TEX提供了易学、清晰、可读性高的排版语言，让作者在撰写的过程中，就完成了排版，避免了反复沟通和校验的过程。</p>
+
+<p>Knuth 在文章<a href="http://projecteuclid.org/DPubS?service=UI&amp;version=1.0&amp;verb=Display&amp;handle=euclid.bams/1183544082">Mathematical Typography</a>中讲到了他的思路。</p>
+
+<pre><code>数学书籍和期刊没有它们看起来那样好看。这不是因为它们的内容不够好，
+而是过去过去且良好排版的传统过于昂贵。幸运地是，现在看来数学本身
+可以用来解决这个问题。
+
+方案的第一步是设计方法来清晰地表达数学手稿，让它们能容易地被机器
+操作。这样的语言，如果恰当设计，作者及其打字员能很快学习，而且
+这个手稿能为印刷机直接产生高质量的印版，几乎不需要人工介入。
+
+方案的第二步是利用经典数学来设计字体和符号的形状。例如，它能够给出
+字母“a"准确形状的严格定义，使得通过改变单一定义中的少数几个参数，
+能够得到无限多的风格(黑体、扩展、衬线、斜体等等)。当类似的方法
+用到其它字母和符号时，我们得到了字体的数学定义，一个可以在今天和未来的
+计算机里使用的定义。这个策略的显著特征就是，新的符号能轻而易举地添加
+进来，并能自动地和原有的保持一致。
+</code></pre>
+
+<p>Knuth的系统，在开发中得到了斯坦福的同事和学生的帮助，一同有三个组成部分：</p>
+
+<ol>
+  <li>TeX 排版引擎</li>
+  <li>METAFONT 字体设计系统</li>
+  <li>计算机的现代书体(Computer Modern Typefaces)</li>
+</ol>
+
+<p>Knuth后来将TEX的代码公开，如今<a href="https://latex-project.org/lppl/">LaTex项目</a>是最成功自由软件之一。</p>
+
 ]]></content>
   </entry>
   
