@@ -9,8 +9,7 @@
   <meta name="author" content="Steven Liu <stevenliucx@gmail.com>&#8221;>
 
   
-  <meta name="description" content="阿里成功的根本，是满足了社会的需求，让商业更方便高效，用马云的话：”让天下没有难做的生意“。企业的存在是因为创造价值，顾客愿意购买，
-金钱才会流动。如果忽略这点，只谈创业者的传奇和神勇，是本末倒置。 发现需求、创造需求，make our life better, &hellip;">
+  <meta name="description" content="A valuable whitepaper: Multithreaded Magic with ØMQ The article Solving 11 Likely Problems In Your Multithreaded Code outlines some challenge in &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -84,6 +83,107 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/09/zeromq/">zeroMQ</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-09-25T10:42:13+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>10:42 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A valuable whitepaper: <a href="http://zeromq.wdfiles.com/local--files/whitepapers%3Amultithreading-magic/imatix-multithreaded-magic.pdf">Multithreaded Magic with ØMQ</a></p>
+
+<p>The article <a href="http://msdn.microsoft.com/en-us/magazine/cc817398.aspx">Solving 11 Likely Problems In Your Multithreaded Code</a> outlines some challenge in multi-threading program</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/09/kaggle-competition-the-hunt-for-prohibited-content/">Kaggle Competition: The Hunt for Prohibited Content</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-09-23T10:42:26+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>23</span><span class='date-suffix'>rd</span>, <span class='date-year'>2014</span></span> <span class='time'>10:42 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1 id="section">简介</h1>
+<p>当我开始留意这个竞赛时，已接近尾声。还有个原因，竞赛的进展超出了主办发的预期，他们迫不及待想看看结果，于是就提前结束了竞赛(<a href="http://www.kaggle.com/c/avito-prohibited-content/forums/t/9721/timeline-change/">Timeline Change</a>)。</p>
+
+<p>由于最近在熟悉<a href="https://github.com/JohnLangford/vowpal_wabbit/wiki">vowpal wabbit</a>，这是一个非常快速的线性模型学习工具，用起来象瑞士军刀那样爽。<a href="http://mlwave.com/lessons-from-avito-prohibited-content-kaggle/">mlwave.com的文章</a>介绍了使用vw参赛的经验。另外，yr也用<a href="http://www.kaggle.com/c/avito-prohibited-content/forums/t/10178/congrats-barisumog-giulio/52810#post52810">vw参赛</a>，取得了No.4的好成绩。本文主要就其<a href="https://github.com/ChenglongChen/Kaggle_The_Hunt_for_Prohibited_Content">程序</a>进行分析，重新实验。虽然是赛后的分析，仍具有相当价值。</p>
+
+<h1 id="section-1">背景</h1>
+
+<p><a href="avito.ru">avito.ru</a>是俄罗斯最大的分类网站，它将俄罗斯各个地区的买家和卖家连接起来。其上大约有2200万活跃广告，而且每天都在大量的广告在增加或调整。Avito的效率，很大程度上取决于内容的质量 – 在几小时内，买家能迅速找到相关的商品，而卖家能迅速销售出商品。</p>
+
+<p>当Avito规模越大、越受欢迎时，销售非法商品或服务的吸引力也会越大。有些商品一看就知道是非法的，但还有些商品看似合法的，但并不符合网站的规则。
+Kaggle的竞赛 <a href="http://www.kaggle.com/c/avito-prohibited-content">The Hunt for Prohibited Content</a> 由俄罗斯最大的分类的 发起，是预测被禁止的广告。所以，很多新增或修改的广告都要经过人工的审查。如果广告违反了俄罗斯法律或avito内部的规则，就会被删除。但是，随着业务增长，彻底审查所有广告越来越具有挑战性。这就是机器学习发挥作用的地方。</p>
+
+<p>这个竞赛的目的是创建一个预测性模型，它可以从审查员的判断中去学习，然后预测一个广告是否含有非法信息。</p>
+
+<h1 id="section-2">数据</h1>
+<p>测试集有3,995,804行。训练集有1,351,242，为训练集的1/3。</p>
+
+<h1 id="baseline">基本算法(Baseline)</h1>
+<p>0.97197(0.97095)</p>
+
+<h1 id="yr">yr的算法</h1>
+
+<p>yr的算法，Score分别为：0.98507(0.98628)。</p>
+
+<h2 id="features-engineering">Features Engineering</h2>
+<p>Score为0.97503(0.97630)。看来ensamble提高了接近1个百分点。</p>
+
+<h2 id="grid-search">Grid Search</h2>
+<p>learning rate = 0.5, learning rate decay = 1.0, passes = 10</p>
+
+<p>0.97629(0.97653), 提高了1个百分点。</p>
+
+<h2 id="split-proved--unproved">Split proved &amp; unproved</h2>
+<p>proved: 0.97629(0.97653)</p>
+
+<h2 id="ensemble">Ensemble</h2>
+<p>mixed ensemble mean: 0.98497(0.98504)。
+mixed ensamble median: 0.98498(0.98447)。</p>
+
+<p>proved ensamble mean: 0.98363(0.98474)。
+proved ensamble median: 0.98329(0.98448)。</p>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -255,6 +355,14 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/10/the-revolution-of-commerce/">电子商务的下一步？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/preference-learning/">偏好学习</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/10/talk-about-tex/">由TEX想到的</a>
       </li>
     
@@ -264,14 +372,6 @@
     
       <li class="post">
         <a href="/blog/2015/08/the-art-of-interpreter-part-1/">The Art of Interpreter: Part One</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/08/the-art-of-interpreter-part-0/">The Art of Interpreter: Part Zero</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/08/the-art-of-interpreter-Introduction/">The Art of Interpreter: Introduction</a>
       </li>
     
   </ul>

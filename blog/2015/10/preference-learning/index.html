@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>zeroMQ - Life Matrix</title>
+  <title>偏好学习 - Life Matrix</title>
   <meta name="author" content="Steven Liu <stevenliucx@gmail.com>&#8221;>
 
   
-  <meta name="description" content="A valuable whitepaper: Multithreaded Magic with ØMQ The article Solving 11 Likely Problems In Your Multithreaded Code outlines some challenge in &hellip;">
+  <meta name="description" content="偏好学习(Preference Learning)是机器学习涌现的一个分支。总得来说，它从观察到或抽取到的偏好信息中，学习可预测性的偏好模型。 机器学习，从名称上理解，是让机器从样本中学习，产生具有可预测性的模型，用于新的样本。机器学习有很多应用领域，比如：垃圾邮件过滤、互联网广告预测、推荐系统、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://hack.the-lifematrix.net/blog/2014/09/zeromq">
+  <link rel="canonical" href="http://hack.the-lifematrix.net/blog/2015/10/preference-learning">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Life Matrix" type="application/atom+xml">
@@ -86,7 +86,7 @@
   
   <header>
     
-      <h1 class="entry-title">zeroMQ</h1>
+      <h1 class="entry-title">偏好学习</h1>
     
     
       <p class="meta">
@@ -95,16 +95,28 @@
 
 
 
-<time class='entry-date' datetime='2014-09-25T10:42:13+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>10:42 am</span></time>
+<time class='entry-date' datetime='2015-10-26T13:58:55+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>1:58 pm</span></time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>A valuable whitepaper: <a href="http://zeromq.wdfiles.com/local--files/whitepapers%3Amultithreading-magic/imatix-multithreaded-magic.pdf">Multithreaded Magic with ØMQ</a></p>
+<div class="entry-content"><p>偏好学习(Preference Learning)是机器学习涌现的一个分支。总得来说，它从观察到或抽取到的偏好信息中，学习可预测性的偏好模型。</p>
 
-<p>The article <a href="http://msdn.microsoft.com/en-us/magazine/cc817398.aspx">Solving 11 Likely Problems In Your Multithreaded Code</a> outlines some challenge in multi-threading program</p>
+<p>机器学习，从名称上理解，是让机器从样本中学习，产生具有可预测性的模型，用于新的样本。机器学习有很多应用领域，比如：垃圾邮件过滤、互联网广告预测、推荐系统、欺诈预测等等。而偏好分析，则着重于偏好建模和决策分析。涉及的学科包括运筹研究、社会科学(投票和选择理论，voting and choice theory)，经济和决策理论。</p>
+
+<p>偏好学习的预测，不是象分类或回归那样，给出一个标量的输出，因此更关注于排名(Ranking)。相对于传统的数值型方法，更侧重成对的比较而非数值型估算，次序关系而非单独的评估。</p>
+
+<p>仍然有一些公开的问题，比如：统一的框架，更普遍的预测而非排名，包含数值信息等。</p>
+
+<p><img src="http://hack.the-lifematrix.net/images/preference-learning/connection-to-other-fields.png" alt="" /></p>
+
+<h3 id="ranking-versus-classification">排名与分类(Ranking versus Classification)</h3>
+
+<p>一个排名器(Ranker)通过设置阈值，可以转化为一个分类器。但相反却不行，一个好的分类器并不必然是个好的排名器。</p>
+
+<h3 id="ranksvm">方法RankSVM</h3>
 </div>
 
 
@@ -120,7 +132,7 @@
 
 
 
-<time class='entry-date' datetime='2014-09-25T10:42:13+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>10:42 am</span></time>
+<time class='entry-date' datetime='2015-10-26T13:58:55+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>1:58 pm</span></time>
       
 
 
@@ -128,7 +140,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://hack.the-lifematrix.net/blog/2014/09/zeromq/" data-via="" data-counturl="http://hack.the-lifematrix.net/blog/2014/09/zeromq/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://hack.the-lifematrix.net/blog/2015/10/preference-learning/" data-via="" data-counturl="http://hack.the-lifematrix.net/blog/2015/10/preference-learning/" >Tweet</a>
   
   
   
@@ -137,10 +149,10 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/09/kaggle-competition-the-hunt-for-prohibited-content/" title="Previous Post: Kaggle Competition: The Hunt for Prohibited Content">&laquo; Kaggle Competition: The Hunt for Prohibited Content</a>
+        <a class="basic-alignment left" href="/blog/2015/10/talk-about-tex/" title="Previous Post: 由TEX想到的">&laquo; 由TEX想到的</a>
       
       
-        <a class="basic-alignment right" href="/blog/2014/10/the-classification-of-algorithms-in-machine-learning/" title="Next Post: The clashsification of algorithms in machine learning">The clashsification of algorithms in machine learning &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2015/10/the-revolution-of-commerce/" title="Next Post: 电子商务的下一步？">电子商务的下一步？ &raquo;</a>
       
     </p>
   </footer>
