@@ -11,14 +11,6 @@
   </url>
   
   <url>
-    <loc>http://hack.the-lifematrix.net/blog/2015/10/preference-learning/</loc>
-    
-    <lastmod>2015-10-26T13:58:55+08:00</lastmod>
-    
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
     <loc>http://hack.the-lifematrix.net/blog/2015/10/talk-about-tex/</loc>
     
     <lastmod>2015-10-15T11:02:49+08:00</lastmod>
@@ -277,28 +269,28 @@
   
   <url>
     <loc>http://hack.the-lifematrix.net/blog/archives/</loc>
-    <lastmod>2015-10-28T17:31:43+08:00</lastmod>
+    <lastmod>2016-01-14T13:33:53+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://hack.the-lifematrix.net/</loc>
-    <lastmod>2015-10-28T17:31:43+08:00</lastmod>
+    <lastmod>2016-01-14T13:33:53+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://hack.the-lifematrix.net/lisp-resource/</loc>
-    <lastmod>2015-10-28T17:31:43+08:00</lastmod>
+    <lastmod>2016-01-14T13:33:53+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://hack.the-lifematrix.net/resources/</loc>
-    <lastmod>2015-10-28T17:31:43+08:00</lastmod>
+    <lastmod>2016-01-14T13:33:53+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

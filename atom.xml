@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2015-10-28T17:31:43+08:00</updated>
+  <updated>2016-01-14T13:33:53+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -20,39 +20,37 @@
     <id>http://hack.the-lifematrix.net/blog/2015/10/the-revolution-of-commerce</id>
     <content type="html"><![CDATA[<h3 id="section">进化的观点</h3>
 
-<p>在商业和技术界，我们经常听到革命创新一类的词，代表商业或技术方面的一个崭新的发展。如果了解一些历史、站在历史的视野上去看到我们身边发生的变化，会更容易将其理解为某种阶段性的成就，或者在长期的进化过程中所取得的阶段性变化。</p>
-
-<p>采用“进化”的观点，是因为无论作为个人还是群体，其经验和认知总有局限性，我们只了解这个世界的局部真相，只能在我们认知的范围内做出尽可能优化的判断、决策以及随后的行动。随着经验的积累和认知的扩大，能看到更大范围的真相，我们会对从前的认知进行修正，这样一步步趋于优化。</p>
+<p>在商业和技术界，任何目前看来是革命或创新的东西，如果站在历史的角度，也只是进化历程中某阶段性的成就。采用“进化”的观点，是因为无论作为个人还是群体，其经验和认知总有局限性，我们只了解这个世界的局部真相，只能在我们认知的范围内做出尽可能优化的判断、决策以及随后的行动。随着经验的积累和认知的扩大，能看到更大范围的真相，我们会对从前的认知进行修正，这样一步步趋于优化。</p>
 
 <p>比如商业形式的进化，从最早的自给自足的“小农经济”，到物物交换的简单形式。然后货币出现，以货币作为度量标准，商品有了交换的“价格”。接着，有了专门制造商品的手艺人和小工业者，慢慢多个合伙人组成商业机构，接着出现股份公司，而后是有限责任公司…。现在，由于资本市场的成熟，还有股票期权，员工持股。最近还有众筹等。</p>
 
-<p>电子商务，伴随互联网技术的兴起，已经成为很多人的购物方式和生活方式。同时也成就了象阿里巴巴、京东、亚马逊等这样的巨型公司。</p>
+<p>电子商务，伴随互联网技术的兴起，已经成为很多人的购物方式和生活方式。同时也成就了象阿里巴巴、京东、亚马逊等这样的巨型公司。但是，目前电子商务的模式会一直延续吗？下一步或者进化的方向是什么？</p>
 
-<p>但是，目前电子商务的模式会一直延续吗？下一步或者进化的方向是什么？</p>
+<h3 id="section-1">商业的实质</h3>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[偏好学习]]></title>
-    <link href="http://hack.the-lifematrix.net/blog/2015/10/preference-learning/"/>
-    <updated>2015-10-26T13:58:55+08:00</updated>
-    <id>http://hack.the-lifematrix.net/blog/2015/10/preference-learning</id>
-    <content type="html"><![CDATA[<p>偏好学习(Preference Learning)是机器学习涌现的一个分支。总得来说，它从观察到或抽取到的偏好信息中，学习可预测性的偏好模型。</p>
+<p>为什么会出现商业？亚当斯密斯在《国富论》中已经给出了清晰的解释。因为每个人无法独自满足自己所有的需求，或者每个人不可能擅长做所有的事情。这样，通过交换，每个人都能从别处获得自己不能提供的、或更好的东西。每个人专注自己擅长的事情，这样效率最高，然后拿自己的产品或服务与别人交换，如此增加了社会的共同财富，达到整个社会更大的繁荣和丰盛。</p>
 
-<p>机器学习，从名称上理解，是让机器从样本中学习，产生具有可预测性的模型，用于新的样本。机器学习有很多应用领域，比如：垃圾邮件过滤、互联网广告预测、推荐系统、欺诈预测等等。而偏好分析，则着重于偏好建模和决策分析。涉及的学科包括运筹研究、社会科学(投票和选择理论，voting and choice theory)，经济和决策理论。</p>
+<p>那么高效的商业体系，要做到三个基本点：</p>
 
-<p>偏好学习的预测，不是象分类或回归那样，给出一个标量的输出，因此更关注于排名(Ranking)。相对于传统的数值型方法，更侧重成对的比较而非数值型估算，次序关系而非单独的评估。</p>
+<ul>
+  <li>
+    <p>创造
+供应者能够创造出满足需要、打动人心的产品<em>(注：服务简称产品，以下同)</em>。</p>
+  </li>
+  <li>
+    <p>分享
+产品以合适的方式让消费者或潜在用户了解到，产生购买的愿望。</p>
+  </li>
+  <li>
+    <p>交换
+有便捷的方式完整支付、配送和售后服务支持。</p>
+  </li>
+</ul>
 
-<p>仍然有一些公开的问题，比如：统一的框架，更普遍的预测而非排名，包含数值信息等。</p>
+<h3 id="section-2">目前电子商务已解决和未解决的</h3>
 
-<p><img src="http://hack.the-lifematrix.net/images/preference-learning/connection-to-other-fields.png" alt="" /></p>
+<p>目前，电子商务更多解决的是“交换”问题。</p>
 
-<h3 id="ranking-versus-classification">排名与分类(Ranking versus Classification)</h3>
-
-<p>一个排名器(Ranker)通过设置阈值，可以转化为一个分类器。但相反却不行，一个好的分类器并不必然是个好的排名器。</p>
-
-<h3 id="ranksvm">方法RankSVM</h3>
 ]]></content>
   </entry>
   
@@ -4081,6 +4079,270 @@ Facebook, 微信, Flickr的图片分享</li>
   <li><a href="https://creativemarket.com/">https://creativemarket.com/</a></li>
   <li><a href="http://colorlib.com/wp/themes/">http://colorlib.com/wp/themes/</a></li>
 </ul>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Kaggle-2014-criteo]]></title>
+    <link href="http://hack.the-lifematrix.net/blog/2015/01/kaggle-2014-criteo/"/>
+    <updated>2015-01-08T16:38:22+08:00</updated>
+    <id>http://hack.the-lifematrix.net/blog/2015/01/kaggle-2014-criteo</id>
+    <content type="html"><![CDATA[<p>3idiots solution post, visit <a href="http://www.kaggle.com/c/criteo-display-ad-challenge/forums/t/10555/3-idiots-solution">here</a>
+### Profile
+train: 45m(45,840,618)</p>
+
+<h3 id="count-feats">Count feats</h3>
+<p>统计每个feats出现在样本中的频度：正样品、负样品、总和、正样本占比。
+如下是26个频度最高(&gt;4m)的features。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th style="text-align: left">Value</th>
+      <th style="text-align: right">Neg</th>
+      <th style="text-align: right">Pos</th>
+      <th style="text-align: right">Total</th>
+      <th style="text-align: right">Ratio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>C14</td>
+      <td style="text-align: left">1adce6ef</td>
+      <td style="text-align: right">5251998</td>
+      <td style="text-align: right">1823128</td>
+      <td style="text-align: right">7075126</td>
+      <td style="text-align: right">0.25768</td>
+    </tr>
+    <tr>
+      <td>C5</td>
+      <td style="text-align: left">4cf72387</td>
+      <td style="text-align: right">5336129</td>
+      <td style="text-align: right">1838585</td>
+      <td style="text-align: right">7174714</td>
+      <td style="text-align: right">0.25626</td>
+    </tr>
+    <tr>
+      <td>C8</td>
+      <td style="text-align: left">5b392875</td>
+      <td style="text-align: right">5671997</td>
+      <td style="text-align: right">1954651</td>
+      <td style="text-align: right">7626648</td>
+      <td style="text-align: right">0.25629</td>
+    </tr>
+    <tr>
+      <td>C1</td>
+      <td style="text-align: left">68fd1e64</td>
+      <td style="text-align: right">5689813</td>
+      <td style="text-align: right">1958501</td>
+      <td style="text-align: right">7648314</td>
+      <td style="text-align: right">0.25607</td>
+    </tr>
+    <tr>
+      <td>C20</td>
+      <td style="text-align: left">a458ea53</td>
+      <td style="text-align: right">6433992</td>
+      <td style="text-align: right">1997994</td>
+      <td style="text-align: right">8431986</td>
+      <td style="text-align: right">0.23695</td>
+    </tr>
+    <tr>
+      <td>C6</td>
+      <td style="text-align: left">fe6b92e5</td>
+      <td style="text-align: right">6236932</td>
+      <td style="text-align: right">2295003</td>
+      <td style="text-align: right">8531935</td>
+      <td style="text-align: right">0.26899</td>
+    </tr>
+    <tr>
+      <td>C20</td>
+      <td style="text-align: left">5840adea</td>
+      <td style="text-align: right">6643317</td>
+      <td style="text-align: right">1889587</td>
+      <td style="text-align: right">8532904</td>
+      <td style="text-align: right">0.22145</td>
+    </tr>
+    <tr>
+      <td>C20</td>
+      <td style="text-align: left">b1252a9d</td>
+      <td style="text-align: right">6277109</td>
+      <td style="text-align: right">2425760</td>
+      <td style="text-align: right">8702869</td>
+      <td style="text-align: right">0.27873</td>
+    </tr>
+    <tr>
+      <td>C23</td>
+      <td style="text-align: left">3a171ecb</td>
+      <td style="text-align: right">7185150</td>
+      <td style="text-align: right">2006084</td>
+      <td style="text-align: right">9191234</td>
+      <td style="text-align: right">0.21826</td>
+    </tr>
+    <tr>
+      <td>C6</td>
+      <td style="text-align: left">fbad5c96</td>
+      <td style="text-align: right">7460404</td>
+      <td style="text-align: right">2516292</td>
+      <td style="text-align: right">9976696</td>
+      <td style="text-align: right">0.25222</td>
+    </tr>
+    <tr>
+      <td>C10</td>
+      <td style="text-align: left">3b08e48b</td>
+      <td style="text-align: right">7953527</td>
+      <td style="text-align: right">2204236</td>
+      <td style="text-align: right">10157763</td>
+      <td style="text-align: right">0.217</td>
+    </tr>
+    <tr>
+      <td>C14</td>
+      <td style="text-align: left">07d13a8f</td>
+      <td style="text-align: right">11378971</td>
+      <td style="text-align: right">4341777</td>
+      <td style="text-align: right">15720748</td>
+      <td style="text-align: right">0.27618</td>
+    </tr>
+    <tr>
+      <td>C19</td>
+      <td style="text-align: left">21ddcdc9</td>
+      <td style="text-align: right">12155179</td>
+      <td style="text-align: right">3645176</td>
+      <td style="text-align: right">15800355</td>
+      <td style="text-align: right">0.2307</td>
+    </tr>
+    <tr>
+      <td>C14</td>
+      <td style="text-align: left">b28479f6</td>
+      <td style="text-align: right">12523741</td>
+      <td style="text-align: right">3505314</td>
+      <td style="text-align: right">16029055</td>
+      <td style="text-align: right">0.21869</td>
+    </tr>
+    <tr>
+      <td>C6</td>
+      <td style="text-align: left">7e0ccccf</td>
+      <td style="text-align: right">13648629</td>
+      <td style="text-align: right">4518321</td>
+      <td style="text-align: right">18166950</td>
+      <td style="text-align: right">0.24871</td>
+    </tr>
+    <tr>
+      <td>C23</td>
+      <td style="text-align: left">32c7478e</td>
+      <td style="text-align: right">14705791</td>
+      <td style="text-align: right">5464777</td>
+      <td style="text-align: right">20170568</td>
+      <td style="text-align: right">0.27093</td>
+    </tr>
+    <tr>
+      <td>C19</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: right">14740761</td>
+      <td style="text-align: right">5432097</td>
+      <td style="text-align: right">20172858</td>
+      <td style="text-align: right">0.26928</td>
+    </tr>
+    <tr>
+      <td>C20</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: right">14740761</td>
+      <td style="text-align: right">5432097</td>
+      <td style="text-align: right">20172858</td>
+      <td style="text-align: right">0.26928</td>
+    </tr>
+    <tr>
+      <td>C26</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: right">14740761</td>
+      <td style="text-align: right">5432097</td>
+      <td style="text-align: right">20172858</td>
+      <td style="text-align: right">0.26928</td>
+    </tr>
+    <tr>
+      <td>C25</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: right">14740761</td>
+      <td style="text-align: right">5432097</td>
+      <td style="text-align: right">20172858</td>
+      <td style="text-align: right">0.26928</td>
+    </tr>
+    <tr>
+      <td>C17</td>
+      <td style="text-align: left">e5ba7672</td>
+      <td style="text-align: right">14618074</td>
+      <td style="text-align: right">6535485</td>
+      <td style="text-align: right">21153559</td>
+      <td style="text-align: right">0.30895</td>
+    </tr>
+    <tr>
+      <td>C1</td>
+      <td style="text-align: left">05db9164</td>
+      <td style="text-align: right">17068183</td>
+      <td style="text-align: right">5882677</td>
+      <td style="text-align: right">22950860</td>
+      <td style="text-align: right">0.25632</td>
+    </tr>
+    <tr>
+      <td>C8</td>
+      <td style="text-align: left">0b153874</td>
+      <td style="text-align: right">20252230</td>
+      <td style="text-align: right">6979966</td>
+      <td style="text-align: right">27232196</td>
+      <td style="text-align: right">0.25631</td>
+    </tr>
+    <tr>
+      <td>C5</td>
+      <td style="text-align: left">25c83c98</td>
+      <td style="text-align: right">22888073</td>
+      <td style="text-align: right">7884064</td>
+      <td style="text-align: right">30772137</td>
+      <td style="text-align: right">0.25621</td>
+    </tr>
+    <tr>
+      <td>C22</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: right">26268267</td>
+      <td style="text-align: right">8686806</td>
+      <td style="text-align: right">34955073</td>
+      <td style="text-align: right">0.24851</td>
+    </tr>
+    <tr>
+      <td>C9</td>
+      <td style="text-align: left">a73ee510</td>
+      <td style="text-align: right">30037927</td>
+      <td style="text-align: right">11162225</td>
+      <td style="text-align: right">41200152</td>
+      <td style="text-align: right">0.27093</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="pre-a">Pre-A</h3>
+
+<p>39个feats的数据集，分为：
+Dense features: 1~13 数字型特征。(每个实例都有)
+Sparse features: 26个最高频度的feats。</p>
+
+<p>非零的features: 13~39个之间。</p>
+
+<p>经过GBDT求解，生成30棵深度为7的树。则feats数为30*2^7。每个实例有30个非零feats。</p>
+
+<h3 id="pre-b">Pre-B</h3>
+<p>两个来源：csv, gbdt</p>
+
+<p>csv:
+   数值feats离散化: Ix-value (x=1…13)
+       value&gt;2: [log(v)]^2取整
+       value&lt;2: ‘SP’+value
+   类别feat直接利用：Cx-value (x=1…26)
+		 对于小于10的feats, feats = Cx-less </p>
+
+<p>gbdt:
+   (field, i:feat)</p>
+
+<p>通过前缀，保证每个feats的唯一性。再加上field，做到field-aware
+组合： 生成feats对 (field, feat)</p>
 ]]></content>
   </entry>
   
