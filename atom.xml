@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2016-01-14T13:33:53+08:00</updated>
+  <updated>2016-01-15T11:28:51+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -12,6 +12,53 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[为git设置sock代理]]></title>
+    <link href="http://hack.the-lifematrix.net/blog/2016/01/git-sock-proxy/"/>
+    <updated>2016-01-15T11:01:42+08:00</updated>
+    <id>http://hack.the-lifematrix.net/blog/2016/01/git-sock-proxy</id>
+    <content type="html"><![CDATA[<p>访问<a href="github.com">github</a>, <a href="http://bitbucket.org">bitbucket</a> 或 <a href="https://chromium.googlesource.com">google git</a> 等源码库会被阻塞，配置VPN经常不稳定。我喜欢用sock proxy，简洁快速。</p>
+
+<h1 id="sshsocks-proxy">通过SSH隧道建立SOCKS Proxy</h1>
+
+<p>假设本地的绑定端口是<strong>1080</strong>，用户user已经可以不用密码登陆远程主机remote.host。执行命令：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">ssh -nN -D 1089 user@remote.host</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>-D 指绑定端口为1080。</p>
+
+<p>-N 指出不要执行远程命令，只做端口转发。</p>
+
+<p>-n 将从/dev/null中读入，这在后台执行时有用。</p>
+
+<p><em>上述参数在MAC OS下有效，其它Linux变种应也类似，man ssh 确认一下</em></p>
+
+<h1 id="git">配置git</h1>
+
+<p>配置http，及https代理</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">git config --global http.proxy socks5://localhost:1080</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">git config --global https.proxy socks5://localhost:1080</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h1 id="section">参考</h1>
+
+<p>上述方法参考：</p>
+
+<ul>
+  <li>
+    <p><a href="http://cms-sw.github.io/tutorial-proxy.html">http://cms-sw.github.io/tutorial-proxy.html</a></p>
+  </li>
+  <li>
+    <p><a href="http://stackoverflow.com/questions/15227130/using-a-socks-proxy-with-git-for-the-http-transport">http://stackoverflow.com/questions/15227130/using-a-socks-proxy-with-git-for-the-http-transport</a></p>
+  </li>
+</ul>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[电子商务的下一步？]]></title>
@@ -4079,270 +4126,6 @@ Facebook, 微信, Flickr的图片分享</li>
   <li><a href="https://creativemarket.com/">https://creativemarket.com/</a></li>
   <li><a href="http://colorlib.com/wp/themes/">http://colorlib.com/wp/themes/</a></li>
 </ul>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Kaggle-2014-criteo]]></title>
-    <link href="http://hack.the-lifematrix.net/blog/2015/01/kaggle-2014-criteo/"/>
-    <updated>2015-01-08T16:38:22+08:00</updated>
-    <id>http://hack.the-lifematrix.net/blog/2015/01/kaggle-2014-criteo</id>
-    <content type="html"><![CDATA[<p>3idiots solution post, visit <a href="http://www.kaggle.com/c/criteo-display-ad-challenge/forums/t/10555/3-idiots-solution">here</a>
-### Profile
-train: 45m(45,840,618)</p>
-
-<h3 id="count-feats">Count feats</h3>
-<p>统计每个feats出现在样本中的频度：正样品、负样品、总和、正样本占比。
-如下是26个频度最高(&gt;4m)的features。</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th style="text-align: left">Value</th>
-      <th style="text-align: right">Neg</th>
-      <th style="text-align: right">Pos</th>
-      <th style="text-align: right">Total</th>
-      <th style="text-align: right">Ratio</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>C14</td>
-      <td style="text-align: left">1adce6ef</td>
-      <td style="text-align: right">5251998</td>
-      <td style="text-align: right">1823128</td>
-      <td style="text-align: right">7075126</td>
-      <td style="text-align: right">0.25768</td>
-    </tr>
-    <tr>
-      <td>C5</td>
-      <td style="text-align: left">4cf72387</td>
-      <td style="text-align: right">5336129</td>
-      <td style="text-align: right">1838585</td>
-      <td style="text-align: right">7174714</td>
-      <td style="text-align: right">0.25626</td>
-    </tr>
-    <tr>
-      <td>C8</td>
-      <td style="text-align: left">5b392875</td>
-      <td style="text-align: right">5671997</td>
-      <td style="text-align: right">1954651</td>
-      <td style="text-align: right">7626648</td>
-      <td style="text-align: right">0.25629</td>
-    </tr>
-    <tr>
-      <td>C1</td>
-      <td style="text-align: left">68fd1e64</td>
-      <td style="text-align: right">5689813</td>
-      <td style="text-align: right">1958501</td>
-      <td style="text-align: right">7648314</td>
-      <td style="text-align: right">0.25607</td>
-    </tr>
-    <tr>
-      <td>C20</td>
-      <td style="text-align: left">a458ea53</td>
-      <td style="text-align: right">6433992</td>
-      <td style="text-align: right">1997994</td>
-      <td style="text-align: right">8431986</td>
-      <td style="text-align: right">0.23695</td>
-    </tr>
-    <tr>
-      <td>C6</td>
-      <td style="text-align: left">fe6b92e5</td>
-      <td style="text-align: right">6236932</td>
-      <td style="text-align: right">2295003</td>
-      <td style="text-align: right">8531935</td>
-      <td style="text-align: right">0.26899</td>
-    </tr>
-    <tr>
-      <td>C20</td>
-      <td style="text-align: left">5840adea</td>
-      <td style="text-align: right">6643317</td>
-      <td style="text-align: right">1889587</td>
-      <td style="text-align: right">8532904</td>
-      <td style="text-align: right">0.22145</td>
-    </tr>
-    <tr>
-      <td>C20</td>
-      <td style="text-align: left">b1252a9d</td>
-      <td style="text-align: right">6277109</td>
-      <td style="text-align: right">2425760</td>
-      <td style="text-align: right">8702869</td>
-      <td style="text-align: right">0.27873</td>
-    </tr>
-    <tr>
-      <td>C23</td>
-      <td style="text-align: left">3a171ecb</td>
-      <td style="text-align: right">7185150</td>
-      <td style="text-align: right">2006084</td>
-      <td style="text-align: right">9191234</td>
-      <td style="text-align: right">0.21826</td>
-    </tr>
-    <tr>
-      <td>C6</td>
-      <td style="text-align: left">fbad5c96</td>
-      <td style="text-align: right">7460404</td>
-      <td style="text-align: right">2516292</td>
-      <td style="text-align: right">9976696</td>
-      <td style="text-align: right">0.25222</td>
-    </tr>
-    <tr>
-      <td>C10</td>
-      <td style="text-align: left">3b08e48b</td>
-      <td style="text-align: right">7953527</td>
-      <td style="text-align: right">2204236</td>
-      <td style="text-align: right">10157763</td>
-      <td style="text-align: right">0.217</td>
-    </tr>
-    <tr>
-      <td>C14</td>
-      <td style="text-align: left">07d13a8f</td>
-      <td style="text-align: right">11378971</td>
-      <td style="text-align: right">4341777</td>
-      <td style="text-align: right">15720748</td>
-      <td style="text-align: right">0.27618</td>
-    </tr>
-    <tr>
-      <td>C19</td>
-      <td style="text-align: left">21ddcdc9</td>
-      <td style="text-align: right">12155179</td>
-      <td style="text-align: right">3645176</td>
-      <td style="text-align: right">15800355</td>
-      <td style="text-align: right">0.2307</td>
-    </tr>
-    <tr>
-      <td>C14</td>
-      <td style="text-align: left">b28479f6</td>
-      <td style="text-align: right">12523741</td>
-      <td style="text-align: right">3505314</td>
-      <td style="text-align: right">16029055</td>
-      <td style="text-align: right">0.21869</td>
-    </tr>
-    <tr>
-      <td>C6</td>
-      <td style="text-align: left">7e0ccccf</td>
-      <td style="text-align: right">13648629</td>
-      <td style="text-align: right">4518321</td>
-      <td style="text-align: right">18166950</td>
-      <td style="text-align: right">0.24871</td>
-    </tr>
-    <tr>
-      <td>C23</td>
-      <td style="text-align: left">32c7478e</td>
-      <td style="text-align: right">14705791</td>
-      <td style="text-align: right">5464777</td>
-      <td style="text-align: right">20170568</td>
-      <td style="text-align: right">0.27093</td>
-    </tr>
-    <tr>
-      <td>C19</td>
-      <td style="text-align: left"> </td>
-      <td style="text-align: right">14740761</td>
-      <td style="text-align: right">5432097</td>
-      <td style="text-align: right">20172858</td>
-      <td style="text-align: right">0.26928</td>
-    </tr>
-    <tr>
-      <td>C20</td>
-      <td style="text-align: left"> </td>
-      <td style="text-align: right">14740761</td>
-      <td style="text-align: right">5432097</td>
-      <td style="text-align: right">20172858</td>
-      <td style="text-align: right">0.26928</td>
-    </tr>
-    <tr>
-      <td>C26</td>
-      <td style="text-align: left"> </td>
-      <td style="text-align: right">14740761</td>
-      <td style="text-align: right">5432097</td>
-      <td style="text-align: right">20172858</td>
-      <td style="text-align: right">0.26928</td>
-    </tr>
-    <tr>
-      <td>C25</td>
-      <td style="text-align: left"> </td>
-      <td style="text-align: right">14740761</td>
-      <td style="text-align: right">5432097</td>
-      <td style="text-align: right">20172858</td>
-      <td style="text-align: right">0.26928</td>
-    </tr>
-    <tr>
-      <td>C17</td>
-      <td style="text-align: left">e5ba7672</td>
-      <td style="text-align: right">14618074</td>
-      <td style="text-align: right">6535485</td>
-      <td style="text-align: right">21153559</td>
-      <td style="text-align: right">0.30895</td>
-    </tr>
-    <tr>
-      <td>C1</td>
-      <td style="text-align: left">05db9164</td>
-      <td style="text-align: right">17068183</td>
-      <td style="text-align: right">5882677</td>
-      <td style="text-align: right">22950860</td>
-      <td style="text-align: right">0.25632</td>
-    </tr>
-    <tr>
-      <td>C8</td>
-      <td style="text-align: left">0b153874</td>
-      <td style="text-align: right">20252230</td>
-      <td style="text-align: right">6979966</td>
-      <td style="text-align: right">27232196</td>
-      <td style="text-align: right">0.25631</td>
-    </tr>
-    <tr>
-      <td>C5</td>
-      <td style="text-align: left">25c83c98</td>
-      <td style="text-align: right">22888073</td>
-      <td style="text-align: right">7884064</td>
-      <td style="text-align: right">30772137</td>
-      <td style="text-align: right">0.25621</td>
-    </tr>
-    <tr>
-      <td>C22</td>
-      <td style="text-align: left"> </td>
-      <td style="text-align: right">26268267</td>
-      <td style="text-align: right">8686806</td>
-      <td style="text-align: right">34955073</td>
-      <td style="text-align: right">0.24851</td>
-    </tr>
-    <tr>
-      <td>C9</td>
-      <td style="text-align: left">a73ee510</td>
-      <td style="text-align: right">30037927</td>
-      <td style="text-align: right">11162225</td>
-      <td style="text-align: right">41200152</td>
-      <td style="text-align: right">0.27093</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="pre-a">Pre-A</h3>
-
-<p>39个feats的数据集，分为：
-Dense features: 1~13 数字型特征。(每个实例都有)
-Sparse features: 26个最高频度的feats。</p>
-
-<p>非零的features: 13~39个之间。</p>
-
-<p>经过GBDT求解，生成30棵深度为7的树。则feats数为30*2^7。每个实例有30个非零feats。</p>
-
-<h3 id="pre-b">Pre-B</h3>
-<p>两个来源：csv, gbdt</p>
-
-<p>csv:
-   数值feats离散化: Ix-value (x=1…13)
-       value&gt;2: [log(v)]^2取整
-       value&lt;2: ‘SP’+value
-   类别feat直接利用：Cx-value (x=1…26)
-		 对于小于10的feats, feats = Cx-less </p>
-
-<p>gbdt:
-   (field, i:feat)</p>
-
-<p>通过前缀，保证每个feats的唯一性。再加上field，做到field-aware
-组合： 生成feats对 (field, feat)</p>
 ]]></content>
   </entry>
   

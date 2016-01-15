@@ -9,7 +9,11 @@
   <meta name="author" content="Steven Liu <stevenliucx@gmail.com>&#8221;>
 
   
-  <meta name="description" content="摘自”Paradigms of Artificial Intelligence Programming: Case Studies in Common Lisp”, Section 1.9 Every expression is either a list or an atom. &hellip;">
+  <meta name="description" content="3idiots solution post, visit here
+### Profile
+train: 45m(45,840,618) Count feats
+统计每个feats出现在样本中的频度：正样品、负样品、总和、正样本占比。
+如下是26个频度最高(&gt;4m)的features。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +87,290 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/01/kaggle-2014-criteo/">Kaggle-2014-criteo</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-01-08T16:38:22+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>4:38 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>3idiots solution post, visit <a href="http://www.kaggle.com/c/criteo-display-ad-challenge/forums/t/10555/3-idiots-solution">here</a>
+### Profile
+train: 45m(45,840,618)</p>
+
+<h3 id="count-feats">Count feats</h3>
+<p>统计每个feats出现在样本中的频度：正样品、负样品、总和、正样本占比。
+如下是26个频度最高(&gt;4m)的features。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th style="text-align: left">Value</th>
+      <th style="text-align: right">Neg</th>
+      <th style="text-align: right">Pos</th>
+      <th style="text-align: right">Total</th>
+      <th style="text-align: right">Ratio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>C14</td>
+      <td style="text-align: left">1adce6ef</td>
+      <td style="text-align: right">5251998</td>
+      <td style="text-align: right">1823128</td>
+      <td style="text-align: right">7075126</td>
+      <td style="text-align: right">0.25768</td>
+    </tr>
+    <tr>
+      <td>C5</td>
+      <td style="text-align: left">4cf72387</td>
+      <td style="text-align: right">5336129</td>
+      <td style="text-align: right">1838585</td>
+      <td style="text-align: right">7174714</td>
+      <td style="text-align: right">0.25626</td>
+    </tr>
+    <tr>
+      <td>C8</td>
+      <td style="text-align: left">5b392875</td>
+      <td style="text-align: right">5671997</td>
+      <td style="text-align: right">1954651</td>
+      <td style="text-align: right">7626648</td>
+      <td style="text-align: right">0.25629</td>
+    </tr>
+    <tr>
+      <td>C1</td>
+      <td style="text-align: left">68fd1e64</td>
+      <td style="text-align: right">5689813</td>
+      <td style="text-align: right">1958501</td>
+      <td style="text-align: right">7648314</td>
+      <td style="text-align: right">0.25607</td>
+    </tr>
+    <tr>
+      <td>C20</td>
+      <td style="text-align: left">a458ea53</td>
+      <td style="text-align: right">6433992</td>
+      <td style="text-align: right">1997994</td>
+      <td style="text-align: right">8431986</td>
+      <td style="text-align: right">0.23695</td>
+    </tr>
+    <tr>
+      <td>C6</td>
+      <td style="text-align: left">fe6b92e5</td>
+      <td style="text-align: right">6236932</td>
+      <td style="text-align: right">2295003</td>
+      <td style="text-align: right">8531935</td>
+      <td style="text-align: right">0.26899</td>
+    </tr>
+    <tr>
+      <td>C20</td>
+      <td style="text-align: left">5840adea</td>
+      <td style="text-align: right">6643317</td>
+      <td style="text-align: right">1889587</td>
+      <td style="text-align: right">8532904</td>
+      <td style="text-align: right">0.22145</td>
+    </tr>
+    <tr>
+      <td>C20</td>
+      <td style="text-align: left">b1252a9d</td>
+      <td style="text-align: right">6277109</td>
+      <td style="text-align: right">2425760</td>
+      <td style="text-align: right">8702869</td>
+      <td style="text-align: right">0.27873</td>
+    </tr>
+    <tr>
+      <td>C23</td>
+      <td style="text-align: left">3a171ecb</td>
+      <td style="text-align: right">7185150</td>
+      <td style="text-align: right">2006084</td>
+      <td style="text-align: right">9191234</td>
+      <td style="text-align: right">0.21826</td>
+    </tr>
+    <tr>
+      <td>C6</td>
+      <td style="text-align: left">fbad5c96</td>
+      <td style="text-align: right">7460404</td>
+      <td style="text-align: right">2516292</td>
+      <td style="text-align: right">9976696</td>
+      <td style="text-align: right">0.25222</td>
+    </tr>
+    <tr>
+      <td>C10</td>
+      <td style="text-align: left">3b08e48b</td>
+      <td style="text-align: right">7953527</td>
+      <td style="text-align: right">2204236</td>
+      <td style="text-align: right">10157763</td>
+      <td style="text-align: right">0.217</td>
+    </tr>
+    <tr>
+      <td>C14</td>
+      <td style="text-align: left">07d13a8f</td>
+      <td style="text-align: right">11378971</td>
+      <td style="text-align: right">4341777</td>
+      <td style="text-align: right">15720748</td>
+      <td style="text-align: right">0.27618</td>
+    </tr>
+    <tr>
+      <td>C19</td>
+      <td style="text-align: left">21ddcdc9</td>
+      <td style="text-align: right">12155179</td>
+      <td style="text-align: right">3645176</td>
+      <td style="text-align: right">15800355</td>
+      <td style="text-align: right">0.2307</td>
+    </tr>
+    <tr>
+      <td>C14</td>
+      <td style="text-align: left">b28479f6</td>
+      <td style="text-align: right">12523741</td>
+      <td style="text-align: right">3505314</td>
+      <td style="text-align: right">16029055</td>
+      <td style="text-align: right">0.21869</td>
+    </tr>
+    <tr>
+      <td>C6</td>
+      <td style="text-align: left">7e0ccccf</td>
+      <td style="text-align: right">13648629</td>
+      <td style="text-align: right">4518321</td>
+      <td style="text-align: right">18166950</td>
+      <td style="text-align: right">0.24871</td>
+    </tr>
+    <tr>
+      <td>C23</td>
+      <td style="text-align: left">32c7478e</td>
+      <td style="text-align: right">14705791</td>
+      <td style="text-align: right">5464777</td>
+      <td style="text-align: right">20170568</td>
+      <td style="text-align: right">0.27093</td>
+    </tr>
+    <tr>
+      <td>C19</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: right">14740761</td>
+      <td style="text-align: right">5432097</td>
+      <td style="text-align: right">20172858</td>
+      <td style="text-align: right">0.26928</td>
+    </tr>
+    <tr>
+      <td>C20</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: right">14740761</td>
+      <td style="text-align: right">5432097</td>
+      <td style="text-align: right">20172858</td>
+      <td style="text-align: right">0.26928</td>
+    </tr>
+    <tr>
+      <td>C26</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: right">14740761</td>
+      <td style="text-align: right">5432097</td>
+      <td style="text-align: right">20172858</td>
+      <td style="text-align: right">0.26928</td>
+    </tr>
+    <tr>
+      <td>C25</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: right">14740761</td>
+      <td style="text-align: right">5432097</td>
+      <td style="text-align: right">20172858</td>
+      <td style="text-align: right">0.26928</td>
+    </tr>
+    <tr>
+      <td>C17</td>
+      <td style="text-align: left">e5ba7672</td>
+      <td style="text-align: right">14618074</td>
+      <td style="text-align: right">6535485</td>
+      <td style="text-align: right">21153559</td>
+      <td style="text-align: right">0.30895</td>
+    </tr>
+    <tr>
+      <td>C1</td>
+      <td style="text-align: left">05db9164</td>
+      <td style="text-align: right">17068183</td>
+      <td style="text-align: right">5882677</td>
+      <td style="text-align: right">22950860</td>
+      <td style="text-align: right">0.25632</td>
+    </tr>
+    <tr>
+      <td>C8</td>
+      <td style="text-align: left">0b153874</td>
+      <td style="text-align: right">20252230</td>
+      <td style="text-align: right">6979966</td>
+      <td style="text-align: right">27232196</td>
+      <td style="text-align: right">0.25631</td>
+    </tr>
+    <tr>
+      <td>C5</td>
+      <td style="text-align: left">25c83c98</td>
+      <td style="text-align: right">22888073</td>
+      <td style="text-align: right">7884064</td>
+      <td style="text-align: right">30772137</td>
+      <td style="text-align: right">0.25621</td>
+    </tr>
+    <tr>
+      <td>C22</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: right">26268267</td>
+      <td style="text-align: right">8686806</td>
+      <td style="text-align: right">34955073</td>
+      <td style="text-align: right">0.24851</td>
+    </tr>
+    <tr>
+      <td>C9</td>
+      <td style="text-align: left">a73ee510</td>
+      <td style="text-align: right">30037927</td>
+      <td style="text-align: right">11162225</td>
+      <td style="text-align: right">41200152</td>
+      <td style="text-align: right">0.27093</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="pre-a">Pre-A</h3>
+
+<p>39个feats的数据集，分为：
+Dense features: 1~13 数字型特征。(每个实例都有)
+Sparse features: 26个最高频度的feats。</p>
+
+<p>非零的features: 13~39个之间。</p>
+
+<p>经过GBDT求解，生成30棵深度为7的树。则feats数为30*2^7。每个实例有30个非零feats。</p>
+
+<h3 id="pre-b">Pre-B</h3>
+<p>两个来源：csv, gbdt</p>
+
+<p>csv:
+   数值feats离散化: Ix-value (x=1…13)
+       value&gt;2: [log(v)]^2取整
+       value&lt;2: ‘SP’+value
+   类别feat直接利用：Cx-value (x=1…26)
+		 对于小于10的feats, feats = Cx-less </p>
+
+<p>gbdt:
+   (field, i:feat)</p>
+
+<p>通过前缀，保证每个feats的唯一性。再加上field，做到field-aware
+组合： 生成feats对 (field, feat)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -824,37 +1112,6 @@ http://www.neos-server.org/neos/</li>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/09/zeromq/">zeroMQ</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-09-25T10:42:13+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>10:42 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>A valuable whitepaper: <a href="http://zeromq.wdfiles.com/local--files/whitepapers%3Amultithreading-magic/imatix-multithreaded-magic.pdf">Multithreaded Magic with ØMQ</a></p>
-
-<p>The article <a href="http://msdn.microsoft.com/en-us/magazine/cc817398.aspx">Solving 11 Likely Problems In Your Multithreaded Code</a> outlines some challenge in multi-threading program</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/4">&larr; Older</a>
@@ -872,6 +1129,10 @@ http://www.neos-server.org/neos/</li>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/git-sock-proxy/">为git设置sock代理</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/10/the-revolution-of-commerce/">电子商务的下一步？</a>
       </li>
     
@@ -885,10 +1146,6 @@ http://www.neos-server.org/neos/</li>
     
       <li class="post">
         <a href="/blog/2015/08/the-art-of-interpreter-part-1/">The Art of Interpreter: Part One</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/08/the-art-of-interpreter-part-0/">The Art of Interpreter: Part Zero</a>
       </li>
     
   </ul>
