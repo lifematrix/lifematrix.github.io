@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2016-01-15T11:33:48+08:00</updated>
+  <updated>2016-01-15T12:04:31+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -12,6 +12,61 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Ssh Login Without Password]]></title>
+    <link href="http://hack.the-lifematrix.net/blog/2016/01/ssh-login-without-password/"/>
+    <updated>2016-01-15T11:43:30+08:00</updated>
+    <id>http://hack.the-lifematrix.net/blog/2016/01/ssh-login-without-password</id>
+    <content type="html"><![CDATA[<p>ssh远程登录采用密码认证的方式，存在泄漏可能，而且比较麻烦。可以通过公私钥的方式，实现安全的无密码登录。</p>
+
+<h3 id="section">本地主机</h3>
+<ol>
+  <li>生成本地的密码</li>
+</ol>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">ssh-keygen -t rsa</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ol>
+  <li>修改密码文件的属性</li>
+</ol>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line"> chmod 700 ~/.ssh  
+</span><span class="line"> chmod 600 ~/.ssh/id_rsa </span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h3 id="section-1">远程主机</h3>
+
+<ol>
+  <li>
+    <p>将本地的公钥添加到远程主机用户 <strong>$HOME/.ssh/authorized_keys</strong> 文件中</p>
+  </li>
+  <li>
+    <p>如果是root用户登录，查看远程主机的ssh设置</p>
+  </li>
+</ol>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">sudo vi /etc/ssh/sshd_config</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>确认 <strong>PermitRootLogin without-password</strong>，这样只允许公钥方式登录，也可以是<strong>yes</strong>。</p>
+
+<ol>
+  <li>重启ssh服务</li>
+</ol>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">sudo service ssh reload</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>以上在 Ubuntu 14.04.3 LTS 适用。其它Linux变体类似。</p>
+
+<h3 id="section-2">参考</h3>
+
+<p><a href="http://in4ray.blogspot.sg/2012/05/root-login-to-amazon-ec2-linux-instance.html">http://in4ray.blogspot.sg/2012/05/root-login-to-amazon-ec2-linux-instance.html</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[为git设置sock代理]]></title>
@@ -3947,18 +4002,6 @@ Facebook, 微信, Flickr的图片分享</li>
   <li>暖色(aggressive, 前进色)：红、黄、棕</li>
   <li>冷色(receding, 后退色)：绿、蓝、紫</li>
 </ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Understanding Features]]></title>
-    <link href="http://hack.the-lifematrix.net/blog/2015/04/understanding-features/"/>
-    <updated>2015-04-27T16:10:06+08:00</updated>
-    <id>http://hack.the-lifematrix.net/blog/2015/04/understanding-features</id>
-    <content type="html"><![CDATA[<h3 id="feature-detection">Feature Detection</h3>
-
-<h3 id="feature-description">Feature Description</h3>
 
 ]]></content>
   </entry>

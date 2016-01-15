@@ -3,6 +3,14 @@
   
   
   <url>
+    <loc>http://hack.the-lifematrix.net/blog/2016/01/ssh-login-without-password/</loc>
+    
+    <lastmod>2016-01-15T11:43:30+08:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://hack.the-lifematrix.net/blog/2016/01/git-sock-proxy/</loc>
     
     <lastmod>2016-01-15T11:01:42+08:00</lastmod>
@@ -118,14 +126,6 @@
     <loc>http://hack.the-lifematrix.net/blog/2015/04/color-space/</loc>
     
     <lastmod>2015-04-28T11:07:51+08:00</lastmod>
-    
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>http://hack.the-lifematrix.net/blog/2015/04/understanding-features/</loc>
-    
-    <lastmod>2015-04-27T16:10:06+08:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -277,28 +277,28 @@
   
   <url>
     <loc>http://hack.the-lifematrix.net/blog/archives/</loc>
-    <lastmod>2016-01-15T11:33:48+08:00</lastmod>
+    <lastmod>2016-01-15T12:04:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://hack.the-lifematrix.net/</loc>
-    <lastmod>2016-01-15T11:33:48+08:00</lastmod>
+    <lastmod>2016-01-15T12:04:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://hack.the-lifematrix.net/lisp-resource/</loc>
-    <lastmod>2016-01-15T11:33:48+08:00</lastmod>
+    <lastmod>2016-01-15T12:04:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://hack.the-lifematrix.net/resources/</loc>
-    <lastmod>2016-01-15T11:33:48+08:00</lastmod>
+    <lastmod>2016-01-15T12:04:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
