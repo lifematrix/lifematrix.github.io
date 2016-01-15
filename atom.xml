@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2016-01-15T11:28:51+08:00</updated>
+  <updated>2016-01-15T11:33:48+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -20,7 +20,7 @@
     <id>http://hack.the-lifematrix.net/blog/2016/01/git-sock-proxy</id>
     <content type="html"><![CDATA[<p>访问<a href="github.com">github</a>, <a href="http://bitbucket.org">bitbucket</a> 或 <a href="https://chromium.googlesource.com">google git</a> 等源码库会被阻塞，配置VPN经常不稳定。我喜欢用sock proxy，简洁快速。</p>
 
-<h1 id="sshsocks-proxy">通过SSH隧道建立SOCKS Proxy</h1>
+<h2 id="sshsocks-proxy">通过SSH隧道建立SOCKS Proxy</h2>
 
 <p>假设本地的绑定端口是<strong>1080</strong>，用户user已经可以不用密码登陆远程主机remote.host。执行命令：</p>
 
@@ -35,7 +35,7 @@
 
 <p><em>上述参数在MAC OS下有效，其它Linux变种应也类似，man ssh 确认一下</em></p>
 
-<h1 id="git">配置git</h1>
+<h2 id="git">配置git</h2>
 
 <p>配置http，及https代理</p>
 
@@ -45,7 +45,7 @@
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 </pre></td><td class="code"><pre><code class=""><span class="line">git config --global https.proxy socks5://localhost:1080</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<h1 id="section">参考</h1>
+<h2 id="section">参考</h2>
 
 <p>上述方法参考：</p>
 
