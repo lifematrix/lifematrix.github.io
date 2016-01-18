@@ -3,6 +3,14 @@
   
   
   <url>
+    <loc>http://hack.the-lifematrix.net/blog/2016/01/value-websites-in-book-exponential-organization/</loc>
+    
+    <lastmod>2016-01-18T10:36:22+08:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://hack.the-lifematrix.net/blog/2016/01/ssh-login-without-password/</loc>
     
     <lastmod>2016-01-15T11:43:30+08:00</lastmod>
@@ -277,28 +285,28 @@
   
   <url>
     <loc>http://hack.the-lifematrix.net/blog/archives/</loc>
-    <lastmod>2016-01-15T12:04:31+08:00</lastmod>
+    <lastmod>2016-01-18T17:17:41+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://hack.the-lifematrix.net/</loc>
-    <lastmod>2016-01-15T12:04:31+08:00</lastmod>
+    <lastmod>2016-01-18T17:17:41+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://hack.the-lifematrix.net/lisp-resource/</loc>
-    <lastmod>2016-01-15T12:04:31+08:00</lastmod>
+    <lastmod>2016-01-18T17:17:41+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://hack.the-lifematrix.net/resources/</loc>
-    <lastmod>2016-01-15T12:04:31+08:00</lastmod>
+    <lastmod>2016-01-18T17:17:41+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2016-01-15T12:04:31+08:00</updated>
+  <updated>2016-01-18T17:17:41+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -14,7 +14,174 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Ssh Login Without Password]]></title>
+    <title type="html"><![CDATA[《指数型组织》中提到的网站]]></title>
+    <link href="http://hack.the-lifematrix.net/blog/2016/01/value-websites-in-book-exponential-organization/"/>
+    <updated>2016-01-18T10:36:22+08:00</updated>
+    <id>http://hack.the-lifematrix.net/blog/2016/01/value-websites-in-book-exponential-organization</id>
+    <content type="html"><![CDATA[<p>《指数型组织》讲述了伴随信息技术的发展，一种新的组织形式开始浮现。这种组织指数化技术，利用较少的资源投入，实现了业务的指数级增长。比如Google, Facebook, 包括中国的微信等，都是范例。此书也提供了大量与指数化技术相关的工具、案例、社群等，极富参考价值。在本书引用了大量的案例，以及相关的工具。如下进行了整理。</p>
+
+<h3 id="httpsingularityuorg"><a href="http://singularityu.org">奇点大学</a></h3>
+
+<p>关注那些搭着摩尔定律的快车以指数级增长的领域，包括无限计算能力、传感器、网络、人工智能、机器人学、数字制造、合成生物学、数字医学和纳米材料。</p>
+
+<p><img src="../images/exo/singularity-university.jpg" alt="http://singularityu.org" /></p>
+
+<h3 id="vicarioushttpwwwvicariouscom"><a href="http://www.vicarious.com">Vicarious</a></h3>
+
+<p>深度学习方面的创业公司，Jeff Bezos(Amazon CEO), Mark Zuckerberg(Facebook 创始人)等的投资。</p>
+
+<p><img src="../images/exo/vicarious.jpg" alt="" /></p>
+
+<h2 id="section">指数型组织案例</h2>
+
+<h3 id="quirky">Quirky</h3>
+
+<h3 id="gigwalkhttpwwwgigwalkcom"><a href="http://www.gigwalk.com">Gigwalk</a></h3>
+
+<p>移动众包平台，分布式工作管理。在任何时间、地点，将对的工作分配给对的人。</p>
+
+<p><img src="http://hack.the-lifematrix.net/images/exo/gigwalk.png" alt="http://www.gigwalk.com" /></p>
+
+<h2 id="section-1">设计众包</h2>
+
+<h3 id="designshttp99designscom"><a href="http://99designs.com/">99Designs</a></h3>
+
+<p>在线设计的众包公司。设计种类包括：Logo, Web&amp;移动APP， 商业广告，衣服(T-shirt…)，包装，书籍和杂志。不满意可以退款。</p>
+
+<p><img src="../images/exo/99designs.png" alt="http://99designs.com" /></p>
+
+<h3 id="section-2">其它</h3>
+
+<p>IdeaScale, eYeka, Spigit, InnoCentive, SolutionXchange, Crowdtap, Brightidea.</p>
+
+<h2 id="section-3">人力众包</h2>
+
+<h3 id="taskrabbithttpsapitaskrabbitcom"><a href="https://api.taskrabbit.com">Taskrabbit</a></h3>
+
+<p>Taskrabbit是线上和移动端的市场，允许人们将小的外包给附近的人。它的缘起是因为创始人Leah Busque没有时间去买狗粮。其理念是“邻里帮助邻里”(neighbors help neighbors)。</p>
+
+<p><img src="http://hack.the-lifematrix.net/images/exo/taskrabbit.png" alt="https://api.taskrabbit.com" /></p>
+
+<h3 id="elanceupworkhttpswwwelancecom"><a href="https://www.elance.com">Elance/Upwork</a></h3>
+
+<p>在线员工平台，自由职业者的人才市场。Elance已经合并到UpWork。</p>
+
+<p><img src="http://hack.the-lifematrix.net/images/exo/elance.png" alt="https://www.elance.com" /></p>
+
+<h2 id="section-4">众筹</h2>
+
+<h3 id="indiegogohttpswwwindiegogocom"><a href="https://www.indiegogo.com">Indiegogo</a></h3>
+
+<p>全世界规模最大的众筹和融资网站</p>
+
+<p><img src="http://hack.the-lifematrix.net/images/exo/indiegogo.png" alt="https://www.indiegogo.com" /></p>
+
+<h3 id="kickstarterhttpswwwkickstartercom"><a href="https://www.kickstarter.com">Kickstarter</a></h3>
+
+<p>社区公司，面对公众为各种创意筹集小额资金。覆盖各种创意：服装、艺术、漫画、舞蹈、游戏、美食…</p>
+
+<p><img src="http://hack.the-lifematrix.net/images/exo/kickstarter.png" alt="https://www.kickstarter.com" /></p>
+
+<h2 id="section-5">团队协作/项目管理</h2>
+
+<h3 id="yammerhttpswwwyammercom"><a href="https://www.yammer.com">Yammer</a></h3>
+
+<p>企业社交网络
+<img src="http://hack.the-lifematrix.net/images/exo/yammer.png" alt="https://www.yammer.com" /></p>
+
+<h3 id="asanahttpsasanacom"><a href="https://asana.com">Asana</a></h3>
+
+<p>网络和移动应用，改善团队交流和协作。
+<img src="http://hack.the-lifematrix.net/images/exo/asana.png" alt="https://asana.com" /></p>
+
+<h3 id="trellohttpstrellocom"><a href="https://trello.com">Trello</a></h3>
+
+<p>Trello是一款项目管理工具，让协作更加容易和有趣。主要采用“列表的列表”方式，借鉴丰田的看板管理。</p>
+
+<p><img src="http://hack.the-lifematrix.net/images/exo/trello.png" alt="https://trello.com" /></p>
+
+<h3 id="konahttpswwwkonacom"><a href="https://www.kona.com">kona</a></h3>
+
+<p>项目管理工具，提供文件共享。
+<img src="http://hack.the-lifematrix.net/images/exo/kona.png" alt="https://www.kona.com" /></p>
+
+<h3 id="redboothhttpsredboothcom"><a href="https://redbooth.com">Redbooth</a></h3>
+
+<p>项目管理工具，可与印象笔记商业版结合。
+<img src="http://hack.the-lifematrix.net/images/exo/redbooth.png" alt="https://redbooth.com" /></p>
+
+<h2 id="section-6">社会协作</h2>
+
+<h3 id="wazehttpswwwwazecomzh"><a href="https://www.waze.com/zh">Waze/位智</a></h3>
+
+<p>社区化交通导航</p>
+
+<p><img src="http://hack.the-lifematrix.net/images/exo/waze.png" alt="https://www.waze.com/zh" /></p>
+
+<h3 id="yelp">Yelp</h3>
+
+<h3 id="foursquare">Foursquare</h3>
+
+<h3 id="donor-choose">Donor Choose</h3>
+
+<h2 id="section-7">社群</h2>
+
+<h3 id="quirkyhttpswwwquirkycom"><a href="https://www.quirky.com">Quirky</a></h3>
+
+<p>社区公司，通过社区协作快速、低成本地实现各种创意发明，不同于传统的产品开发流程。</p>
+
+<p><img src="http://hack.the-lifematrix.net/images/exo/quirky.png" alt="https://www.quirky.com" /></p>
+
+<h3 id="diy-droneshttpdiydronescom"><a href="http://diydrones.com">DIY DRONES</a></h3>
+
+<p>无人机社区</p>
+
+<p><img src="http://hack.the-lifematrix.net/images/exo/diydrones.png" alt="http://diydrones.com" /></p>
+
+<h2 id="section-8">指数型公司</h2>
+<p>### Spotify
+<a href="https://www.spotify.com/">https://www.spotify.com/</a></p>
+
+<p>一家音乐串流公司。</p>
+
+<p><img src="http://hack.the-lifematrix.net/images/exo/spotify.jpg" alt="" /></p>
+
+<h3 id="valve">Valve</h3>
+<p>去中心化</p>
+
+<h2 id="d">3D打印</h2>
+
+<h3 id="d-systemshttpwww3dsystemscom"><a href="http://www.3dsystems.com">3D Systems</a></h3>
+
+<p><img src="http://hack.the-lifematrix.net/images/exo/3dsystems.png" alt="http://www.3dsystems.com" /></p>
+
+<h3 id="makielabshttpsmymakiecom"><a href="https://mymakie.com">Makielabs</a></h3>
+
+<p>世界第一家利用3D打印的玩具制造者。</p>
+
+<p><img src="http://hack.the-lifematrix.net/images/exo/makielabs.png" alt="https://mymakie.com" /></p>
+
+<h2 id="section-9">机器人</h2>
+
+<h3 id="irobothttpwwwirobotcom"><a href="http://www.irobot.com">iRobot</a></h3>
+
+<p>一家机器人公司，设计和制造军用、商用、医疗和民用机器人，并以家用自动吸尘机器人Roomba最为著名。</p>
+
+<p><img src="http://hack.the-lifematrix.net/images/exo/iRobot.png" alt="http://www.irobot.com" /></p>
+
+<h2 id="books">Books</h2>
+
+<p>*《超级天使投资：捕捉未来商业机会的行动指南》(Angel Investing: The Gust Guide to Making Money and Having Fun Investing in Startups)</p>
+
+<p>*《至关重要的关系》(The startup of You)</p>
+
+<p>*《每周工作四小时》(4-Hour Workweek)</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ssh登录避免输入密码]]></title>
     <link href="http://hack.the-lifematrix.net/blog/2016/01/ssh-login-without-password/"/>
     <updated>2016-01-15T11:43:30+08:00</updated>
     <id>http://hack.the-lifematrix.net/blog/2016/01/ssh-login-without-password</id>
@@ -4067,108 +4234,6 @@ Facebook, 微信, Flickr的图片分享</li>
   <li>法律条文</li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[惊艳的WordPress主题]]></title>
-    <link href="http://hack.the-lifematrix.net/blog/2015/04/beautiful-wordpress-themes/"/>
-    <updated>2015-04-01T17:00:43+08:00</updated>
-    <id>http://hack.the-lifematrix.net/blog/2015/04/beautiful-wordpress-themes</id>
-    <content type="html"><![CDATA[<p>虽然我已搭建了本技术博客，以分享技术hacking方面的心得。不过，还准备再搭建灵性(Spirit)和艺术(Art)两个领域的博客。对于技术博客，外观要朴质简洁，以突出技术的真知灼见，不要让本质被形式所冲淡。但是，对于灵性和艺术博客，则需要精美的外观，给读者有美好的阅读体验，从而让洞见和高频振动触动读者的心。所以，尽管技术类博客用Octopress+github的方式构建，快速锋利，符合hacker的作风，已经足够。但是，后二者因对形式的要求，则准备用表现力更强的WordPress来搭建。这样，有丰富的主题可以去选择，而且也可自己学习主题的制作。</p>
-
-<p>最近就在网上搜索WordPress主题，发现有很多不错，在这里分享给大家，也作为备忘。</p>
-
-<h2 id="section">免费主题</h2>
-
-<h3 id="dazzling">Dazzling</h3>
-
-<p><a href="http://colorlib.com/dazzling/"><img src="http://hack.the-lifematrix.net/images/wordpress-themes/wordpress-theme-dazzling.png" alt="" /></a></p>
-
-<p>支持响应式布局，特色图片作为标题显示很漂亮。</p>
-
-<h3 id="sparkling">Sparkling</h3>
-
-<p><a href="http://colorlib.com/sparkling/"><img src="http://hack.the-lifematrix.net/images/wordpress-themes/wordpress-theme-sparkling.png" alt="" /></a></p>
-
-<p>支持响应式布局，字体凝重、有表现力。</p>
-
-<h3 id="zerif-lite">Zerif Lite</h3>
-<p><a href="https://wordpress.org/themes/zerif-lite/"><img src="http://hack.the-lifematrix.net/images/wordpress-themes/wordpress-theme-zerif-lite.png" alt="" /></a></p>
-
-<p>简洁，轻量级。</p>
-
-<h3 id="unite">Unite</h3>
-<p><a href="http://colorlib.com/unite/"><img src="http://hack.the-lifematrix.net/images/wordpress-themes/wordpress-theme-unite.png" alt="" /></a></p>
-
-<p>非常温馨纯洁的婚礼博客。</p>
-
-<h3 id="hyperspace">Hyperspace</h3>
-<p><a href="http://colorlib.com/unite/"><img src="http://hack.the-lifematrix.net/images/wordpress-themes/wordpress-theme-hyperspace.png" alt="" /></a></p>
-
-<p>响应式，字体特别，选图生动、性感。</p>
-
-<p>下载地址：<a href="http://ufothemes.com/themes/hyperspace/">http://ufothemes.com/themes/hyperspace/</a></p>
-
-<h2 id="section-1">付费主题</h2>
-<p>有些付费的主题并不一定比免费的好，所以要仔细比较。但是，的确有些主题物有所值，非常惊艳，美的让人窒息。</p>
-
-<h3 id="kornio">Kornio</h3>
-<p><a href="http://demo.centurythemes.com/kornio/"><img src="http://hack.the-lifematrix.net/images/wordpress-themes/wordpress-theme-kornio.png" alt="" /></a></p>
-
-<p>这是个多用途的主题，可用于个人博客和商业网站等。配色很精美，响应式布局的效果很好，我分别在笔记本电脑、手机和iPad上分别测试了。细节考虑周到，比如向下翻页时，菜单栏总是悬浮在窗口顶部，同时Logo图标会变小，以节省空间给内容。这都比免费的主题更胜一筹。</p>
-
-<p>在<a href="https://creativemarket.com/centurythemes/61651-Kornio-Multipurpose-WordPress-Theme">Creative Market</a>售价$35。</p>
-
-<h3 id="harmonux">HarmonUX</h3>
-<p><a href="http://netbiel.pl/harmonux/"><img src="http://hack.the-lifematrix.net/images/wordpress-themes/wordpress-theme-harmonux.png" alt="" /></a></p>
-
-<p>响应式布局做的也不错，这种大图片块的设计很醒目，内容突出，有效率。用途没有前面的Kornio多，但是简洁直接。配色沉稳。</p>
-
-<p>在<a href="https://creativemarket.com/centurythemes/61651-Kornio-Multipurpose-WordPress-Theme">Creative Market</a>售价$39。</p>
-
-<h3 id="santorini">Santorini</h3>
-<p><a href="http://www.cssigniter.com/preview/santorini/"><img src="http://hack.the-lifematrix.net/images/wordpress-themes/wordpress-theme-santorini.png" alt="" /></a></p>
-
-<p>这是酒店类的主题。图片宏大，美的让人窒息。</p>
-
-<p>Blog中图盘加白边和框线的效果很好看。
-<a href="http://www.cssigniter.com/preview/santorini/five-tips-for-a-more-relaxing-vacation/"><img src="http://hack.the-lifematrix.net/images/wordpress-themes/wordpress-theme-santorini-blog.png" alt="" /></a></p>
-
-<p>鼠标停靠时，图片加阴影，并显示博文标题的提示。细节考虑很贴心。
-<a href="http://www.cssigniter.com/preview/santorini/five-tips-for-a-more-relaxing-vacation/"><img src="http://hack.the-lifematrix.net/images/wordpress-themes/wordpress-theme-santorini-blog-img-hover.png" alt="" /></a></p>
-
-<p>在<a href="https://creativemarket.com/cssigniter/49870-Santorini-Resort-Hotel-theme">Creative Market</a>售价$39。</p>
-
-<h3 id="katharine">Katharine</h3>
-<p><a href="http://demos.lovelyconfetti.com/katharine/"><img src="http://hack.the-lifematrix.net/images/wordpress-themes/wordpress-theme-katharine.png" alt="" /></a></p>
-
-<p>女性化主题，风格小清新，有点复古。</p>
-
-<p>在<a href="https://creativemarket.com/crisa28/164482-Ecommerce-feminine-genesis-theme-Kat">Creative Market</a>售价$55。</p>
-
-<p>相对于前面几个主题，感觉这个售价有些不值。</p>
-
-<h3 id="alexander---a-interior-design-theme">Alexander - A Interior Design Theme</h3>
-
-<p><a href="http://r6themes.com/alexander/"><img src="http://hack.the-lifematrix.net/images/wordpress-themes/wordpress-theme-alexander.png" alt="" /></a></p>
-
-<p>这是内在设计的风格，聪明地利用空间，通过极简干净的设计，将空间尽可能留给内容。令人耳目一新。</p>
-
-<p>在<a href="https://creativemarket.com/r6themes/44612-Alexander-A-Interior-Design-Theme">Creative Market</a>售价$45。</p>
-
-<h3 id="novalumen">Novalumen</h3>
-
-<p>https://creativemarket.com/TheGravity/54850-Novalumen-Modern-WordPress-Theme</p>
-
-<p>http://thegravity.net/novalumen/</p>
-
-<h2 id="wordpress">常见Wordpress主题网址</h2>
-
-<ul>
-  <li><a href="https://creativemarket.com/">https://creativemarket.com/</a></li>
-  <li><a href="http://colorlib.com/wp/themes/">http://colorlib.com/wp/themes/</a></li>
-</ul>
 ]]></content>
   </entry>
   
