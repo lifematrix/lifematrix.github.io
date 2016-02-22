@@ -120,11 +120,17 @@
 
 <p>虽然tensforflow的文档还不够丰富，但它的确提供了采用cifar-10数据集的<a href="https://www.tensorflow.org/versions/r0.7/tutorials/deep_cnn/index.html">示例程序</a>。也许，为了充分说明tensorflow的各种特色：并发性、多GPU处理等，所以，这个代码结构对于初学者过于复杂，而且模型的构造淹没在很多代码细节中，不够清晰。因此，笔者决定自己探索实现一个程序。</p>
 
-<h2 id="section">模型选择</h2>
+<h2 id="section">基本模型选择</h2>
 
 <p>UC Berkeley <a href="http://caffe.berkeleyvision.org">Caffe</a>计算框架中，用配置文件的方式来定义模型，独立于代码，因此模型的定义很清晰也易于调整。本文就选择了其中的<a href="https://github.com/BVLC/caffe/blob/master/examples/cifar10/cifar10_quick.prototxt">快速示例</a>，作为基本模型，再逐步调优。</p>
 
-<p><img src="http://hack.the-lifematrix.net/images/cifar10-tf/cifar10_model_basic.png" alt="" /></p>
+<p><img src="http://hack.the-lifematrix.net/images/cifar10-tf/cifar10_model_basic.png" alt="" width="100px" /></p>
+
+<p>由于训练集和测试集不算大，可以一次性全部读入内存，以下测试时给出的运行时间，就不包含读取图片的时间。</p>
+
+<p>基本模型的运行情况：</p>
+
+<p><img src="http://hack.the-lifematrix.net/images/cifar10-tf/time_basic.png" alt="" /></p>
 
 </div>
 
