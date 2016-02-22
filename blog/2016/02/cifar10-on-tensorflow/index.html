@@ -124,13 +124,27 @@
 
 <p>UC Berkeley <a href="http://caffe.berkeleyvision.org">Caffe</a>计算框架中，用配置文件的方式来定义模型，独立于代码，因此模型的定义很清晰也易于调整。本文就选择了其中的<a href="https://github.com/BVLC/caffe/blob/master/examples/cifar10/cifar10_quick.prototxt">快速示例</a>，作为基本模型，再逐步调优。</p>
 
-<p><img src="http://hack.the-lifematrix.net/images/cifar10-tf/cifar10_model_basic.png" alt="" width="100px" /></p>
+<p><img src="http://hack.the-lifematrix.net/images/cifar10-tf/cifar10_model_basic.png" alt="" width="300px" /></p>
 
 <p>由于训练集和测试集不算大，可以一次性全部读入内存，以下测试时给出的运行时间，就不包含读取图片的时间。</p>
 
 <p>基本模型的运行情况：</p>
 
 <p><img src="http://hack.the-lifematrix.net/images/cifar10-tf/time_basic.png" alt="" /></p>
+
+<p>最大正确校验正确率：73.08%，在epoch=30, 训练100分钟时达到。之后更多的训练没有提高正确率。</p>
+
+<h2 id="random-crop">Random Crop</h2>
+
+<p><img src="http://hack.the-lifematrix.net/images/cifar10-tf/time_randomcrop.png" alt="" /></p>
+
+<p>最大正确校验正确率：74.58%，在epoch=56, 训练137分钟时达到。之后更多的训练没有提高正确率。</p>
+
+<h2 id="dropout">Dropout</h2>
+
+<p><img src="http://hack.the-lifematrix.net/images/cifar10-tf/time_dropout.png" alt="" /></p>
+
+<p>最大正确校验正确率：76.22%，在epoch=103, 训练260分钟时达到。之后更多的训练没有提高正确率。</p>
 
 </div>
 
