@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2016-02-22T18:45:04+08:00</updated>
+  <updated>2016-02-23T18:21:26+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -36,13 +36,13 @@
 
 <p>虽然tensforflow的文档还不够丰富，但它的确提供了采用cifar-10数据集的<a href="https://www.tensorflow.org/versions/r0.7/tutorials/deep_cnn/index.html">示例程序</a>。也许，为了充分说明tensorflow的各种特色：并发性、多GPU处理等，所以，这个代码结构对于初学者过于复杂，而且模型的构造淹没在很多代码细节中，不够清晰。因此，笔者决定自己探索实现一个程序。</p>
 
-<h2 id="section">基本模型选择</h2>
+<h2 id="section">基本模型</h2>
 
 <p>UC Berkeley <a href="http://caffe.berkeleyvision.org">Caffe</a>计算框架中，用配置文件的方式来定义模型，独立于代码，因此模型的定义很清晰也易于调整。本文就选择了其中的<a href="https://github.com/BVLC/caffe/blob/master/examples/cifar10/cifar10_quick.prototxt">快速示例</a>，作为基本模型，再逐步调优。</p>
 
 <p><img src="http://hack.the-lifematrix.net/images/cifar10-tf/cifar10_model_basic.png" alt="" width="400px" /></p>
 
-<p>由于训练集和测试集不算大，可以一次性全部读入内存，以下测试时给出的运行时间，就不包含读取图片的时间。</p>
+<p>由于训练集数据不算大(，可以一次性全部读入内存，以下测试时给出的运行时间，就不包含读取图片的时间。</p>
 
 <p>基本模型的运行情况：</p>
 
@@ -50,23 +50,112 @@
 
 <p>最大正确校验正确率：73.08%，在epoch=30, 训练100分钟时达到。之后更多的训练没有提高正确率。</p>
 
-<h2 id="random-crop">Random Crop</h2>
+<h3 id="random-crop">Random Crop</h3>
+
+<p>深度网络的参数巨大，很容易出现过拟合。通过人为扩大训练集数据(<a href="http://www.cs.toronto.edu/~fritz/absps/imagenet.pdf">ImageNet</a>)，是避免过拟合的有效策略。先尝试简单的方法，在32x32的图片中，随机裁剪出28<em>28的图片，进行训练。这也就是将训练集扩大了4</em>4=16倍。</p>
 
 <p><img src="http://hack.the-lifematrix.net/images/cifar10-tf/time_randomcrop.png" alt="" /></p>
 
-<p>最大正确校验正确率：74.58%，在epoch=56, 训练137分钟时达到。之后更多的训练没有提高正确率。
-提高了1.5个百分点，效果明显。</p>
+<p>最大正确校验正确率：74.58%，在epoch=56, 训练137分钟时达到。之后更多的训练没有提高正确率。</p>
 
-<h2 id="dropout">Dropout</h2>
+<p>正确性叫基本模型提高了1.5个百分点，效果明显。</p>
+
+<h3 id="dropout">Dropout</h3>
+
+<p>Dropout也是一种变相的调整策略，避免过拟合(<a href="http://www.cs.toronto.edu/~fritz/absps/imagenet.pdf">ImageNet</a>)。要注意的是，在训练是采用dropout(keep_prob=0.5), 但是在validation时则不选用(keep_prob=1.0)。</p>
 
 <p><img src="http://hack.the-lifematrix.net/images/cifar10-tf/time_dropout.png" alt="" /></p>
 
 <p>最大正确校验正确率：76.22%，在epoch=103, 训练260分钟时达到。之后更多的训练没有提高正确率。
-又提高了1.64%个百分点。</p>
+又提高了1.64%个百分点。可见有明显的效果。</p>
 
 <p>在<a href="https://www.kaggle.com/c/cifar-10">Kaggle的cifar10竞赛</a>中得分为：74.59%。</p>
 
 <p><img src="http://hack.the-lifematrix.net/images/cifar10-tf/kaggle_dropout.png" alt="" /></p>
+
+<h3 id="section-1">内存使用分析</h3>
+
+<p>受<a href="http://cs231n.github.io/convolutional-networks/">此文</a>对<a href="http://www.robots.ox.ac.uk/%7Evgg/research/very_deep/">VGGNet</a>分析的启发，也对本例的简单模型做类似分析。注意，由于采用了crop，则较前图的基本模型，图片输入为28*28像素。后面的数据维度也相应调整。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Layer</th>
+      <th>Data Shape</th>
+      <th>Data Memory</th>
+      <th>Weights</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Input Layer</td>
+      <td>28*28@3</td>
+      <td>9K</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Conv-1 (5x5@32)</td>
+      <td>28*28@32</td>
+      <td>98K</td>
+      <td>5<em>5</em>3*32+32 = 2,432</td>
+    </tr>
+    <tr>
+      <td>MaxPool-1</td>
+      <td>14*14@32</td>
+      <td>25K</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Conv-2 (5x5@32)</td>
+      <td>14*14@32</td>
+      <td>25K</td>
+      <td>5<em>5</em>32*32+32 = 25,632</td>
+    </tr>
+    <tr>
+      <td>AvgPool-2</td>
+      <td>7*7@32</td>
+      <td>6K</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Conv-3 (5x5@64)</td>
+      <td>7*7@64</td>
+      <td>12K</td>
+      <td>5<em>5</em>32*64 = 51,200</td>
+    </tr>
+    <tr>
+      <td>Relu-3</td>
+      <td>7*7@64</td>
+      <td>12K</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>AvgPool-3</td>
+      <td>4*4@64</td>
+      <td>4K</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>FC Layer-4</td>
+      <td>64</td>
+      <td> </td>
+      <td>1024*64 + 64 = 65,600</td>
+    </tr>
+    <tr>
+      <td>FC Layer-5</td>
+      <td>10</td>
+      <td> </td>
+      <td>64*10 + 10 = 640</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>注：每个数字用float32存储，占4个字节。卷积网络的一个特点就是，数据类型的精度对训练结果影响不大。</em></p>
+
+<p>每个实例的数据，需要内存191K。共有142K(145,504)个参数，需要内存142K*4=568K。</p>
+
+<p>假设GPU内存有4G，一次性处理的最大batchsize:
+ (4G - 568K) / 191K = 21956</p>
 
 ]]></content>
   </entry>
