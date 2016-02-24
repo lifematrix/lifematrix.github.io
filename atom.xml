@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2016-02-23T18:21:26+08:00</updated>
+  <updated>2016-02-24T16:18:59+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -42,9 +42,9 @@
 
 <p><img src="http://hack.the-lifematrix.net/images/cifar10-tf/cifar10_model_basic.png" alt="" width="400px" /></p>
 
-<p>由于训练集数据不算大(，可以一次性全部读入内存，以下测试时给出的运行时间，就不包含读取图片的时间。</p>
+<p>由于训练集数据不算大(几百兆)，可以一次性全部读入内存，以下测试时给出的运行时间，就不包含读取图片的时间。</p>
 
-<p>基本模型的运行情况：</p>
+<p>基本模型的运行情况(batchsize=100)：</p>
 
 <p><img src="http://hack.the-lifematrix.net/images/cifar10-tf/time_basic.png" alt="" /></p>
 
@@ -150,12 +150,31 @@
   </tbody>
 </table>
 
-<p><em>注：每个数字用float32存储，占4个字节。卷积网络的一个特点就是，数据类型的精度对训练结果影响不大。</em></p>
+<p>*注：每个数字用float32存储，占4个字节。卷积网络的一个特点就是，数据类型的精度对训练结果影响不大。参见: <a href="http://arxiv.org/abs/1502.02551">Deep Learning with Limited Numerical Precision</a>, <a href="https://www.cs.toronto.edu/~kriz/learning-features-2009-TR.pdf">Learning Multiple Layers of Features from Tiny Images</a></p>
 
 <p>每个实例的数据，需要内存191K。共有142K(145,504)个参数，需要内存142K*4=568K。</p>
 
 <p>假设GPU内存有4G，一次性处理的最大batchsize:
  (4G - 568K) / 191K = 21956</p>
+
+<h3 id="section-2">时间分析</h3>
+
+<p>花了4个小时才训练出最优的模型，一方面是算法问题，也与tensorflow固有的较低的计算速度有关。</p>
+
+<h3 id="batchsize">Batchsize</h3>
+
+<p>如果batchsize=1000, 明显看出学习速度明显下降。花费近8个小时，训练的最好模型的校验正确率为72.10%。</p>
+
+<p><img src="http://hack.the-lifematrix.net/images/cifar10-tf/batchsize1000.png" alt="" /></p>
+
+<p>如果batchsize=200, 学习速率也有些慢。花费4个小时，达到最高的校验正确率75.82%。但学习过程似乎不够稳定。
+<img src="http://hack.the-lifematrix.net/images/cifar10-tf/batchsize200.png" alt="" /></p>
+
+<p>或许要调整一下学习率</p>
+
+<h2 id="section-3">更深的网络</h2>
+
+<p>上述基本网络只用了3个卷积层，达到75%的正确率，换言之25%的错误率。结果不是很出色，<a href="https://github.com/nagadomi/kaggle-cifar10-torch7">Torch 7 ConvNet</a> 取得了7%的错误率。决定在tensorflow下实验此模型。结果，请见后文。</p>
 
 ]]></content>
   </entry>
