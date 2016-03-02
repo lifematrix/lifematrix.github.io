@@ -9,7 +9,10 @@
   <meta name="author" content="Steven Liu <stevenliucx@gmail.com>&#8221;>
 
   
-  <meta name="description" content="Books Learn You a Haskell for Great Good! Real World Haskell ">
+  <meta name="description" content="第零部分： LISP和解释器
+Part Zero LISP and Interpreters 递归方程
+Recursion Equations Contrary to popular belief, LISP was not originally derived from
+Church’s λ— &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +86,904 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/08/the-art-of-interpreter-part-0/">The Art of Interpreter: Part Zero</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-08-18T16:52:51+08:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>4:52 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3 id="lisp">第零部分： LISP和解释器</h3>
+<p>Part Zero 
+LISP and Interpreters</p>
+
+<h4 id="section">递归方程</h4>
+<p>Recursion Equations</p>
+
+<p>Contrary to popular belief, LISP was not originally derived from
+Church’s λ—calculus [Church] [LISP History]. The earliest LISP did not
+have a well—defined notion of free variables or procedural objects. Early
+LISP programs were similar to recursion equations, defining functions on
+symbolic expressions (“S—expressions”). They differed from the equations
+of pure recursive function theory [Kleene] by introducing the conditional
+expression construction (often called the “McCarthy conditional”), to avoid
+“pattern-directed invocation”. That is, in recursive function theory one
+would define the factorial function by the following two equations:</p>
+
+<p>与流行的说法相反，LISP最初不是从邱奇的λ演算中派生出来的。最早的LISP没有一个对自由变量和过程对象的良好定义的记号。早期的LISP程序与递归方程类似，在符号表达式(“S-expressions”)上定义函数。他们不同于纯粹递归函数理论公式，是在于引入了条件表达式构造(经常称为”McCarthy条件”)，从而避免“模式导向的调用”。也就是，在递归函数理论中，可以通过如下两个方程定义阶乘函数：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nv">factorial</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="nb">=</span> <span class="mi">1</span>
+</span><span class="line"><span class="nv">factoria1</span><span class="p">(</span><span class="nv">successor</span><span class="p">(</span><span class="nv">x</span><span class="p">))</span> <span class="nb">=</span> <span class="nv">successor</span><span class="p">(</span><span class="nv">x</span><span class="p">)</span> <span class="nb">*</span> <span class="nv">factorial</span><span class="p">(</span><span class="nv">x</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>In early LISP, however, one would have written:</p>
+
+<p>但是在早期的LISP中，需要写成这样：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nv">factoria1[x]</span> <span class="nb">=</span> <span class="nv">[x=0</span> <span class="nv">-&gt;</span> <span class="mi">1</span><span class="c1">; T -&gt; x*factorial[x-1]]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>where “[a -&gt; b; T —&gt; c]” essentially means “if a then b else c”. The
+recursive function theory version depends on selecting which of two
+equations to use by matching the argument to the left-hand sides (such a
+discipline is actually used in the PROLOG language [Warren]); the early
+LISP version represents this decision as a conditional expression.</p>
+
+<p>这里 [a -&gt; b; T —&gt; c] 根本上意指 “如果a就b，或者c”。这个递归函数理论的版本在于，通过将参数匹配到左侧(这样的规则的确在PROLOG语言中用到)，来选择要使用哪个公式；早期的LISP版本将这个决策表示为一个条件表达式。</p>
+
+<p>The theory of recursion equations deals with functions over the
+natural numbers. In LISP, however, one is interested in being able to manipulate algebraic expressions, programs, and other symbolic expressions
+as data structures. While such expressions can be encoded as numbers
+(using the technique of “arithmetization” developed by Kurt Godel), such an
+encoding is not very convenient. Instead, a new kind of data called “S-
+expressions” .(for “symbolic expressions”) is introduced specifically to
+provide convenient encodings. S-expressions can be defined by a set of
+formal inductive axioms analogous to the Peano Postulates used to define
+natural numbers. Here we will give only an informal and incomplete definition of S—expressions; for a more complete description, see {Note S-
+expression Postulates and Notation}.</p>
+
+<p>递归公式处理自然数的函数。然而，在LISP里，人们的兴趣在于能够操作代数表达式、程序和如数据结构一样的符号表达式。虽然这样的表达式能用数字编码(使用Kurt Godel开发的”算术化“技术)，但这样的编码不是很方便。相反，一种称为”S表达式“(即：符号化表达式, symbolic expression)的新的类型的数据被特别引入进来，为了提供方便的编码。S-表达式能通过一组正规的归纳公理来定义，它与Peano假定用以定义自然数的类似。这里，我们仅给出一个非正规和不完备的S表达式定义；对于一个更为完备的描述，请看注释{Note S-
+expression Postulates and Notation}。</p>
+
+<p>For our purposes we will need only the special cases of S-expressions called atoms and lists. An atom is an “indivisible” data object, which we denote by writing a string of letters and digits; if only digits are used, then the atom is considered to be a number. Many special characters such as “-“ and “+” are considered to be letters; we will see below that it is not necessary to specially reserve them for use as operator symbols. A list is a (possibly empty) sequence of S—expressions, notated by writing the S—expressions in order, between a set of parentheses and separated by spaces. A list of the atoms “F00”, “43”, and “BAR” would be written “(F00 43 BAR)”. Notice that the definition of a list is
+recursive. For example,</p>
+
+<p>对于我们的目的，我们只需要S表达式特殊的情形，称为atom和list。一个“原子”是不可分割的数字对象，我们表示为字母和数字的串；如果只用到数字，那么原子就被认为是数字。许多特殊的字符，比如”-“和”+“，被认为是字母；我们将在后面看到，没有必要特别地将它们保留下来作为操作符号。一个列表是S表达式的序列(可能是空的)，表示为按顺序写S表达式，用空格分开，在一组括号中间。原子”F00”, “43”和”BAR”的列表写为”(FOO 43 BA)”。注意列表的定义是递归的。例如：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">SECOND</span> <span class="nv">X</span><span class="p">)</span> <span class="p">(</span><span class="nv">CAR</span> <span class="p">(</span><span class="nv">CUR</span> <span class="nv">X</span><span class="p">)))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>is a list of three things: the atomic symbol DEFINE, a list of the two
+atomic symbols SECOND and X, and another list of two other things.</p>
+
+<p>是有3个事物的列表：原子符号 DEFINE，一个有两个原子符号SECOND和X的列表，和另一个列表，它包含两个其它事物。</p>
+
+<p>We can use S-expressions to represent algebraic expressions by
+using “Cambridge Polish” notation, essentially a parenthesized version of
+prefix Polish notation. Numeric constants are encoded as numeric atoms;
+variables are encoded as non—numeric atoms (which henceforth we will call
+atomic symbols); and procedure invocations are encoded as lists, where the
+first element of the list represents the procedure and the rest represent
+the arguments. For example, the algebraic expression “a<em>b+c</em>d” can be
+represented as “(+ (* a b) (* c d))”. Notice that LISP does not need the
+usual precedence rules concerning whether multiplication or addition is
+performed first; the parentheses explicitly define the order. Also, all
+procedure invocations have a uniform syntax, no matter how many arguments
+are involved. Infix, superscript, and subscript notations are not used;
+thus the expression “$J_p (x^2+1)$” would be written “(J p (+ (^ x 2) 1))”.</p>
+
+<p>我们通过使用”剑桥波兰“记号来表示代数表达式，它本质上是加括号的前缀波兰版本。数字常数被编码为数字原子；变量被编码为非数字的原子(今后我们将称其为原子符号)；一个过程的调用被编码为列表，其中列表的第一个元素代表过程，剩余的部分代表参数。例如，代数表达式”a<em>b+c</em>d”可以表示为”(+ (* a b) (* c d))”。注意LISP不需要通常的优先级规则，比如先执行乘法还是加法；括号已经显式地定义了次序。而且，所有的过程调用有一致的语法，无论有多少个参数。没有用到，中缀、上标或下标：因此表达式”$J_p (x_2+1)$”，将被写成”(J p (+ (^ x 2)1))”。</p>
+
+<p>To encode a conditional expression：</p>
+
+<p>为了编码一个条件表达式：</p>
+
+<script type="math/tex; mode=display">[p_1 -> e_1; p_2 -> e_2; ... ; p_n -> e_n]</script>
+
+<p>(which means to evaluate the predicates p_i in order until a true one is found, at which point the value of $e_j$ is taken to be the value of the
+conditional) we write the S-expression</p>
+
+<p>其含义是对判定式p_i按顺序求值，直到发现一个为真，此时$e_j$会被取出作为条件的值。我们将S表达式写为：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">COND</span> <span class="p">(</span><span class="nv">p_1</span> <span class="nv">e_1</span><span class="p">)</span> <span class="p">(</span><span class="nv">p_2</span> <span class="nv">e_2</span><span class="p">)</span> <span class="o">...</span> <span class="p">(</span><span class="nv">p_n</span> <span class="nv">e_n</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>we can now encode sets of LISP recursion equations as S-expressions. For the equation</p>
+
+<p>我们能将一组LISP递归等式编码为S表达式的形式。对于等式：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="nv">factoria1[x]</span> <span class="nb">=</span> <span class="nv">[x=0</span> <span class="nv">-&gt;</span> <span class="mi">1</span><span class="c1">; T -&gt; x*factoria1[x-1]]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>we write the S-expression</p>
+
+<p>我们将S表达式写为：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">FACTORIAL</span> <span class="nv">x</span><span class="p">)</span>
+</span><span class="line">	<span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nb">=</span> <span class="nv">X</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class="line">		  <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nb">*</span> <span class="nv">x</span> <span class="p">(</span><span class="nv">FACTORIAL</span> <span class="p">(</span><span class="nb">-</span> <span class="nv">x</span> <span class="mi">1</span><span class="p">))))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>(we could also have written</p>
+
+<p>(我们也能写为：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">FACTORIAL</span> <span class="nv">X</span><span class="p">)</span> <span class="p">(</span><span class="nb">cond</span> <span class="p">((</span><span class="nb">=</span>
+</span><span class="line"><span class="nv">x</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nb">*</span> <span class="nv">x</span> <span class="p">(</span><span class="nv">FACTORIAL</span> <span class="p">(</span><span class="nb">-</span> <span class="nv">x</span>
+</span><span class="line"><span class="mi">1</span><span class="p">))))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>but we conventionally lay out S-expressions so that they are easy to read.)</p>
+
+<p>但是我们习惯上会排版S表达式以便易于阅读。</p>
+
+<p>We now have a complete encoding for algebraic expressions and LISP
+recursion equations in the form of S-expressions. Suppose that we now want
+to write a LISP program which will take such an S-expression and perform
+some useful operation on it, such as determining the value of an algebraic
+expression. We need some procedures for distinguishing, decomposing, and
+constructing S-expressions.</p>
+
+<p>我们现在已经有了对代数表达式的完整编码，以及S表达式的形式下的递归等式。假设我们现在想写一个LISP程序，它能拿起这样的S表达式并对其执行一些有用的操作，比如确定代数表达式的值。我们需要一些过程来区分、分解、构造S表达式。</p>
+
+<p>The predicate ATOM, when applied to an S-expression, produces true
+when given an atom and false otherwise. The empty list is considered to be
+an atom. The predicate NULL is true of only the empty list; its argument
+need not be a list, but may be any S-expression. The predicate NUMBERP is
+true of numbers and false of atomic symbols and lists. The predicate EQ,
+when applied to two atomic symbols, is true if the two atomic symbols are
+identical. It is false when applied to an atomic symbol and any other S-
+expression. (We have not defined EQ on two lists yet; this will not
+become important, or even meaningful, until we discuss side effects.)</p>
+
+<p>断言ATOM，当应用到S表达式上，如果给的是原子，则产生真，否则为假。空列表被认为是一个原子。断言NULL只有对空列表是为真；它的参数不必要是列表，可以是任何表达式。当一个原则符号和列表是数字时，断言NUMBERP是真，否则为假。断言EQ，当应用到两个原子符号时，如果两个原子符号相等，则为真。如果应用到一个原子符号，和任何其他S表达式上，则为假。(我们还没有定义两个列表的EQ；这将不那么重要，或甚至有意义，直到我们讨论副作用。)</p>
+
+<p>The decomposition operators for lists are traditionally called CAR
+and CDR for historical reasons. [LISP History] CAR extracts the first
+element of a list, while CDR produces a list containing all elements but
+the first. Because compositions of CAR and CDR are commonly used in LISP,
+an abbreviation is provided: all the C’s and R’s in the middle can be
+squeezed out. For example, ‘(CDR (CDR (CAR (CDR X))))’ can be written as
+“(CDDADR X)”.</p>
+
+<p>由于历史的原因，列表的分解操作符传统上被称为car和cdr。[LISP History] CAR提取列表的第一个元素，而CDR生成一个除过第一个元素之外的所有剩余元素的列表。因为car和cdr的组合在LISP中经常用到，就提供了一个缩写：所有中间的C和R可以积压出去。例如’(CDR (CDR (CAR (CDR X))))’，可以写为”(CDDADR X)”。</p>
+
+<p>The construction operator CONS, given an S-expression and a list,
+produces a new list whose CAR is the S-expression and whose CDR is the
+list. The operator LIST can take any number of arguments (a special
+feature), and produces a list of its arguments.</p>
+
+<p>构造操作符CONS，给定S表达式和一个列表，生成一个新的列表，其CAR是S表达式，而CDR是列表。操作符LIST能接收任意数目的参数(一个特殊特性)，然后产生这些参数的列表。</p>
+
+<p>We can now write some interesting programs in LISP to deal with S-expressions. For example, we can write a predicate EQUAL, which determines whether two S-expressions have the same CAR-CDR structure:</p>
+
+<p>我们现在可用LISP写一些有趣的程序，来处理S表达式。例如，我们写一个断言EQUAL, 它确定两个S表达式有相同的CAR-CDR结构。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">EQUAL</span> <span class="nv">X</span> <span class="nv">Y</span><span class="p">)</span>
+</span><span class="line">          <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NUMBERP</span> <span class="nv">X</span><span class="p">)</span>
+</span><span class="line">                 <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NUMBERP</span> <span class="nv">Y</span><span class="p">)</span> <span class="p">(</span><span class="nb">=</span> <span class="nv">X</span> <span class="nv">Y</span><span class="p">))</span>
+</span><span class="line">                       <span class="p">(</span><span class="no">T</span> <span class="no">NIL</span><span class="p">)))</span>
+</span><span class="line">                <span class="p">((</span><span class="nv">ATOM</span> <span class="nv">X</span><span class="p">)</span> <span class="p">(</span><span class="nv">EQ</span> <span class="nv">X</span> <span class="nv">Y</span><span class="p">))</span>
+</span><span class="line">                <span class="p">((</span><span class="nv">ATOM</span> <span class="nv">Y</span><span class="p">)</span> <span class="no">NIL</span><span class="p">)</span>
+</span><span class="line">                <span class="p">((</span><span class="nv">EQUAL</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">X</span><span class="p">)</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">Y</span><span class="p">))</span>
+</span><span class="line">                 <span class="p">(</span><span class="nv">EQUAL</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">X</span><span class="p">)</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">Y</span><span class="p">)))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Here we have used the standard names T and NIL to represent ture and false.
+(Traditionally NIL is also considered to be the empty list, but we will
+avoid this here, writing “()” for the empty list.)</p>
+
+<p>这里我们使用标准的名字T和NIL来表示和false。(传统上，NIL也被认为是空列表，但是我们将在这里避免这些，写”()”代表空列表)。</p>
+
+<p>Because LISP programs are represented as LISP data structures (S-expressions), there is a difficulty with representing constants. For
+example, suppose we want to determine whether or not the value of the
+variable X is the atomic symbol “FOO”. we might try writing:</p>
+
+<p>因为LISP程序表示为LISP数据结构(S表达式)，在表达常量时有些困难。比如，假设我们想确定变量X的值是否为原子符号”F00”，我们可能试图写为：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">EQ</span> <span class="nv">X</span> <span class="nv">FOO</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>This doesn’t work. The occurrence of “FOO” does not refer to the atomic
+symbol FOO as a constant; it is treated as a variable, just as “X” is.</p>
+
+<p>这不能奏效。FOO的出现没有将FOO引用为一个常量；它被看做一个变量，如同X一样。</p>
+
+<p>The essential problem is that we want to be able to write any 5-
+expression as a constant in a program, but some S—expressions must be used
+to represent other things, such as variables and procedure invocations. To
+solve this problem we invent a new notation: (QUOTE X) in a program
+represents the constant S-expression x. {Note QUOTE Mapping} Thus we can
+write our test as “(EQ X (QUOTE FOO)”. Similarly,</p>
+
+<p>本质的问题是，我们想能够在程序中将任何S表达式按照常量的方式书写，但是一些S表达式必须被用来表示其它一些，比如变量和过程调用。为了解决这个问题，我们发明了一个新记号：(QUOTE X)在程序中表示常数S表达式X。{注释： QUOTE Mapping} 因此我们能将我们的测试写为：(EQ X (QUOTE FOO)。类似的：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">EQUAL</span> <span class="nv">X</span> <span class="p">(</span><span class="nv">LIST</span> <span class="nv">Y</span> <span class="nv">Z</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>constructs a list from the values of Y and z, and compares the result to
+the value of X, while</p>
+
+<p>从X和Y的值中构造一个列表，然后将结果与X的值比较，而：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">EQUAL</span> <span class="nv">X</span> <span class="p">(</span><span class="nv">QUOTE</span> <span class="p">(</span><span class="nv">LIST</span> <span class="nv">Y</span> <span class="nv">Z</span><span class="p">)))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>compares the value of X to the constant S-expression “(LIST Y Z)”. Because
+the QUOTE construction is used so frequently in LISP, we use an abbreviated
+notation: “‘FOO” is equivalent to “(QUOTE FOO)”. This is only a notational
+convenience; the two notations denote the same S-expression. (S-
+expressions are not character strings, but data objects with a certain
+structure. We use character strings to notate S-expressions on paper, but
+we can use other notations as well, such as little boxes and arrows. We 
+can and do allow several different character strings to denote the same S-
+expression.) </p>
+
+<p>将X的值与常数表达式(LIST Y Z)去比较。因为在LISP中QUOTE构造经常被用到，我们使用一个缩写记号：”’FOO”等价于”(QUOTE FOO)”。这只是一个记号的惯例。两个记号表示相同的S表达式。(S表达式不是字符串，而是带有特定结构的数据对象。我们使用字符串去表示文章中的S表达式。我们能够且也允许几种不同的字符串去表示相同的S表达式)。</p>
+
+<h4 id="lisp-">LISP 递归等式的解释器</h4>
+<p>An Interpreter for LISP Recursion Equations</p>
+
+<p>We now have enough machinery to begin our examination of the
+genetic history of LISP. We first present a complete interpreter for LISP
+recursion equations. The language interpreted is a dialect of LISP which
+allows no free variables except for names of primitive or defined
+procedures, and no definitions of procedures within other procedures.</p>
+
+<p>我们现在有足够的机制去开始对LISP起源历史的检视。我们首先展现一个LISP递归等式的完全解释器。被解释的语言是LISP的一个方案，它不允许自由变量，除过原语或已定义过程的名字，在别的过程中没有过程的定义。</p>
+
+<p>The driver loop reads in definitions of procedures of the form:</p>
+
+<p>驱动循环的读取 form的过程定义：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">F</span> <span class="nv">A</span> <span class="nv">B</span> <span class="nv">C</span> <span class="o">...</span><span class="p">)</span> <span class="nv">&lt;expression</span> <span class="nv">in</span> <span class="nv">A</span> <span class="nv">B</span> <span class="nv">C</span> <span class="o">...</span> <span class="nb">and</span> <span class="nv">F</span> <span class="nv">G</span> <span class="nv">H</span> <span class="o">...</span><span class="nb">&gt;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>and saves them. It can also read in requests to apply some defined
+procedure to some arguments (or, more generally, to evaluate any
+expression), in which case it prints the resulting value. An expression
+may consist of variable references, constants (numbers and quoted s-
+expressions), procedure calls, and conditional expressions (COND). The
+defined procedures may refer to each other and to initially supplied
+primitive procedures (such as CAR, CONS, etc.). Definitions may contain
+“forward references”, as long as all necessary definitions are present at
+the time of a request for a computation. The interpreter itself is
+presented here as a set of such definitions, and so is meta—circular.</p>
+
+<p>并保存它们。它也能读入请求去将一些定义的过程应用到一些参数(或者，更通常，去求值任意表达式)，在这种情况下它打印结果值。一个表达式可以包含变量引用，常数(数字和引号的S-表达式)，过程调用和条件表达式。被定义的过程可能相互引用，并引用到初始提供的原语过程(比如CAR, CONS，等等)。定义可能包括“向前引用”，只要所有必须的定义在请求计算的那一刻是存在的。这呈现的解释器自身是一组如此的定义，也就是元循环。</p>
+
+<p>The language is intended to be evaluated in applicative order; that is, all arguments to a procedure are fully evaluated before an attempt
+is made to apply the procedure to the arguments. (It is necessary to state
+this explicitly here, as it is not inherent in the form of the meta-circular definition. See [Reynolds] for an explication of this problem.)</p>
+
+<p>语言打算被按应用的次序去求值；也就是，对一个过程所有的参数都被完全求值之后，才试图将过程应用到参数上。(有必要在这里这里显式地说，这不是元循环定义的形式本自具有的。看[Reynolds]对这个问题的解释。)</p>
+
+<p>The driver loop (see Figure 1) is conceptually started by a request
+to invoke DRIVER with no arguments. Its task is to first print the message
+“LITHP ITH LITHTENING” (a tradition of sorts) and then invoke DRIVER—LOOP.
+The expression <the-primitive-procedures> is intended to represent a constant
+list structure, containing definitions of primitive procedures, to be supplied to DRIVER—LOOP.</the-primitive-procedures></p>
+
+<p>驱动循环(看图1)是概念性第启动，通过请求不带参数的调用DRIVER。它的任务首先是打印消息“”LITHP ITH LITHTENING”，然后调用DRIVER-LOOP。表达式<the-primitive-procedures>目的是打印一个常量列表结构，包含原语过程的定义，以便提供给DRIVER—LOOP。</the-primitive-procedures></p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">DRIVER</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">DRIVER-LOOP</span> <span class="nv">&lt;THE-PRIMITIVE</span><span class="err">—</span><span class="nv">PROCEDURES&gt;</span> <span class="p">(</span><span class="nv">PRINT</span> <span class="ss">&#39;|LITHP ITH LITHTENlNG|</span><span class="p">)))</span>
+</span><span class="line">
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">DRIVER</span><span class="err">—</span><span class="nv">LOOP</span> <span class="nv">PROCEDURES</span> <span class="nv">HUNOZ</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">DRIVER</span><span class="err">—</span><span class="nv">LOOP</span><span class="err">—</span><span class="mi">1</span> <span class="nv">PROCEDURES</span> <span class="p">(</span><span class="nv">READ</span><span class="p">)))</span>
+</span><span class="line">
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">DRIVER-LOOP-1</span> <span class="nv">PROCEDURES</span> <span class="nv">FORM</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">ATOM</span> <span class="nv">FORM</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">DRIVER-LOOP</span> <span class="nv">PROCEDURES</span> <span class="p">(</span><span class="nv">PRINT</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="nv">FORM</span> <span class="o">&#39;</span><span class="p">()</span> <span class="nv">PROCEDURES</span><span class="p">))))</span>
+</span><span class="line">              <span class="p">((</span><span class="nv">EQ</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">FORM</span><span class="p">)</span> <span class="ss">&#39;DEFINE</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">DRIVER-LOOP</span> <span class="p">(</span><span class="nv">BIND</span> <span class="p">(</span><span class="nv">LIST</span> <span class="p">(</span><span class="nv">CAADR</span> <span class="nv">FORM</span><span class="p">))</span>
+</span><span class="line">                                  <span class="p">(</span><span class="nv">LIST</span> <span class="p">(</span><span class="nv">LIST</span> <span class="p">(</span><span class="nv">CDADR</span> <span class="nv">FORM</span><span class="p">)</span> <span class="p">(</span><span class="nv">CADDR</span> <span class="nv">FORM</span><span class="p">)))</span>
+</span><span class="line">                                  <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">                            <span class="p">(</span><span class="nv">PRINT</span> <span class="p">(</span><span class="nv">CAADR</span> <span class="nv">FORM</span><span class="p">))))</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">DRIVER-LOOP</span> <span class="nv">PROCEDURES</span> <span class="p">(</span><span class="nv">PRINT</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="nv">FORM</span> <span class="o">&#39;</span><span class="p">()</span> <span class="nv">PROCEDURES</span><span class="p">))))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<center>
+Figure 1
+<br />
+Top Level Driver Loop for a Recursion Equations Interpreter
+</center>
+
+<p>DRIVER-LOOP reads an S—expression from the input stream and passes
+it, along with the current procedure definitions, to DRIVER-LOOP-1. This
+procedure in turn determines whether the input S-expression is a definition. If it is, then it uses amp (described below) to produce an augmented set of procedure definitions, prints the name of the defined procedure, and calls DRIVER-LOOP to repeat the process. The augmented set of procedures is passed to DRIVER-LOOP, and so the variable PROCEDURES always contains all the accumulated definitions ever read. If the input S-expression is not a definition, then it is given to the evaluator EVAL, whose purpose is to determine the values of expressions. {Note Value Quibble} The set of currently defined procedures is also passed to EVAL.</p>
+
+<p>DRIVER-LOOP 从输入流读一个S表达式，然后将它，连同当前的过程定义，给DRIVER-LOOP-1。这个过程然后确定输入的S表达式是否是一个定义。如果是，则它利用amp(下面描述)来产生一个过程定义的扩充集，打印定义所定义过程的名字，然后调用DRIVER-LOOP来重复过程。扩充的过程集被传输给DRIVER-LOOP，从而变量PROCEDURES总是包含所有曾经读取的累计的定义。如果输入的S表达式不是一个定义，那么它会交给求值器eval，其目的是确定变量的值。{注释：Value Quibble} 当前所定义的过程集也会传输给EVAL。</p>
+
+<p>The process carried on by the driver loop is often called the “top
+level”; all user programs and requests are run‘ “under” it. The growing set of procedure definitions is called the “top—level environment”; this environment changes in the course of the user interaction, and contains the state of the machine as perceived by the user. It is within this environment that user programs are executed. </p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="nv">EXP</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">ATOM</span> <span class="nv">EXP</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">EQ</span> <span class="nv">EXP</span> <span class="ss">&#39;NIL</span><span class="p">)</span> <span class="ss">&#39;NIL</span><span class="p">)</span>
+</span><span class="line">                     <span class="p">((</span><span class="nv">EQ</span> <span class="nv">EXP</span> <span class="ss">&#39;T</span><span class="p">)</span> <span class="ss">&#39;T</span><span class="p">)</span>
+</span><span class="line">                     <span class="p">((</span><span class="nv">NUMBERP</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">EXP</span><span class="p">)</span>
+</span><span class="line">                     <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">VALUE</span> <span class="nv">EXP</span> <span class="nv">ENV</span><span class="p">))))</span>
+</span><span class="line">              <span class="p">((</span><span class="nv">EQ</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="ss">&#39;QUOTE</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">CADR</span> <span class="nv">EXP</span><span class="p">))</span>
+</span><span class="line">              <span class="p">((</span><span class="nv">EQ</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="ss">&#39;COND</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">EVCOND</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">))</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">APPLY</span> <span class="p">(</span><span class="nv">VALUE</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">                        <span class="p">(</span><span class="nv">EVLIS</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">EXP</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">                        <span class="nv">PROCEDURES</span><span class="p">))))</span>
+</span><span class="line">
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">APPLY</span> <span class="nv">FUN</span> <span class="nv">ARGS</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">PRIMOP</span> <span class="nv">FUN</span><span class="p">)</span> <span class="p">(</span><span class="nv">PRIMOP-APPLY</span> <span class="nv">FUN</span> <span class="nv">ARGS</span><span class="p">))</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CADR</span> <span class="nv">FUN</span><span class="p">)</span>
+</span><span class="line">                       <span class="p">(</span><span class="nv">BIND</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">FUN</span><span class="p">)</span> <span class="nv">ARGS</span> <span class="o">&#39;</span><span class="p">())</span>
+</span><span class="line">                       <span class="nv">PROCEDURES</span><span class="p">))))</span>
+</span><span class="line">
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">EVCOND</span> <span class="nv">CLAUSES</span> <span class="nv">ENV</span> <span class="nv">PROCEDURED</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="p">(</span><span class="nv">ERROR</span><span class="p">))</span>
+</span><span class="line">              <span class="p">((</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CAAR</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CADAR</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">))</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">EVCOND</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">CLAUSES</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">))))</span>
+</span><span class="line">
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">EVLIS</span> <span class="nv">ARGLIST</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">ARGLIST</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">CONS</span> <span class="p">(</span><span class="nv">EVAL</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">ARGLIST</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)</span>
+</span><span class="line">                       <span class="p">(</span><span class="nv">EVLIS</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">ARGLIST</span><span class="p">)</span> <span class="nv">ENV</span> <span class="nv">PROCEDURES</span><span class="p">)))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<center>                    
+Figure 2
+<br />
+Evaluator for a Recursion Equations Interpreter
+</center>
+
+<p>The evaluator proper (see Figure 2) is divided into two conceptual
+components: EVAL and APPLY. EVAL classifies expressions and directs their
+evaluation. Simple expressions (such as constants and variables) can be
+evaluated directly. For the complex case of procedure invocations
+(technically called “combinations”), EVAL looks up the procedure
+definition, recursively evaluates the arguments (using EVLIS), and then
+calls APPLY. APPLY classifies procedures and directs their application.
+Simple procedures (primitive operators) are applied directly. For the
+complex case of user-defined procedures, APPLY uses BIND to build an
+environment, a kind of symbol table, associating the formal parameters from
+the procedure definition with the actual argument values provided by EVAL.
+The body of the procedure definition is then passed to EVAL, along with the
+environment just constructed, which is used to determine the values of variables occurring in the body.</p>
+
+<p>求值器章节(见图2)被分为两概念部分：EVAL和APPLY。EVAL 将表达式分类并引导他们的求值。简单的表达式(比如常量和变量)能直接求值。对于过程调用这样复杂的情形(技术上称为“组合”)，EVAL查找过程定义，递归地对参数求值(使用EVLLIS)，然后调用APPLY。APPLY区分过程，然后引导它们的应用。简单的过程(原语过程)，被直接应用。对于用户所定义过程这样复杂的情形，APPLY使用BIND来构造一个环境，一种符号表，将来自过程定义的正规参数与EVAL所提供的真实参数值关联起来。然后，过程定义体连同构造的环境，被传给EVAL，这个环境用以确定函数体中出现的变量值。</p>
+
+<p>In more detail, EVAL is a case analysis on the structure of the S-
+expression EXP. If it is an atom, there are several subcases. The special
+atoms T and NIL are defined to evaluate to T and NIL (this is strictly for
+convenience, because they are used as truth values). Similarly, for
+convenience numeric atoms evaluate to themselves. (These cases could be
+eliminated by requiring the user to write lots of QUOTE forms: ‘T, ‘NIL,
+‘43, etc. This would have been quite inconvenient in early LISP, before
+the “’” notation had been introduced; one would have had to write (QUOTE
+43), etc.) Atomic symbols, however, encode variables; the value
+associated with that symbol is extracted from the environment ENV using the
+function VALUE (see below).</p>
+
+<p>说的更详细一些，EVAL是对S表达式EXP的结构的情形分析。如果它是一个原子，会有几种子情况。特别的原子T和NIL被定义，以便求值出T和NIL(严格说，这是为了方便，因为它们被当真值使用)。类似地，为了方便，数值的原子被定义求值为它们自己。(这种情况可以省掉，通过要求用户写大量的QUOTE forms： ‘T, ‘NIL, ‘43 等等。在”&#8217;”记号被引入之前，这在早期的LISP中很不方便；一个人不得不 (QUOTE 43)，等等) 但是，原子符号编码了变量；使用函数VALUE，把与符号关联的值从环境ENV中提取出来(见下)。</p>
+
+<p>If the expression to be evaluated is not atomic, then it may be a
+QUOTE form, a COND form, or a combination. For a QUOTE form, EVAL extracts
+the S-expression constant using CADR. Conditionals are handled by EVCOND,
+which calls EVAL on a predicate expression; if the predicate is true,
+EVCOND evaluates the corresponding result expression (by calling EVAL, of course); if the predicate is false, EVCOND calls itself to test the predicate of the next clause of the COND body. For combinations, the procedure is obtained, the arguments evaluated (using EVLIST), and APPLY called as described earlier. Notice that VALUE is used to get the procedure definition from the set PROCEDURES; we can do this because, as an engineering trick, we arrange for ENV and PROCEDURES to have the same structure, because they are both symbol tables.</p>
+
+<p>如果被求值的表达式不是原子的，那么它可能是一个QUOTE form，一个COND form，或者一个组合。对一个QUOTE form, EVAL使用CADR提取S表达式的常熟。条件语句由EVCOND处理，它在一个判定表达式上调用EVAL；如果判定是真的，EVCOND对相应的结果表达式求值(当然，通过调用EVAL)；如果判定式为假，EVCOND调用自身去测试COND 主体中下一个子句的判定式。对于组合，先得到过程，然后对参数求值(使用EVLIST)，然后如前面所描述那样调用APPLY。注意VALUE被用以从集合PROCEDURES中得到变量定义；我们可以这么做，是因为作为工程的技巧，我们组织ENV和PROCEDURES让他们有相同的结构，因为它们都是符号表。</p>
+
+<p>EVLIS is a simple recursive function which calls EVAL on successive arguments in ARGLIST and produces a list of the values in order. </p>
+
+<p>EVLIS是个简单的函数，它对ARGLIST中相继的参数调用EVAL，然后顺序产生值的列表。</p>
+
+<p>APPLY distinguishes two kinds of procedures: primitive and user-defined. For now we avoid describing the precise implementation of primitive procedures by assuming the existence of a predicate PRIMOP which is true only of primitive procedures, and a function PRIMOP-APPLY which deals with the application of such primitive procedures. (See {Note Primitive Operators} for the details of a possible implementation of PRIMOP and PRIMOP-APPLY.) We consider primitive procedures to be a kind of atomic S-expression other than numbers and atomic symbols; we define no particular written notation for them here. However, primitive procedures are not to be confused with the atomic symbols used as their names. The result of (VALUE ‘CAR PROCEDURES) is not the atomic symbol CAR, but rather some bizarre object which is meaningful only to PRIMOP-APPLY.</p>
+
+<p>APPLY区分两种类型的过程：原语和用户定义。迄今我们避免描述原语过程的准确定义，通过假设存在一个判定式PRIMOP，它只对原语过程为真，同时有一个函数PRIMOP-APPLY，它处理如此原语过程的应用。(参看 {Note Primitive Operators} 详细了解PRIMOP和PRIMOP-APPLY的可能实现的细节。) 我们认为原语过程是一类原子表达式，而非数字或原子符号；我们这里为她们诶有定义特别的书写记号。但是，原语过程不能与使用它们名字的原子符号混淆。(VALUE ‘CAR PROCEDURES)的结果不是原子符号CAR，而是有些奇怪的对象，它只对PRIMOP-APPLY有意义。</p>
+
+<p>User-defined procedures are represented here as lists. These lists are constructed by DRIVER-LOOP-1. The car of the list is the list of formal parameters, and the cadr is the body of the definition.</p>
+
+<p>用户定义的过程在这里用列表表示。这些列表通过DRIVER-LOOP-1构造。list的car部分，是正规参数的列表，而cadr部分是过程定义的主体。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+</pre></td><td class="code"><pre><code class="lisp"><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">BIND</span> <span class="nv">VARS</span> <span class="nv">ARGS</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nb">=</span> <span class="p">(</span><span class="nv">LENGTH</span> <span class="nv">VARS</span><span class="p">)</span> <span class="p">(</span><span class="nv">LENGTH</span> <span class="nv">ARGS</span><span class="p">))</span>
+</span><span class="line">               <span class="p">(</span><span class="nv">CONS</span> <span class="p">(</span><span class="nv">CONS</span> <span class="nv">VARS</span> <span class="nv">ARGS</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">))</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">ERROR</span><span class="p">))))</span>
+</span><span class="line">
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">VALUE</span> <span class="nv">NAME</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">VALUEI</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">LOOKUP</span> <span class="nv">NAME</span> <span class="nv">ENV</span><span class="p">)))</span>
+</span><span class="line">
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">VALUEI</span> <span class="nv">NAME</span> <span class="nv">SLOT</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">EQ</span> <span class="nv">SLOT</span> <span class="ss">&#39;&amp;UNBOUND</span><span class="p">)</span> <span class="p">(</span><span class="nv">ERROR</span><span class="p">))</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">SLOT</span><span class="p">))))</span>
+</span><span class="line">
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">LOOKUP</span> <span class="nv">NAME</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">ENV</span><span class="p">)</span> <span class="ss">&#39;&amp;UNBOUND</span><span class="p">)</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">LOOKUPI</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">CAAR</span> <span class="nv">ENV</span><span class="p">)</span> <span class="p">(</span><span class="nv">CDAR</span> <span class="nv">ENV</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">))))</span>
+</span><span class="line">
+</span><span class="line"><span class="p">(</span><span class="nv">DEFINE</span> <span class="p">(</span><span class="nv">LOOKUPI</span> <span class="nv">NAME</span> <span class="nv">VARS</span> <span class="nv">VALS</span> <span class="nv">ENV</span><span class="p">)</span>
+</span><span class="line">        <span class="p">(</span><span class="nv">COND</span> <span class="p">((</span><span class="nv">NULL</span> <span class="nv">VARS</span><span class="p">)</span> <span class="p">(</span><span class="nv">LOOKUP</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">ENV</span><span class="p">)))</span>
+</span><span class="line">              <span class="p">((</span><span class="nv">EQ</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">CAR</span> <span class="nv">VARS</span><span class="p">))</span> <span class="nv">VALS</span><span class="p">)</span>
+</span><span class="line">              <span class="p">(</span><span class="no">T</span> <span class="p">(</span><span class="nv">LOOKUPI</span> <span class="nv">NAME</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">VARS</span><span class="p">)</span> <span class="p">(</span><span class="nv">CDR</span> <span class="nv">VALS</span><span class="p">)</span> <span class="nv">ENV</span><span class="p">))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<center>
+Figure 3
+<br />
+Utility Routines for Maintaining Environments
+</center>
+
+<p>The interpreter uses several utility procedures for maintaining
+symbol tables (see Figure 3). A symbol table is represented as a list of
+buckets; each bucket is a list whose car is a list of names and whose cdr
+is a list of corresponding values. {Note This ain’t A—lists} If a variable
+name occurs in more than one bucket, the leftmost such bucket has priority;
+in this way new symbol definitions added to the front of the list can
+supersede old ones.</p>
+
+<p>解释器使用几个工具过程来维护符号表(见图3)。一个符号表被表示为桶的列表；每个桶也是个列表，其car是列表的名字，而cdr是对应值的列表。{Note This ain’t A—lists} 如果一个变量名出现在多个桶，最左边的桶优先；新的符号定义添加到符号的前端，按照这个方式，旧的会被取代。</p>
+
+<p>BIND takes a list of names, a list of values, and a symbol table,
+and produces a new symbol table which is the old one augmented by an extra
+bucket containing the new set of associations. (It’s also performs a useful
+error check —- LENGTH returns the length of a list.)</p>
+
+<p>BIND 获得一个名字的列表，一个值的列表，一个符号表，然后将旧的符号表扩展一个桶，桶里包含关联的新集合，由此产生一个新的符号表。(它也执行一个有用的错误检查 —- LENGTH 返回列表的长度)</p>
+
+<p>VALUE is essentially an interface to LOOKUP. We define it because later, in Part Three, we will want to use different versions of VALUE1 without changing the underlying algorithm in LOOKUP. The check for &amp;UNBOUND catches incorrect references to undefined variables.</p>
+
+<p>VALUE 本质上是LOOKUP的接口。我们随后在第三部分定义它，我们将想使用不同版本的VALUE1，而不改变LOOKUP的基础算法。 对 &amp;UNBOUND 的检查捕获对未定义变量的不正确的引用。 </p>
+
+<p>LOOKUP takes a name and a symbol table, and returns that portion of a bucket whose car is the associated value. (This definition will be more useful later than one in which the value itself is returned.)</p>
+
+<p>LOOKUP 取得一个名字和一个符号表，然后返回桶的一部分，其car是关联的值。(这个定义随后将比返回值本身更加重要)</p>
+
+<p>Note carefully the use of the variable PROCEDURES in the
+interpreter. When DRIVER-LOOP-1 calls EVAL it passes the current list of
+defined procedures (both primitive and user-defined). DRIVER-LOOP-1 is the
+only routine which augments the value of PROCEDURES, and this value is only
+used in EVAL, when it is passed to VALUE. However, <u>all</u> of the routines
+APPLY, EVCOND, and EVLIS have to know about PROCEDURES, and dutifully pass it
+along so that it may be eventually used by EVAL. The set of definitions
+must be passed along because there is no provision for free variables or
+side effects; there is no way to have “memory” or “state” other than in
+passed variables. The absence of free variables effectively causes our
+language to be referentially transparent. However, we sense a disturbing
+lack of modularity in the use of PROCEDURES (and, to a lesser extent, in the
+use of ENV — look at EVCOND and EVLIS). We will return to this point later.</p>
+
+<p>仔细地注意在解释器中使用变量PROCEDURES。当DRIVER-LOOP-1调用EVAL，它传入所定义过程的当前列表(既有原语的，也有用户定义的)。DRIVER-LOOP-1 是唯一例程，它扩展PROCEDURES的值，并且这个值只在EVAL中使用，当它被传给VALUE时。但是，所有例程APPLY, EVCOND, EVLIS都必须知道PROCEDURES, 并尽责地顺延传递它，从而它可能最终被EVAL用到。定义的集合必须被顺延传递，因为对自由变量或副作用没有预先准备; 也没有方法去有“内存”或“状态”，除了在传递的变量中。缺少自由变量实际上致使我们的语言是引用透明的。但是，我们感觉到在PROCEDURES中缺少模块化的一种不安(并且，在较小的程度，在ENV的使用中 — 看看EVCOND和EVLIS)。我们后面再回到这个话题。</p>
+
+<p>Our recursion equations language has no special iteration or
+looping constructs, such as the Algol <u>for</u> statement or the FORTRAN DO loop.
+All loops are constructed by arranging for recursive procedures to call
+themselves or each other. For example, EVCOND (see Figure 2) iterates over
+the clauses of a COND by calling itself on successive “tails” of the list
+of clauses. Now such recursive calls may strike the reader familiar with
+other languages (such as Algol, FORTRAN, PL/I, etc.) on an intuitive level
+as being rather inefficient for implementing real programs. Even granted
+that calls might be made fast, they would seem to consume space in the form
+of return addresses and other control information. Examination of the
+recursion equations evaluator will show, however, that this phenomenon does
+not have to occur. This is because no extra information is saved if there
+is nothing left to do on return from a recursive call. See [SCHEME] and
+[Debunking] for a more thorough discussion of this.</p>
+
+<p>我们的递归方程语言没有特殊的迭代或循环构造物，如同Algol的for语句或者FORTRAN的DO循环。通过安排递归过程去调用它们自身或相互调用，构造出所有的循环。例如，通过对子句列表的后续”尾部(tails)”调用自身，EVCOND(见图2)对COND的子句实现了迭代。现在这样的迭代调用可能让熟悉其它语言(比如Algol, FORTRAN, PL/I, 等等)的读者在直觉层面觉得实现真实的程序不太有效率。甚至想当然认识，调用可以更快一些，它们应该看似以返回地址和其它控制信息的形式消耗了空间。然而，对递归函数求值器的检验显示，这个现象没有发生。这是因为，如果从递归调用中没有剩下什么事情去做，那么没有额外的信息要被保存。参见[SCHEME]和[Debunking]，对此有更彻底的讨论。</p>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/08/the-art-of-interpreter-Introduction/">The Art of Interpreter: Introduction</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-08-18T10:22:59+08:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:22 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>原文地址：<a href="http://c2.com/cgi/wiki?TheArtOfTheInterpreter">http://c2.com/cgi/wiki?TheArtOfTheInterpreter</a>
+<br /></p>
+<hr />
+
+<center> 
+MASSACHUSETTSINSTYTUTECHTTECHNOLOCY ARTIFICIAL INTELLIGENCE LABORATORY
+<br />
+
+AI Memo No.453                May 1978
+<br />
+
+<strong>The Art of the Interpreter
+<br />
+or, The Modularity Complex
+(Parts Zero, One, and Two)</strong>
+
+<br />
+by
+<br />
+
+Guy Lewis Steele Jr.* and Gerald Jay Sussman**
+
+</center>
+
+<h3 id="section">摘要</h3>
+<p>Abstract:</p>
+
+<p>We examine the effects of various language design decisions on the
+programming styles available to a user of the language, with particular
+emphasis on the ability to incrementally construct modular systems. At
+each step we exhibit an interactive meta-circular interpreter for the
+language under consideration. Each new interpreter is the result of an
+incremental change to a previous interpreter.</p>
+
+<p>我们检验了现存编程风格上的语言设计决策对语言使用者的影响，特别关注增量构造模块化系统的能力。在每一个步，针对所考虑的语言，我们展示了一个交互式的元-循环解释器。每个新的解释器都是对先前解释器增量修改的结果。</p>
+
+<p>We explore the consequences of various variable binding disciplines
+and the introduction of side effects. We find that dynamic scoping is
+unsuitable for constructing procedural abstractions, but has another role
+as an agent of modularity, being a structured form of side effect. More
+general side effects are also found to be necessary to promote modular
+style. We find that the notion of side effect and the notion of equality
+(object identity) are mutually constraining; to define one is to define
+the other.</p>
+
+<p>我们探索了不同变量绑定纪律的后果，并引入了副作用(side-effect)。我们发现，动态范围不适合构造过程的抽象，但是有作为模块代理的另一作用，是副作用的一个结构化形式。也发现了更多普遍的副作用，对提升模块化风格是必要的。我们发现副作用的记号和相等的记号(对象同一性)是相互约束的。为了定义其中一个，就必须定义另一个。</p>
+
+<p>The interpreters we exhibit are all written in a simple dialect of
+LISP, and all implement LISP-like languages. A subset of these interpreters constitute a partial historical reconstruction of the actual evolution of LISP.</p>
+
+<p>我们展示的解释器都用LISP的简单方言写出，它们都实现了类LISP的语言。这些解释器的子集包含LISP实际进化的部分历史再现。</p>
+
+<p>Keywords: abstraction, actors, applicative order, bindings, control structures, debugging, dynamic scoping, environments, fluid variables, FUNARG
+problem, functional objects, interactive programming, lambda-calculus.
+lexical scoping, LISP, modularity, procedural data, recursion equations,referential transparency, SCHEME, side effects, static scoping, structured programming</p>
+
+<p>This report describes research done at the Artificial Intelligence
+Laboratory of the Massachusetts Institute of Technology. Support for the
+laboratory’s artificial intelligence research is provided in part by the</p>
+
+<p>Advanced Research Projects Agency of the Department of Defense under Office
+of Naval Research contract N000l4-75-C-0643.</p>
+
+<h3 id="section-1">内容</h3>
+
+<ul>
+  <li>Introduction
+    <ul>
+      <li>Modularity</li>
+      <li>LISP-like Languages</li>
+      <li>Structure of the Paper</li>
+    </ul>
+  </li>
+  <li>Part Zero-— LISP and Interpreters
+    <ul>
+      <li>Recursion{Equations</li>
+      <li>An Interpreter for LISP Recursion Equations</li>
+    </ul>
+  </li>
+  <li>Part One —— Variable Scoping Disciplines
+    <ul>
+      <li>Procedures as Data</li>
+      <li>Local Procedures</li>
+      <li>Lexical Scoping</li>
+      <li>Top Levels versus Referential Transparency</li>
+    </ul>
+  </li>
+  <li>Part Two — State
+    <ul>
+      <li>Decomposition of State</li>
+      <li>Side Effects and Local State</li>
+      <li>Side Effects in the Interpreter</li>
+      <li>Equipotency of SETQ and RPLACA</li>
+      <li>Side Effects and Equality</li>
+      <li>Dynamic Scoping as a State-Decomposition Discipline</li>
+    </ul>
+  </li>
+  <li>Summary</li>
+  <li>Acknowledgements</li>
+  <li>Notes
+    <ul>
+      <li>{Can George do Better?}</li>
+      <li>{Debugging}</li>
+      <li>{Driver Loop with Side Effects}</li>
+      <li>{EVALQUOTE}</li>
+      <li>{Gaussian}</li>
+      <li>{LABEL5}</li>
+      <li>{LABEL5 with Side Effects}*</li>
+      <li>{Primitive Operators}</li>
+      <li>{PROGN wizardry}</li>
+      <li>{QUOTE Mapping}</li>
+      <li>{QUOTE Shafts the Compiler}</li>
+      <li>{RPLACA Can Alter CAR Instead}</li>
+      <li>{S—expression Postulates and Notation}</li>
+      <li>{This ain’t A-lists}</li>
+      <li>{Value Quibb1e}</li>
+      <li>{Weber}</li>
+      <li>{Y-operator}</li>
+    </ul>
+  </li>
+  <li>References</li>
+</ul>
+
+<h3 id="section-2">介绍</h3>
+<p>Introduction</p>
+
+<h4 id="section-3">模块化</h4>
+<p>Modularity</p>
+
+<p>The entities constructed by programming are extremely complex.
+Accurate construction of large programs would be impossible without
+specific techniques for controlling this complexity. Most such techniques
+are based on finding ways to decompose a problem into almost independently
+solvable subproblems, allowing a programmer to concentrate on one
+subproblem at a time, ignoring the others. When the subproblems are
+solved, the programmer must be able to combine the solutions with a minimum
+of unanticipated interactions. To the extent that a decomposition succeeds
+in breaking a programming problem into manageable pieces, we say that the
+resulting program is modular; each part of the solution is called a
+module. Well—designed programming languages provide features which support
+the construction of modular programs.</p>
+
+<p>编程产生的实体极端复杂。如果没有控制这一复杂性的特定技术，要准确无误地构造大型程序是不可能的。绝大多数这样的技术是基于寻找一些方法，将问题分解为几乎独立可求解的子问题，允许程序员一次聚焦于一个子问题，而忽略其它的。当自问题被解决了，程序员必须能够以最小的不可预见的互作用，将解决方案组合在一起。如果一个分解达到了成功地将一个编程问题拆分成可管理部分的程度，我们称如此生成的程序是模块化的；解决方案的每个部分称为一个模块。设计良好的编程语言提供了支持构建模块化程序的特性。</p>
+
+<p>One decomposition strategy is the packaging of common patterns of
+the use of a language. For example, in Algol a for loop captures a common
+pattern of if and goto statements. Packages of common patterns are not
+necessarily merely abbreviations to save typing. While a simple
+abbreviation has little abstraction power because a user must know what the
+abbreviation expands into, a good package encapsulates a higher level
+concept which has meaning independent of its implementation. Once a
+package is constructed the programmer can use it directly, without regard
+for the details it contains, precisely because it corresponds to a single
+notion he uses in dealing with the programming problem.</p>
+
+<p>一个分解策略是将使用一个语言的共同模式打包。例如，在Algol中，一个for loop 语句捕获了if和goto语句的共同模式。共同模式的包并非只是为了节约打字的缩写而需的。虽然一个简单的缩写没有什么抽象能力，因为用户必须知道缩写扩展成什么，但是一个好的包，能在更高层次的概念上封装，具有独立于实现的含义。一旦一个包构造出来，程序员能直接使用它，不需要考虑它包含的细节，正好是因为程序员在处理编程问题时将它作为单一的记号来使用。</p>
+
+<p>A package is most useful if its behavior is independent of the
+context of its use, thus reducing possible interference with other
+packages. Such a package is called referentially transparent.
+Intuitively, referential transparency requires that the meanings of parts
+of a program be apparent and not change, so that such meanings can be
+reliably depended upon. In particular, names internal to one module should
+not affect or be affected by other modules — the external behavior of a
+module should be independent of the choice of names for its local
+identifiers.</p>
+
+<p>如果一个包的行为独立于使用它的上下文，它是最有用的，从而减少了与其它包可能的干扰。这样的包被称为<strong>引用透明(referentially transparent)</strong>。直觉地，引用透明要求一个程序某部分的意思是明明白白的，不会改变，从而能可靠地依赖此意思。特别地，一个模块内部的名字不能影响到其它模块，或者被影响 – 一个模块的外部行为必须独立于它局部标识符的名字的选择。</p>
+
+<p>To make a modular program, it is often necessary to think of a
+computational process as having state. In such cases, if the state can be
+naturally divided into independent parts, an important decomposition may be
+the division of the program into pieces which separately deal with the
+parts of the state.</p>
+
+<p>为了编写模块化程序，经常有必要想起带状态的计算过程。在这些案例中，如果状态能被自然地分解为独立的部分，一种重要的分解可能是将程序划分为独立处理状态各部分的片段。</p>
+
+<p>We will discuss various stylistic techniques for achieving
+modularity. One would expect these techniques to complement each other.
+We will instead discover that they can come into conflict. Pushing one to
+an extreme in a language can seriously compromise others.</p>
+
+<p>我们将讨论达到模块化的不同的风格化技术。有人会期待这些技术会相互补充。相反，我们将发现它们会产生冲突。在语言中，将一个推到极致能严重地损害其它的。</p>
+
+<h3 id="lisp">类LISP语言</h3>
+<p>LISP-like Languages</p>
+
+<p>Of the hundreds or thousands of computer languages which have been
+invented, there is one particular family of languages whose common ancestor
+was the original LISP, developed by McCarthy and others in the late 1950’s.
+[LISP History] These languages are generally characterized by in simple,
+fully parenthesized (“Cambridge Polish”) syntax; the ability to manipulate
+general, linked—list data structures; a standard representation for
+programs of the language in terms of these structures; and an interactive
+programming system based on an interpreter for the standard representation.
+Examples of such languages are LISP 1.5 [LISP 1.5M], MacLISP [Moon],
+InterLISP [Teitelman], CONNIVER [HcDermott and Sussman], QA4 [Rulifson],
+PLASMA [Smith and Hewitt] [Hewitt and Smith], and SCHEME [SCHEME] [Revised
+Report]. We will call this family the LISP—like languages.</p>
+
+<p>在成百上千被发明的计算机语言中，有特殊的一个语言家族，其祖先是原始的LISP，由McCarthy和其他人在1950年代后期开发出来。这些语言的特征是：通常都与简单、封闭括号的语法(Cambridge Polish)；能够操作普遍的、链式列表数据结构；以这些结构的方式对程序的标准表示；有基于标准表示解释器的一个交互式编程系统。这样语言的例子是LISP 1.5, MacLISP, InterLISP, CONNIVER, QA4, PLASMA和Scheme。我们称这个家族为类LISP语言。</p>
+
+<p>The various members of this family differ in some interesting and
+often subtle ways. These differences have a profound impact on the styles
+of programming each may encourage or support. We will explore some of
+these differences by examining a series of small (“toy”) evaluators which
+exhibit these differences without the clutter of “extra features” provided
+in real, production versions of LISP-like language systems.</p>
+
+<p>这个家族的各种成员的不同之处，在一些有趣和经常微妙的地方。这些差别对鼓励或支持每种编程风格有深刻的影响。我们将探索这些差别的一些，通过检视一系列小(玩具)求值器，这些求值器展示了这些差别，而没有被类LISP语言系统的真实、生产性版本所提供的“附加特性”搞乱。</p>
+
+<p>The series of evaluators to be considered partially constitute a
+reconstruction of what we believe to be the paths along which the family
+evolved. These paths can be explained after the fact by viewing the historical changes to the language as being guided by the requirements of
+various aspects of modularity.</p>
+
+<p>这些被考虑的求值器系列，部分构成了一个再现，我们认为是此语言家族进化所沿着的路径。这些路径可以被这样的事实来解释，即看到对语言历史上所做的改变，是被模块化各种方面的需求推动引导着。</p>
+
+<h4 id="section-4">文章的结构</h4>
+<p>Structure of the Paper</p>
+
+<p>Our discussion is divided into several parts, which form a linear
+progression. In addition, there are numerous large digressions which
+explore interesting side developments. These digressions are placed at the
+end as notes, cross-referenced to and from the text.</p>
+
+<p>我们的讨论分为几个部分，它们形成线性的推进。此外，有很多大的题外话，去探索有趣的侧面开发。这些题外话放在最后作为注解，被交叉引用到或来自正文。</p>
+
+<p>We exhibit a large number of LISP interpreters whose code differs
+from one to another in small ways (though their behavior differs greatly!).
+In order to avoid writing identical pieces of code over and over, each
+figure exhibits only routines which differ, and also contains cross-
+references to preceding figures from which missing routines for that figure
+are to be drawn.</p>
+
+<p>我们展示很多LISP解释器，它们的代码相互间有很小的差别（但是它们的行为差别巨大）。为了避免到处写出相同的片段，每个图仅展示不同的例程，也包含一个交叉引用到前面的图，在那里图中缺失的例程被画出来。</p>
+
+<p>Part Zero introduces the restricted dialect of the LISP language in
+which most of our examples are written. It also discusses the basic
+structure of an interpreter, and exhibits a meta-circular interpreter for
+the language.</p>
+
+<p>第零部分介绍了LISP语言中受限制的方言，我们大多数的例子都它写成。这部分也讨论解释器的基本结构，并展示了语言的一个元-循环解释器。</p>
+
+<p>Part One introduces procedural data as an abstraction mechanism,
+and considers its impact on variable scoping disciplines in the language.
+We are forced through a series of such disciplines as unexpected
+interactions are uncovered and fixed. Interpreters are exhibited for
+dynamic scoping and lexical scoping.</p>
+
+<p>第一部分介绍作为一个抽象机制的过程数据，并考虑它在语言的变量范围规则中的影响。随着未曾预期的交互性被发现和修正，我们被迫使穿越一些列这样的规则。为了动态范围和词法范围而展示了解释器。</p>
+
+<p>Part Two considers the problems associated with the decomposition of state. Side effects are introduced as a mechanism for effecting such decompositions. We find that the notion of side effect is inextricably wound up with the notion of identity. Dynamic scoping is retrospectively viewed as a restricted kind of side effect.</p>
+
+<p>第三部分考虑与分解状态相伴的问题。副作用被引入，作为影响如此分解的一个机制。我们发现，副作用的记号无法摆脱地与相等性的记号缠绕在一起。回想起来，动态范围被看作一种受限的副作用类别。</p>
+
+<p>With this we summarize and conclude with many tantalizing questions yet unanswered.</p>
+
+<p>带着这些，我们总结并给出结论，很多扰人的问题尚未有答案。</p>
+
+<p>In Part Three (in a separate paper) we will find that the
+introduction of side effects forces the issue of the order of evaluation of
+expressions. We will contrast call-by-name and its variants with call—by-
+value, and discuss how these control disciplines arise as a consequence of
+different models of packaging. In particular, call-by-name arises
+naturally from the syntactic nature of the Algol 60 copy rule. As before,
+many little interpreters for these disciplines will be exhibited. </p>
+
+<p>在第三部分(一个单独的论文)，我们将发现，副作用的引入将催生表达式求值的次序问题。我们将通过名称调用(call-by-name)及它的变体，与通过值调用，进行比较。然后讨论这些控制记录如何作为不同包建模的结果而产生。特别地，按名称调用自然地从Algol 60拷贝机制的语法属性中自然产生。正如以前，这些规则的很多小解释器也被展示出来。</p>
+
+<p>In Part Four we will be led to generalize the notion of a syntactic package. We will discuss meta-procedures, which deal with the representations of procedures. The distinction between a procedure and its representation will be more carefully considered. Macro processors, algebraic simplifiers, and compilers will be considered as meta-procedures. Various interpreters, compilers, and simplifiers will be exhibited.</p>
+
+<p>在第四部分，我们将导向推广语法包的记号。我们将讨论元过程，这处理过程的表示。过程及其表示的区分将被更加仔细地考虑。宏处理器，代数化简器和编译器，将被看做元过程。不同的解释器、编译器和化简器将被展示。</p>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1981,90 +2882,6 @@ Facebook, 微信, Flickr的图片分享</li>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/04/an-introduction-to-computer-vision/">An Introduction to Computer Vision</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-04-10T17:58:15+08:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>5:58 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.slideshare.net/alagala/computer-vision-with-android-google-gtug-bangkok-2011?qid=836f92da-83e3-478c-8ad5-63884666fa32&amp;v=qf1&amp;b=&amp;from_search=4">Computer Vision with Android (Google GTUG Bangkok 2011)</a></p>
-
-<p>YCbCr, 类似于彩色电视广播所用的YUV色空间，到RGB转化。
-人的视觉对亮度比对色相更敏感。</p>
-
-<p>灰度图像能从YCbCr直接转化得到，不需进一步处理。</p>
-
-<p>图像边缘探测 Image edge detection</p>
-
-<p>形态学morphology</p>
-
-<p>直方图分析</p>
-
-<p>人脸识别的三种方法：</p>
-
-<ul>
-  <li>EigenFaces</li>
-  <li>FisherFaces</li>
-  <li>Local Binary Paths Histogram(LBPH)</li>
-  <li></li>
-</ul>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/04/ble-beacons-ibeacons/">BLE Beacons iBeacons</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-04-09T18:00:43+08:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>6:00 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>BLE是低功耗蓝牙的意思：BlueTooth LE(low energy)。由于低功耗，电池寿命常。</p>
-
-<h4 id="promixity-vs-location">Promixity vs Location</h4>
-
-<p>定位是指物理位置。而Promixity是强调移动设备接近目标。</p>
-
-<p>Beacon是近场定位。 </p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/3">&larr; Older</a>
@@ -2082,6 +2899,14 @@ Facebook, 微信, Flickr的图片分享</li>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/03/chaos-communication-congress/">Chaos Communication Congress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/02/face-analysis/">Face Analysis</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/02/cifar10-on-tensorflow/">CIFAR-10 on Tensorflow</a>
       </li>
     
@@ -2091,14 +2916,6 @@ Facebook, 微信, Flickr的图片分享</li>
     
       <li class="post">
         <a href="/blog/2016/01/ssh-login-without-password/">Ssh登录避免输入密码</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/01/git-sock-proxy/">为git设置sock代理</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/the-revolution-of-commerce/">电子商务的下一步？</a>
       </li>
     
   </ul>

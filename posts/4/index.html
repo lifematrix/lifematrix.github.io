@@ -9,9 +9,7 @@
   <meta name="author" content="Steven Liu <stevenliucx@gmail.com>&#8221;>
 
   
-  <meta name="description" content="Likelihood(似然性)和Probalility(可能性)在机器学习和统计学中经常遇到，容易混淆。特别上网查询，以便澄清。 几种说法
-### Mathworld
-http://mathworld.wolfram.com/Likelihood.html Likelihood is the &hellip;">
+  <meta name="description" content="移动互联网近几年发展迅速，毋庸置疑，也会成为今后的主流趋势。相应地，针对移动端（手机、平板电脑…）的应用也越来越成为热门。移动端应用开发有两个思路，本地应用(native application)和Web解决方案(web solution)。关于这两者之间的优劣和前景一直争论不休。我赞同移动优先 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -85,6 +83,268 @@ http://mathworld.wolfram.com/Likelihood.html Likelihood is the &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/11/mobile-native-app-vs-web-app/">Mobile: Native Application vs Web Solution</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-11-05T15:31:40+08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:31 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>移动互联网近几年发展迅速，毋庸置疑，也会成为今后的主流趋势。相应地，针对移动端（手机、平板电脑…）的应用也越来越成为热门。移动端应用开发有两个思路，本地应用(native application)和Web解决方案(web solution)。关于这两者之间的优劣和前景一直争论不休。我赞同<a href="http://www.abookapart.com/products/mobile-first">移动优先 (Mobile First)</a>作者的观点：<strong>事实上，有很大理由，两者都需要考虑</strong>。下面就书中和相关文章的观点做总结介绍。</p>
+
+<h2 id="section">本地应用</h2>
+
+<h4 id="section-1">用户体验更好</h4>
+<p>因为本地应用运行在本地，它们能访问web应用无法访问到系统资源。这意味着，在本地应用中，画面过渡和交互通常都会更平滑。试图在浏览器中重现这些效果，会导致用户体验上明显的停顿和延迟。</p>
+
+<h4 id="section-2">便于访问本地硬件</h4>
+<p>本地应用可以更健壮地访问硬件设施，这在目前还无法通过移动web浏览器做到。
+* 关键的特性，如访问地址簿、SMS(短消息)、相机、声音输入(audio input)和内置的传感器，大多数都做不到。
+* 无法实现在后台运行进程
+* 无法通过移动端的App Store去变现(monetize)或app内的购买(in-app purchase)
+* 非本地应用无法加入App Store，因此难以出现在用户的移动设备屏幕上，这将不利于它被发现和持续地使用</p>
+
+<p><br />
+<em>所以，如果你的移动产品或业务需要很深的硬件访问、后台进程，app或in-app销售，或对移动设备更多集成的安排，那你可能需要一个本地解决方案。但这不并意味着，</em> <strong><em>你不需要一个移动web解决方案。</em></strong></p>
+
+<h2 id="web">Web解决方案</h2>
+
+<h4 id="access-">Access 可访问性</h4>
+<p>正如移动策略专家Jason Grigspy所说，<em>”Web链接不打开应用程序，而是指向网页(Web links don’t open apps, they go to web pages)“</em>。 无论是通过搜索、邮件、社交网络或Web页面，如果你有在线的内容，人们将发现和分享到它的链接。缺少移动web解决方案意味着，任何在移动设备上点击链接的人，将没有一个很棒的体验。本地移动应用对此爱莫能助。</p>
+
+<p>对于移动web体验，访问性甚至是最大的用户利益所在。即使你针对一个平台开发了本地应用，风险你不能针对每个平台做一个。Apple的iOS要求Objective C；Google的安卓要求Java；微软的Windows Phone 7依赖于silverlight；三星的Bada要求C++；RIM的黑莓，有Java, WebWorks和Adode Air解决方案。很少有公司能用所有这些技术构建些什么。而且，即便你能针对每个平台开发一个本地应用，维护它们的成本很快就令人望而却步。</p>
+
+<p>无论如何，增加web将可能是你最流行的移动体验。14%的Twitter会员使用移动web体验，想对比，8%使用本地iPhone应用，7%使用黑莓本地应用。剩下的本地移动应用，每个都少于5%的用户基数(<a href="https://blog.twitter.com/2010/evolving-ecosystem">资料来源</a>)。</p>
+
+<p><a href="https://blog.twitter.com/2010/evolving-ecosystem"><img src="http://hack.the-lifematrix.net/images/top_10_twitter_apps_by_unique_users.png" alt="" /></a></p>
+
+<p>Facebook情况类似，接近19%的帖子在移动web体验上完成，而Facebook本地的iPhone、安卓、黑莓应用每个只占了大约4%(<a href="http://danzarrella.com/new-data-on-mobile-facebook-posting.html#">资料来源</a>)。这说明访问性(任何地点)很重要(It turns out access (anywhere) goes a long way)。</p>
+
+<p><a href="http://danzarrella.com/new-data-on-mobile-facebook-posting.html#"><img src="http://hack.the-lifematrix.net/images/Mobile_Facebook_posting_clients.jpg" alt="" /></a></p>
+
+<h4 id="web-1">本地应用促进web使用</h4>
+<p>事实上，本地应用其实增加了移动设备上的web使用。每次在本地应用中分享和引用的链接，它就会在web的浏览器窗口打开。因此，更多的本地访问很快转化为更多的web使用。</p>
+
+<h4 id="section-3">便于更新、测试</h4>
+<p>移动web体验也不需要用户下载更新(对一个服务器的修正，就是对站点的修正)，这让你能经常地做多种设计选项的A/B测试或分桶测试(Bucket test)。<strong><em>如果这二者任何一个对你都至关重要，那么移动web应用会更有意义。</em></strong></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/web-design-trends-and-valuable-sites/">Web Design的趋势</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-10-30T14:55:26+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>30</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>2:55 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>虽然我的注意力主要在机器学习和服务端架构，但前端领域也在蓬勃地发展着，有很多激动人心的创意、新技术、富于洞见的设计理念和极致的美学体验。最近在网上发现一些有价值的文章，分享给大家。</p>
+
+<p><em><a href="http://www.hongkiat.com/blog/web-design-trends-2014/">Web Design: 20 Hottest Trends To Watch Out For In 2014</a></em> 是一篇很棒的文章，总结了本年度(2014)年在Web Design方面可去观察的20个热点。作者自身的设计水平就很高，了解业界的动态和趋势，掌握资料翔实。如下为译文，英文好的请直接阅读<a href="http://www.hongkiat.com/blog/web-design-trends-2014/">原文</a>。</p>
+
+<h2 id="web-design-20-hottest-trends-to-watch-out-for-in-2014">译文：Web Design: 20 Hottest Trends To Watch Out For In 2014</h2>
+
+<p>花几小时在线浏览不同网站后，你往往会找到一些设计上可辨识的趋势。过去几年，作者 <strong><em>(译者注：译文中的作者，指原文作者，下同)</em></strong> 一直在撰写关于变化趋势的文章，特别是在web站点布局和web应用领域。W3C规范的发展连同现代浏览器，已经打开了通往<strong>数字设计新时代(a new era of digital design)</strong>的大门。</p>
+
+<p>在本文，作者将分享20个成长中的趋势，希望看到它在2014年蓬勃发展。许多已经开始，有些才刚现曙光。检视新的趋势、看看<a href="http://www.hongkiat.com/blog/web-design-trend-2013/">它们能持续多久(how long they stick around)</a>，挺好玩的。在2014年浏览网站时，请密切关注任何正在发生的这些UI/UX <em>(译者注：User Interface/User Experience)</em> 的趋势(keep your eyes peeled for any of these UI/UX trends in action)。</p>
+
+<p>推荐阅读：<a href="http://www.hongkiat.com/blog/40-web-design-conferences-to-look-forward-to-in-2014/">40 Web Design Conferences To Look Forward To In 2014</a></p>
+
+<h3 id="grid-style-layouts-">1. Grid-Style Layouts 网格式布局</h3>
+<p>对网格设计的主流认识来自<a href="https://www.pinterest.com">pinterest</a>。社交网站的news feed过去常用流线型，比如twitter和Tumblr。现在象Facebook的许多页面将时间线更新散布为网格式。</p>
+
+<p>这并非说要强制老的网站这么做，而是要看目的是什么。<strong>用户体验</strong>总是首先被考虑的。在使用微缩图或文字更新的场合下，网格布局能将所有内容压缩到一个易于阅读的格式，让用户可以快速浏览。同时，页面内容可以保持一致且不占太多空间。</p>
+
+<p>诸如开源js库<a href="http://masonry.desandro.com">masonry</a>，可以帮你做大量繁重的工作。</p>
+
+<p>没有太多的网站利用这一特性，但凡使用的，经常让视觉很舒服。</p>
+
+<p><a href="http://masonry.desandro.com"><img src="http://hack.the-lifematrix.net/images/01-masonry-jquery-homepage.jpg" alt="Masonry web site" /></a></p>
+
+<h3 id="crafty-image-captions-">2. Crafty Image Captions 巧妙的图片标题</h3>
+<p>许多网站用图片画廊来展示商品的概要、相片、微缩图等。此文讲到了独特的<a href="http://www.hongkiat.com/blog/css3-image-captions/">CSS3图片效果</a>，其演示效果见<a href="http://demo.hongkiat.com/css3-image-captions/index.html">此页面</a>。使用图片标题(Image Caption)帮助网页访问者将更多信息与图片联系起来。而且，利用CSS3，你可以只历来浏览器自带的特性，而不需特别的javascript效果。</p>
+
+<p><strong>每个网站都应该使用自己的设计，来为读者提供便利（Each website should have its own design to provide benefit to the reader）</strong>。还有一个来自Codrops的教程关于<a href="http://tympanus.net/codrops/2013/05/02/automatic-figure-numbering-with-css-counters/">figure numbering with CSS3</a>。你可以构造标题风格的标签，自动添加到每页的图片 (或<a href="http://html5doctor.com/the-figure-figcaption-elements/">图形</a>) 上。</p>
+
+<h3 id="extended-form-elements-">3. Extended Form Elements 扩展表单元素</h3>
+<p>大多数前端开发者都了解jQuery的作用。它帮助你编写更平滑的JavaScript代码，而且更短小整洁。自由开源的jQuery插件有它的市场，现在的需求很旺盛。</p>
+
+<p><a href="http://www.unheap.com/section/inputs-forms/"><img src="http://hack.the-lifematrix.net/images/02-jquery-unheap-form-inputs.jpg" alt="" /></a></p>
+
+<p>围绕那些能<strong><em>增强用户体验</em></strong>的jQuery表单有特别的热情。这些效果包括浮动标签(floating labels)，输入校验(input validation)，指导性提示(guided tooltips)，几乎任何你可以想象到的。看一下<a href="http://www.unheap.com/section/inputs-forms/">Unheap form gallery</a>, 它编目了开源jQuery插件，你可以下载并在新项目中测试。</p>
+
+<h3 id="deeply-focused-landing-pages-landing">4. Deeply-Focused Landing Pages 深度聚焦的Landing页面</h3>
+<p>iOS App Store刚启动时，开发者们吵闹着要发布他们下一个创意。过了几年，我们已经有几百万个针对iOS+Android设备的应用。许多这样的App甚至有它们自己的同伴网站。</p>
+
+<p><a href="http://wipmessenger.com"><img src="http://hack.the-lifematrix.net/images/03-wip-messenger-iphone-app-homepage.jpg" alt="" /></a></p>
+
+<p>一些开发者经常购买一个域名，发布一个网站作为营销工具。这个点子后来已经扩展到包括移动游戏，开源脚本，智能手机App，事实上任何你能想到的数字产品。从根本上来说，对于鼓励潜在客户在购买前多了解产品，这些网页是必可不少的。</p>
+
+<p><a href="http://www.hongkiat.com/blog/mobile-app-landing-pages/">20 Gorgeous Mobile App Landing Pages</a></p>
+
+<p><em>译者注：关于landing page的解释见Wiki <a href="http://en.wikipedia.org/wiki/Landing_page">http://en.wikipedia.org/wiki/Landing_page</a></em></p>
+
+<h3 id="html5-">5. HTML5 视频播放器</h3>
+<p>虽然必要时，Flash仍有用处，但大多数Web开发者认同，Internet视频的未来是HTML5。高度推荐两个脚本：<a href="http://www.videojs.com/">Video.js</a> 和 <a href="http://mediaelementjs.com/">MediaElement.js</a>。第一个更简单，只局限于基本功能。</p>
+
+<p><a href="http://mediaelementjs.com/"><img src="http://hack.the-lifematrix.net/images/04-media-element-js-jquery-homepage.jpg" alt="" /></a></p>
+
+<p>Media Element为你构造自己的播放器设备计，提供了一些缺省的皮肤和更为优秀的文档。你也可以用此代码构造一个音乐或音频播放器。除过API之外，两个脚本都提供了文档。它们都是很好的js库。当你在未来的项目中需要<strong>自有主机的视频(self-hosted videos)</strong>时，请记着这些。</p>
+
+<p>也请阅读: <a href="http://www.hongkiat.com/blog/html5-videos-things-you-need-to-know/">10 Things Designers Need To Know About HTML5 Videos</a></p>
+
+<h3 id="d--transition-effects">6. 3D 渐变效果 (Transition Effects)</h3>
+<p>在过去的一年中，我已经从更多的网站中发现了一些创造性的3D动画。它们经常构建在一些页面中，其包含有动画效果的画廊、导航菜单和元素。3D效果可以用jQuery来创建，虽然CSS3正追赶过来。</p>
+
+<p>不用说，所有浏览器并没有完全支持动画，设计者必须小心不要在一个页面中使用太多的动画。然而如果你愿意尝试新事物，我强烈推荐搜索这样的 <a href="http://codepen.io/tag/3d/">3D animated code examples</a> 去把玩。</p>
+
+<h3 id="flat-design-elements-">7. Flat Design Elements 扁平化设计元素</h3>
+<p>在讨论web设计趋势时，不能忽略广泛应用的 <a href="http://www.hongkiat.com/blog/tag/flat-ui/">flat UI</a> 元素。CSS3允许设计者使用自然盒子阴影、文本阴影或圆角，创建更为平面的按钮。这一平面UI模式已经扩展到表单输入，甚至导航菜单。</p>
+
+<p>但是，在不久的未来，还有更多的可以期待。很多网站已经免费发布了 <a href="http://www.hongkiat.com/blog/long-shadow-flat-icons/">平面图标集(Flat icon sets)</a> 和 <a href="http://www.hongkiat.com/blog/webapp-design-resources/">GUI kits</a>。
+在本文作者的文章 <a href="http://www.hongkiat.com/blog/flat-design-resources/">guide to flat web design</a> 中，你可以找到一堆堆可免费下载的PSD/AI图像。从微软的Windows操作系统到Window Mobile Phone，地铁风格(metro-style)的布局已经普及了。</p>
+
+<p>也请阅读：<a href="http://www.hongkiat.com/blog/flat-ui-design-showcase/">Showcase Of Beautiful Flat UI Design</a></p>
+
+<h3 id="personal-portraits-">8. Personal Portraits 个人肖像</h3>
+<p>简单的个人概况网站(portfolio websites)也值得关注。你想传递一些关于你是谁、你曾在哪里的信息，并展示你的工作样例。为了让人们真正感兴趣，你需要建立人性的连接(human connection)。做到这点的最好途径之一，是在你页面的某个地方加入你相片的样张。</p>
+
+<p><a href="http://www.andreamann.com/"><img src="http://hack.the-lifematrix.net/images/05-andrea-mann-jazz-vocalist-homepage.jpg" alt="" /></a></p>
+
+<p><a href="http://www.andreamann.com/">Andrea Mann</a> 使用了一张占据主页很大幅面的相片。这也与更暗的背景融为一体，重新将色彩调为黑白灰度 (recolored to shades of B&amp;W)。尽管你不需要在你的网站上使用 <a href="http://www.hongkiat.com/blog/oversized-background-image-design/">大幅背景肖像(large background portraits)</a>，但这的确很奇妙。甚至在你主页上一个小的相片或about页面，也能让访问者瞥见你是谁。</p>
+
+<h3 id="svg-">9. SVG 图像或图标</h3>
+<p><a href="http://www.vectorstock.com">基于矢量的图形(vector-based graphics)</a> 不是建立在像素，而是建立在线和坐标上。通过数学公式将单独的形状(shape)组织起来，这允许你将矢量拉伸到任何尺寸。<a href="http://www.hongkiat.com/blog/scalable-vector-graphic/">SVG (Scalable Vector Graphics) 图像</a> 能容易被加工而不损失太多质量，在这个意义上有些像<a href="http://www.vectorstock.com">矢量图形</a>。</p>
+
+<p>最大的问题是所有浏览器对这些图像的支持度。许多人仍然使用IE(internet Explorer)的旧版本和其它遗留的浏览器。这是一个巨大的趋势，需要好几年掠过Internet才能到来(如果它没开始的话)。</p>
+
+<p><strong>也请阅读：<a href="http://www.hongkiat.com/blog/tag/scalable-vector-graphics/">More On Scalable Vector Graphics</a></strong></p>
+
+<p>如果你真的想开始，我可能推荐<a href="http://codepen.io/tag/svg">codepen</a>, 一个开放的社区驱动的IDE，让开发者在线分享他们的工作。<a href="http://snapsvg.io/">Snap.svg</a>是一个JavaScript库，致力于让多浏览器自然地支持SVG图像。这是有点更细节的主题，但如果你好奇，值得深入探索。</p>
+
+<h3 id="unique-web-copy-web">10. Unique Web Copy 唯一Web拷贝</h3>
+<p>Web开发中最酷的新特性之一是 <strong>@face-font申明</strong>。你能导入在本地或外部远端服务器的字体文件。这些字体在CSS中定义，你能在<strong>font-family</strong>属性引用它们，从而设计你的web页字体。</p>
+
+<p>这已经发展到包含<a href="http://www.hongkiat.com/blog/webfont-icons/">基于字体的图标(font-based icons)</a>，这里灵活的字体在页面上可以象文本一样被渲染。相比真实的图形可结合大量不同的颜色，这些图标的设计没那么优良。但是，简单地能在页面上定制化任何字体，就能让你的网站在人群中脱颖而出。</p>
+
+<h3 id="lazy-loading-animations-">11. Lazy-Loading Animations 延迟加载动画</h3>
+<p>主题森林(themeforest)有很多WordPress主题，它有一些应用到元素上的渐变效果，但只有在你将它们滚动到视图里才会出现动画。这些元素的表现和延迟加载图片相似，除过它们已经被加载到页面但被隐藏起来。</p>
+
+<p>使用JavaScript很容易探测到哪些元素在视图里，然后使用CSS3渐变或JavaScript来实现动画。</p>
+
+<p><a href="http://www.chartjs.org/"><img src="http://hack.the-lifematrix.net/images/06-chartjs-homepage-layout-script.jpg" alt="" /></a></p>
+
+<p>如果你想下滚动<a href="http://www.chartjs.org/">Chart.js</a>的页面，你将发现内容+图像的块，开始慢慢地消失在视线中(fade into view)。这个趋势大概不能节省带宽，除非你有意识地等到需要时将内容载入。这更多地是关于<strong>页面美学(about page aesthetics)</strong>，为你的访问者提供柔顺的界面(a sleek interface for you visitors)。</p>
+
+<h3 id="customized-image-galleries-">12. Customized Image Galleries 定制的图片画廊</h3>
+<p>JavaScript和CSS不断地集成，允许开发者创造独特的新项目。<a href="http://www.hongkiat.com/blog/image-slider-photoshop-jquery-nivo-slider/">Image Galleries</a>是一个已经持续数十年的趋势。步入2014年，我们可以期待甚至对<a href="http://www.hongkiat.com/blog/free-responsive-image-gallery/">旋转木马(dynamic carousels)</a>和图像光盒(Image lightboxes)更精彩的方案。</p>
+
+<p><a href="http://tympanus.net/codrops/2013/11/12/elastic-stack-elastic-dragging-interaction/"><img src="http://hack.the-lifematrix.net/images/07-elastic-stack-photos-tutorial.jpg" alt="" /></a></p>
+
+<p>提供一个小例子，看一下<a href="http://tympanus.net/codrops/2013/11/12/elastic-stack-elastic-dragging-interaction/">在codrops上这个最近的画廊教程</a>，它使用了弹性拖拽效果去在相片之间切换。这有点实验性的，但是你能看出开发者如何愿意推开边界，去看看什么是可能的。</p>
+
+<p>如果你喜欢这个概念，为什么不看下<a href="http://jquer.in/category/jquery-plugins-for-awesome-image-galleries/">jQuery画廊插件</a>呢？这将是开始学习的更快策略，随着时间，你甚至能构建你自己的画廊插件。</p>
+
+<h3 id="mega-navigation-menus-">13. Mega-Navigation Menus 巨大导航菜单</h3>
+<p>近年来，所有奇特的新导航种类都被测试和采用了。除过<a href="http://www.hongkiat.com/blog/tag/series-html5-css3-tuts/">HTML5/CSS3</a>规范，移动响应式Web是这方面的大头。有一个关于<a href="http://codepen.io/jreece/pen/ocjGI">mega navigation menus</a>很小却在增长的趋势，为了容纳内容和链接的大块，它做了扩充。</p>
+
+<p><a href="http://mashable.com/"><img src="http://hack.the-lifematrix.net/images/08-mashable-mega-dropdown-navigation.jpg" alt="" /></a></p>
+
+<p>这在以很大的容量发布许多独特内容的网站上，最为普遍。立即浮现脑海的，是在线杂志或web论坛。它的确占据了页面的一点空间，但它也给读者更宽广的选择去导航你的站点。</p>
+
+<p>在Smashing Magazine上偶然撞见的一篇相关文章，谈到有关 <a href="http://www.smashingmagazine.com/2013/03/27/navigation-mega-sites/">大型站点的导航菜单(navigation menus for mega-sites)</a> 的所有事情。概念是相似的，任何对这一趋势感兴趣的人，前面所提供的例子，都是好的起步点。</p>
+
+<h3 id="expanding-search-bars-">14. Expanding Search Bars 扩展搜索栏</h3>
+<p>回头一看，不能完全确定这一概念是否正在加速。但是，在你的布局中构造半隐藏或扩展的搜索栏(semi-hidden or expanding search bars)，正不断流行。用户点击放大镜图标，或点击进入表单本身，然后它扩展变宽，允许输入更多文本。</p>
+
+<p><a href="http://tympanus.net/codrops/2013/06/26/expanding-search-bar-deconstructed/"><img src="http://hack.the-lifematrix.net/images/09-expanding-search-bar-tutorial.jpg" alt="" /></a></p>
+
+<p>关于这个主题，Codrops编写了很出色的<a href="http://tympanus.net/codrops/2013/06/26/expanding-search-bar-deconstructed/">教程</a>，对任何开发者，就极具可读性。隐藏输入域的第一个用处是节省页面空间。你甚至可以在顶部隐藏表单，象导航菜单一样切换它上/下(toggle it up/down like a navigation menu)。这个技术在响应式布局中最为突出，但在甚至更大、更完整的设计中也包含了这些可适应的搜索域(adaptable search fields)。</p>
+
+<h3 id="featured-detail-lists-">15. Featured Detail Lists 有特色的详情列表</h3>
+<p>最近，在网站上发现的featured detail lists都放在一个<a href="http://blog.teamtreehouse.com/50-homepage-website-layouts-using-featured-details-icon-lists">设计展示</a>中。这是面向列表的详细资料，解释有关公司或产品的信息。详细资料经常连同一些图标来以更简洁的方式说明要点。</p>
+
+<p>这些详细资料列表已经成为很多主页的主要部分。汇集的有关产品或服务的任何信息，将让访问者愿意多看看。它对你提供一些洞见：提供什么内容给客户，及其如何一起工作(It gives some insight towards what you provide to customers and how it all works)。当快速滚动页面时，<a href="http://www.hongkiat.com/blog/category/free-icons/">图标</a>象糖霜(frosting)一样能吸引注意力。</p>
+
+<h3 id="mobile-first-design-">16. Mobile-First Design 移动优先设计</h3>
+<p>前阵子，<strong>Luke Wroblewski</strong>的书<a href="http://www.abookapart.com/products/mobile-first">Mobile First</a>给出这一观点。当浏览一个站点时，不太可能轻易地辨识设计过程是如果进行的。但这个想法是，首先对你的站点在移动屏幕上如何看起来象一个响应性布局去搭建雏形(mock-up)。消减所有多余的不成功的尝试、只保留尽可能少的基本要素(Eliminate all the excess fluff and keep only the bare essentials)。</p>
+
+<p>从这个观点看，将你的设计向上扩展到更为宽阔的屏幕，会非常容易。导航菜单更宽了，内容被拉长，还连同一个边栏(sidebar)。移动优先的设计将移动体验放在更高的优先级，这然后成为整个布局的基线(then becomes a baseline for the entire layout)。这个概念值得拥抱。希望设计者试着实践它，看看它如何影响设计的工作流和最终的结果。</p>
+
+<h3 id="html5--1">17. HTML5 画布</h3>
+<p>关于<a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/">画布元素(canvas element)</a>有很多可以讲的，这确实是一个研究的主题。使用JavaScript, 恰在HTML5里面就能创造出游戏或绘画应用。曾经见过，通过鼠标来<a href="http://thomasjbradley.ca/lab/signature-pad/require-drawn/">收集签名</a>的画布元素。</p>
+
+<p><a href="http://codepen.io/jackrugile/pen/Gving"><img src="http://hack.the-lifematrix.net/images/10-canvas-based-loader-animation.jpg" alt="" /></a></p>
+
+<p>上面的例子来自一个简单的codepen条目。有人发布一个有光泽的加载圈到Dribble(Someone posted a glossy loading circle onto Dribbble)，这个笔是使用画布元素的一个仿制。另一个例子是构建在HTML5画布和JavaScript上的这个小<a href="http://codepen.io/motorlatitude/pen/Aybmz">水平加载条(horizontal loading bar)</a>。这种可能性增长很快，我们兴奋地期待看看2~3年后这样的画布会是什么。</p>
+
+<h3 id="pixel-sprites--browser-games-">18. Pixel Sprites &amp; Browser Games 像素精灵和浏览器游戏</h3>
+<p>很象经典的视频播放器，<a href="http://www.hongkiat.com/blog/chrome-experiments-games/">浏览器游戏(browser games)</a>过去完全在Adobe Flash中制作。但是JavaScript已经在社区中获得立足点，很多开发者很高兴去发布这类项目的开放源码。</p>
+
+<p><a href="http://codepen.io/jkneb/details/smtHA"><img src="http://hack.the-lifematrix.net/images/11-pixel-sprite-game-example-codepen.jpg" alt="" /></a></p>
+
+<p>早先，作者有一篇文章，详细说明了<a href="http://www.hongkiat.com/blog/pixel-based-websites/">以像素为中心的web站点(pixel-centric websites</a>，它也能使用动画。这些设计不常见，但能抓住你的注意力。它需要很多设计天赋来创造如此精巧的像素艺术品。因此构建你自己的浏览器内的精灵游戏，将是一个甚至更大的挑战。</p>
+
+<p>刚入道时，最好的一个资源可以在<a href="http://html5gameengine.com/">HTML5 Game Engine</a>找到。这个站点罗列了很多自由的JavaScript库用于创建你自己的浏览器游戏。关于这个过程有很多可以学习的，但幸运地是，你能在Google中找到数以百计的教程。</p>
+
+<h3 id="quick-user-registration-">19. Quick User Registration 快速用户注册</h3>
+<p>有日益增加的创业公司和Web应用允许用户注册。事实上，许多服务要求你使用站点前先注册。在这个快节奏的世界，冗长的详细注册表单是极端令人扫兴的(tremendously off-putting)。</p>
+
+<p><strong>尽量让所有注册表单快捷并切题(Try to keep all registration forms quick and to the point)</strong>。很多更新的webapp恰在首页包含注册表单，以抓住尽可能多的访问者。这样当一个访问者对你的产品好奇，看了表单只有2~4项，就决定去注册。你可能会惊讶，这种策略对抓住新客户如此有效。</p>
+
+<p>也请阅读：<a href="http://www.hongkiat.com/blog/boosting-your-site-traffic-by-harnessing-your-subscribers-list/">Boosting Your Site Traffic By Harnessing Your Subscriber’s List</a></p>
+
+<h3 id="css3-animated-keyframes-">20. CSS3 Animated Keyframes 动画关键帧</h3>
+<p>自从新千年的早期，JavaScript就已是浏览器动画的主要选择。只到最近，CSS3才被主流采纳，开发者可使用@keyframe来制作他们自己的动画效果。</p>
+
+<p><a href="http://codepen.io/aidentailor/pen/bqfzt"><img src="http://hack.the-lifematrix.net/images/12-css3-keyframe-animation-loaders.jpg" alt="" /></a></p>
+
+<p>还有一个途径是使用<a href="http://css-tricks.com/almanac/properties/t/transition/">渐变属性(transition property)</a>，但是它针对动画只有一个状态，而关键帧(keyframes)表现得很像Adobe Flash。你设置一个从0%~100%的帧百分比值，定义随着时间改变的属性。最新的CSS3规范提供了足够的工具，让你以几乎任何喜欢的方式去给元素加上动画。</p>
+
+<h3 id="section">结语</h3>
+<p>较小的界面概念(smaller interface concepts)不是我们每天考虑的事情。但正是这些较小的重点让更聪明的网站布局得以诞生。希望本文能照亮一些设计趋势上，在未来的项目上我们将重点关注。如果本文对2014年的设计趋势有所遗漏，请在如下的评论区与我们分享。</p>
+
+<h1 id="section-1">其它的资源</h1>
+
+<p><a href="https://futureofwebdesign.com/nyc-2014/?utm_source=Future%20Insights&amp;utm_medium=Blog&amp;utm_campaign=Blog%20Event%20Widget">https://futureofwebdesign.com/nyc-2014/?utm_source=Future%20Insights&amp;utm_medium=Blog&amp;utm_campaign=Blog%20Event%20Widget</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -447,6 +707,14 @@ proved ensamble median: 0.98329(0.98448)。</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/03/chaos-communication-congress/">Chaos Communication Congress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/02/face-analysis/">Face Analysis</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/02/cifar10-on-tensorflow/">CIFAR-10 on Tensorflow</a>
       </li>
     
@@ -456,14 +724,6 @@ proved ensamble median: 0.98329(0.98448)。</p>
     
       <li class="post">
         <a href="/blog/2016/01/ssh-login-without-password/">Ssh登录避免输入密码</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/01/git-sock-proxy/">为git设置sock代理</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/the-revolution-of-commerce/">电子商务的下一步？</a>
       </li>
     
   </ul>
