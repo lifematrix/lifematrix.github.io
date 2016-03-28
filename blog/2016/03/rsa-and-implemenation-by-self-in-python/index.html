@@ -121,7 +121,8 @@
   <li>计算 $n = pq$, $n$作为公钥和私钥的模。它的长度，以比特位表示，就是秘钥的长度。</li>
   <li>计算 $\phi(n)=\phi(p)\phi(q)=(p-1)(q-1)=n-(p+q-1)$, $\phi$称为欧拉总计函数(<a href="https://en.wikipedia.org/wiki/Euler%27s_totient_function">Euler’s totient function</a>)。此处计算的值要隐蔽起来。</li>
   <li>选择一个整数$e$, 使得 $1&lt;e&lt;\phi(n)$, 且$e$与$\phi(n)$互质，也就是以及 $gcd(e, \phi(n))=1$。<a href="https://en.wikipedia.org/wiki/Greatest_common_divisor">gcd</a>是两数的最大公约数。</li>
-  <li>确定$d$， $d=e^{-1}(mod\ \phi(n))$。或者说求解 $d$，使得$d{\cdot} e{\equiv}1 (mod\ \phi(n))$</li>
+  <li>确定$d$， $d=e^{-1}(mod\ \phi(n))$。或者说求解 $d$，使得$d{\cdot} 。e{\equiv}1 (mod\ \phi(n))$</li>
+  <li>销毁$p,q,\phi(n)$的计算记录。</li>
   <li>私钥是$(n, d)$, 公钥是$(n,e)$。</li>
 </ol>
 
@@ -140,15 +141,19 @@
 <p>如果得到$m$，就可根据编码规则恢复原文$M$。</p>
 
 <h3 id="section-3">举例</h3>
-<p>#### 秘钥选择
-1. 选择两个不同的质数，比如 $p=47$, $q=73$
-2. 计算$n$,   $n=pq=3431$
-3. 计算欧拉总计函数，$\phi(n) = \phi(p)\phi(q)=(p-1)(q-1)=3312$
-4. 寻找$e$, 使得$1&lt;e&lt;\phi(n)$且$e$与3312互质的数。可以选定质数，然后只需验证其不是$\phi(n)$的余数即可。我们选择$e = 37$。
-5. 通过简单地搜索(顺序搜索即可)，得到 $d = 3133$，使得 $(37\cdot 3133) \equiv 1 \ mod(3312)$
-6. 私钥是$(n=3431, d=3133)$，公钥是$(n=3431, e=37)$</p>
 
-<h4 id="section-4">加密与解密</h4>
+<h4 id="section-4">秘钥生成</h4>
+
+<ol>
+  <li>选择两个不同的质数，比如 $p=47$, $q=73$</li>
+  <li>计算$n$,   $n=pq=3431$</li>
+  <li>计算欧拉总计函数，$\phi(n) = \phi(p)\phi(q)=(p-1)(q-1)=3312$</li>
+  <li>寻找$e$, 使得$1&lt;e&lt;\phi(n)$且$e$与3312互质的数。可以选定质数，然后只需验证其不是$\phi(n)$的余数即可。我们选择$e = 37$。</li>
+  <li>通过简单地搜索(顺序搜索即可)，得到 $d = 3133$，使得 $(37\cdot 3133) \equiv 1 \ mod(3312)$</li>
+  <li>私钥是$(n=3431, d=3133)$，公钥是$(n=3431, e=37)$</li>
+</ol>
+
+<h4 id="section-5">加密与解密</h4>
 
 <p>被加密的数字为$m$, 加密函数则为：</p>
 
@@ -161,6 +166,22 @@
 <p>$ D(c) = c^{3133} mod \ 3431$</p>
 
 <p>将$c=1016$带入，得$m=67$</p>
+
+<h3 id="section-6">正确性的证明</h3>
+
+<p>有两个方法来证明RSA算法，费马小定律(<a href="https://en.wikipedia.org/wiki/Fermat%27s_little_theorem">Fermat’s little theorem</a>)或欧拉定律(<a href="https://en.wikipedia.org/wiki/Euler%27s_theorem">Euler’s theorem</a>)。虽然RSA算法的作者们用费马小定律来证明，但费马小定律是欧拉定律的特例，用后者证明更为简洁。</p>
+
+<p>我们需要证明 $m^{ed} \equiv m \ mod \ n$，这里 $n=pq$是两个不同的素数的乘积。而$e, d$是两个正整数，满足$ed \equiv 1 \ mod\  \phi(n)$。</p>
+
+<p>证明如下：</p>
+
+<p>既然$ed$是正整数，它总可以写成 $ed = 1 + h \phi(n)$, $h$为某个非负整数。假设$m$与$n$互质，我们有：</p>
+
+<script type="math/tex; mode=display"> m^{ed} \equiv m^{1+h \phi(n)} \equiv m (m^{\phi(n)})^h \equiv m(1)^h \equiv  m \ mod\ n</script>
+
+<p>倒数第二个全等来自<a href="https://en.wikipedia.org/wiki/Euler%27s_theorem">欧拉定律</a>。</p>
+
+<h2 id="section-7">算法的实践</h2>
 
 </div>
 
