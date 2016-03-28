@@ -1,0 +1,274 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>RSA and Implemenation by Self in Python - Life Matrix</title>
+  <meta name="author" content="Steven Liu <stevenliucx@gmail.com>&#8221;>
+
+  
+  <meta name="description" content="Sahand saba 的文章 Basics of Cryptography Part I: RSA Encryption and Decryption描述了RSA算法在Python的实践。本文是自己理解，以及实践的过程。 什么是RSA算法 RSA可以是世界上最重要的加密算法，每个以https &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://hack.the-lifematrix.net/blog/2016/03/rsa-and-implemenation-by-self-in-python">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Life Matrix" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+
+  <!-- mathjax config similar to math.stackexchange -->
+  <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+       jax: ["input/TeX", "output/HTML-CSS"],
+       tex2jax: {
+          inlineMath: [ ['$', '$'] ],
+          displayMath: [ ['$$', '$$']],
+          procehssEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+       },
+       messageStyle: "none",
+       "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+     });
+   </script>
+   <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Life Matrix</a></h1>
+  
+    <h2>Hacking, Machine learning, Lisp</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:hack.the-lifematrix.net" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/resources">Resources</a></li>
+  <li><a href="/lisp-resource">Lisp Resource</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">RSA and Implemenation by Self in Python</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-03-22T11:25:20+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2016</span></span> <span class='time'>11:25 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><a href="http://sahandsaba.com">Sahand saba</a> 的文章 <a href="http://sahandsaba.com/cryptography-rsa-part-1.html">Basics of Cryptography Part I: RSA Encryption and Decryption</a>描述了RSA算法在Python的实践。本文是自己理解，以及实践的过程。</p>
+
+<h2 id="rsa">什么是RSA算法</h2>
+
+<p>RSA可以是世界上最重要的加密算法，每个以https://开头的网址，都是采用基于RSA的安全传输协议。可以说，没有RSA，也就没有可靠安全的网络传输。互联网和Web也不会取得如此巨大的发展。</p>
+
+<p>RSA是一种非对称加密算法，也就是加密的秘钥与解密的秘钥不同。公钥可以对外公布，信息用公钥加密，只有掌握私钥的一方才可解密。这就防止因加密的秘钥被盗，导致泄密的可能性。</p>
+
+<p>RSA的名字来自三位发明者名字的首字母： <a href="https://en.wikipedia.org/wiki/Ron_Rivest">Ron Rivest</a>,  <a href="https://en.wikipedia.org/wiki/Adi_Shamir">Adi Shamir</a>, <a href="https://en.wikipedia.org/wiki/Leonard_Adleman">Leonard Adleman</a>。</p>
+
+<p>RSA的安全性是基于极大数之因子分解极为困难，在目前的计算量上基本不可能。</p>
+
+<h3 id="section">秘钥产生</h3>
+
+<ol>
+  <li>找到两个不同的极大素数 $p$, $q$。</li>
+  <li>计算 $n = pq$, $n$作为公钥和私钥的模。它的长度，以比特位表示，就是秘钥的长度。</li>
+  <li>计算 $\phi(n)=\phi(p)\phi(q)=(p-1)(q-1)=n-(p+q-1)$, $\phi$称为欧拉总计函数(<a href="https://en.wikipedia.org/wiki/Euler%27s_totient_function">Euler’s totient function</a>)。此处计算的值要隐蔽起来。</li>
+  <li>选择一个整数$e$, 使得 $1&lt;e&lt;\phi(n)$, 且$e$与$\phi(n)$互质，也就是以及 $gcd(e, \phi(n))=1$。<a href="https://en.wikipedia.org/wiki/Greatest_common_divisor">gcd</a>是两数的最大公约数。</li>
+  <li>确定$d$， $d=e^{-1}(mod\ \phi(n))$。或者说求解 $d$，使得$d{\cdot} e{\equiv}1 (mod\ \phi(n))$</li>
+  <li>私钥是$(n, d)$, 公钥是$(n,e)$。</li>
+</ol>
+
+<h3 id="section-1">加密</h3>
+<p>假设Bob要讲信息$M$传给Alice。他首先按照某种字符集编码规则(比如Unicode)，将$M$转化为数字$m$，并通过padding scheme，使得$0\leq m \leq n$ 且 $gcd(m,n)=1$。如果文本过长，可以分成几块，分别加密。然后利用Alice的公钥$e$，计算每一块的密文：</p>
+
+<script type="math/tex; mode=display"> c \equiv m^e mod\ n</script>
+
+<p>然后将$c$传给Alice。</p>
+
+<h3 id="section-2">解密</h3>
+<p>Alice利用私钥$d$，从密文$c$中恢复出$m$，</p>
+
+<script type="math/tex; mode=display"> c^d \equiv (m^e)^d \equiv m\ mod\ n</script>
+
+<p>如果得到$m$，就可根据编码规则恢复原文$M$。</p>
+
+<h3 id="section-3">举例</h3>
+<p>#### 秘钥选择
+1. 选择两个不同的质数，比如 $p=47$, $q=73$
+2. 计算$n$,   $n=pq=3431$
+3. 计算欧拉总计函数，$\phi(n) = \phi(p)\phi(q)=(p-1)(q-1)=3312$
+4. 寻找$e$, 使得$1&lt;e&lt;\phi(n)$且$e$与3312互质的数。可以选定质数，然后只需验证其不是$\phi(n)$的余数即可。我们选择$e = 37$。
+5. 通过简单地搜索(顺序搜索即可)，得到 $d = 3133$，使得 $(37\cdot 3133) \equiv 1 \ mod(3312)$
+6. 私钥是$(n=3431, d=3133)$，公钥是$(n=3431, e=37)$</p>
+
+<h4 id="section-4">加密与解密</h4>
+
+<p>被加密的数字为$m$, 加密函数则为：</p>
+
+<p>$ E(m) = m^{37} mod\ 3431 $</p>
+
+<p>设 $m=67$, 带入得 $c=1016$。</p>
+
+<p>得密文$c$，解密函数为:</p>
+
+<p>$ D(c) = c^{3133} mod \ 3431$</p>
+
+<p>将$c=1016$带入，得$m=67$</p>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Steven Liu <stevenliucx@gmail.com></span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2016-03-22T11:25:20+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2016</span></span> <span class='time'>11:25 am</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://hack.the-lifematrix.net/blog/2016/03/rsa-and-implemenation-by-self-in-python/" data-via="" data-counturl="http://hack.the-lifematrix.net/blog/2016/03/rsa-and-implemenation-by-self-in-python/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2016/03/chaos-communication-congress-a-very-german-hacking-conference/" title="Previous Post: 混沌通讯会议：一场很德国的黑客大会">&laquo; 混沌通讯会议：一场很德国的黑客大会</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/03/rsa-and-implemenation-by-self-in-python/">RSA and Implemenation by Self in Python</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/03/chaos-communication-congress-a-very-german-hacking-conference/">混沌通讯会议：一场很德国的黑客大会</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/02/face-analysis/">Face Analysis</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/02/cifar10-on-tensorflow/">CIFAR-10 on Tensorflow</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/value-websites-in-book-exponential-organization/">《指数型组织》中提到的网站</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - Steven Liu <stevenliucx@gmail.com> -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

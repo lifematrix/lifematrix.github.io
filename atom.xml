@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2016-03-15T10:42:47+08:00</updated>
+  <updated>2016-03-28T12:01:56+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -12,6 +12,74 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[RSA and Implemenation by Self in Python]]></title>
+    <link href="http://hack.the-lifematrix.net/blog/2016/03/rsa-and-implemenation-by-self-in-python/"/>
+    <updated>2016-03-22T11:25:20+08:00</updated>
+    <id>http://hack.the-lifematrix.net/blog/2016/03/rsa-and-implemenation-by-self-in-python</id>
+    <content type="html"><![CDATA[<p><a href="http://sahandsaba.com">Sahand saba</a> 的文章 <a href="http://sahandsaba.com/cryptography-rsa-part-1.html">Basics of Cryptography Part I: RSA Encryption and Decryption</a>描述了RSA算法在Python的实践。本文是自己理解，以及实践的过程。</p>
+
+<h2 id="rsa">什么是RSA算法</h2>
+
+<p>RSA可以是世界上最重要的加密算法，每个以https://开头的网址，都是采用基于RSA的安全传输协议。可以说，没有RSA，也就没有可靠安全的网络传输。互联网和Web也不会取得如此巨大的发展。</p>
+
+<p>RSA是一种非对称加密算法，也就是加密的秘钥与解密的秘钥不同。公钥可以对外公布，信息用公钥加密，只有掌握私钥的一方才可解密。这就防止因加密的秘钥被盗，导致泄密的可能性。</p>
+
+<p>RSA的名字来自三位发明者名字的首字母： <a href="https://en.wikipedia.org/wiki/Ron_Rivest">Ron Rivest</a>,  <a href="https://en.wikipedia.org/wiki/Adi_Shamir">Adi Shamir</a>, <a href="https://en.wikipedia.org/wiki/Leonard_Adleman">Leonard Adleman</a>。</p>
+
+<p>RSA的安全性是基于极大数之因子分解极为困难，在目前的计算量上基本不可能。</p>
+
+<h3 id="section">秘钥产生</h3>
+
+<ol>
+  <li>找到两个不同的极大素数 $p$, $q$。</li>
+  <li>计算 $n = pq$, $n$作为公钥和私钥的模。它的长度，以比特位表示，就是秘钥的长度。</li>
+  <li>计算 $\phi(n)=\phi(p)\phi(q)=(p-1)(q-1)=n-(p+q-1)$, $\phi$称为欧拉总计函数(<a href="https://en.wikipedia.org/wiki/Euler%27s_totient_function">Euler’s totient function</a>)。此处计算的值要隐蔽起来。</li>
+  <li>选择一个整数$e$, 使得 $1&lt;e&lt;\phi(n)$, 且$e$与$\phi(n)$互质，也就是以及 $gcd(e, \phi(n))=1$。<a href="https://en.wikipedia.org/wiki/Greatest_common_divisor">gcd</a>是两数的最大公约数。</li>
+  <li>确定$d$， $d=e^{-1}(mod\ \phi(n))$。或者说求解 $d$，使得$d{\cdot} e{\equiv}1 (mod\ \phi(n))$</li>
+  <li>私钥是$(n, d)$, 公钥是$(n,e)$。</li>
+</ol>
+
+<h3 id="section-1">加密</h3>
+<p>假设Bob要讲信息$M$传给Alice。他首先按照某种字符集编码规则(比如Unicode)，将$M$转化为数字$m$，并通过padding scheme，使得$0\leq m \leq n$ 且 $gcd(m,n)=1$。如果文本过长，可以分成几块，分别加密。然后利用Alice的公钥$e$，计算每一块的密文：</p>
+
+<script type="math/tex; mode=display"> c \equiv m^e mod\ n</script>
+
+<p>然后将$c$传给Alice。</p>
+
+<h3 id="section-2">解密</h3>
+<p>Alice利用私钥$d$，从密文$c$中恢复出$m$，</p>
+
+<script type="math/tex; mode=display"> c^d \equiv (m^e)^d \equiv m\ mod\ n</script>
+
+<p>如果得到$m$，就可根据编码规则恢复原文$M$。</p>
+
+<h3 id="section-3">举例</h3>
+<p>#### 秘钥选择
+1. 选择两个不同的质数，比如 $p=47$, $q=73$
+2. 计算$n$,   $n=pq=3431$
+3. 计算欧拉总计函数，$\phi(n) = \phi(p)\phi(q)=(p-1)(q-1)=3312$
+4. 寻找$e$, 使得$1&lt;e&lt;\phi(n)$且$e$与3312互质的数。可以选定质数，然后只需验证其不是$\phi(n)$的余数即可。我们选择$e = 37$。
+5. 通过简单地搜索(顺序搜索即可)，得到 $d = 3133$，使得 $(37\cdot 3133) \equiv 1 \ mod(3312)$
+6. 私钥是$(n=3431, d=3133)$，公钥是$(n=3431, e=37)$</p>
+
+<h4 id="section-4">加密与解密</h4>
+
+<p>被加密的数字为$m$, 加密函数则为：</p>
+
+<p>$ E(m) = m^{37} mod\ 3431 $</p>
+
+<p>设 $m=67$, 带入得 $c=1016$。</p>
+
+<p>得密文$c$，解密函数为:</p>
+
+<p>$ D(c) = c^{3133} mod \ 3431$</p>
+
+<p>将$c=1016$带入，得$m=67$</p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[混沌通讯会议：一场很德国的黑客大会]]></title>
@@ -3816,7 +3884,7 @@ if $x$ then $y$ else $z$</p>
 
 <p>原文：<a href="http://queue.acm.org/detail.cfm?id=1039523">http://queue.acm.org/detail.cfm?id=1039523</a>, <a href="http://dl.acm.org/ft_gateway.cfm?id=1039523&amp;ftid=297449&amp;dwn=1"><img src="http://hack.the-lifematrix.net/images/common/icon_pdf.png" alt="" /></a></p>
 
-<p>译者：lifematrix[<a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#115;&#116;&#101;&#118;&#101;&#110;&#108;&#105;&#117;&#099;&#120;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;">&#115;&#116;&#101;&#118;&#101;&#110;&#108;&#105;&#117;&#099;&#120;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;</a>]</p>
+<p>译者：lifematrix[<a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#115;&#116;&#101;&#118;&#101;&#110;&#108;&#105;&#117;&#099;&#120;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;">&#115;&#116;&#101;&#118;&#101;&#110;&#108;&#105;&#117;&#099;&#120;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;</a>]	</p>
 
 <p>ACM相关链接：<a href="http://queue.acm.org/listing.cfm? qc_type=interviews&amp;page_title=Interviews">访谈</a>,  <a href="http://queue.acm.org/listing.cfm?item_topic=Programming%20Languages&amp;qc_type=theme_list&amp;filter=Programming%20Languages&amp;page_title=Programming%20Languages&amp;order=desc">编程语言</a></p>
 
@@ -4478,64 +4546,6 @@ Facebook, 微信, Flickr的图片分享</li>
 互联网的应用不同于OLTP的特点。一次写入，多次读出；写后一般不会修改；数据以添加的方式写入。</p>
   </li>
 </ol>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Color Space]]></title>
-    <link href="http://hack.the-lifematrix.net/blog/2015/04/color-space/"/>
-    <updated>2015-04-28T11:07:51+08:00</updated>
-    <id>http://hack.the-lifematrix.net/blog/2015/04/color-space</id>
-    <content type="html"><![CDATA[<p>Primary Color
-	Color, Blue, and Yellow</p>
-
-<p>Secondary Color
-	Orange, Green and Violet </p>
-
-<p>Tertiary Color
-	Red-Orange, Yellow-Orange, Yellow-Green, Blue-Green, Blue-Violet and Red-Violet</p>
-
-<p>Neutral Color: 不带色彩的颜色。白、黑、灰</p>
-
-<p>Achromatic color 没有色彩。它们包含：白、黑和灰。中性色改变所有色彩的密度和值。</p>
-
-<h3 id="scheme">Scheme</h3>
-
-<h4 id="monochromatic-color-scheme">Monochromatic Color Scheme(单色主题)</h4>
-<p>由任何颜色或中性色的色泽(tint), 色调(tone)和阴影的复合。</p>
-
-<h4 id="analogous-color-scheme">Analogous Color Scheme(相似色主题)</h4>
-<p>在色轮中，相互毗邻的3组颜色组成。</p>
-
-<h4 id="extended-analogous-color-scheme">Extended Analogous Color Scheme(扩展的相似色主题)</h4>
-<p>在色轮中，相互毗邻的4组颜色组成。</p>
-
-<h4 id="complementary-color-scheme">Complementary Color Scheme(互补色主题)</h4>
-<p>在色轮中，相对的两组颜色组成。</p>
-
-<h4 id="split-complementary-color-scheme">Split Complementary Color Scheme(分离互补色主题)</h4>
-<p>由一组颜色与它相对处毗邻的两组颜色组成。</p>
-
-<h4 id="triadic-color-scheme">Triadic Color Scheme(三色系主题)</h4>
-<p>由色轮中等距相隔的三组颜色组成。</p>
-
-<h4 id="section">对比色</h4>
-
-<h3 id="hsv">HSV</h3>
-
-<ul>
-  <li>Value(颜色值)：指一个颜色的相对亮度(brightness)或暗度。</li>
-  <li>Saturation(or purity, 饱和度或纯度)：描述一个颜色有多纯。一个纯粹的颜色是干净而明亮的(clear and bright)，增加黑让它变模糊和暗(muddy and dark)，给它一个阴影。加白让颜色被冲洗(washed out)或着色(tinted)。</li>
-</ul>
-
-<h3 id="section-1">色温</h3>
-<p>颜色可以分为两类：</p>
-
-<ul>
-  <li>暖色(aggressive, 前进色)：红、黄、棕</li>
-  <li>冷色(receding, 后退色)：绿、蓝、紫</li>
-</ul>
 
 ]]></content>
   </entry>
