@@ -127,7 +127,9 @@
 
     <p>VOLUME_NAME是磁盘卷名，不能带引号。卷名可以用命令 <code>diskutil list</code> 或 <code>df -h</code> 查询。除过卷名，还可以用卷的UUID，查UUID的命令是：</p>
 
-    <pre><code>``diskutil info /Volumes/VOLUME_NAME | grep UUID``
+    <pre><code>``
+diskutil info /Volumes/VOLUME_NAME | grep UUID
+``
 </code></pre>
   </li>
   <li>

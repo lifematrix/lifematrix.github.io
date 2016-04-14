@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2016-04-14T11:56:18+08:00</updated>
+  <updated>2016-04-14T11:57:49+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -43,7 +43,9 @@
 
     <p>VOLUME_NAME是磁盘卷名，不能带引号。卷名可以用命令 <code>diskutil list</code> 或 <code>df -h</code> 查询。除过卷名，还可以用卷的UUID，查UUID的命令是：</p>
 
-    <pre><code>``diskutil info /Volumes/VOLUME_NAME | grep UUID``
+    <pre><code>``
+diskutil info /Volumes/VOLUME_NAME | grep UUID
+``
 </code></pre>
   </li>
   <li>
