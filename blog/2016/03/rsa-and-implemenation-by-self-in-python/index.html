@@ -121,7 +121,7 @@
   <li>计算 $n = pq$, $n$作为公钥和私钥的模。它的长度，以比特位表示，就是秘钥的长度。</li>
   <li>计算 $\phi(n)=\phi(p)\phi(q)=(p-1)(q-1)=n-(p+q-1)$, $\phi$称为欧拉总计函数(<a href="https://en.wikipedia.org/wiki/Euler%27s_totient_function">Euler’s totient function</a>)。此处计算的值要隐蔽起来。</li>
   <li>选择一个整数$e$, 使得 $1&lt;e&lt;\phi(n)$, 且$e$与$\phi(n)$互质，也就是以及 $gcd(e, \phi(n))=1$。<a href="https://en.wikipedia.org/wiki/Greatest_common_divisor">gcd</a>是两数的最大公约数。</li>
-  <li>确定$d$， $d=e^{-1}(mod\ \phi(n))$。或者说求解 $d$，使得$d{\cdot} 。e{\equiv}1 (mod\ \phi(n))$</li>
+  <li>确定$d$， $d=e^{-1}(mod\ \phi(n))$。或者说求解 $d$，使得$d{\cdot} e{\equiv}1 (mod\ \phi(n))$</li>
   <li>销毁$p,q,\phi(n)$的计算记录。</li>
   <li>私钥是$(n, d)$, 公钥是$(n,e)$。</li>
 </ol>
@@ -183,6 +183,40 @@
 
 <h2 id="section-7">算法的实践</h2>
 
+<p>如下我们将用Python来实现RSA密码系统。正如我们看到的，每个实现的片段都和数学及计算机科学中充分研究的领域相关。</p>
+
+<h3 id="section-8">秘钥产生和素数检测</h3>
+
+<p>作为开始，生成秘钥需要先产生两个素数$p$, $q$。我们上面已经注意到如何$n=pq$过于小，则入侵者会轻易将其分解，从而得到$\phi(n)$，进而计算出$d = e^{-1} mod\ \phi(n)$。密码就被破解了。因此，我们需要$n$，也就是$p$、$q$足够大。</p>
+
+<p>为了得到大素数$p$，首先要确定素数所需的bits数。这是决定密码体系强度的关键参数。我们可以先看看<a href="https://www.baidu.com/">百度</a>和淘宝(https://www.taobao.com/)在它们安全TLS连接中所使用密钥的强度。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">OpenSSL&gt; s_client -connect baidu.com:443
+</span><span class="line">[...]
+</span><span class="line">New, TLSv1/SSLv3, Cipher is ECDHE-RSA-AES128-GCM-SHA256
+</span><span class="line">Server public key is 2048 bit</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">OpenSSL&gt; s_client -connect taobao.com:443
+</span><span class="line">[...]
+</span><span class="line">New, TLSv1/SSLv3, Cipher is ECDHE-RSA-AES128-GCM-SHA256
+</span><span class="line">Server public key is 2048 bit</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>都是2048bit的强度。</p>
+
+<p>为了产生一个$b$比特的素数$p$，我们首先产生b比特位的随机数，然后手工地为头和尾加上“1”，确保此数大于 $2^{b-1}$（我们不想意外选中$3$，那怕概率有多小）且是奇数。让$t$代表前面随机比特位代表的数字，我们从$i=0$开始一直往上，检查 $t+i$是否为素数。只要遇到一个素数，我们就令它等于$p$。在进行一些尝试后，放弃一些区间，通常会比较好。为了行之有效，我们需要考虑素数定律(<a href="http://en.wikipedia.org/wiki/Prime_number_theorem">Prime Number Theorem</a>)，令$\pi(n)$代表小于或等于$n$的素数的个数，则：</p>
+
+<script type="math/tex; mode=display">\lim_{n=1}^{\infty} \frac{\pi(n)}{\ln(n)}=1</script>
+
+<p>换言之，对于正整数$n$，大约有$ln(n)$个等于小于$n$的素数。$n$越大，这个估算越准确。</p>
+
 </div>
 
 
@@ -218,6 +252,8 @@
         <a class="basic-alignment left" href="/blog/2016/03/chaos-communication-congress-a-very-german-hacking-conference/" title="Previous Post: 混沌通讯会议：一场很德国的黑客大会">&laquo; 混沌通讯会议：一场很德国的黑客大会</a>
       
       
+        <a class="basic-alignment right" href="/blog/2016/04/notes-on-how-google-works-1/" title="Next Post: 《谷歌如何运作》笔记一">《谷歌如何运作》笔记一 &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -229,6 +265,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/04/notes-on-how-google-works-1/">《谷歌如何运作》笔记一</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2016/03/rsa-and-implemenation-by-self-in-python/">RSA and Implemenation by Self in Python</a>
@@ -244,10 +284,6 @@
     
       <li class="post">
         <a href="/blog/2016/02/cifar10-on-tensorflow/">CIFAR-10 on Tensorflow</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/01/value-websites-in-book-exponential-organization/">《指数型组织》中提到的网站</a>
       </li>
     
   </ul>

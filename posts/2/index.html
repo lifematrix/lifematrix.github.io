@@ -9,10 +9,7 @@
   <meta name="author" content="Steven Liu <stevenliucx@gmail.com>&#8221;>
 
   
-  <meta name="description" content="第一部分：变量范围
-Part One
-Variable Scoping Disciplines Procedures as Data The simple LISP described in Part Zero can be a pleasant medium for
-encoding &hellip;">
+  <meta name="description" content="本文的主要内容来自Paul Graham的《ANSI Common Lisp》，以及作者自己的思考。 计算和编程语言 人类的进化，总是试图将智能带进物质，让物质按照人的期望去做事。其一是实用性目的，能替代人的重复性工作或难以做到的工作，让人的生活水准提高，或步入更高的创造层次。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -86,6 +83,220 @@ encoding &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/10/why-learn-lisp/">为什么学习Lisp?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-08T10:38:18+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:38 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><em>本文的主要内容来自Paul Graham的<a href="http://www.paulgraham.com/acl.html">《ANSI Common Lisp》</a>，以及作者自己的思考。</em></p>
+
+<h2 id="section">计算和编程语言</h2>
+
+<p>人类的进化，总是试图将智能带进物质，让物质按照人的期望去做事。其一是实用性目的，能替代人的重复性工作或难以做到的工作，让人的生活水准提高，或步入更高的创造层次。其二是人性固有的好奇心，求知的渴求和成就感的满足。将智能带入物质，是个不断进化的过程。从最初的机械式自动化设备，比如钟表、抽水马桶、纺织机械等，到现在的计算机。进化的越高端，智能越能直接通过物质去表达。</p>
+
+<p>智能也包括很多层次，最基础和最低端，是逻辑。计算机的出现，得以让逻辑直接物质上去表达。计算机提供指令，完成基本的逻辑和数字运算。编程语言，是人与计算机沟通的方式。编程语言抽象层次越高，越接近人的思维。抽象层次越低，越接近机器指令。利用编程语言，编写较高层次的逻辑，就是软件。计算机，让人类可以在逻辑层次而非物理层面去创造，这就是所谓的软件–逻辑产品。</p>
+
+<p>人类思维的本质，喜欢内在的秩序，如果事物过于纷乱，无法找到规律或秩序，人就会难以驾驭它。当然某些混乱，并不意味着失控，而是更大更高秩序的展现。如果有太多复杂和详细的逻辑要表达，人就会难以理解，以至于出现思维的失误，具体到软件上，就是BUG。</p>
+
+<p>例如，如果汇编语言来编写WORD这样的软件，其工作量将增加几十倍。如果我们将软件团队的所有成员，看成一个更大的大脑。那么，这个大脑在处理复杂逻辑上，有其极限。达到临界点时，增加人手，会让沟通成本增加，反而降低效率。为了处理复杂的逻辑，或编写更为庞大精巧的软件，就必须在较高的层次去思考、设计和编码。这就是编程语言的重要性。<strong>编程语言决定了对问题的思考方式</strong>。</p>
+
+<p>一旦人不需要直接去创造物理产品，而着力创造逻辑产品的时候，人的思维就会从物理的束缚中解脱出来，达到更大的自由度。所以软件的开发、升级、创新，会呈现出越来越大的活力。每个生活领域、每个商业分支等，都会有很多逻辑可以用软件来表达，由此人类生活的各个方面都会有软件渗透进去，编程语言会起到更大的作用。</p>
+
+<p>所以，编程语言自身的进化和发展，代表了人类对逻辑的表达能力的提升。从汇编、到C、到java，抽象度在提高，软件可以编写地更为复杂、巨大。</p>
+
+<p>一个好的语言，要具备这几点：</p>
+
+<ul>
+  <li>表达力</li>
+  <li>核的精炼</li>
+  <li>扩展的丰富</li>
+  <li>性能</li>
+  <li>开发效率</li>
+</ul>
+
+<p>表达力指语言的抽象能力，对事物的概括能力。精炼的核，保证了语言本质的简洁，容易理解和掌握。扩展的丰富，代表了语言的适应力和不断进化的能力。性能，指语言的实现在物理机器上运行的效率。开发效率，包括写代码的速度、错误率等。</p>
+
+<p>通过Graham的介绍，Lisp就是这样优秀的语言。</p>
+
+<h2 id="lisp-">Lisp 的特点</h2>
+
+<p>John McCarthy在1960年代左右发明了Lisp语言。继Fortran之后，Lisp是仍在使用的最古老的语言。更值得注意的是，Lisp仍然处于编程语言技术的前沿。懂Lisp的程序员会告诉你，Lisp的有些东西把它和别的语言区分开。</p>
+
+<p>Lisp语言的独特性，部分源于它被设计为<strong>可进化</strong>的语言。你可以利用Lisp来定义新的操作符。当新的抽象变得流行时(例如，面向对象编程)，它总是能在Lisp轻易实现。就像DNA，这样的语言不会过时。</p>
+
+<h3 id="section-1">新的工具</h3>
+
+<h4 id="section-2">语法闭包</h4>
+
+<p>学习Lisp是因为它能让你做在其它语言中做不了的事情。如果你只想让语言做一些简单的事，比如写一个函数，返回小于$n$的所有数之和，那么Lisp和C差别不大。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="Lisp"><span class="line"><span class="c1">; Lisp</span>
+</span><span class="line">
+</span><span class="line"><span class="p">(</span><span class="nb">defun</span> <span class="nv">sum</span> <span class="p">(</span><span class="nv">n</span><span class="p">)</span>
+</span><span class="line">  <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">s</span> <span class="mi">0</span><span class="p">))</span>
+</span><span class="line">    <span class="p">(</span><span class="nb">dotimes</span> <span class="p">(</span><span class="nv">i</span> <span class="nv">n</span> <span class="nv">s</span><span class="p">)</span>
+</span><span class="line">      <span class="p">(</span><span class="nb">incf</span> <span class="nv">s</span> <span class="nv">i</span><span class="p">))))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+</pre></td><td class="code"><pre><code class="C"><span class="line"><span class="cm">/* C */</span>
+</span><span class="line"><span class="kt">int</span> <span class="nf">sum</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
+</span><span class="line">	<span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class="line">	<span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span class="line">		<span class="n">s</span> <span class="o">+=</span> <span class="n">i</span><span class="p">;</span>
+</span><span class="line">	<span class="k">return</span> <span class="n">s</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>如果你想写一个函数，它接收参数$n$，返回一个将任何数加$n$的函数。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="Lisp"><span class="line"><span class="p">(</span><span class="nb">defun</span> <span class="nv">addn</span> <span class="p">(</span><span class="nv">n</span><span class="p">)</span>
+</span><span class="line">  <span class="nf">#&#39;</span><span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span>
+</span><span class="line">      <span class="p">(</span><span class="nb">+</span> <span class="nv">x</span> <span class="nv">n</span><span class="p">)))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+<p>那么C就做不到了。</p>
+
+<p>你可能会想，为什么没有人曾经这么想呢？<em>编程语言叫你不要去想那么语言提供不了的东西</em>。为了在语言之中写程序，你必须在语言之中思考。比如，很多人开始用Basic写程序，就不会去想递归，因为在Basic中就没有递归这回事。他只能考虑迭代算法。</p>
+
+<p>上面的例子，叫词法闭包(lexical closures)，Lisp程序员一直在使用，但是在其它语言中却看不到。</p>
+
+<h4 id="section-3">同象性</h4>
+
+<p>Lisp另一个更有价值的特点是，其代码和数据具有相同的结构，亦或代码用数据结构的形式表达。这意味着，程序员通过操作数据，就可以形成新的代码。也就是，可以能编写程序的程序。这在Lisp中，通过宏来实现。</p>
+
+<p>通过宏、闭包和运行时类型，Lisp超越了面向对象编程。</p>
+
+<h3 id="section-4">新的技术</h3>
+
+<p>Lisp所带有的新事物 – 自动内存管理，明显的类型化，闭包等等，都会让编程更容易。这些组合在一起，就形成临界质量，让新的编程方式成为可能。</p>
+
+<p>Lisp设计为可以扩展的：它允许你自己定义新的运算符。扩展Lisp并不比用它写程序更困难。事实上，这很容易(而且如此有用)，以至于成为Lisp编程的标准实践。正如你可以写程序向下通向语言，你也可以构建语言向上通向你的程序。你自底向上工作，正如自顶向下。</p>
+
+<p>几乎任何程序都能从裁剪语言适应它的需要中获益，但是程序越复杂，自底向上的编程就越有价值。一个自底向上的程序，可以写成一系列的层，每一个作为上一层的一种编程语言。TEX是最早以这种方式写出的程序。你可以在任何语言中以自底向上的方式写程序，但Lisp是这种方式最为自然的工具。</p>
+
+<p>自底向上编程自然地产生了可扩展的软件。如果你采用了自底向上的编程原理一直到你程序的最顶层，那么这一层就会成为给用户的编程语言<em>(注：如果最上层是自然语言，那就意味着软件可以和用户对话了，哈哈)</em>。因为扩展性的想法如此根植于Lisp之中，使得它成为编写可扩展软件的理想语言。1980年代最成功的软件中有三个，都提供Lisp作为扩展语言：Gnu Emacs, Autocad 和 Interleaf。</p>
+
+<p>自底向上工作，也是获得可复用软件的最佳途径。编写可复用软件的核心是，将普遍和特殊分开。自底向上编程本质上就创造了这样一种分离。不是将你的精力全部放在单一的、庞大的应用上，你将你的部分精力用于构造语言，部分（成比例的相应小一些）用于在其上编写应用。对这个应用特殊的地方，将集中在最顶层。其下的层将形成一个语言，来写这样的应用。什么能够比编程语言更具复用性的？</p>
+
+<p>Lisp 不但允许你编写更为精巧的程序，也能让你更快地编写。Lisp程序常常短小 – 语言给你了更大的概念，所以不必用那么多。正如Frederick Brooks指出的，写程序花的时间绝大多数取决于它的长度。但就这个事实，写Lisp程序需要的时间更少。这个效果被Lisp的动态特征放大了：在Lisp中，编辑-编译-测试的循环是如此简短，以至于编程是实时的。</p>
+
+<p>更高的抽象和交互式环境能改变组织开发软件的方式。<strong>快速原型</strong>术语描述了开始于Lisp的一种编程方式：在Lisp中，你能花比写规约更少的时间来写原型。而且，这个原型是如此抽象，相比用英语写下来的规约，它是更好的规约。Lisp允许你从原型到生产性软件的平滑过渡。当Common Lisp程序在编写时留意速度，并用现代编译器编译，它们能运行地像用任何其他高层次编写的程序一样快。</p>
+
+<h3 id="section-5">新的策略</h3>
+
+<p>Lisp使得一种新的编程策略成为可能。这一策略将在未来更常看到。随着编程环境更加强大，语言变得更为抽象，Lisp风格的编程将逐渐取代旧有的计划-实施模式(plan-implement model)。</p>
+
+<p>在旧的模式中，Bug从不假设会发生。详尽的规约，提前煞费苦心地做出来，被假定能保证程序可以完美地运行。这在理论上听起来很好。不幸地是，规约也是由人书写且实施的。实际上，计划-实施模式的效果并不那么好。</p>
+
+<p><em>(注：规约也是人写的，也会出错，而且因为是文字性的，其错误更不易排查，只能通过同行不断评审来保证。换句话说，自然语言本就不适合描述逻辑。需求可能需要用文字来描述。规约，或者软件功能特征的定义，可以用原型的方式来表达。当然，有些特性的逻辑层次较深，不是操作原型一下子就能看到。这是辅以文字说明是必要的。也就是增加原型说明的文档。)</em></p>
+
+<p>作为OS/360项目的经理，Fredericks Brooks 对传统策略很熟悉，对其结果也很了如指掌：</p>
+
+<pre><code>任何OS/360的用户都知道，它本应该更好些...而且，交付延迟了，
+它使用了比计划更多的内存，成本比预计高了几倍，直到多个发行版之后才运行良好
+</code></pre>
+
+<p>这就是对那个时代最成功之一的软件系统的描述。</p>
+
+<p>旧模式的问题是忽略了人性的弱点。在旧模式中，你打赌规约中没有包含任何严重的缺陷，实现它们只是简单地翻译成代码。经验显示这是个糟糕的赌注。更安全的打赌是，规约会被误导，代码中满是bug。</p>
+
+<p>这恰就是新的编程模型所假定的。与其希望人们不犯错，不如努力让出错的成本降低。错误的成本是修正它需要的时间。如果有强大的语言和良好的编程环境，成本就会极大降低。由此，编程风格就较少地取决于计划，更多依赖于探索(exploration)。</p>
+
+<p>计划是必要的恶：它是对风险的反应。一件事危险越大，事先计划就越重要。强大的工具降低了风险，因此也降低了对计划的需要。然后，你程序的设计就能从可能是最有价值的可用信息源中获益 – 实施它的经验。</p>
+
+<p>自从1960年代，Lisp风格就在这个方向上进化。你能在Lisp中如此之快地写出原型，以至于你能经历几次设计和实现的迭代，而在旧的模型中，你才刚刚写完规约。你不用过于担心设计缺陷，因为你能马上发现它们。而且你不用担心有太多的bug。<strong>当你用函数风格编程时，bug只会有局部影响(When you program in functional style, bugs can only have local effects)</strong>。当你使用非常抽象的语言，有些bug(例如悬空指针，dangling pointers)将不再可能。剩下的也会很容易发现，因为你的程序更为简短。当你有个交互环境，你能立即修正bug，而不用忍受编辑、编译和测试的漫长周期。</p>
+
+<p>Lisp风格进化了这种方式，因为它奏效。听起来很奇怪，较少的计划意味着更好的设计。技术的历史充满了类似的案例。绘画中一个相似的改变，发生在15世纪。在油画流行之前，画家们使用一种介质，称为蛋清颜料(tempera)，它不能被掺杂或涂掉重画。出错的成本很高，这常常让画家变得保守。然后出现了油画，这在风格上是极大的变化。油彩允许二次思考(Oil “allows for second thoughts”)。这提供了决定性优势去处理诸如人物肖像这样有难度的题材。</p>
+
+<p>新的介质并没有让画家的日子轻松一些。它让崭新的、更有进取心的绘画方式变为可能。Janson写到：</p>
+
+<pre><code>没有油彩，佛兰芒画师们对视觉现实的征服将受到很大限制。因此，也从技术角度看，
+他们值得被成为“现代绘画之父”。因为，从那时起，油彩就成为画家的基本颜料。
+</code></pre>
+
+<p>就材料而言，蛋清颜料并不比油彩差。但是油彩的灵活性给了想象力更大的空间 – 这是决定性因素。</p>
+
+<p>编程如今也在经历类似的变化。新的媒介被成为“面向对象的动态语言”，简言之，Lisp。这并不是说我们所有的软件在几年里都会用Lisp去编写。从蛋清颜料到油彩的变迁，没有在一夜之间完成。开始，油彩只是在领先的艺术中心流行，经常会与蛋清颜料组合使用。我们现在就处于这个阶段。Lisp用在大学、研究实验室和少数前沿的公司。同时，从Lisp中借用的想法越来越多地出现在主流：交互式编程环境、垃圾回收、运行时类型等，不一而足。</p>
+
+<p>更强大的工具正在将风险从探索中拿掉。对于程序员来说，这是好消息，这意味着我们能着手更为进取心的目标。油画的使用已经说明了这一效果。紧随它的采用，绘画史上的黄金时代来临了。已经有信号出来，类似的事情将发生在编程中。</p>
+
+<h2 id="lisp">Lisp于当下</h2>
+
+<p>Paul Graham 的书写于1996年，20年过去了，Lisp并没有成为编程语言的主流。不过, 他所阐述的Lisp的优点的确都大量被其它编程语言采用。</p>
+
+<p>1990年代Web的出现将编程带入新的时代。之前更多的是单机运行的系统。在Web环境下，代码更新到服务器端就意味着发布，所以不经编译的解释性语言会加快测试-修正-发布的循环。而且，Web的前端要求内容与逻辑的集成，PHP这种将代码嵌入HTML中的解释性语言就大为流行(也包括Asp.net, JSP等)。其它的解释性语言如Perl, Python, Ruby也在不同社区蓬勃发展。</p>
+
+<p>垃圾回收或自动内存管理，已经被Java和.Net等广泛采用。</p>
+
+<p>那么Lisp为什么没有成为主流，为大多数程序员所接受呢？作者的分析是：</p>
+
+<ul>
+  <li>
+    <p>Lisp的学习曲线比较陡，不是快速上手的语言。Lisp的编程思维，与通常的过程化编程有很大的不同。过程化编程，更多地表达的是一种平铺式的线性逻辑。用过程化思维编程，代码量大且代码复用率低，但是当开发者素质不高时，这种方法反而便于任务的分解和沟通，达到快速开发。而Lisp则需要极高的抽象能力，对开发者水平要求很高，相互间要在高层次上沟通。所以Lisp适合于比较有生命力的、复用度高、逻辑复杂的产品类开发，一次开发，长期使用。而传统的过程化语言，适合于短平快的项目型开发。</p>
+  </li>
+  <li>
+    <p>Lisp的优势，不在于直接用它去编写某个应用领域的程序。而是通过宏、闭包等工具，构建新的语言，这种语言有较高的抽象度，能更直接地描述应用领域中的问题。这样之后的编程量和错误率，都会大为减少(换言之，抽象度越高、代码量越小的程序，编写地越快而且错误率越低)。虽然这个思路是正确而有效的，但缺乏有经验的开发者这样去做。</p>
+  </li>
+  <li>
+    <p>Lisp在国内的计算机科学教育中缺少足够的重视。很多技术人员只追踪流行的技术，而缺少技术本质的了解。就象<a href="http://hack.the-lifematrix.net/blog/2015/06/a-conversation-with-alan-kay/">Alan Kay所说</a>，很多计算机的本科教育成了Java培训。</p>
+  </li>
+  <li>
+    <p>采用Lisp编程，由于需要人的素质高，不适于短平快的项目。所以在注重速度的互联网时代，很难被商业公司选择。</p>
+  </li>
+</ul>
+
+<p>技术总在发展。Lisp虽然没有成为主流，但它的基因和生命力还在。在未来，Lisp能否扩大它的影响力？笔者认为是可能的。</p>
+
+<ul>
+  <li>
+    <p>Web快速发展，产生了很多快速开发的方法，但都属于过渡性技术。比如HTML，javascript，PHP。如何让Web页面更具交互性，如何将内容和逻辑合理地分离，如何适应移动端的Web应用开发，以及Web应用与本地应用的结合，都会对技术提出更高的要求。我们已经到了需要清晰、规范、合理的Web开发模式的时候，HTML5和CSS3都是这方面的尝试。但是，仍感觉是过度性的，尤其CSS3。</p>
+  </li>
+  <li>
+    <p>未来需要一些高质量的平台或框架类的产品，尤其是针对问题域提供高度抽象的语言，Lisp会有用武之地。</p>
+  </li>
+  <li>
+    <p>随着Lisp的传播，当更多高水平开发者认识到Lisp的价值，会用Lisp开发出来一些“杀手级”产品。</p>
+  </li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -3648,126 +3859,6 @@ if $x$ then $y$ else $z$</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/05/big-data-system-1/">Why Big Data System?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-05-08T10:38:19+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:38 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://nathanmarz.com">Nathan Marz</a> 的新书 <a href="http://manning.com/marz/">Big Data</a> 对大数据系统及Lambda架构有深入和详尽的讨论。加上自己对数据库使用的多年经验和思考，准备写一组博文，作为读书笔记和思考总结。</p>
-
-<h2 id="section">为何大数据</h2>
-
-<p>大数据是与互联网相伴而生的。传统的应用系统和数据库，都是针对企业层面的应用，而且主要用于事务处理。企业也只是占据整个市场的一定份额，因此数据量有限。而由于网络的规模效应，在互联网上更容易产生“赢者通吃”的结果，所以互联网企业往往面对的是社会化的普遍需求，用户数、数据量和访问量都巨大。大数据表现在：</p>
-
-<ul>
-  <li>
-    <p>数据量大</p>
-
-    <p>用户数少则几百万，上千万，过亿很普遍。随着商业的繁荣、市场细分和个性化需求的挖掘，商品数SKU，经常达到几十万。日均交易上千万笔。
- 搜索引擎的网页数据库，也达到几千TB。</p>
-  </li>
-  <li>
-    <p>访问量
- 无论是读取(浏览、查询)还是写入(修改、增加)</p>
-  </li>
-  <li>数据多样化
- 除过通常的交易类数据，还有：
-    <ul>
-      <li>文档</li>
-      <li>网页
-搜索引擎的网页缓存</li>
-      <li>图片
-Facebook, 微信, Flickr的图片分享</li>
-      <li>视频</li>
-      <li>搜索引擎的索引数据库
- 这些都不是RDBMS擅长管理的。</li>
-    </ul>
-  </li>
-  <li>数据处理方式
-除过事务型处理外，还有批量处理，如机器学习、在线学习、流式处理等。</li>
-</ul>
-
-<h2 id="section-1">为什么需要大数据系统</h2>
-
-<p>大家对关系型数据库(RDBMS)并不陌生。早期的商业系统主要为了处理交易，比如银行存取款、证券交易、销售、采购、订票等。这也称为OLTP(在线事务处理)系统。其对数据操作的特点是，基于索引定位的单记录(少数记录)操作较多，读写随机，而且高并发性，数据记录的改变反映了资源的变化、状态的迁移或相关活动的触发。OLTP属于业务关键性应用，所以数据的一致性、并发控制和容错，至关重要。而RDBMS比较完美地解决了OLTP对持久化存储的需要，因而占据了主导地位。RDBMS有很多共性：</p>
-
-<ul>
-  <li>逻辑结构
-    <ul>
-      <li>基于关系代数的逻辑结构和建模方法</li>
-      <li>SQL结构化查询语言</li>
-    </ul>
-  </li>
-  <li>数据一致性保证
-    <ul>
-      <li>事务处理</li>
-      <li>锁机制</li>
-      <li>日志</li>
-    </ul>
-  </li>
-  <li>容错
-    <ul>
-      <li>数据文件镜像</li>
-      <li>备份与恢复</li>
-      <li>高可用性复制</li>
-    </ul>
-  </li>
-</ul>
-
-<p>那么为什么会有大数据和NoSQL数据库的出现呢？这就要说到RDBMS的局限，因为它是基于关系代数设计的：</p>
-
-<ol>
-  <li>
-    <p>由于关系代数强调的是遵循范式和数据一致性，所以在性能上不是最优的。数据文件存放在磁盘上，而磁盘IO速度远低于内存速度，很多数据库的优化都不得不绕过范式，实现更快的性能。</p>
-  </li>
-  <li>
-    <p>关系性建模要求一开始就把数据模型确定下来，随后的调整很费力。但随着迭代式开发模式的普及，数据结构需具灵活性、易于调整。而且有些数据不适合以关系模型去描述，比如key-value、文档数据库等。</p>
-  </li>
-  <li>
-    <p>对于批量处理的应用，如数据仓库、数据挖掘和机器学习等，数据库事务控制会增加很大的开销，但又不是必须的。</p>
-  </li>
-</ol>
-
-<p>而且，传统的RDMBS实际上是单机系统。虽然RDMBS也有集群版本，但所有的集群必须共享一个存储源(通常是磁盘阵列)。无论有再多的服务器，RMDBS只有一个日志系统、一个统一的事务控制。就好比一个人不能有两个脑袋。从CAP定理来看，RDBMS保证了一致性(Consistency)和可用性(Availability)，但因此必须牺牲分区容受性(Patition Tolerance)。)这致使RDMBS面对大数据时，就会捉襟见肘。</p>
-
-<ol>
-  <li>
-    <p>数据量的局限
-互联网应用的数据达到TB、PB级，不是单机可以存储的。即便通过数据分片，将数据物理地分散在多个存储设备上，也有存储设备本身的限制。而传统的磁盘阵列价格高昂。</p>
-  </li>
-  <li>
-    <p>吞吐量的限制
-无论数据如何分散到多个存储设备，整个数据库还是有中心控制机制。这必然造成锁、消息队列等关键资源的瓶颈，限制了并发性。换言之，传统的RDBMS是中心化的设计，和去中心化设计的思路是相反的。只有去中心化后，才能实现分区化。</p>
-  </li>
-  <li>
-    <p>应用特点不同
-互联网的应用不同于OLTP的特点。一次写入，多次读出；写后一般不会修改；数据以添加的方式写入。</p>
-  </li>
-</ol>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/3">&larr; Older</a>
@@ -3785,6 +3876,10 @@ Facebook, 微信, Flickr的图片分享</li>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/04/notes-on-how-google-works-1/">《谷歌如何运作》笔记一</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/03/rsa-and-implemenation-by-self-in-python/">RSA and Implemenation by Self in Python</a>
       </li>
     
@@ -3798,10 +3893,6 @@ Facebook, 微信, Flickr的图片分享</li>
     
       <li class="post">
         <a href="/blog/2016/02/cifar10-on-tensorflow/">CIFAR-10 on Tensorflow</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/01/value-websites-in-book-exponential-organization/">《指数型组织》中提到的网站</a>
       </li>
     
   </ul>
