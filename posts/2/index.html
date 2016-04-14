@@ -9,7 +9,7 @@
   <meta name="author" content="Steven Liu <stevenliucx@gmail.com>&#8221;>
 
   
-  <meta name="description" content="本文的主要内容来自Paul Graham的《ANSI Common Lisp》，以及作者自己的思考。 计算和编程语言 人类的进化，总是试图将智能带进物质，让物质按照人的期望去做事。其一是实用性目的，能替代人的重复性工作或难以做到的工作，让人的生活水准提高，或步入更高的创造层次。 &hellip;">
+  <meta name="description" content="IT技术的飞速发展、不断升级换代，一方面的确给这个行业带来极大的活力和机会，但也给业者带来知识老化和智力投资过时的困惑。 但是，我们的确看到有很多成功的软件产品，它们跨越了技术快速发展的短周期，而在相当长的时间跨度下，保持产品的稳定和不断演进，并与新技术共舞，不断完善自己，变得更为完美。例如TEX &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +83,145 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/10/talk-about-tex/">由TEX想到的</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-15T11:02:49+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:02 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>IT技术的飞速发展、不断升级换代，一方面的确给这个行业带来极大的活力和机会，但也给业者带来知识老化和智力投资过时的困惑。</p>
+
+<p>但是，我们的确看到有很多成功的软件产品，它们跨越了技术快速发展的短周期，而在相当长的时间跨度下，保持产品的稳定和不断演进，并与新技术共舞，不断完善自己，变得更为完美。例如TEX，计算机科学家Donald Knuth于1970年代研发出的数学排版软件。他的初衷是发现自己撰写的论文在数学期刊印刷出来后，不够美观，而且当时没有很好的计算机排版软件，于是就自己着手研究开发。TEX及其扩展LaTex，至今仍被广泛地应用在专业期刊和书籍的出版，并作为插件被几乎被所有包含数学公式的网页和文档所采用。</p>
+
+<p>作者自己十多年数学研究生时，使用LaTex撰写学位论文。当时积累有关LaTex的知识和经验，现在仍然可以用到。所以倍感亲切，知识没有老化和浪费。</p>
+
+<p>《黑客与画家》的作者Paul Graham，在介绍为什么学习Lisp时，讲到通过定义针对应用域的语言，来达到高复用性，并将TEX作为典范。TEX提供了易学、清晰、可读性高的排版语言，让作者在撰写的过程中，就完成了排版，避免了反复沟通和校对的过程。</p>
+
+<p>Knuth 在文章<a href="http://projecteuclid.org/DPubS?service=UI&amp;version=1.0&amp;verb=Display&amp;handle=euclid.bams/1183544082">Mathematical Typography</a>中讲到了他的思路。</p>
+
+<pre><code>数学书籍和期刊没有它们以往看起来那样好看。这不是因为它们的内容不
+够好，而是因为过去且良好排版的传统过于昂贵。幸运地是，现在看来数
+学本身可以用来解决这个问题。
+
+方案的第一步是设计方法来清晰地表达数学手稿，让它们能容易地被机器
+操作。这样的语言，如果恰当设计，作者及其打字员能很快学习，而且这
+个手稿能为印刷机直接产生高质量的印版，几乎不需要人工介入。
+
+方案的第二步是利用经典数学来设计字体和符号的形状。例如，它能够给出
+字母“a"准确形状的严格定义，使得通过改变单一定义中的少数几个参数，
+能够得到无限多的风格(黑体、扩展、衬线、斜体等等)。当类似的方法用到
+其它字母和符号时，我们得到了字体的数学定义，一个可以在今天和未来的
+计算机里使用的定义。这个策略的显著特征就是，新的符号能轻而易举地添
+加进来，并能自动地和原有的保持一致。
+</code></pre>
+
+<p>Knuth的系统，在开发中得到了斯坦福的同事和学生的帮助，包含三个组成部分：</p>
+
+<ol>
+  <li>TEX 排版引擎</li>
+  <li>METAFONT 字体设计系统</li>
+  <li>计算机的现代书体(Computer Modern Typefaces)</li>
+</ol>
+
+<p>Knuth后来将TEX的代码公开，如今<a href="https://latex-project.org/lppl/">LaTex项目</a>是最成功的自由软件之一。</p>
+
+<h3 id="section">系统组成</h3>
+<p>#### TEX 排版引擎</p>
+
+<p>排版语言的关键，是如何将二维的公式用一维的操作序列来表示，从而可以传输给计算机去处理。Knuth在文中列出了三种可能的方案，而最终选择了Type T，这就是我们熟知的TeX排版语言。</p>
+
+<p><img src="http://hack.the-lifematrix.net/images/what-learn-from-tex/three-approaches.png" alt="" /></p>
+
+<p>此语言有几个优点：</p>
+
+<ul>
+  <li>采用自由体的语法，对空白字符没有特殊要求。这样会避免很多人为的语法错误，在传输和跨系统兼容上也比较好。目前的HTML，XML也采用这种方式。</li>
+  <li>能够处理普通文本，以及嵌入其中的数学公式。这样适用性广。</li>
+  <li>助记符含义清晰、符合英文习惯，易于学习，比如\sqrt, \theta, \over</li>
+  <li>保留字很少，主要是特殊的符号\,{},^,_</li>
+</ul>
+
+<p>TEX排版的主要想法是读入排版语言写成的手稿文本，构造出盒子(boxes)。一种字体的一个字符，或者一个黑色的长方形块，是最小的盒子，就象原子一样，而水平或垂直方向的一系列盒子(一行或一列)，就象是“分子”。这样的一行，组成的盒子，进而构成一本书中典型的一页。</p>
+
+<p>水平或垂直方向的一组盒子，用称作“胶水”的“弹性灰浆”分隔开。两个盒子之间的胶水，用三个分量来表达$(x,y,z)$，都是指长度：</p>
+
+<ul>
+  <li>$x$, 空白分量，是这些盒子之间理想或正常的空白</li>
+  <li>$y$, 延展分量，允许的额外空白的量</li>
+  <li>$z$, 收缩分量，如果需要可以安全移去的空白</li>
+</ul>
+
+<p>在一个单词内的字母$x=y=z=0$，表示前后字母紧挨着。单词之间的间距，可以令$x$等于字母e的宽度，$y=x$, $z=x/2$，代表间距可以延展或收缩。</p>
+
+<p>排版的一个重要任务，是确定一段文字要分成几行，称为断行(line division)。通常的断行，是一行接着一行处理。断完一行后，前行的结果与段落后面的部分没有关系。一个更好的方式是，将整个段落作为整体来考虑。Knuth的文章，设定了badness，相当于优化算法中的损失函数。断行的问题就转化为：</p>
+
+<pre><code>给定一段文字以及允许断行的所有位置，寻找一组断点，
+让badness的平方和最小化。
+</code></pre>
+
+<p>如果一个段落有$n$个可以断行的点，就会有$2^n$个可能的方式去断行。这个计算复杂度很好。所幸的是，有一个技术能将$2^n$复杂度降低到$n^2$，这就是动态规划(dynamic programming)的数学方法。</p>
+
+<h4 id="metafont-">METAFONT 字体设计系统</h4>
+
+<p>在设计字体时，一种策略是将现有的字体拍照下来，再数字化。但Knuth觉得，他当时没有合适的照相机等设备来做这些。不过，更关键的是，他觉得“拷贝”的方法没有切中问题核心。他说到一个轶事，最早传到东方的计算尺在侧面有个小污点，结果日本早期造的计算尺在相同的位置都有一个无用的黑点。所以要”拷贝实质而非形式”(We should copy the substanc rather than the form)。他认为正确的问题，不是去问“如何拷贝那些已经设计好的字体”，而是问“<strong><em>过去伟大的字体设计家如果现在还活着，他们会如何为新设备(注：指计算机)设计字体？</em></strong>”。</p>
+
+<p>Knuth研究了字体设计的历史。发现在15世纪开始，即文艺复兴时期，出现了用尺规作图的几何方式来设计字体。</p>
+
+<p><img src="http://hack.the-lifematrix.net/images/what-learn-from-tex/ruler-compass-construction.png" alt="" /></p>
+
+<p>但后来的历史表明，这种几何方法设计的字体比较丑陋，而且主要用于大写字母。不过，在往后的几百年，出现了一些新的进展，也给数学化字体设计提供了基础。</p>
+
+<p>Knuth采用3次样条函数的方式描述曲线，以及模拟书法家写字的过程，对笔和墨水的宽度加以描述。所以，META有别于轮廓字体，更不同于点阵字体。它描述了笔的中心经过的曲线，以及伴随笔的移动，所允许的笔的形状。这个方法的主要优势是，可以产生无限多内在一致的相关字体族。如下图，通过调整参数就可以产生各种字体(罗马、粗体、无衬线、无衬线粗体、打印体…)。</p>
+
+<p><img src="http://hack.the-lifematrix.net/images/what-learn-from-tex/fonts-family.png" alt="" /></p>
+
+<p>METAFONTS 还要解决从连续到离散的问题，字体需要在屏幕上显示，或者要以离散格栅的形式显示，以便照排印刷。一个直接的方法是，先按照无限的精度画出字母，再按实际的分辨率，将每个足够黑的正方形取整为一个黑色的像素。但是，以字母m为例，这会造成，本来同宽的三竖，数字化后粗细不一、间距不等。所以，实际的做法是，先将”笔“数字化，并设计更为平滑的”取整“方法。</p>
+
+<p>下图是字体参数相同但分辨率不同，在格栅上的显示。</p>
+
+<p><img src="http://hack.the-lifematrix.net/images/what-learn-from-tex/different-resolution.png" alt="" /></p>
+
+<h2 id="section-1">思考</h2>
+
+<p>一个技术如果一直没有被取代，有两种可能。一是技术过于老化，但是人们没能找到革新的方法，只好忍受它。二是它已经很好地解决了所在领域的问题，在长期内很好地服务领域用户，这被称为“杀手级”的产品。显然，TEX属于后者。</p>
+
+<p>Knuth从自己实际工作的痛点出发，对相关问题进行研究，并创造性地运用数学的工具来对问题进行描述，得到非常完美的解决方案。这不得不让人敬佩。这才是真正的计算机科学家。最后，小结一下TEX给我们的启发。</p>
+
+<ul>
+  <li>从实际的痛点出发，痛点代表真实的需求</li>
+  <li>系统化、完整化地解决问题</li>
+  <li>数学是建模、信息处理以及算法设计的强大宝库</li>
+  <li>好的系统：核心的稳定和外围的扩展</li>
+  <li>通过设计域特定语言(DSL)来达到极大的复用度和灵活性</li>
+  <li>必须考虑跨平台</li>
+  <li>建立用户群，不断接收用户反馈，完善和升级产品</li>
+  <li>必要时，将软件开源或发布为自由软件，以获得更多的社区参与力量，保持项目的生命力</li>
+</ul>
+
+<p>关于最后一点，LaTex现在已经成为自由软件，由社区去维护，保持了巨大的活力。某种程度上，它已经成为全世界的智慧资产。如果开发的系统达到这个程度，也是很欣慰的。好的自由软件，比如Linux，都会达到这一步。</p>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -3771,94 +3910,6 @@ if $x$ then $y$ else $z$</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/05/big-data-system-2/">Lambda Architechture</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-05-20T17:03:39+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>5:03 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2 id="what-is-data-system">What is Data System</h2>
-
-<p>query = function(all data)</p>
-
-<h2 id="section">大数据系统的要求</h2>
-
-<p>一个数据系统，就是要向应用提供数据的存储、加工、修改和查询的系统。<a href="http://manning.com/marz/">Big Data</a>一书中，总结大数据系统必须满足如下要求：</p>
-
-<ul>
-  <li>容错性
-包含两方面，物理容错性和人为容错性
-    <ul>
-      <li>物理容错性
-由于允许数据分区，也就是分布式存储。那不可避免有些机器会宕机或者系统软件等出现故障，导致其不可访问。局部的错误，不会导致整体系统不可访问。</li>
-      <li>人为容错性
-程序可能有bug, 对数据进行错误的修改。那么应该有办法恢复，然后用修正后的程序重新计算。</li>
-    </ul>
-  </li>
-  <li>
-    <p>可扩展性
-这是一个广泛使用，但容易引起混淆的概念。这里指的是，通过增加资源，系统在更大负载下，保持性能的能力。尽管系统有扩展性，但<strong>线性扩展性</strong>，才是有意义的。如果是与负载呈平方或者四次方的扩展性，是不实用的。</p>
-  </li>
-  <li>
-    <p>低延迟的读或修改
-绝大多数应用对于读，需要很小的延迟，在几毫米到几百毫秒。而对于修改的延迟，不同的应用要求不同，从几毫秒到几小时不等。</p>
-  </li>
-  <li>
-    <p>普遍性(Generalization)
-一个普遍的系统应能支持很大范围的应用，比如财务管理系统、社交媒体分析、科学应用、社交网络等等。</p>
-  </li>
-  <li>
-    <p>延展性(Extensibility)
-可延展的系统，允许以较小的开发成本增加新的特性或功能。</p>
-  </li>
-  <li>
-    <p>维护最小化(Minimal maintenance)</p>
-
-    <p>维护是对开发者收的税。维护是为了确保系统平滑运行而需要做的工作。最小化维护量的一个重要举措，是选择部署复杂度尽可能小的部件。</p>
-  </li>
-  <li>
-    <p>可调试性(Debuggability)</p>
-
-    <p>一个大数据系统必须在出错时，提供必要的信息来调试系统。其关键是能够追踪，对于系统中的每个值，恰恰是什么导致了这个值。</p>
-  </li>
-</ul>
-
-<h2 id="lambda-">Lambda 架构</h2>
-
-<p>本书主要是介绍Lambda架构，作为大数据的新范式，见下图：</p>
-
-<p><img src="../images/bigdata/LambdaArchitecture.png" alt="" /></p>
-
-<p>Lambda架构认为，</p>
-
-<ul>
-  <li>batch view = function(all data)</li>
-  <li>realtime view = function(realtime view, new data)</li>
-  <li>query = function(batch view. realtime view)</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/3">&larr; Older</a>
@@ -3876,7 +3927,11 @@ if $x$ then $y$ else $z$</p>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2016/04/notes-on-how-google-works-1/">《谷歌如何运作》笔记一</a>
+        <a href="/blog/2016/04/how-to-make-mac-os-write-ntfs-volume/">Mac系统下如何让NTFS磁盘卷可写</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/04/notes-on-how-google-works-1/">《谷歌如何运作》笔记一：前言</a>
       </li>
     
       <li class="post">
@@ -3889,10 +3944,6 @@ if $x$ then $y$ else $z$</p>
     
       <li class="post">
         <a href="/blog/2016/02/face-analysis/">Face Analysis</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/02/cifar10-on-tensorflow/">CIFAR-10 on Tensorflow</a>
       </li>
     
   </ul>
