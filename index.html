@@ -122,11 +122,16 @@
     <p>卸载第三方NTFS软件，如Paragon, Tuxera 或 NTFS-3G</p>
   </li>
   <li>
-    <p>修改文件 <em>/etc/fstab</em>,  可用命令 <code>sudo vi /etc/fstab</code>。 添加行: <br />
- <code>
+    <p>修改文件 <em>/etc/fstab</em>,  可用命令 <code>sudo vi /etc/fstab</code>。 添加行:   </p>
+
+    <p><code>
  LABEL="VOLUME_NAME" none ntfs rw,auto,nobrowse
-</code> 
-    VOLUME_NAME是磁盘卷名，不能带引号。卷名可以用命令 <code>diskutil list</code> 或 <code>df -h</code> 查询。除过卷名，还可以用UUID来指定卷，通过命令 <code>diskutil info /Volumes/VOLUME_NAME | grep UUID</code>来查UUID。</p>
+</code> </p>
+
+    <pre><code>VOLUME_NAME是磁盘卷名，不能带引号。卷名可以用命令 ``diskutil list`` 或 ``df -h`` 查询。除过卷名，还可以用卷的UUID，查UUID的命令是：
+   
+``diskutil info /Volumes/VOLUME_NAME | grep UUID``
+</code></pre>
   </li>
   <li>
     <p>卸载磁盘，重新mount，即拔掉USB电缆，重新插一下。</p>
@@ -137,17 +142,19 @@
 
 <p>别着急，这种做法必须设置nobrowse，所以默认情况下，不会在Finder窗口显示。可以通过命令打开磁盘。</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">open /Volumes/VOLUME_NAME</span></code></pre></td></tr></table></div></figure></notextile></div>
+<p><code>
+open /Volumes/VOLUME_NAME
+</code></p>
 
 <p>如果想让磁盘出现在桌面上：</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">sudo ln -s /Volumes/VOLUME_NAME ~/Desktop/VOLUME_NAME &amp;&amp; open ~/Desktop/VOLUME_NAME</span></code></pre></td></tr></table></div></figure></notextile></div>
+<p><code>
+sudo ln -s /Volumes/VOLUME_NAME ~/Desktop/VOLUME_NAME &amp;&amp; open ~/Desktop/VOLUME_NAME
+</code></p>
 
 <hr />
 
-<p>参看了如下文章：</p>
+<p>参考了如下文章：</p>
 
 <ul>
   <li><a href="https://prateekvjoshi.com/2013/04/21/ntfs-write-support-on-os-x-mountain-lion/">https://prateekvjoshi.com/2013/04/21/ntfs-write-support-on-os-x-mountain-lion/</a></li>
