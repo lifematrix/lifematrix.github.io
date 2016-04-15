@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2016-04-15T14:39:48+08:00</updated>
+  <updated>2016-04-15T14:44:54+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -41,12 +41,9 @@
  LABEL=VOLUME_NAME none ntfs rw,auto,nobrowse
 </code></p>
 
-    <p>VOLUME_NAME是磁盘卷名，不能带引号。卷名可以用命令 <code>diskutil list</code> 或 <code>df -h</code> 查询。除过卷名，还可以用卷的UUID，查询的命令是：</p>
+    <p>VOLUME_NAME是磁盘卷名，不能带引号。卷名可以用命令 <code>diskutil list</code> 或 <code>df -h</code> 查询。除过卷名，还可以用卷的UUID，查询的命令是  </p>
 
-    <pre><code>``
-diskutil info /Volumes/VOLUME_NAME | grep UUID
-``
-</code></pre>
+    <p><code>diskutil info /Volumes/VOLUME_NAME | grep UUID</code></p>
   </li>
   <li>
     <p>卸载磁盘，重新mount，即拔掉USB电缆，重新插一下。</p>
