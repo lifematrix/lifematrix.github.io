@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2016-04-14T11:57:49+08:00</updated>
+  <updated>2016-04-15T14:39:48+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -38,10 +38,10 @@
     <p>修改文件 <em>/etc/fstab</em>,  可用命令 <code>sudo vi /etc/fstab</code>。 添加行:   </p>
 
     <p><code>
- LABEL="VOLUME_NAME" none ntfs rw,auto,nobrowse
+ LABEL=VOLUME_NAME none ntfs rw,auto,nobrowse
 </code></p>
 
-    <p>VOLUME_NAME是磁盘卷名，不能带引号。卷名可以用命令 <code>diskutil list</code> 或 <code>df -h</code> 查询。除过卷名，还可以用卷的UUID，查UUID的命令是：</p>
+    <p>VOLUME_NAME是磁盘卷名，不能带引号。卷名可以用命令 <code>diskutil list</code> 或 <code>df -h</code> 查询。除过卷名，还可以用卷的UUID，查询的命令是：</p>
 
     <pre><code>``
 diskutil info /Volumes/VOLUME_NAME | grep UUID

@@ -76,6 +76,7 @@
   <li><a href="/blog/archives">Archives</a></li>
   <li><a href="/resources">Resources</a></li>
   <li><a href="/lisp-resource">Lisp Resource</a></li>
+  <li><a href="/resources-on-deep-learning">Deep Learning</a></li>
 </ul>
 
 </nav>
@@ -122,10 +123,10 @@
     <p>修改文件 <em>/etc/fstab</em>,  可用命令 <code>sudo vi /etc/fstab</code>。 添加行:   </p>
 
     <p><code>
- LABEL="VOLUME_NAME" none ntfs rw,auto,nobrowse
+ LABEL=VOLUME_NAME none ntfs rw,auto,nobrowse
 </code></p>
 
-    <p>VOLUME_NAME是磁盘卷名，不能带引号。卷名可以用命令 <code>diskutil list</code> 或 <code>df -h</code> 查询。除过卷名，还可以用卷的UUID，查UUID的命令是：</p>
+    <p>VOLUME_NAME是磁盘卷名，不能带引号。卷名可以用命令 <code>diskutil list</code> 或 <code>df -h</code> 查询。除过卷名，还可以用卷的UUID，查询的命令是：</p>
 
     <pre><code>``
 diskutil info /Volumes/VOLUME_NAME | grep UUID
