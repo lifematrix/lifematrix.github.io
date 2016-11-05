@@ -9,8 +9,7 @@
   <meta name="author" content="Steven Liu <stevenliucx@gmail.com>&#8221;>
 
   
-  <meta name="description" content="It is my first blog. Good Luck! For Test Math
-### Markdown and I This is a table: First Header Second Header Content Cell Content Cell Content Cell &hellip;">
+  <meta name="description" content="A valuable whitepaper: Multithreaded Magic with ØMQ The article Solving 11 Likely Problems In Your Multithreaded Code outlines some challenge in &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -85,6 +84,165 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/09/zeromq/">zeroMQ</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-09-25T10:42:13+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>10:42 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A valuable whitepaper: <a href="http://zeromq.wdfiles.com/local--files/whitepapers%3Amultithreading-magic/imatix-multithreaded-magic.pdf">Multithreaded Magic with ØMQ</a></p>
+
+<p>The article <a href="http://msdn.microsoft.com/en-us/magazine/cc817398.aspx">Solving 11 Likely Problems In Your Multithreaded Code</a> outlines some challenge in multi-threading program</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/09/kaggle-competition-the-hunt-for-prohibited-content/">Kaggle Competition: The Hunt for Prohibited Content</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-09-23T10:42:26+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>23</span><span class='date-suffix'>rd</span>, <span class='date-year'>2014</span></span> <span class='time'>10:42 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1 id="section">简介</h1>
+<p>当我开始留意这个竞赛时，已接近尾声。还有个原因，竞赛的进展超出了主办发的预期，他们迫不及待想看看结果，于是就提前结束了竞赛(<a href="http://www.kaggle.com/c/avito-prohibited-content/forums/t/9721/timeline-change/">Timeline Change</a>)。</p>
+
+<p>由于最近在熟悉<a href="https://github.com/JohnLangford/vowpal_wabbit/wiki">vowpal wabbit</a>，这是一个非常快速的线性模型学习工具，用起来象瑞士军刀那样爽。<a href="http://mlwave.com/lessons-from-avito-prohibited-content-kaggle/">mlwave.com的文章</a>介绍了使用vw参赛的经验。另外，yr也用<a href="http://www.kaggle.com/c/avito-prohibited-content/forums/t/10178/congrats-barisumog-giulio/52810#post52810">vw参赛</a>，取得了No.4的好成绩。本文主要就其<a href="https://github.com/ChenglongChen/Kaggle_The_Hunt_for_Prohibited_Content">程序</a>进行分析，重新实验。虽然是赛后的分析，仍具有相当价值。</p>
+
+<h1 id="section-1">背景</h1>
+
+<p><a href="avito.ru">avito.ru</a>是俄罗斯最大的分类网站，它将俄罗斯各个地区的买家和卖家连接起来。其上大约有2200万活跃广告，而且每天都在大量的广告在增加或调整。Avito的效率，很大程度上取决于内容的质量 – 在几小时内，买家能迅速找到相关的商品，而卖家能迅速销售出商品。</p>
+
+<p>当Avito规模越大、越受欢迎时，销售非法商品或服务的吸引力也会越大。有些商品一看就知道是非法的，但还有些商品看似合法的，但并不符合网站的规则。
+Kaggle的竞赛 <a href="http://www.kaggle.com/c/avito-prohibited-content">The Hunt for Prohibited Content</a> 由俄罗斯最大的分类的 发起，是预测被禁止的广告。所以，很多新增或修改的广告都要经过人工的审查。如果广告违反了俄罗斯法律或avito内部的规则，就会被删除。但是，随着业务增长，彻底审查所有广告越来越具有挑战性。这就是机器学习发挥作用的地方。</p>
+
+<p>这个竞赛的目的是创建一个预测性模型，它可以从审查员的判断中去学习，然后预测一个广告是否含有非法信息。</p>
+
+<h1 id="section-2">数据</h1>
+<p>测试集有3,995,804行。训练集有1,351,242，为训练集的1/3。</p>
+
+<h1 id="baseline">基本算法(Baseline)</h1>
+<p>0.97197(0.97095)</p>
+
+<h1 id="yr">yr的算法</h1>
+
+<p>yr的算法，Score分别为：0.98507(0.98628)。</p>
+
+<h2 id="features-engineering">Features Engineering</h2>
+<p>Score为0.97503(0.97630)。看来ensamble提高了接近1个百分点。</p>
+
+<h2 id="grid-search">Grid Search</h2>
+<p>learning rate = 0.5, learning rate decay = 1.0, passes = 10</p>
+
+<p>0.97629(0.97653), 提高了1个百分点。</p>
+
+<h2 id="split-proved--unproved">Split proved &amp; unproved</h2>
+<p>proved: 0.97629(0.97653)</p>
+
+<h2 id="ensemble">Ensemble</h2>
+<p>mixed ensemble mean: 0.98497(0.98504)。
+mixed ensamble median: 0.98498(0.98447)。</p>
+
+<p>proved ensamble mean: 0.98363(0.98474)。
+proved ensamble median: 0.98329(0.98448)。</p>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/09/xie-zai-a-li-shang-shi-zhi-ji/">写在阿里上市之际</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-09-21T15:45:42+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2014</span></span> <span class='time'>3:45 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>阿里成功的根本，是满足了社会的需求，让商业更方便高效，用马云的话：”让天下没有难做的生意“。企业的存在是因为创造价值，顾客愿意购买，
+金钱才会流动。如果忽略这点，只谈创业者的传奇和神勇，是本末倒置。</p>
+
+<p>发现需求、创造需求，make our life better, 用你的才智和努力给世界做出正向的改变，哪怕一点点，这才是创业的原起点。
+因为你让世界变得美好了，哪怕一点点，丰盛的能量最终会以金钱的方式流经你，这就是财富上的嘉赏。
+马云在卸任CEO时说，看看社会上哪些地方是麻烦的、别人不愿意做的，你将其改善，都可能成为创业的机会。深以为然。</p>
+
+<p>同时，需要建立宽松包容的创业文化和环境。从个体讲，也许创业者经历的磨砺是自己的财富，成功后炫耀的资本，这也会成为津津乐道的励志故事。
+但是，从社会整体看，如果创业环境恶劣，这并非有利于发展和繁荣。每个大企业，一开始都是创业公司。只有创业相对容易，才不断有新的公司涌现，
+带着新技术、新模式，经济才有新的活力。而且，创业也会带来新的就业机会。</p>
+
+<p>我们的文化对“逆转式英雄”过度赞扬。草创时艰难困顿、屡遭奚落，成功后大放异彩、扬眉吐气。这种“暴发户”式的思维，一直存在。
+草创时所受非常之苦，在成功后要加倍补偿乃至清算。如果没有清醒的认识，成功之时，就是衰落之时。曾国藩精心打造的“湘军”，
+攻克金陵平复太平天国之后，众多将兵实现了升官发财的美梦，随后就快速腐化、日渐暮气。所以曾不得不支持李鸿章再创淮军，以保身前生后之功。</p>
+
+<p>对创业者传奇的某种崇拜，也无可厚非。但焦点应放在他所践行的价值观，而非人格崇拜。It is NOT he who success, but the VALUE he follows。
+如果每个成功者都贡献一些正向的价值理念，那么社会就进步一些。如果只宣扬成王败寇的故事，我们的民族还只会在因果轮回的宿命中缓慢前行。</p>
+
+<p>我欣赏亚马逊CEO Jeff Bezos所讲：<code>"聪明是一种天赋，而善良是一种选择(Cleverness is a gift, kindness is a choice.)。
+天赋得来容易，但选择往往很困难。 你们如果不够谨慎，就可能被自己的天赋所误导，一旦误导，
+就可能危害到你所选择的价值观。"</code>他就是在传递一种正面的价值观，而他的确通过自己的践行让亚马逊一步步走向更大的成功。从网上书店、到百货、到Kindle 电子书、到云计算服务。
+看似没有关联的创新，在践行基本价值观的基础上，一步步展现出来。</p>
+
+<p>我也欣赏当下正在哈佛&amp;剑桥研究学习的王石，能够放下令人羡艳的商业成功，归零，然后从基础了解商业的机制、文化、信仰。
+我从中看到了谦卑、真实、冷静和对真理的追寻。客观地讲，中国真正的企业和商业文化只有30多年的历史（从改革开放建立市场经济体制算起），还很稚嫩。
+很多商业的成功更因乘浪而行，借助了时代的“势”，包括阿里、京东。所以更应该感谢的是时代。中国的商业还需很多时间去探索，构建商业文化、伦理，
+建立正面的价值观。如果只停留在合纵连横、谋略手腕、一统江湖的大佬做派上，或许不代表历史的进步。</p>
+
+<p>祝福阿里！祝福马云！希望有更多美好的事物经你们而创造，让我们的生活、我们的世界更美好！</p>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -198,23 +356,23 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/11/notes-on-how-goole-works-2/">《谷歌是如何运营的》笔记二：创新</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/09/resources-on-image-and-visual-search/">图像识别和视觉识别的资源</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/05/notes-on-how-google-works-1/">《谷歌是如何运营的》笔记一：文化</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/04/how-to-make-mac-os-write-ntfs-volume/">Mac系统下如何让NTFS磁盘卷可写</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2016/04/notes-on-how-google-works-1/">《谷歌如何运作》笔记一：前言</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/03/rsa-and-implemenation-by-self-in-python/">RSA and Implemenation by Self in Python</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/03/chaos-communication-congress-a-very-german-hacking-conference/">混沌通讯会议：一场很德国的黑客大会</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/02/face-analysis/">Face Analysis</a>
+        <a href="/blog/2016/04/notes-on-how-google-works-0/">《谷歌是如何运营的》笔记一：前言</a>
       </li>
     
   </ul>

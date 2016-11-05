@@ -1,0 +1,315 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>《谷歌是如何运营的》笔记二：创新 - Life Matrix</title>
+  <meta name="author" content="Steven Liu <stevenliucx@gmail.com>&#8221;>
+
+  
+  <meta name="description" content="史蒂夫·乔布斯清晰地预见了这一前景。作为改变世界的创意精英，乔布斯无人能及。他集深厚的专业知识、艺术禀赋和经济头脑于一身，创造出让人欲罢不能的电脑产品。在满是书呆子和商人却稀缺艺术家的科技行业中融入美与科学的人，也是乔布斯。通过与乔布斯共同工作的经验以及对他的观察，我们对创意精英有了很多认识， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://hack.the-lifematrix.net/blog/2016/11/notes-on-how-goole-works-2">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Life Matrix" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+
+  <!-- mathjax config similar to math.stackexchange -->
+  <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+       jax: ["input/TeX", "output/HTML-CSS"],
+       tex2jax: {
+          inlineMath: [ ['$', '$'] ],
+          displayMath: [ ['$$', '$$']],
+          procehssEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+       },
+       messageStyle: "none",
+       "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+     });
+   </script>
+   <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Life Matrix</a></h1>
+  
+    <h2>Hacking, Machine learning, Lisp</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:hack.the-lifematrix.net" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/resources">Resources</a></li>
+  <li><a href="/lisp-resource">Lisp Resource</a></li>
+  <li><a href="/resources-on-deep-learning">Deep Learning</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">《谷歌是如何运营的》笔记二：创新</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-11-05T20:23:30+08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:23 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>史蒂夫·乔布斯清晰地预见了这一前景。作为改变世界的创意精英，乔布斯无人能及。他集深厚的专业知识、艺术禀赋和经济头脑于一身，创造出让人欲罢不能的电脑产品。在满是书呆子和商人却稀缺艺术家的科技行业中融入<strong>美与科学</strong>的人，也是乔布斯。通过与乔布斯共同工作的经验以及对他的观察，我们对创意精英有了很多认识，是他让我们看到了个人魅力对企业文化的影响，也让我们看到了<strong>文化与成功之间的直接关系</strong>。</p>
+
+<p>…</p>
+
+<p>两家公司都会尽量避开传统的市场调查，靠自己的能力去揣摩消费者的需求，我们对自己的眼光都信心十足。除此之外，两家企业都将<strong>为消费者创造最佳体验</strong>奉为重中之重。</p>
+
+<h2 id="section">创新是什么</h2>
+
+<p>在我们看来，创新不只是创造新奇实用的想法，还包括实践。“新奇”往往会被当做“新颖”的近义词，因此我们有必要指出，<strong>创新的东西不仅需要新的功能，还需要出人意料</strong>。</p>
+
+<p>如果你的产品只是满足了消费者提出的需求，那么你就不是创新，而只是做出回应。回应是好的，但毕竟不是创新。另外，用“实用”这个词来描述高大上的“创新”，实在有点黯然，因此我们在前面加上一个副词，<strong>把实用变成”非常实用”</strong>：创新的东西不仅要新颖、出人意料，还要非常实用。</p>
+
+<p>在决定是否要实践某个想法的时候，Google[x]团队会用到一张简单的韦恩图：</p>
+
+<p>&#8220;`
+第一，这个想法必须涉及一个能够影响数亿人甚至几十亿人的巨大挑战或机遇。</p>
+
+<p>第二，这个想法必须提供一种与市场上现存的解决方案截然不同的方法。我们不希望在已有的做事方法上改进，而是想另辟蹊径。</p>
+
+<p>第三，将突破性解决方案变为现实的科技至少必须具备可行性，且在不久的将来可以实现。
+&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class=""><span class="line">
+</span><span class="line">### 适宜创新的环境
+</span><span class="line">
+</span><span class="line">这是创新的先决条件。这样的环境（即市场空间），一般会出现在飞速发展且竞争激烈的市场中。（许多公司都把目光聚焦在无人驾驶汽车上，且其中绝大多数都是汽车公司！）
+</span><span class="line">
+</span><span class="line">
+</span><span class="line">**不要把眼光放在无人问津的市场并在这里孤军奋战。你应当发掘创新的途径，跻身进入大型或有潜力发展壮大的市场上。**
+</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;
+这个理念看起来或许难以接受，毕竟，未被开发且无人竞争的崭新市场，许多实业家都想进入。但是，一个市场通常不会平白无故就乏人问津，而是因为市场规模无法支撑其事业的扩张。</p>
+
+<p>不要忘了，谷歌在网络引擎市场中并不算抢占先机，而是后来居上。
+&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class=""><span class="line">
+</span><span class="line">
+</span><span class="line">### 科技
+</span><span class="line">
+</span><span class="line">科技是另一个值得思考的因素：你认为现在的科技会以怎样的方式进化发展？现在的科技有什么不同，你预期将来会发生怎样的变化？你的才能是否能让你在这种日新月异的环境中不断出新？
+</span><span class="line">
+</span><span class="line">## 首席执行官必须兼任首席创新官
+</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;
+乌迪12岁的女儿在看过他在一次工程师全体大会上的发言后，曾经对他说：“你浪费了几百个工程师的时间，只为了告诉他们一定要创新。你觉得这样能创新吗？”这可能是刺激他离职的原因。
+&#8220;`</p>
+
+<p>“统一的指挥”和“创新”两个词不应出现在同一句子中。</p>
+
+<p>作为企业管理者，我们自然喜欢管理。想要完成某项任务？安排专人负责就行了。但是，创新可不能靠传统MBA式的管理方法。与常规业务不同，创新不可把握、无法强制，也不能事先安排。</p>
+
+<p><strong>有创意的人不需要别人来布置任务，而需要有人提供空间。</strong></p>
+
+<p>换言之，创意的开发应该是一个有机的过程。一个个想法冒出来，好似在一片混沌之中产生的基因突变一般，经过漫长而曲折的过程后，终于实现了蜕变。而创意，就是这个过程的最终目的地。在这条路上，比较强大的构想不断吸引支持者，势能越来越大，而欠佳的构想则会被半路淘汰。</p>
+
+<p><strong>实现这场进化不能靠特定的路径，无路可循才是其基本特点</strong>。你可以把这个过程看作“构想的物竞天择”。</p>
+
+<p>所有的公司不仅要先营造一个让各种创意因素以新奇的方式自由碰撞的环境，还要提供时间和自由，让小部分创意进化和生存，并让余下的大部分凋零和消亡。</p>
+
+<p>打造混沌的企业文化并不是新鲜理念。在刚成立的企业里，企业文化处于初始状态，公司上下游一种放手一搏的心态。这时，创新的混动状态非常容易形成。加入新公司的人渴望冒险，这也是公司吸引他们加入的原因之一。但一旦公司的人数超过500人，一些对风险持规避态度的人便会陆续加入。在这些人中不乏资质过人的创意精英，他们只是不会对挑战跃跃欲试罢了。并非每个人都是创新之人，这就是事实。因此，你培养的混动不仅要为创新者提供给创新空间，还需要为其他人提供参与和成长的沃土。</p>
+
+<p><a href="http://www.ted.com/talks/derek_sivers_how_to_start_a_movement">Derek Sivers:How to start a movement</a>, 要点：
+* 行动易于模仿
+* 第一个追随者，将孤独的前行者转变为leader
+* 要平等对待追随者。变成共同的运动</p>
+
+<p>“第一追随者”原则：在发起一个行动时，吸引第一个追随者是至关重要的。“将一个孤独的疯子变成领袖的，是第一个追随者。”创新的混沌环境需要给这些创新人才 – 或者说在山边独舞的疯子 – 创造条件。但除此之外，这个环境还需要给那些参与创新项目的人 – 也就是从第二个到第二百个加入群舞的疯子 – 创造空间。</p>
+
+<p>正因如此，你需要将创新融入企业，让每个部门和每个领域都收到感染。如果你只将创新局限为某个团队的特权，那么你或许能为这个团队吸引到创新人才，却无法吸引足够的“第一追随者”。</p>
+
+<p>仙童半导体及英特公司的联合创始人罗伯特·诺伊斯曾说：“<strong>乐观是创新的一个必要条件</strong>。否则，你怎能放弃安逸而追求改变，或离开舒适的环境而选择冒险呢？”你所雇佣的人，不仅要能产生新构想的头脑，也要足够疯狂地相信这些构想有机会实现。你需要挖掘和吸引这些乐观的人才，并提供平台，让他们创造改变、大胆冒险。</p>
+
+<h2 id="section-1">聚焦用户</h2>
+
+<p>而在谷歌，为核心产品带来重大转变的新功能还有几周就要问世了，却还没有做过详细的财务分析呢。但是，这项功能无疑会对用户带来便利，我们心知肚明，发布才是最佳的商业决策。</p>
+
+<p>谷歌明白，在互联网时代，用户的信赖与美元、欧元、英镑、日元或任何其他货币一样重要。要让企业获得持续的成功，出了依靠产品质量以外别无他法。因此，我们的产品战略，就是聚焦用户。就像拉里和谢尔盖在IPO中说的那样：“为终端用户服务是谷歌业务的核心，是我们的第一要务。”</p>
+
+<p>但是，“聚焦用户”这句话只说了一半，完整的句子应该是：“聚焦用户，一切水到渠成。”意思是，我们会始终为用户做对的事情，也相信我们的创意精英能够想办法从中获利。这个过程需要时间，因此要坚持这样做需要信心。</p>
+
+<p>…</p>
+
+<p>一位摩托罗拉的高管告诉乔纳森，在摩托罗拉，“客户”所指的不是手机使用者，而是指公司真正的客户，也就是为Verizon通信以及AT&amp;T等手机运营商。这些运营商并没有实时聚焦用户。摩托罗拉的焦点也没有放在用户身上，而是对准了合作伙伴。</p>
+
+<p>在谷歌，我们的用户就是使用我们产品的人，而我们的客户则是花钱投放广告以及购买我们技术使用权的公司。这两个群体之间很少会出现冲突。如果出现矛盾，我们还是会以用户利益为重。这是所有行业都必须遵从的做法。现在，用户比以往更加强大，也不会买劣质产品的帐了。</p>
+
+<h2 id="section-2">往大处想</h2>
+
+<p>较大的问题通常也较容易解决，因为挑战越大，越能吸引顶尖人才。巨大的挑战和资质过人、精于技术的人才之间存在着一种共生关系。也就是说，优秀人才能够解决问题，又能从中得到满足。</p>
+
+<p><strong>把巨大的挑战交给不适合的人，就是在制造压力，而选对了人，你就是在播种快乐。</strong></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Steven Liu <stevenliucx@gmail.com></span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2016-11-05T20:23:30+08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:23 pm</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://hack.the-lifematrix.net/blog/2016/11/notes-on-how-goole-works-2/" data-via="" data-counturl="http://hack.the-lifematrix.net/blog/2016/11/notes-on-how-goole-works-2/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2016/09/resources-on-image-and-visual-search/" title="Previous Post: 图像识别和视觉识别的资源">&laquo; 图像识别和视觉识别的资源</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/11/notes-on-how-goole-works-2/">《谷歌是如何运营的》笔记二：创新</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/09/resources-on-image-and-visual-search/">图像识别和视觉识别的资源</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/05/notes-on-how-google-works-1/">《谷歌是如何运营的》笔记一：文化</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/04/how-to-make-mac-os-write-ntfs-volume/">Mac系统下如何让NTFS磁盘卷可写</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/04/notes-on-how-google-works-0/">《谷歌是如何运营的》笔记一：前言</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - Steven Liu <stevenliucx@gmail.com> -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
