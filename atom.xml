@@ -4,7 +4,7 @@
   <title><![CDATA[Life Matrix]]></title>
   <link href="http://hack.the-lifematrix.net/atom.xml" rel="self"/>
   <link href="http://hack.the-lifematrix.net/"/>
-  <updated>2016-11-05T22:20:30+08:00</updated>
+  <updated>2016-11-05T23:01:43+08:00</updated>
   <id>http://hack.the-lifematrix.net/</id>
   <author>
     <name><![CDATA[Steven Liu ]]></name>
@@ -118,6 +118,18 @@
 <p>较大的问题通常也较容易解决，因为挑战越大，越能吸引顶尖人才。巨大的挑战和资质过人、精于技术的人才之间存在着一种共生关系。也就是说，优秀人才能够解决问题，又能从中得到满足。</p>
 
 <p><strong>把巨大的挑战交给不适合的人，就是在制造压力，而选对了人，你就是在播种快乐。</strong></p>
+
+<p>处于这些因素，巨大的挑战往往是吸引以及留住创意精英的强大磁场。</p>
+
+<h2 id="section-3">制定（近乎）遥不可及的目标</h2>
+
+<ul>
+  <li>将目标放大10倍</li>
+  <li>OKR 不同于“低承诺、高实现”的管理方式</li>
+</ul>
+
+<h2 id="section-4">70/20/10 原则</h2>
+
 ]]></content>
   </entry>
   
@@ -259,7 +271,7 @@ sudo ln -s /Volumes/VOLUME_NAME ~/Desktop/VOLUME_NAME &amp;&amp; open ~/Desktop/
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[《谷歌是如何运营的》笔记一：前言]]></title>
+    <title type="html"><![CDATA[《谷歌是如何运营的》笔记零：前言]]></title>
     <link href="http://hack.the-lifematrix.net/blog/2016/04/notes-on-how-google-works-0/"/>
     <updated>2016-04-08T11:10:22+08:00</updated>
     <id>http://hack.the-lifematrix.net/blog/2016/04/notes-on-how-google-works-0</id>
@@ -826,7 +838,7 @@ sudo ln -s /Volumes/VOLUME_NAME ~/Desktop/VOLUME_NAME &amp;&amp; open ~/Desktop/
 
 <h3 id="random-crop">Random Crop</h3>
 
-<p>深度网络的参数巨大，很容易出现过拟合。通过人为扩大训练集数据(<a href="http://www.cs.toronto.edu/~fritz/absps/imagenet.pdf">ImageNet</a>)，是避免过拟合的有效策略。先尝试简单的方法，在32x32的图片中，随机裁剪出28&amp;ast;28的图片，进行训练。这也就是将训练集扩大了4&amp;ast;4=16倍。</p>
+<p>深度网络的参数巨大，很容易出现过拟合。通过人为扩大训练集数据(<a href="http://www.cs.toronto.edu/~fritz/absps/imagenet.pdf">ImageNet</a>)，是避免过拟合的有效策略。先尝试简单的方法，在32x32的图片中，随机裁剪出28x28的图片，进行训练。这也就是将训练集扩大了4x4=16倍。</p>
 
 <p><img src="http://hack.the-lifematrix.net/images/cifar10-tf/time_randomcrop.png" alt="" /></p>
 
