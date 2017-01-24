@@ -9,7 +9,7 @@
   <meta name="author" content="Steven Liu <stevenliucx@gmail.com>&#8221;>
 
   
-  <meta name="description" content="史蒂夫·乔布斯清晰地预见了这一前景。作为改变世界的创意精英，乔布斯无人能及。他集深厚的专业知识、艺术禀赋和经济头脑于一身，创造出让人欲罢不能的电脑产品。在满是书呆子和商人却稀缺艺术家的科技行业中融入美与科学的人，也是乔布斯。通过与乔布斯共同工作的经验以及对他的观察，我们对创意精英有了很多认识， &hellip;">
+  <meta name="description" content="前向传导(Back-Progatation) 算法 一些基本公式标记 $ w^l_{jk} $ $b^l_j $ $a^l_j$ $ a^l_j = \sigma(\sum_k^{} w^l_{jk} a^{l-1}_k ) + b^l_j $ ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -84,6 +84,46 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2017/01/key-understandings-on-basic-deep-learning/">深度学习的一些关键性理解</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2017-01-24T16:39:30+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>4:39 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2 id="back-progatation-">前向传导(Back-Progatation) 算法</h2>
+
+<p>一些基本公式标记</p>
+
+<p>$ w^l_{jk} $</p>
+
+<p>$b^l_j $</p>
+
+<p>$a^l_j$</p>
+
+<p>$ a^l_j = \sigma(\sum_k^{} w^l_{jk} a^{l-1}_k ) + b^l_j $</p>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1210,187 +1250,11 @@ sudo ln -s /Volumes/VOLUME_NAME ~/Desktop/VOLUME_NAME &amp;&amp; open ~/Desktop/
 
 <p>上述基本网络只用了3个卷积层，达到75%的正确率，换言之25%的错误率。结果不是很出色，<a href="https://github.com/nagadomi/kaggle-cifar10-torch7">Torch 7 ConvNet</a> 取得了7%的错误率。决定在tensorflow下实验此模型。结果，请见后文。</p>
 
-</div>
-  
-  
+<hr />
 
+<h2 id="section-4">补充</h2>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2016/01/value-websites-in-book-exponential-organization/">《指数型组织》中提到的网站</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-01-18T10:36:22+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>10:36 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>《指数型组织》讲述了伴随信息技术的发展，一种新的组织形式开始浮现。这种组织指数化技术，利用较少的资源投入，实现了业务的指数级增长。比如Google, Facebook, 包括中国的微信等，都是范例。此书也提供了大量与指数化技术相关的工具、案例、社群等，极富参考价值。在本书引用了大量的案例，以及相关的工具。如下进行了整理。</p>
-
-<h3 id="httpsingularityuorg"><a href="http://singularityu.org">奇点大学</a></h3>
-
-<p>关注那些搭着摩尔定律的快车以指数级增长的领域，包括无限计算能力、传感器、网络、人工智能、机器人学、数字制造、合成生物学、数字医学和纳米材料。</p>
-
-<p><img src="http://hack.the-lifematrix.net/images/exo/singularity-university.jpg" alt="http://singularityu.org" /></p>
-
-<h3 id="vicarioushttpwwwvicariouscom"><a href="http://www.vicarious.com">Vicarious</a></h3>
-
-<p>深度学习方面的创业公司，Jeff Bezos(Amazon CEO), Mark Zuckerberg(Facebook 创始人)等的投资。</p>
-
-<p><img src="http://hack.the-lifematrix.net/images/exo/vicarious.jpg" alt="http://www.vicarious.com" /></p>
-
-<h2 id="section">设计众包</h2>
-
-<h3 id="designshttp99designscom"><a href="http://99designs.com/">99Designs</a></h3>
-
-<p>在线设计的众包公司。设计种类包括：Logo, Web&amp;移动APP， 商业广告，衣服(T-shirt…)，包装，书籍和杂志。不满意可以退款。</p>
-
-<p><img src="http://hack.the-lifematrix.net/images/exo/99designs.png" alt="http://99designs.com" /></p>
-
-<h3 id="quirkyhttpswwwquirkycom"><a href="https://www.quirky.com">Quirky</a></h3>
-
-<p>社区公司，通过社区协作快速、低成本地实现各种创意发明，不同于传统的产品开发流程。</p>
-
-<p><img src="http://hack.the-lifematrix.net/images/exo/quirky.png" alt="https://www.quirky.com" /></p>
-
-<h3 id="section-1">其它</h3>
-
-<p>IdeaScale, eYeka, Spigit, InnoCentive, SolutionXchange, Crowdtap, Brightidea.</p>
-
-<h2 id="section-2">人力众包</h2>
-
-<h3 id="taskrabbithttpsapitaskrabbitcom"><a href="https://api.taskrabbit.com">Taskrabbit</a></h3>
-
-<p>Taskrabbit是线上和移动端的市场，允许人们将小的外包给附近的人。它的缘起是因为创始人Leah Busque没有时间去买狗粮。其理念是“邻里帮助邻里”(neighbors help neighbors)。</p>
-
-<p><img src="http://hack.the-lifematrix.net/images/exo/taskrabbit.png" alt="https://api.taskrabbit.com" /></p>
-
-<h3 id="elanceupworkhttpswwwelancecom"><a href="https://www.elance.com">Elance/Upwork</a></h3>
-
-<p>在线员工平台，自由职业者的人才市场。Elance已经合并到UpWork。</p>
-
-<p><img src="http://hack.the-lifematrix.net/images/exo/elance.png" alt="https://www.elance.com" /></p>
-
-<h3 id="gigwalkhttpwwwgigwalkcom"><a href="http://www.gigwalk.com">Gigwalk</a></h3>
-
-<p>移动众包平台，分布式工作管理。在任何时间、地点，将对的工作分配给对的人。</p>
-
-<p><img src="http://hack.the-lifematrix.net/images/exo/gigwalk.png" alt="http://www.gigwalk.com" /></p>
-
-<h2 id="section-3">众筹</h2>
-
-<h3 id="indiegogohttpswwwindiegogocom"><a href="https://www.indiegogo.com">Indiegogo</a></h3>
-
-<p>全世界规模最大的众筹和融资网站</p>
-
-<p><img src="http://hack.the-lifematrix.net/images/exo/indiegogo.png" alt="https://www.indiegogo.com" /></p>
-
-<h3 id="kickstarterhttpswwwkickstartercom"><a href="https://www.kickstarter.com">Kickstarter</a></h3>
-
-<p>社区公司，面对公众为各种创意筹集小额资金。覆盖各种创意：服装、艺术、漫画、舞蹈、游戏、美食…</p>
-
-<p><img src="http://hack.the-lifematrix.net/images/exo/kickstarter.png" alt="https://www.kickstarter.com" /></p>
-
-<h2 id="section-4">团队协作/项目管理工具</h2>
-
-<h3 id="yammerhttpswwwyammercom"><a href="https://www.yammer.com">Yammer</a></h3>
-
-<p>企业社交网络
-<img src="http://hack.the-lifematrix.net/images/exo/yammer.png" alt="https://www.yammer.com" /></p>
-
-<h3 id="asanahttpsasanacom"><a href="https://asana.com">Asana</a></h3>
-
-<p>网络和移动应用，改善团队交流和协作。
-<img src="http://hack.the-lifematrix.net/images/exo/asana.png" alt="https://asana.com" /></p>
-
-<h3 id="trellohttpstrellocom"><a href="https://trello.com">Trello</a></h3>
-
-<p>Trello是一款项目管理工具，让协作更加容易和有趣。主要采用“列表的列表”方式，借鉴丰田的看板管理。</p>
-
-<p><img src="http://hack.the-lifematrix.net/images/exo/trello.png" alt="https://trello.com" /></p>
-
-<h3 id="konahttpswwwkonacom"><a href="https://www.kona.com">kona</a></h3>
-
-<p>项目管理工具，提供文件共享。
-<img src="http://hack.the-lifematrix.net/images/exo/kona.png" alt="https://www.kona.com" /></p>
-
-<h3 id="redboothhttpsredboothcom"><a href="https://redbooth.com">Redbooth</a></h3>
-
-<p>项目管理工具，可与印象笔记商业版结合。
-<img src="http://hack.the-lifematrix.net/images/exo/redbooth.png" alt="https://redbooth.com" /></p>
-
-<h2 id="section-5">社会协作</h2>
-
-<h3 id="wazehttpswwwwazecomzh"><a href="https://www.waze.com/zh">Waze/位智</a></h3>
-
-<p>社区化交通信息分享</p>
-
-<p><img src="http://hack.the-lifematrix.net/images/exo/waze.png" alt="https://www.waze.com/zh" /></p>
-
-<h3 id="yelp">Yelp</h3>
-
-<h3 id="foursquare">Foursquare</h3>
-
-<h3 id="donor-choose">Donor Choose</h3>
-
-<h2 id="section-6">无人机</h2>
-<p>### <a href="http://diydrones.com">DIY DRONES</a></p>
-
-<p>无人机社区</p>
-
-<p><img src="http://hack.the-lifematrix.net/images/exo/diydrones.png" alt="http://diydrones.com" /></p>
-
-<h2 id="d">3D打印</h2>
-
-<h3 id="d-systemshttpwww3dsystemscom"><a href="http://www.3dsystems.com">3D Systems</a></h3>
-
-<p><img src="http://hack.the-lifematrix.net/images/exo/3dsystems.png" alt="http://www.3dsystems.com" /></p>
-
-<h3 id="makielabshttpsmymakiecom"><a href="https://mymakie.com">Makielabs</a></h3>
-
-<p>世界第一家利用3D打印的玩具制造者。</p>
-
-<p><img src="http://hack.the-lifematrix.net/images/exo/makielabs.png" alt="https://mymakie.com" /></p>
-
-<h2 id="section-7">机器人</h2>
-
-<h3 id="irobothttpwwwirobotcom"><a href="http://www.irobot.com">iRobot</a></h3>
-
-<p>一家机器人公司，设计和制造军用、商用、医疗和民用机器人，并以家用自动吸尘机器人Roomba最为著名。</p>
-
-<p><img src="http://hack.the-lifematrix.net/images/exo/iRobot.png" alt="http://www.irobot.com" /></p>
-
-<h2 id="section-8">其它指数型公司</h2>
-<p>### Spotify
-<a href="https://www.spotify.com/">https://www.spotify.com/</a></p>
-
-<p>一家音乐串流公司。</p>
-
-<p><img src="http://hack.the-lifematrix.net/images/exo/spotify.jpg" alt="" /></p>
-
-<h3 id="valve">Valve</h3>
-<p>去中心化</p>
-
-<h2 id="books">Books</h2>
-
-<p>*《超级天使投资：捕捉未来商业机会的行动指南》 (Angel Investing: The Gust Guide to Making Money and Having Fun Investing in Startups)</p>
-
-<p>*至关重要的关系(The startup of You)</p>
-
-<p>*《每周工作四小时》(4-Hour Workweek)</p>
+<p>在GTX 1070上，重新训练此模型。Dropout达到，76.74%。4sec/epoch。</p>
 
 </div>
   
@@ -1414,6 +1278,10 @@ sudo ln -s /Volumes/VOLUME_NAME ~/Desktop/VOLUME_NAME &amp;&amp; open ~/Desktop/
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2017/01/key-understandings-on-basic-deep-learning/">深度学习的一些关键性理解</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/11/notes-on-how-goole-works-2/">《谷歌是如何运营的》笔记二：创新</a>
       </li>
     
@@ -1429,10 +1297,6 @@ sudo ln -s /Volumes/VOLUME_NAME ~/Desktop/VOLUME_NAME &amp;&amp; open ~/Desktop/
         <a href="/blog/2016/04/how-to-make-mac-os-write-ntfs-volume/">Mac系统下如何让NTFS磁盘卷可写</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2016/04/notes-on-how-google-works-0/">《谷歌是如何运营的》笔记零：前言</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -1446,7 +1310,7 @@ sudo ln -s /Volumes/VOLUME_NAME ~/Desktop/VOLUME_NAME &amp;&amp; open ~/Desktop/
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2016 - Steven Liu <stevenliucx@gmail.com> -
+  Copyright &copy; 2017 - Steven Liu <stevenliucx@gmail.com> -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

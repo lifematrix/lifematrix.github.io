@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Mac系统下如何让NTFS磁盘卷可写 - Life Matrix</title>
+  <title>深度学习的一些关键性理解 - Life Matrix</title>
   <meta name="author" content="Steven Liu <stevenliucx@gmail.com>&#8221;>
 
   
-  <meta name="description" content="NTFS是微软Windows默认的磁盘格式。在Mac系统下，默认是只读的。比如你的移动硬盘或U盘，在Windows下按照默认格式(NTFS)去格式化，那么在Mac系统下，尽管能识别盘符，查看内容，却不可写入。 通常有三种方法： 将磁盘重新格式为FAT32, 在Windows和Mac下都可以读。 &hellip;">
+  <meta name="description" content="前向传导(Back-Progatation) 算法 一些基本公式标记 $ w^l_{jk} $ $b^l_j $ $a^l_j$ $ a^l_j = \sigma(\sum_k^{} w^l_{jk} a^{l-1}_k ) + b^l_j $ ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://hack.the-lifematrix.net/blog/2016/04/how-to-make-mac-os-write-ntfs-volume">
+  <link rel="canonical" href="http://hack.the-lifematrix.net/blog/2017/01/key-understandings-on-basic-deep-learning">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Life Matrix" type="application/atom+xml">
@@ -87,7 +87,7 @@
   
   <header>
     
-      <h1 class="entry-title">Mac系统下如何让NTFS磁盘卷可写</h1>
+      <h1 class="entry-title">深度学习的一些关键性理解</h1>
     
     
       <p class="meta">
@@ -96,67 +96,24 @@
 
 
 
-<time class='entry-date' datetime='2016-04-14T10:41:12+08:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>10:41 am</span></time>
+<time class='entry-date' datetime='2017-01-24T16:39:30+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>4:39 pm</span></time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>NTFS是微软Windows默认的磁盘格式。在Mac系统下，默认是只读的。比如你的移动硬盘或U盘，在Windows下按照默认格式(NTFS)去格式化，那么在Mac系统下，尽管能识别盘符，查看内容，却不可写入。</p>
+<div class="entry-content"><h2 id="back-progatation-">前向传导(Back-Progatation) 算法</h2>
 
-<p>通常有三种方法：</p>
+<p>一些基本公式标记</p>
 
-<ol>
-  <li>将磁盘重新格式为FAT32, 在Windows和Mac下都可以读。对于有所数据的磁盘，不可取。</li>
-  <li>采用第三方软件，提供NTFS写支持。但是在Mac升级后，经常会失效。</li>
-  <li>修改配置文件，提供无缝支持。</li>
-</ol>
+<p>$ w^l_{jk} $</p>
 
-<p>最好的是方法3，其实OSX Mountain Lion已经提供了对NTFS的支持，但默认情况下关闭着。开启的步骤是：</p>
+<p>$b^l_j $</p>
 
-<ul>
-  <li>
-    <p>卸载第三方NTFS软件，如Paragon, Tuxera 或 NTFS-3G</p>
-  </li>
-  <li>
-    <p>修改文件 <em>/etc/fstab</em>,  可用命令 <code>sudo vi /etc/fstab</code>。 添加行:   </p>
+<p>$a^l_j$</p>
 
-    <p><code>
- LABEL=VOLUME_NAME none ntfs rw,auto,nobrowse
-</code></p>
-
-    <p>VOLUME_NAME是磁盘卷名，不能带引号。卷名可以用命令 <code>diskutil list</code> 或 <code>df -h</code> 查询。除过卷名，还可以用卷的UUID，查询的命令是  </p>
-
-    <p><code>diskutil info /Volumes/VOLUME_NAME | grep UUID</code></p>
-  </li>
-  <li>
-    <p>卸载磁盘，重新mount，即拔掉USB电缆，重新插一下。</p>
-  </li>
-</ul>
-
-<p><strong>但是，我在Finder窗口中没看到磁盘啊！</strong></p>
-
-<p>别着急，这种做法必须设置nobrowse，所以默认情况下，不会在Finder窗口显示。可以通过命令打开磁盘。</p>
-
-<p><code>
-open /Volumes/VOLUME_NAME
-</code></p>
-
-<p>如果想让磁盘出现在桌面上：</p>
-
-<p><code>
-sudo ln -s /Volumes/VOLUME_NAME ~/Desktop/VOLUME_NAME &amp;&amp; open ~/Desktop/VOLUME_NAME
-</code></p>
-
-<hr />
-
-<p>参考了如下文章：</p>
-
-<ul>
-  <li><a href="https://prateekvjoshi.com/2013/04/21/ntfs-write-support-on-os-x-mountain-lion/">https://prateekvjoshi.com/2013/04/21/ntfs-write-support-on-os-x-mountain-lion/</a></li>
-  <li><a href="http://osxdaily.com/2013/10/02/enable-ntfs-write-support-mac-os-x/">http://osxdaily.com/2013/10/02/enable-ntfs-write-support-mac-os-x/</a></li>
-</ul>
+<p>$ a^l_j = \sigma(\sum_k^{} w^l_{jk} a^{l-1}_k ) + b^l_j $</p>
 
 </div>
 
@@ -173,7 +130,7 @@ sudo ln -s /Volumes/VOLUME_NAME ~/Desktop/VOLUME_NAME &amp;&amp; open ~/Desktop/
 
 
 
-<time class='entry-date' datetime='2016-04-14T10:41:12+08:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>10:41 am</span></time>
+<time class='entry-date' datetime='2017-01-24T16:39:30+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>4:39 pm</span></time>
       
 
 
@@ -181,7 +138,7 @@ sudo ln -s /Volumes/VOLUME_NAME ~/Desktop/VOLUME_NAME &amp;&amp; open ~/Desktop/
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://hack.the-lifematrix.net/blog/2016/04/how-to-make-mac-os-write-ntfs-volume/" data-via="" data-counturl="http://hack.the-lifematrix.net/blog/2016/04/how-to-make-mac-os-write-ntfs-volume/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://hack.the-lifematrix.net/blog/2017/01/key-understandings-on-basic-deep-learning/" data-via="" data-counturl="http://hack.the-lifematrix.net/blog/2017/01/key-understandings-on-basic-deep-learning/" >Tweet</a>
   
   
   
@@ -190,10 +147,8 @@ sudo ln -s /Volumes/VOLUME_NAME ~/Desktop/VOLUME_NAME &amp;&amp; open ~/Desktop/
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2016/04/notes-on-how-google-works-0/" title="Previous Post: 《谷歌是如何运营的》笔记零：前言">&laquo; 《谷歌是如何运营的》笔记零：前言</a>
+        <a class="basic-alignment left" href="/blog/2016/11/notes-on-how-goole-works-2/" title="Previous Post: 《谷歌是如何运营的》笔记二：创新">&laquo; 《谷歌是如何运营的》笔记二：创新</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2016/05/notes-on-how-google-works-1/" title="Next Post: 《谷歌是如何运营的》笔记一：文化">《谷歌是如何运营的》笔记一：文化 &raquo;</a>
       
     </p>
   </footer>
