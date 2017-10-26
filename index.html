@@ -9,7 +9,8 @@
   <meta name="author" content="Steven Liu <stevenliucx@gmail.com>&#8221;>
 
   
-  <meta name="description" content="前向传导(Back-Progatation) 算法 一些基本公式标记 $ w^l_{jk} $ $b^l_j $ $a^l_j$ $ a^l_j = \sigma(\sum_k^{} w^l_{jk} a^{l-1}_k ) + b^l_j $ ">
+  <meta name="description" content="视频 Károly Zsolnai-Fehér 在youtube 上的 2-minute paper频道
+有个视频 Google DeepMind’s Deep Q-learning playing Atari Breakout code ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -90,7 +91,296 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2017/01/key-understandings-on-basic-deep-learning/">深度学习的一些关键性理解</a></h1>
+      <h1 class="entry-title"><a href="/blog/2017/10/resources-on-reinforcement-learning/">强化学习的资源和笔记</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2017-10-22T22:42:13+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2017</span></span> <span class='time'>10:42 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3 id="section">视频</h3>
+
+<p><a href="https://users.cg.tuwien.ac.at/zsolnai/"> Károly Zsolnai-Fehér</a> 在youtube 上的 <a href="https://www.youtube.com/channel/UCbfYPyITQ-7l4upoX8nvctg">2-minute paper</a>频道
+有个视频 </p>
+
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=V1eYniJ0Rnk">Google DeepMind’s Deep Q-learning playing Atari Breakout</a></li>
+  <li><a href="https://github.com/kuz/DeepMind-Atari-Deep-Q-Learner">code</a> </li>
+</ul>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2017/03/notes-on-vgg-model/">Notes on VGG Model</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2017-03-29T16:06:36+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>4:06 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>VGG Model虽然已经不算是ILSVRC上分数最好的Model，但它结构非常清晰，效果也非常好，使用非常广。对于小型图片集的分类，利用VGG Model做fine-tuning，能取得不错的效果。即便不微调，直接提取特征用SVM做分类，也会不错。我觉得，一个好的模型， 不仅仅是好的效果，理论上可解释，能增进我们对问题的理解，才有价值。</p>
+
+<p>VGG的文章，<a href="https://arxiv.org/abs/1409.1556">见此</a>。通过对此文章的学习，增强理解。</p>
+
+<h2 id="section">网络结构</h2>
+
+<h3 id="x3">更小的卷积核(3x3)</h3>
+
+<p>AlexNet使用了11x11的卷积核。采用更小的卷积核能捕获更多的图片细节，提高鉴别力。VGGNet是3x3卷积层的叠加。为何使用3x3卷积核(文中称为Receptive field，接收域)? 这是捕获图片中上/下、左/右和中心的最小尺寸。</p>
+
+<p>两个3x3的卷积堆叠，相当于5x5；三个3x3，相当于7x7。但是为什么不直接采用单独一个卷积层呢？其一归并了3个非线性的整流层，而非一个，这使得决策函数更有鉴别性。其二降低了参数的个数，如果有3个3x3卷积层的叠加，通道数为C，则参数的个数为: $ 3*(3C)^2 = 27C^2$。如果是一个7x7的卷积层，则参数个数为 $ (7C)^2 = 49C^2$，多了81.5%。</p>
+
+<h3 id="x1">1x1卷积</h3>
+
+<p>这在不改变卷积层大小的情况下，增加了非线性。它本质上是相同维度空间的线性变换。</p>
+
+<h3 id="section-1">几种配置</h3>
+
+<p><img src="../images/VGGNet/VGGNet-Configuration.png" alt="" /></p>
+
+<h2 id="section-2">训练方法</h2>
+
+<p>带动量的mini-batch梯度下降方法。batch size 256,  动量：0.9。通过weight decay做调整，$L_2$的惩罚因子设为$5 \cdot 10^{-4}$。最先两个FC层的dropout设为0.5。</p>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2017/02/notes-on-image-recognition-of-video/">Notes on Image Recognition of Video</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2017-02-09T17:01:40+08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>5:01 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2 id="resources">Resources</h2>
+
+<h3 id="datasets">Datasets</h3>
+
+<ul>
+  <li><a href="http://www.viratdata.org">vid</a></li>
+  <li></li>
+</ul>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2017/02/notes-of-faster-rcnn/">Notes of Faster Rcnn</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2017-02-08T18:07:07+08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>6:07 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2 id="resources">resources</h2>
+
+<h3 id="code">code</h3>
+<p><a href="https://github.com/rbgirshick/py-faster-rcnn">Python version</a>
+<a href="https://github.com/ShaoqingRen/faster_rcnn">Official Matlab version</a></p>
+
+<h3 id="paper">paper</h3>
+
+<h3 id="datasets">datasets</h3>
+
+<p><a href="http://mscoco.org">http://mscoco.org</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2017/02/notes-on-lfw/">Introduction to Face Databases</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2017-02-06T11:55:20+08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>11:55 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2 id="lfw">LFW</h2>
+
+<p><a href="http://vis-www.cs.umass.edu/lfw/">http://vis-www.cs.umass.edu/lfw/</a> 有13233个人脸图片，5749个人。
+测试集分为10个folder, 每个folder包括匹配人脸、不匹配人脸各300对。一共有6000对。数据的说明，见<a href="&lt;http://vis-www.cs.umass.edu/lfw/README.txt">链接</a>。</p>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2017/02/facenet-triplet-model/">Facenet Triplet Model</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2017-02-04T17:35:40+08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>5:35 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2 id="triplet-net">Triplet Net</h2>
+
+<p>FaceNet use triplet to train a face embedding model. It is so clear and beautiful. </p>
+
+<p>A opensource git repo is : <a href="https://github.com/davidsandberg/facenet">https://github.com/davidsandberg/facenet</a></p>
+
+<p>Its wiki has a valuable explanation about <a href="https://github.com/davidsandberg/facenet/wiki/Triplet-loss-training-of-NN4">triplet loss</a> </p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2017/02/public-model-files-in-deep-learning/">Public Model Files in Deep Learning</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2017-02-03T15:52:38+08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2017</span></span> <span class='time'>3:52 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2 id="vgg-model">Vgg Model</h2>
+<p>### Tensorflow</p>
+
+<p><a href="https://www.cs.toronto.edu/~frossard/post/vgg16/">https://www.cs.toronto.edu/~frossard/post/vgg16/</a></p>
+
+<h2 id="residual-net">Residual Net</h2>
+
+<h3 id="caffe-format">Caffe format</h3>
+<p>Kaiming He has release his resnet models in caffe format.
+* model prototxt file: <a href="https://github.com/KaimingHe/deep-residual-networks">https://github.com/KaimingHe/deep-residual-networks</a>
+* model weights file: <a href="https://onedrive.live.com/?authkey=%21AAFW2%2DFVoxeVRck&amp;id=4006CBB8476FF777%2117887&amp;cid=4006CBB8476FF777">here</a></p>
+
+<h3 id="tensorflow-format">Tensorflow format</h3>
+<p>I also found a <a href="https://github.com/daavoo/kaggle_solutions/blob/master/dogs_vs_cats/02A_Train_full_model_with_augmentation.ipynb">model fine-tuning  python notebook</a> ,  which refers to a <a href="https://github.com/fchollet/deep-learning-models/releases/download/v0.2/resnet50_weights_tf_dim_ordering_tf_kernels_notop.h5">resnet50 weight file</a>.</p>
+
+<h2 id="matlib">MatLib</h2>
+<p>### MatConvNet</p>
+
+<vlfeat.org> provided [pre-trained models](http://www.vlfeat.org/matconvnet/pretrained/#imagenet-ilsvrc-classification) that can be used in MatConvNet。
+
+## Model Converter
+
+### Torch -&gt; Caffe 
+[This issue](https://github.com/beniz/deepdetect/pull/60#issuecomment-216775095) mentions [pretrained resnet model in torch](https://github.com/facebook/fb.resnet.torch/tree/master/pretrained), and [a tool](https://github.com/facebook/fb-caffe-exts#torch2caffe) that can convert torch model file to caffe format.
+
+### Caffe -&gt; Tensforlow
+[git repo](https://github.com/ethereon/caffe-tensorflow)
+
+</vlfeat.org>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2017/01/key-understandings-on-basic-deep-learning/">Key Understanding in Deep Learning</a></h1>
     
     
       <p class="meta">
@@ -106,9 +396,28 @@
   </header>
 
 
-  <div class="entry-content"><h2 id="back-progatation-">前向传导(Back-Progatation) 算法</h2>
+  <div class="entry-content"><h2 id="loss">Loss</h2>
 
-<p>一些基本公式标记</p>
+<p>For image classification, if num of classes is $N$, and the loss function is logloss or softmax, then the random prediction will get loss $logN$.</p>
+
+<ul>
+  <li>For binary classification, N = 2,  loss = 0.6931. </li>
+  <li>For JD image classification challenge, N = 40,  loss = 3.689.   </li>
+  <li>For ImageNet , N = 1000, loss = 6.908</li>
+</ul>
+
+<p>We often get a random prediction loss at the beginning of training, then the loss decrease, and the model begin converge.  </p>
+
+<p>When using caffe, we might get a loss 87.3365,  it means the prediction has overflowed. If it is right, it means $N=e^{86}$, that is a too big number of classes! So, we should check the model definition and learning rate. One reason is that SGD oscillation too much and jump into unreasonable region.</p>
+
+<p>For binary classification and the sample is not even, pos: neg = $1:n$, then the loss of random prediction is:
+<script type="math/tex"> - ( \frac{1}{n} log\frac{1}{n} +  (1-\frac{1}{n}) log(1-\frac{1}{n})). </script></p>
+
+<p>if $n=4$, $ loss \approx 0.5. $</p>
+
+<h2 id="back-progatation">Back-Progatation</h2>
+
+<p>Some basic formula</p>
 
 <p>$ w^l_{jk} $</p>
 
@@ -117,6 +426,8 @@
 <p>$a^l_j$</p>
 
 <p>$ a^l_j = \sigma(\sum_k^{} w^l_{jk} a^{l-1}_k ) + b^l_j $</p>
+
+<p>$ \delta_j^l = \frac{\partial C}{\partial z_j^l $</p>
 
 </div>
   
@@ -286,975 +597,39 @@
   </header>
 
 
-  <div class="entry-content">
-</div>
-  
-  
+  <div class="entry-content"><h2 id="datasets">Datasets</h2>
+<p>### Pascal VOC</p>
 
+<p><a href="http://host.robots.ox.ac.uk/pascal/VOC/">link</a></p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2016/05/notes-on-how-google-works-1/">《谷歌是如何运营的》笔记一：文化</a></h1>
-    
-    
-      <p class="meta">
-        
+<h4 id="voc2007---2012">VOC2007 - 2012</h4>
 
+<p>20 classes:
+* Person: person
+* Animal: bird, cat, cow, dog, horse, sheep
+* Vehicle: aeroplane, bicycle, boat, bus, car, motorbike, train
+* Indoor: bottle, chair, dining table, potted plant, sofa, tv/monitor</p>
 
-
-
-<time class='entry-date' datetime='2016-05-05T11:50:04+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>11:50 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2 id="section">文化：相信自己的口号</h2>
-
-<p>2002年5月一个周五的下午，拉里·佩奇(注：Google创始人)在谷歌网络上闲逛。他键入搜索词条，想看看会搜出什么样的页面和广告，而得到的结果让他非常不满意。他键入一个搜索请求，但有的广告却与搜索词条完全不沾边。</p>
-
-<p>如果你搜索的词条是“川崎H1B”，搜索结果中会包括许多律师帮助移民申请H-1B美国签证的广告，但没有一条是有关搜索词条所指的川崎老款摩托车的。如果你键入的词条是“法国洞穴绘画”，那么你会搜出标题为“在某某处购买法国洞穴绘画”的广告，广告中出现的网上零售商一眼就能看出不是拥有法国洞穴绘画的主儿（甚至连复制品都不会有）。</p>
-
-<p>谷歌的关键词广告搜索引擎本应按照搜索词条筛选出最搭配的广告，谁知却偶尔会为我们的用户搜出如此无用的信息，这让拉里不寒而栗。</p>
-
-<p>…</p>
-
-<p>杰夫在信中详尽地分析了问题出现的原因，提供了一份解决方案，并给出了五人利用周末时间编写出的解决方案模型以及超链接，还附加了测试结果，证明新模型与当时通用的系统相比有哪些优越性。这份解决方案的细节繁冗且专业性强，但其大意就是：我们准备计算出“广告相关度数值”，以此来评估广告与搜索请求的相关性，然后根据得出的数值来决定广告是否出现，以及出现在页面的什么位置。<strong>广告的先后排列应以其相关性为判断标准，而不是只以广告商愿意支付的费用或每条广告所获的点击量为依据，这个核心理念成为谷歌Adwords引擎赖以生存的基础。由此，一项价值几十亿美元的业务应运而生</strong>。</p>
-
-<p>这件事最重要的细节是什么？广告根本就不属于杰夫及其团队的管辖范畴。他们只是碰巧在那个周五的下午来到办公室，看到了拉里的留言而已。他们明白，既然谷歌的使命是“整合全球信息，使人人皆可使用并从中受益”，那么糟糕（也就是无益）的广告（即信息）就自然是个问题了。因此，即使牺牲周末时间，他们也决定解决这个问题。</p>
-
-<p>这几位员工并不直接负责广告业务，即便广告业务出了问题也不会归咎到他们头上，但他们竟然贡献出周末时间，不仅解决了别人的问题，还在解决过程中为公司盈利。这个例子，将谷歌企业文化的力量彰显得淋漓尽致。杰夫及其同事对谷歌的当务之急深谙于心，也明白自己可以放手解决任何阻碍谷歌成功的严重问题。如果他们失败了，没有人会以任何方式斥责他们：如果他们成功了，也没有人（包括广告团队的成员）会对他们的成绩起嫉妒之心。实际上，并不是谷歌文化将这五位工程师在短短的周末变身拯救公司的“忍者”，而是一开始谷歌文化就吸引了这五位“忍者”加入公司。</p>
-
-<p>在考虑一份工作时，许多人首先关注的是职位、职责、公司以往的业绩、行业的整体情况以及薪酬福利。接着往下数，我们或许会在“通勤用时”和“餐厅咖啡品质”这两项之间找到企业文化这一项。然而，<strong>创意精英却会将企业文化放在首位加以考虑。要办事有效，员工必须在乎工作环境。因此，在新加入一家企业或一项事业时，文化是最应重视的因素</strong>。</p>
-
-<p>在企业成立之初就认真考虑并且确定你希望的企业文化，这才是明智之举。最好的做法就是询问构成企业核心队伍的创意精英，因为他们不仅了解企业秉承的信条，也与你一样信奉这些信条。创始人就是企业文化的源头，而创始人为实现大计而物色并信赖的团队，才是企业文化的最佳体现。所以，你要问一问你的团队：</p>
-
-<ul>
-  <li>我们重视什么？</li>
-  <li>我们的信念是什么？</li>
-  <li>我们想成为什么样的企业？</li>
-  <li>我们希望企业在实际行动和制定决策时采取什么样的方式？</li>
-</ul>
-
-<p>然后，把他们的回答记录下来。毋庸置疑，答案中一定包含着创始人的价值理念，但同时也会掺入不同的视角和经验，为创始人的价值观锦上添花。</p>
-
-<p>多数企业都没能重视这一点，它们往往在成功之后才意识到记录企业文化的必要性，因此这项任务就落在了人力资源或公共关系部门肩上。这些部门的人员大多不属于企业的创始团队，他们的任务只是编慕一份凸显企业精髓的使命宣言。他们写就的宣言中，往往堆砌着“顾客满意”、“股东权益最大化”以及“富有创新精神的员工”等陈词滥调。<strong>而一家企业是否成功，要看员工是否信服使命宣言中的说辞</strong>。</p>
-
-<p>…</p>
-
-<p>两位创始人并不想追求短期利益的最大化，也不关注公司股票的变现能力，因为他们知道，记录谷歌独特的价值观以备未来的员工和合作伙伴参考，才是决定企业长远利益的重要因素。</p>
-
-<h2 id="section-1">拥挤出成绩</h2>
-
-<p>占领地盘是人的天性，职场中也不例外。在多数公司里，办公室的面积、摆设物品的品质以及窗口的景致都是办公室主人成就与地位的象征。如果想要把机敏的员工变得牢骚满腹，用新的办公位置就能立马搞定。不少企业都会利用办公位置限制员工的自由发展。 …   在这样的环境中，所有特权都与职位挂钩，而不看员工的实际需求和具体业绩。</p>
-
-<p><strong>办公室的设计本应本着激发活力、鼓励交流的理念，而不要一味制造阻隔、强调地位</strong>。方便的交流可以为创意精英提供灵感，把创意精英聚集在一起，你就能引爆他们的思想。因此，我们必须为他们提供一个拥挤的环境。</p>
-
-<p>我们认为，办公状态应鼓励大家多多交流，让大家在喧闹拥挤的办公室里创所欲言、激情碰撞。在参与完团队活动后，员工可以到清净之地换换脑子。</p>
-
-<h2 id="section-2">一起吃住，一起工作</h2>
-
-<p>在互联网时代，产品经理的任务是与设计、策划以及研发人员通力合作，共同打造高质量的产品。这样的模式要求产品经理通过涉足一些传统概念中的管理工作来影响产品生命周期、制定产品营销结构图、为消费者说话，并把这些理念传递给自己的团队和管理层。最重要的是，创意精英式的产品经理还需要从技术入手，让产品质量更上一层楼。这就要求这些经理对消费者使用产品的方法有所了解（也要把握科技发展对消费者的使用方法带来的影响），也就是说，他们不仅要学会解读和分析数据，还要看懂科技潮流，预见这些潮流对他们所在的行业带来的影响。这就要求产品经理与工程技术人员（或是化学家、生物学家、设计师以及公司其他负责产品设计研发的创意精英）一同吃住、并肩工作。</p>
-
-<h2 id="section-3">别听父母的：杂乱是种美德</h2>
-
-<p>虽然办公室可以杂乱拥挤，但办公室要为员工提供工作所需的一切条件。那谷歌为例，谷歌是一家计算机公司，所以计算能力是我们的创意精英们最需要的。处于这个原因，谷歌向工程师们提供世界上最强大的数据中心和谷歌的整个软件平台。慷慨向员工提供工作中必须用到的资源，不失为一种根除职场办公资源相互攀比风气的方式。在奢华的办公设施和宽敞的办公室等无足轻重的资源上，我们能省就省，但对于这些关系重大的资源，我们则不惜倾力投入。</p>
-
-<p>这种疯狂举动背后自由其道理。我们购买办公室，是因为我们希望员工在办公室办公，而不是在家里办公。正如乔纳森常说的，在家办公其实无异于一种会在整个公司内蔓延、让员工士气萎靡不振的瘟疫。已故的贝尔实验室前董事长默文·凯利就是本着鼓励员工相互沟通的理念来设计公司办公格局的。</p>
-
-<h2 id="section-4">别听“河马”的话</h2>
-
-<p>我们所说的职场中的“河马”，指的是“高新人士的意见”。从本质上来说，薪金的高低与决策能力完全无关，而只有在决策人使用个人经验作为有力凭据时，我们才能说经验的多寡对决策有所影响。</p>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2016/04/how-to-make-mac-os-write-ntfs-volume/">Mac系统下如何让NTFS磁盘卷可写</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-04-14T10:41:12+08:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>10:41 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>NTFS是微软Windows默认的磁盘格式。在Mac系统下，默认是只读的。比如你的移动硬盘或U盘，在Windows下按照默认格式(NTFS)去格式化，那么在Mac系统下，尽管能识别盘符，查看内容，却不可写入。</p>
-
-<p>通常有三种方法：</p>
-
-<ol>
-  <li>将磁盘重新格式为FAT32, 在Windows和Mac下都可以读。对于有所数据的磁盘，不可取。</li>
-  <li>采用第三方软件，提供NTFS写支持。但是在Mac升级后，经常会失效。</li>
-  <li>修改配置文件，提供无缝支持。</li>
-</ol>
-
-<p>最好的是方法3，其实OSX Mountain Lion已经提供了对NTFS的支持，但默认情况下关闭着。开启的步骤是：</p>
+<h3 id="ccvl-datasets">CCVL Datasets</h3>
+<p><a href="http://ccvl.stat.ucla.edu/datasets/">link</a></p>
 
 <ul>
   <li>
-    <p>卸载第三方NTFS软件，如Paragon, Tuxera 或 NTFS-3G</p>
+    <p><a href="http://www.stat.ucla.edu/~xiaochen.lian/paspart_challenge/index.html">PASCAL Part Segmentation Challenge (website)</a>
+A platform on which researcher can investigate the performance of semantic parts segmentation method.</p>
   </li>
   <li>
-    <p>修改文件 <em>/etc/fstab</em>,  可用命令 <code>sudo vi /etc/fstab</code>。 添加行:   </p>
-
-    <p><code>
- LABEL=VOLUME_NAME none ntfs rw,auto,nobrowse
-</code></p>
-
-    <p>VOLUME_NAME是磁盘卷名，不能带引号。卷名可以用命令 <code>diskutil list</code> 或 <code>df -h</code> 查询。除过卷名，还可以用卷的UUID，查询的命令是  </p>
-
-    <p><code>diskutil info /Volumes/VOLUME_NAME | grep UUID</code></p>
-  </li>
-  <li>
-    <p>卸载磁盘，重新mount，即拔掉USB电缆，重新插一下。</p>
+    <p><a href="http://www.stat.ucla.edu/~ccvl/datasets/pascal-context/">Pascal context datasets</a> </p>
   </li>
 </ul>
 
-<p><strong>但是，我在Finder窗口中没看到磁盘啊！</strong></p>
+<h2 id="sift">SIFT</h2>
 
-<p>别着急，这种做法必须设置nobrowse，所以默认情况下，不会在Finder窗口显示。可以通过命令打开磁盘。</p>
+<p>原作者David Lowe:  <a href="http://www.cs.ubc.ca/%7Elowe/keypoints/">http://www.cs.ubc.ca/%7Elowe/keypoints/</a></p>
 
-<p><code>
-open /Volumes/VOLUME_NAME
-</code></p>
+<h3 id="section">代码</h3>
 
-<p>如果想让磁盘出现在桌面上：</p>
-
-<p><code>
-sudo ln -s /Volumes/VOLUME_NAME ~/Desktop/VOLUME_NAME &amp;&amp; open ~/Desktop/VOLUME_NAME
-</code></p>
-
-<hr />
-
-<p>参考了如下文章：</p>
-
-<ul>
-  <li><a href="https://prateekvjoshi.com/2013/04/21/ntfs-write-support-on-os-x-mountain-lion/">https://prateekvjoshi.com/2013/04/21/ntfs-write-support-on-os-x-mountain-lion/</a></li>
-  <li><a href="http://osxdaily.com/2013/10/02/enable-ntfs-write-support-mac-os-x/">http://osxdaily.com/2013/10/02/enable-ntfs-write-support-mac-os-x/</a></li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2016/04/notes-on-how-google-works-0/">《谷歌是如何运营的》笔记零：前言</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-04-08T11:10:22+08:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>11:10 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2 id="section">推荐序 – 赋能：创意时代的组织原则</h2>
-
-<p>彼得 · 德鲁克，将过去200年组织创新分为三次革命：</p>
-
-<p>第一次是<strong>工业革命(industrial revolution)</strong>，核心是机器取代体力，技术超越技能。</p>
-
-<p>第二次是<strong>生产力革命(productivity revolution)</strong>，大致从1880年到第二次世界大战，核心泰勒制为代表的科学管理的普及，工作被知识化，强调的是标准化、可度量等概念。公司这种新组织正式随着科学管理思想的发展而兴起的。</p>
-
-<p>第三次是<strong>管理革命(management revolution)</strong>，知识成为超越资本和劳动力的最重要的生产要素。和体力劳动相比，知识工作者是否努力工作很难被直接观察和测量。管理的重心转向激励，特别是动机的匹配(incentive alignment)。<u>期权激励</u>是这20年高科技企业大发展最主要的组织创新。</p>
-
-<p>沿着这个思路，我们正处于第四次革命，即“<strong>创意革命”(creative revolution)</strong>。从互联网到移动互联网，再到物联网，从云计算到大数据，未来商业的一个基本特征已经清晰，那就是基于机器学习的人工智能将成为未来商业的基础。虽然对于人工智能的未来有着巨大的争议，特别是机器是否超越人脑，甚至是否反人类。但一个基本的共识是，在可见的未来，机械性的、可重复的脑力劳动，甚至较为复杂的分析任务，都会被机器智能取代。但人的直觉，对知识的综合升华能力，是机器暂时难以超越的。相对应的，未来社会最有价值的人，是以创造力、洞察力、对客户的感知力为核心特征的。他们就是本书所提到的“创意精英”。</p>
-
-<p>而在创意革命的时代，创意者最主要的驱动力是创造带来的成就感和社会价值。自激励是他们的特征。这个时候他们最需要的不是激励，而是赋能，也就是提供他们能更高效创造的环境和工具。以科层制为特征、以管理为核心职能的公司，面临着前所未有的挑战。</p>
-
-<p>赋能(empower)的原则如何体现呢？</p>
-
-<p>第一，<strong>激励偏向是事成之后的利益分享</strong>，而赋能强调的，是激发创意人的兴趣和动力，给予挑战。唯有发自内心的志趣，才能激发持续的创造。命令不适用于他们。因此，组织的职能不再是分派任务和监工，而更多是让员工的专长、兴趣和客户的问题有更好的匹配，这往往要求更多的员工自主性、更高的流动性和更灵活的组织。我们甚至可以说，是员工使用了组织的公共服务，而不是公司雇佣了员工。二者的根本关系发生了颠倒。</p>
-
-<p>第二，<strong>赋能比激励更依赖于文化</strong>。文化才能让志同道合的人走到一起。创意精英再也不能用传统的方法去考核、激励，公司的文化氛围本身就是奖励。本质上他们都是自驱动、自组织的，对文化的认同比较较真。为了享受适合自己的文化，创意精英愿意付出、拥护、共创。一个和他们的价值观、使命感吻合的文化才能让他们慕名而来，聚在一起，奋发进取，因而组织的核心职能将演变为文化与价值观的营造。</p>
-
-<p>第三，激励聚焦在个人。而赋能特别强调组织本身的设计、人和人的互动。随着互联网的发展，组织内部人和人的联系也更紧密。新兴学科，例如复杂网络和社会物理学的研究，都指出人和人之间的互动机制的设计对于组织的有效性可能远大于对于个体的激励。谷歌那些声名远扬的免费服务，不仅仅是提供员工福利，提高员工的生产力，很大的一个目的是增进他们的互动。…… 创造是很难规划的。只有提供他们各自独立时无法得到的资源和环境（其中最重要的就是他们之间的充分互动），有更多自发碰撞的机会，才能创造更大的价值。…。这个传奇背后依然是一系列配套的机制设计，例如每周员工大会的透明沟通、员工的自主权、跨部门调动资源的能力等。所以，促进协同的机制设计，这是未来组织创新最重要的领域。</p>
-
-<p>德鲁克在他最后一本书《21世纪的管理挑战》中提到，预测未来的最好方法是参与创造。</p>
-
-<p>~~ 曾鸣</p>
-
-<h2 id="section-1">序言： 谷歌的“痴心妄想”</h2>
-
-<p>年少时，第一次考虑到自己的未来，我决定要么当个教授，要么就创造自己的公司。我觉得，这两种职业都可以给我足够的自主权，让我自由地从基本物理原则出发思考问题，而不必去迎合那些所谓的“世俗智慧”。</p>
-
-<p>…</p>
-
-<p>随着时间的推移，我意识到。实际上，想要点燃团队的熊熊野心是极其困难的。大多数人并没有接触过这种如登月般异想天开的思维方式，他们习惯用“不可能”来否定自己的想法，而不是从基本物理原则出发去探索可能性。正因如此，谷歌才会投入大量精力去物色善于独立思考的人，并设定远大目标。因为只有了合适的人才和足够远大的梦想，你的目标往往就可以实现。就算跌倒了，你也很可能从失败中跌倒宝贵的经验。</p>
-
-<p>…</p>
-
-<p>如果说历史可以照见未来，那么今天看似最冒险的赌注，放在几年之后看也就不会显得那么疯狂了。</p>
-
-<p>~~ 拉里 · 佩奇</p>
-
-<h2 id="section-2">谷歌是如何运营的</h2>
-
-<h3 id="section-3">去和工程师谈谈</h3>
-
-<p>两位创始人并没有接受任何商业方面的正式培训，也没有相关经验。其间，两人一直秉承着几条基本原则。其中首要的，就是聚焦用户(focus on the user)。两人觉得，如果谷歌能提供优质服务，那么资金问题就能迎刃而解。</p>
-
-<p>…</p>
-
-<p><strong>“员工即一切”</strong>。谢尔盖和拉里却在公司运营中实践了这句话。这种做法并非是为企业拉大旗，也不是出于利他主义。之所以这么做，是因为他们觉得，要让谷歌茁壮发展并实现看似遥不可及的雄心壮志，只能吸引和依靠最为顶尖的工程师。而且，两人认定非工程师不招。</p>
-
-<p>…</p>
-
-<p>因为拉里讨厌这种方式：
-<br />
-“你见过哪个团队的表现能超越既定目标？”
-<br />
- 呃，没有。
-<br />
- “你的团队研发过比计划中更出色的产品吗？”
-<br />
-也没有。
-<br />
-“如果这样，计划还有什么意义？计划只是在拖我们的后腿罢了。一定有比计划更有效的方式，去和工程师谈谈吧。”</p>
-
-<p>没错，拉里所说的工程师都是杰出的程序员和系统设计师，但除了技术方面的资深经验之外，很多人还具备敏锐的商业头脑，在创意上也是才思泉涌。</p>
-
-<p>…</p>
-
-<p>我们知道，对谷歌而言，一份正式而死板的计划，就像往身体里移植一个与身体相排斥的器官。</p>
-
-<p>…</p>
-
-<p>作为资深的商业管理者，在加入谷歌之时，我们以为自己之时在一个混乱的公司里实施“成人监督”。但是到2003年夏天，我们在谷歌的感受让我们意识到，这家公司的运营方式与多数公司不同：员工得到充分授权，公司所处的新兴行业日新月异。</p>
-
-<p>对所处行业的了解告诉我们，<strong>要抵御微软的侵袭，我们就要一以贯之地保持产品的高质量。而我们同时也明白，要在产品品质上追求卓越，最佳的途径并非靠商业计划，而是要尽可能物色最顶尖的工程师，给他们空间让他们尽情发挥</strong>。</p>
-
-<h3 id="section-4">芬兰计划</h3>
-
-<p>这份计划全都是在讲谷歌应如何专注于用户，如何提供卓越的平台和优秀的产品。计划中阐明，谷歌应一如既往地提供并升级优质服务，同时还应让用户轻松享受到这些服务。其中倡导，谷歌应立足于用户，随着用户的增加，谷歌自然能吸引更多广告用户。计划中有几点策略谈到了谷歌应如何应对竞争对手对我们造成的威胁，但我们认为，<strong>对抗微软最好的方法，还是要靠杰出的产品</strong>。</p>
-
-<h3 id="section-5">当神奇不再是神奇</h3>
-
-<p>三股科技狂潮汇集在一起，让多数行业的大环境发生了乾坤大挪移。
-<br />
-第一，互联网让信息免费、资源不断、无处不在，也就是说，几乎所有信息都可以在网络上找到。
-<br />
-第二，移动设备和网络让全球范围内的资讯共享及持续通讯成为可能。
-<br />
-第三，云计算让人人都能以低廉的价格现付现购地使用强大的计算功能、无限的内存空间、精密的工具和各种应用程序。
-<br />
-时至今日，全球仍有很大一部分人口无法享受这些科技的泽惠，但是，这一切将发生改变，剩下的50亿人口上网的那一天已是指日可待。</p>
-
-<h3 id="section-6">速度决定成败</h3>
-
-<p>科技进步给消费者带来了不可小觑的影响，科技对商业的影响更是天翻地覆。用经济术语来说，如果某行业产品主要要素的成本曲线下降，那么该行业必将会出现剧变。而今，<strong>信息、连接和计算能力</strong>这三大生产要素都变得便宜了，那么与这些要素相关的成本曲线就难逃影响。</p>
-
-<p>这样一来，破坏性剧变就不可避免了。当时许多企业(也就是互联网时代之前的企业)创建时是为了解决稀缺性：信息稀缺、配送资源稀缺、市场覆盖面不足、选择有限和货品匮乏。而今，这些资源都变得丰沛起来，降低甚至消除了行业进入的门槛，各行业的转变时机已经成熟。</p>
-
-<p>最先出现转变的，是媒体行业。现在所有的媒体信息都可以转为电子数据，免费在世界各地传播。实际上，每个行业和领域或多或少都要依靠信息的推动，媒体、市场营销、零售、医疗、政府、教育、理财、交通、国防、能源等都是如此。能够在信息时代岿然不倒的行业，我们还真是一个也想不出来。</p>
-
-<p>这种剧变的结果是，提供出类拔萃的产品是企业成功的关键，产品甚至比掌控信息、垄断渠道和强力营销更为重要（当然，这些因素仍然很重要）。这有几个原因：第一，消费者从未像现在这样拥有这么多信息和选择。以前，企业只要凭借强大的市场攻势或分销手段，就可以将劣质产品摇身变成畅销品。你只需生产出一款说得过去的产品，砸下大笔经费扼住营销渠道、限制消费者的选择，就可以坐等收成了。</p>
-
-<p>…</p>
-
-<p>消费者有了如此丰富的信息和选择，那些质量低劣的餐馆（无论是否连锁）就算拥有大笔营销经费也越来越难以站住脚跟了，而那些后起之秀却越来越容易凭借消费者的口口相传打出一片天地。</p>
-
-<p>汽车、旅馆、玩具、服装以及消费者可以在网上搜索的任何产品或服务都是如此。数据货架空间几乎用之不竭（YouTube网站上足足有100多万个频道，亚马逊网站上仅商业领导力方面的书籍就达到了5万多种），这就为消费者提供了巨大的选择空间。除此之外，消费者还可以轻松对产品发表评论。因此，如果你的产品或服务欠佳，处境就危险了。</p>
-
-<p>Excite@Home管理层的理念并不稀奇，许多管理者都认为，品牌和营销的力量可以帮助那些不尽如人意的产品站稳脚跟。听说过谷歌的Notebook吗？听过说Knol, iGoolge, Wave, Buzz, PigeonRank吗？这些都是谷歌的产品，虽然各有特点，但没有一款能够深入人心。究其原因，就是这些产品都不够优秀，死得其所。如果产品泛善可陈，其劣势是市场营销和公关营造的品牌力量完全不足以反转的。正如亚马逊创始人兼首席执行官杰夫 · 贝佐斯曾经说过的：“以前，人们花30%的时间打造优质服务，70%的时间大张旗鼓地宣传。但现在，情况正好相反。”</p>
-
-<p>产品的卓越性能之所以至关重要，第二个原因是实现和失败的成本显著下降。这种现象在高科技行业尤为显著：几个工程师、研发者和设计者组成一个小团队，合力创造出新颖的科技产品，然后就可以通过网络免费在全球发行。构想并打造新产品、选定顾客群试用、判断产品的优点及缺陷、对产品进行调整、再次试用，不然就从失败中总结经验，放弃失败的产品、重新再来，以便提升用户体验。</p>
-
-<p>多数企业现行管理模式的设计都跟时代的变化趋势完全不同。这些管理模式诞生于100多年之前，当时，失误所造成的成本损失很高，且只有企业最高管理者才能掌握全面的信息。这些管理者的首要目标就是降低成本，确保只有掌握大量信息的少数总裁级人物才有权制定决策。在这种传统的“指挥–控制”式企业结构中，信息自下往上流动，而决策有上往下传达。这种方法旨在放慢速度，也的确有效地减缓了速度。也就是说，当企业必须一致加速时，这种结构就会失灵，阻碍企业发展。</p>
-
-<h3 id="section-7">创意精英</h3>
-
-<p>令人欣慰的是，令产业格局翻天覆地的丰饶经济学也席卷职场，现今的职场与20世纪相比有天壤之别。如前所述，实验成本越来越低，失误所造成的损失（在处理得当的前提下）比以前大幅下降。除此之外，<strong>曾经稀缺的信息资源和计算资源现在非常丰沛，不必囤积</strong>。另外，无论你与同事在同一间办公室、一个大陆，还是身处地球的两端，彼此间的合作都变得畅通无阻。有了这些条件，你就可以将独立的人员、管理者甚至总裁凝聚在一起，干一份不可思议的大事业了。</p>
-
-<p>简单地说，这些以信息为基础进行工作的人是靠头脑吃饭的。如今被称为“知识工作者”。</p>
-
-<p>……</p>
-
-<p>IBM、通用电气、通用汽车以及强生等企业都会为拥有管理潜能的顶尖人才铺设职业轨道，让这些管理之星每隔两年左右就可以调换一次岗位。但这种方法注重的是管理技能的培养，而忽视了技术方面的能力。这就造成在传统企业中，多数知识工作者，要么是技术达人、管理白痴，要么是管理管理专家、技术菜鸟。</p>
-
-<p>如果我们把传统知识工作者与谷歌十几年来招徕的工程师等人才放在一起对比，就会发现谷歌的人才是一个截然不同的员工股群体。这些人不拘泥于特定的任务，也不受公司信息和计算能力的约束。他们不惧怕冒险，即便在冒险中失败，也不会受到惩罚或牵制。他们不被职位头衔或企业的组织结构羁绊手脚，甚至还有人鼓励他们将自己的构想付诸实现。如果出现不同意见，他们不会选择缄口不言。他们很容易失去耐心，经常变化职位。他们具有多领域的能力，经常会将前沿技术、商业头脑以及奇思妙想结合在一起。换句话说，至少从传统意义上来说，这些人已经不能算是知识工作者了。这是一个新的物种，<strong>我们称之为“创意精英”，他们，便是互联网取得成功的关键所在</strong>。</p>
-
-<p>当今，提高产品研发速度及产品质量，已然成为企业最为注重的目标。自从产业革命之后，企业运营流程一直偏重于降低风险、规避失误。这样的流程，加之衍生出这种流程的整个管理模式，形成了一种压制创意精英的大环境。但是，决定当今企业成败的因素，就是要看企业是否持续推出高质量 的产品。要想实现这个目标，企业就必须吸引创意精英的加盟，并创造出让他们自由发挥的整体环境。</p>
-
-<p>那么，到底哪种人才能算得上是创意精英呢？</p>
-
-<p>所谓创意精英，不仅拥有过硬的专业知识，懂得如何使用专业工具，还需具备充足的实践经验。以谷歌所在行业为例，我们的创意精英大多是计算机科学家，或至少应该懂得计算机屏幕展现的魔法背后所遵循的系统结构及原则。在其他行业中，创意精英可以是医生、设计师、科学家、电影制作者、工程师、厨师或数学家。他们是专业上的行家里手，不仅能设计概念，还会建造模型。</p>
-
-<p>创意精英，具有分析头脑。他们对数据运用自如，可以利用数据做出角色，同时也懂得数据的误导性。</p>
-
-<p>创意精英，有商业头脑。他们知道专业技术、优质产品与商业成功是环环相扣的。也对这三个要素的价值了然于胸。</p>
-
-<p>创意精英，具有竞争头脑。在工作中，他们的撒手锏源自创新，但也离不开实干的积累。他们追求卓越，干劲十足，即使在工作之余也不停止前进的脚步。</p>
-
-<p>创意精英，拥有用户头脑。无论身处哪个行业，几乎没有人能比他们更懂得用户或消费者度产品的看法。我们把创意精英叫作“<strong>超级用户</strong>”。因为，他们对自己的兴趣并非浅尝辄止，而是近乎痴迷。他们充当自己的焦点小组和实现对象，身先士卒地试用产品。</p>
-
-<p>创意精英，是新颖原创构想的源泉。他们用不同于你我的崭新视角看问题。有时候，他们甚至还能跳出自己的视角，因为他们懂得如何在必要时充当变换视角的“变色龙”。</p>
-
-<p>创意精英，充满好奇心。他们总是在提问，绝不满足于守常不变。他们善于从各处发现问题，自信解决问题的人非己莫属。</p>
-
-<p>创意精英，喜爱冒险。</p>
-
-<p>创意精英，自动自发。他们不会坐等别人为他们指出方向，对于有悖于他们自己信念的指示，他们会选择充耳不闻。他们注重自己的理念，也会依据自己的理念主动行动。</p>
-
-<p>创意精英，心态开放。他们可以自由地与他人合作，在评判构想和结论时，他们看重的是有点和价值而非出处。</p>
-
-<p>创意精英一丝不苟，他们对细节掌握精确、如数家珍。这不是死记硬背的功劳，而是因为他们对这些知识熟谙于心。</p>
-
-<p>创意精英，善于沟通。他们风趣幽默，无论面对的是一个人还是一群人。他们都气场十足，魅力四射。</p>
-
-<p>并非所有的人都同时具有以上所有特质，实际上，同时具备上述所有优点的人凤毛麟角。但是，所有的创意精英都必须具备商业头脑、专业知识、创造力以及实践经验，这些都是基本特质。</p>
-
-<p>关于创意精英，最令人欣慰的，就是这种人才无所不在。无论年龄大小，只要是那些有抱负并乐于（也有能力）利用科技去挑战更多可能的人，都是创意精英。这些人的共同特点是：认真努力、乐于挑战现状、敢于从不同的角度切入问题。正因如此，他们才有如此强大的影响力。</p>
-
-<p>创意精英是一个极其难以管理的群体，因为无论你付出多少努力，都无法指挥这些人的想法。<strong>如果你无法管理创意精英的想法，就必须学会管理他们进行思考的环境，让他们乐于置身其中</strong>。</p>
-
-<h3 id="section-8">谷歌的管理之道</h3>
-
-<p>虽然谷歌当初邀我们加入的目的是让我们提供所谓的“承认监督”，但为了完成任务，我们俩不得不将有关管理的既有知识全盘推翻，将谷歌总部与我们朝夕相处的各位同仁当作自己最好的老师。</p>
-
-<p>…</p>
-
-<p>德高望重的思科公司首席执行官约翰·钱伯斯曾说过，在20世纪90年代初期，他经常与惠普公司首席执行官卢·普拉特会面，探讨战略和管理问题。有一次，钱伯斯不无赞叹地问普拉特，为什么要花如此多宝贵的时间帮助另一家公司的一位年轻高管。普拉特先生回答道：“这就是硅谷，我们就是来帮你的。”</p>
-
-<p>…</p>
-
-<p>同样，苹果公司已逝的创始人兼首席执行官史蒂夫·乔布斯，也秉承着同样的理念。生前，他常常为他的邻居拉里·佩奇出谋划策，他的表述更加生动。</p>
-
-<p>我们两位作者都是以资深企业高管的身份加入谷歌的，对自己的才智与能力充满自信。但是经过十载的打磨，我们终于参透了篮球教练约翰·伍登(John Wooden) “<strong>学习知识，只有融会贯通，才算真正学到手</strong>”，这句话的含义。我们帮助谷歌创始人和同仁们打造了一家令人称奇的企业，收获了第一手的经验。可以说，我们坐在第一排，目睹了“魔术师”的魔法。这颠覆了我们对管理的理解。现在，世界各地不同行业大大小小的企业和组织涌入硅谷，希望吸收让硅谷大放异彩的灵感与活力。人们渴望改变，而这本书就是为改变而写的：<strong>秉承着硅谷前辈的精神，我们希望将“魔术师的秘密”转化为人人皆可利用的经验，与大家分享</strong>。</p>
-
-<p>本书的框架旨在反映一个成功的企业、新兴企业或新创企业的发展阶段，这个过程构成了一个自我永续的良性循环，就像从山上滚下来的雪球，体积越来越大，势能越来越猛。我们会分步骤介绍吸引和激励创意精英的方式，每一步骤都会推动企业向前迈进。这些步骤互为基础、相辅相成，每一个步骤都永远向前，永不衰竭。</p>
-
-<p>在书的开头，我们会谈到如何吸引最顶尖的创意精英。我们首先从企业文化谈起，因为<strong>企业文化与企业的成败息息相关</strong>。如果连你自己都不信服自己的企业口号，那么你的企业又能走多远呢？此后，<strong>我们会谈及战略，因为最吸引创意精英的，莫过于有着强大战略基础的构想</strong>。创意精英明白，商业计划远远没有支撑计划的支柱重要。之后，<strong>会谈到人才招聘，这是领导者最为重要的一项职责</strong>。延揽足够的俊才，让他们碰撞融合，必能激发出创意与成果。</p>
-
-<p>团队招募完毕，企业开始成长，就到了制定艰难决策的时候。这时，我们会谈到如何才能达成共识。接下来的一章中，我们会谈到沟通，随着企业的发展，沟通会变得越来越重要（也越发困难）。之后，我们会转到创新上。要想取得长久的成功，保持产品的高质量是不二法门。而要想在产品质量上获胜，打造让人受到创意熏陶的环境是关键。在本书结尾，我们谈了对当今主流企业的一些看法，并探讨了如何才能敢于想象不可想之事。</p>
-
-<h3 id="section-9">待建的金字塔</h3>
-
-<p>这些经验来之不易，其中许多经验都是我们两位作者在冗长的会议、激烈的辩论以及惨痛的失误中学来的。同时，能在互联网风靡全球之际有幸加入一家由杰出的创始人领航的企业，我们深感三生有幸。</p>
-
-<p>在这个新兴行业中，科技至高无上，员工被充分授权，面貌焕然一新。我们两人对这个行业绝非无所不知，但可以说有深入了解。我们认为我俩的这些认识或许可以为各种组织的领导者提供一些灵感，无论是大企业还是创新公司，无论是非营利组织、非政府组织还是政府组织。我们最大的心愿，是通过本书带给你一次愉快的阅读体验，同时给你提供创新所需的灵感和工具。</p>
-
-<p>我们所说的“你”，指的就是创业者。“你”就是你。<strong>或许，你不认为自己是个创业者，但实际上，你就是</strong>。你心中有一个你确信将改变一切的构想，这个构想或许是一个模型，或许已经演变成了一款产品的雏形。你聪明、野心勃勃，在会议室、车库、办公室、咖啡厅、公寓或宿舍中，你或者与一小撮同仁埋头苦干，或者孤军奋战。即便是在学习、上班或是陪伴伴侣或孩子的时候，<strong>你依然会走神，去考虑你的宏大构想</strong>。你的创新事业就要启动，而我们，希望助你前进。</p>
-
-<p>我们所说的“事业”，并非仅仅指硅谷随处可见的高科技新兴企业。当今，员工希望从企业中获得的满足感与以前不可同日而语，但这种需求却往往得不到满足。本书提供了一个绝佳的机会，书中谈及的原则和方法适用于任何想要创业或创新的人，无论你是白手起家还是想在一家既有企业中实现突破。书中内容并不局限于初创企业，也绝不囿于高科技企业。实际上，如果经验丰富的领导者能够充分利用运营中的组织的一切资源，便会促使组织爆发出远大于初创企业的影响力。… 。你只要知道，你所处的行业的变革一日千里，你不仅要具备投身于这场变革的冒险精神，还要乐于且有能力吸引最顶尖的创意精英，领导他们助你完成伟业。</p>
-
-<p>说的是你吗？准备好了吗？互联网时代到处都是尚未起建的金字塔。还等什么呢？开始动手吧！</p>
-
-<hr />
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2016/03/rsa-and-implemenation-by-self-in-python/">RSA and Implemenation by Self in Python</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-03-22T11:25:20+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2016</span></span> <span class='time'>11:25 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://sahandsaba.com">Sahand saba</a> 的文章 <a href="http://sahandsaba.com/cryptography-rsa-part-1.html">Basics of Cryptography Part I: RSA Encryption and Decryption</a>描述了RSA算法在Python的实践。本文是自己理解，以及实践的过程。</p>
-
-<h2 id="rsa">什么是RSA算法</h2>
-
-<p>RSA可以是世界上最重要的加密算法，每个以https://开头的网址，都是采用基于RSA的安全传输协议。可以说，没有RSA，也就没有可靠安全的网络传输。互联网和Web也不会取得如此巨大的发展。</p>
-
-<p>RSA是一种非对称加密算法，也就是加密的秘钥与解密的秘钥不同。公钥可以对外公布，信息用公钥加密，只有掌握私钥的一方才可解密。这就防止因加密的秘钥被盗，导致泄密的可能性。</p>
-
-<p>RSA的名字来自三位发明者名字的首字母： <a href="https://en.wikipedia.org/wiki/Ron_Rivest">Ron Rivest</a>,  <a href="https://en.wikipedia.org/wiki/Adi_Shamir">Adi Shamir</a>, <a href="https://en.wikipedia.org/wiki/Leonard_Adleman">Leonard Adleman</a>。</p>
-
-<p>RSA的安全性是基于极大数之因子分解极为困难，在目前的计算量上基本不可能。</p>
-
-<h3 id="section">秘钥产生</h3>
-
-<ol>
-  <li>找到两个不同的极大素数 $p$, $q$。</li>
-  <li>计算 $n = pq$, $n$作为公钥和私钥的模。它的长度，以比特位表示，就是秘钥的长度。</li>
-  <li>计算 $\phi(n)=\phi(p)\phi(q)=(p-1)(q-1)=n-(p+q-1)$, $\phi$称为欧拉总计函数(<a href="https://en.wikipedia.org/wiki/Euler%27s_totient_function">Euler’s totient function</a>)。此处计算的值要隐蔽起来。</li>
-  <li>选择一个整数$e$, 使得 $1&lt;e&lt;\phi(n)$, 且$e$与$\phi(n)$互质，也就是以及 $gcd(e, \phi(n))=1$。<a href="https://en.wikipedia.org/wiki/Greatest_common_divisor">gcd</a>是两数的最大公约数。</li>
-  <li>确定$d$， $d=e^{-1}(mod\ \phi(n))$。或者说求解 $d$，使得$d{\cdot} e{\equiv}1 (mod\ \phi(n))$</li>
-  <li>销毁$p,q,\phi(n)$的计算记录。</li>
-  <li>私钥是$(n, d)$, 公钥是$(n,e)$。</li>
-</ol>
-
-<h3 id="section-1">加密</h3>
-<p>假设Bob要讲信息$M$传给Alice。他首先按照某种字符集编码规则(比如Unicode)，将$M$转化为数字$m$，并通过padding scheme，使得$0\leq m \leq n$ 且 $gcd(m,n)=1$。如果文本过长，可以分成几块，分别加密。然后利用Alice的公钥$e$，计算每一块的密文：</p>
-
-<script type="math/tex; mode=display"> c \equiv m^e mod\ n</script>
-
-<p>然后将$c$传给Alice。</p>
-
-<h3 id="section-2">解密</h3>
-<p>Alice利用私钥$d$，从密文$c$中恢复出$m$，</p>
-
-<script type="math/tex; mode=display"> c^d \equiv (m^e)^d \equiv m\ mod\ n</script>
-
-<p>如果得到$m$，就可根据编码规则恢复原文$M$。</p>
-
-<h3 id="section-3">举例</h3>
-
-<h4 id="section-4">秘钥生成</h4>
-
-<ol>
-  <li>选择两个不同的质数，比如 $p=47$, $q=73$</li>
-  <li>计算$n$,   $n=pq=3431$</li>
-  <li>计算欧拉总计函数，$\phi(n) = \phi(p)\phi(q)=(p-1)(q-1)=3312$</li>
-  <li>寻找$e$, 使得$1&lt;e&lt;\phi(n)$且$e$与3312互质的数。可以选定质数，然后只需验证其不是$\phi(n)$的余数即可。我们选择$e = 37$。</li>
-  <li>通过简单地搜索(顺序搜索即可)，得到 $d = 3133$，使得 $(37\cdot 3133) \equiv 1 \ mod(3312)$</li>
-  <li>私钥是$(n=3431, d=3133)$，公钥是$(n=3431, e=37)$</li>
-</ol>
-
-<h4 id="section-5">加密与解密</h4>
-
-<p>被加密的数字为$m$, 加密函数则为：</p>
-
-<p>$ E(m) = m^{37} mod\ 3431 $</p>
-
-<p>设 $m=67$, 带入得 $c=1016$。</p>
-
-<p>得密文$c$，解密函数为:</p>
-
-<p>$ D(c) = c^{3133} mod \ 3431$</p>
-
-<p>将$c=1016$带入，得$m=67$</p>
-
-<h3 id="section-6">正确性的证明</h3>
-
-<p>有两个方法来证明RSA算法，费马小定律(<a href="https://en.wikipedia.org/wiki/Fermat%27s_little_theorem">Fermat’s little theorem</a>)或欧拉定律(<a href="https://en.wikipedia.org/wiki/Euler%27s_theorem">Euler’s theorem</a>)。虽然RSA算法的作者们用费马小定律来证明，但费马小定律是欧拉定律的特例，用后者证明更为简洁。</p>
-
-<p>我们需要证明 $m^{ed} \equiv m \ mod \ n$，这里 $n=pq$是两个不同的素数的乘积。而$e, d$是两个正整数，满足$ed \equiv 1 \ mod\  \phi(n)$。</p>
-
-<p>证明如下：</p>
-
-<p>既然$ed$是正整数，它总可以写成 $ed = 1 + h \phi(n)$, $h$为某个非负整数。假设$m$与$n$互质，我们有：</p>
-
-<script type="math/tex; mode=display"> m^{ed} \equiv m^{1+h \phi(n)} \equiv m (m^{\phi(n)})^h \equiv m(1)^h \equiv  m \ mod\ n</script>
-
-<p>倒数第二个全等来自<a href="https://en.wikipedia.org/wiki/Euler%27s_theorem">欧拉定律</a>。</p>
-
-<h2 id="section-7">算法的实践</h2>
-
-<p>如下我们将用Python来实现RSA密码系统。正如我们看到的，每个实现的片段都和数学及计算机科学中充分研究的领域相关。</p>
-
-<h3 id="section-8">秘钥产生和素数检测</h3>
-
-<p>作为开始，生成秘钥需要先产生两个素数$p$, $q$。我们上面已经注意到如何$n=pq$过于小，则入侵者会轻易将其分解，从而得到$\phi(n)$，进而计算出$d = e^{-1} mod\ \phi(n)$。密码就被破解了。因此，我们需要$n$，也就是$p$、$q$足够大。</p>
-
-<p>为了得到大素数$p$，首先要确定素数所需的bits数。这是决定密码体系强度的关键参数。我们可以先看看<a href="https://www.baidu.com/">百度</a>和淘宝(https://www.taobao.com/)在它们安全TLS连接中所使用密钥的强度。</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">OpenSSL&gt; s_client -connect baidu.com:443
-</span><span class="line">[...]
-</span><span class="line">New, TLSv1/SSLv3, Cipher is ECDHE-RSA-AES128-GCM-SHA256
-</span><span class="line">Server public key is 2048 bit</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">OpenSSL&gt; s_client -connect taobao.com:443
-</span><span class="line">[...]
-</span><span class="line">New, TLSv1/SSLv3, Cipher is ECDHE-RSA-AES128-GCM-SHA256
-</span><span class="line">Server public key is 2048 bit</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>都是2048bit的强度。</p>
-
-<p>为了产生一个$b$比特的素数$p$，我们首先产生b比特位的随机数，然后手工地为头和尾加上“1”，确保此数大于 $2^{b-1}$（我们不想意外选中$3$，那怕概率有多小）且是奇数。让$t$代表前面随机比特位代表的数字，我们从$i=0$开始一直往上，检查 $t+i$是否为素数。只要遇到一个素数，我们就令它等于$p$。在进行一些尝试后，放弃一些区间，通常会比较好。为了行之有效，我们需要考虑素数定律(<a href="http://en.wikipedia.org/wiki/Prime_number_theorem">Prime Number Theorem</a>)，令$\pi(n)$代表小于或等于$n$的素数的个数，则：</p>
-
-<script type="math/tex; mode=display">\lim_{n=1}^{\infty} \frac{\pi(n)}{\ln(n)}=1</script>
-
-<p>换言之，对于正整数$n$，大约有$ln(n)$个等于小于$n$的素数。$n$越大，这个估算越准确。</p>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2016/03/chaos-communication-congress-a-very-german-hacking-conference/">混沌通讯会议：一场很德国的黑客大会</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-03-02T00:00:00+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2016</span></span> <span class='time'>12:00 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>原文地址：<a href="http://motherboard.vice.com/read/chaos-communication-congress-a-very-german-hacking-conference">Chaos Communication Congress: A Very German Hacking Conference</a></p>
-
-<p>译者：lifematrix[<a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#115;&#116;&#101;&#118;&#101;&#110;&#108;&#105;&#117;&#099;&#120;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;">&#115;&#116;&#101;&#118;&#101;&#110;&#108;&#105;&#117;&#099;&#120;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;</a>]</p>
-
-<p><strong><em>本译文是对Hardened Linux社区的贡献，已发表在<a href="http://hardenedlinux.org/translation/2016/03/02/chaos-communication-congress-a-very-german-hacking-conference.html">社区的博客</a>。</em></strong></p>
-
-<hr />
-
-<p>哑剧艺术家懒洋洋地躺在铺着地毯的楼梯上，几百张桌子，上面凌乱地堆满笔记本电脑，延伸到不同的几个大厅。一个穿得整整齐齐的人，脸朝下趴在一间侧屋的床垫上，昨晚一整夜疯狂地敲击键盘，已让他心力憔悴。</p>
-
-<p>德国各地几十个混沌计算机俱乐部分会(<a href="https://www.ccc.de/de/club/erfas">Chaos Computer Club (CCC) chapters</a>)的成员，以及来自世界各地的与会者，屈尊到汉堡，喝着黑客汽水(<em>译注：<a href="https://motherboard.vice.com/blog/how-a-german-soda-became-hackers-fuel-of-choice">club-mate</a>, 含马黛的苏打饮料，称为<a href="http://www.douban.com/subject/24871269/">黑客汽水</a></em>)，进行为期四天的hacking、辩论和演讲。</p>
-
-<p>这就是混沌通讯会议，CCC的年度艺术、政治和安全大会，由一千多强大的志愿大军操办。</p>
-
-<center>***</center>
-
-<p>“没人从中赚到一分钱”，大会前，Linus Neumann - CCC的一位发言人在柏林的一家咖啡馆告诉我。无论是录制发言的人，还是那些确保传媒未经本人允许不可将镜头对准其人的向导，还是经过训练能响应紧急事件的应急人员，或者负责衣帽间并在人们进入会场时检查他们腕带的伙计们，都没拿报酬。而且他们经常自己买票参加活动，以作支持。</p>
-
-<p>Tim Privlove, CCC的一位资深成员，早期会议的组织者，不认为这只是为之工作而不拿报酬。</p>
-
-<p>“这实际上不是为了免费。我实际上认为，你不能这么来看它：因为它不是工作，” 在最近的大会上他一边喝着咖啡一边说。“这是他们的活动：他们拥有它。这根植到他们的DNA，如果没有它，他们难以活下去。”</p>
-
-<p><img src="../images/ccc-hacking-conference/CCC-hallway.jpg" alt="" /></p>
-<center><small>CCC hallway. Photo: Joseph Cox</small></center>
-
-<p>多年来，要部分感谢这一志愿者面向，让CCC已设法筹集到可观数目的资金。</p>
-
-<p>“我不是要说，我们特别有钱了，而是说从财务的角度，我们舒心了，” Neemann说。“我们能承受彻底搞砸整个事情的财务风险，不会破产。”</p>
-
-<p>“这钱就在那儿，因为每个人都发挥自己的作用：因为每个人都做志愿者工作，” 他说。</p>
-
-<p>志愿者的想法，实际上是将大会区别于其它黑客会议的地方。而且，这是全盘多方面的策略。</p>
-
-<p>在大会自己仓库风格的夜店里，DJ, 艺术家，黑客，技术者，积极分子和其他人，聚会一起去分享和讨论他们时代的话题，直到深夜。</p>
-
-<p>“很多人第一次走进来时，他们很惊讶地看到，这里比他们所想的，更为包容，更为广义，” Pritlove说。</p>
-
-<p>但是，有些人在混沌通讯大会里不特别受欢迎。</p>
-
-<p>“一个供职于德国军方的人参加了CCC，大概不想告诉任何人，他们可能不愿出现在台面上，” Neumann说。</p>
-
-<p>在黑帽，美国的一个主要黑客大会上，国家安全局长Keith Alexander发表了<a href="https://www.youtube.com/watch?v=4Sg4AtcW0LU">2013年的主题演讲</a>。</p>
-
-<p>这显然，从来不会发生在混沌通讯大会上。</p>
-
-<p>“当我离开时，会有这一天，” CCC的主席，被称为“dodger”，告诉我。“我们尽可能避开那些为情报业或类似事情工作的人。”</p>
-
-<p>但是，当对待军方以外或情报机关时，灰色地带出现了。如果CCC发布一个总名单反对邀请供职于那些领域的人，“那么我们就不会有任何揭弊者，”比如爱德华·斯诺登，dodger说。</p>
-
-<p>“这很难办。”</p>
-
-<p>反军方的心态可以追溯到大会的历史，一个政治事件导致它的创立。</p>
-
-<center>***</center>
-
-<p>1981年，<a href="https://en.wikipedia.org/wiki/Wau_Holland">一个黑客和无线电爱好者</a>，名为Wau Hollan，以及一小群有相似想法的人，聚集在左翼报纸<em>Die Tageszeitung</em>的办公室，讨论数据、计算机，以及这些可能给大众带来的影响。</p>
-
-<p>“Wau Holland是对社会有远见的人，” Neumann说。甚至远在80年代早期，当大部分人还没有电脑时，互联网还也没有出现，Holland和其他人就看到了这些网络的未来，如此令人兴奋、也令人担忧。</p>
-
-<p>三年后，1984年，CCC宣布了第一次混动通讯大会，一个在汉堡定期举办的聚会。“大会的第一次呈现，规模相当小，大概200人，” Pritlove说。</p>
-
-<p>尽管规模不大不小，但是84年的大会包含了所有与今天大会涉及的相同内容。Workshop, 演讲，以及一群人连续几天一直在笔记本电脑上hacking。</p>
-
-<p>“相同的话题，相同的态度，相同的人，” Pritlove说。</p>
-
-<p>CCC随之创建了一个“eingetragener Verein (e. V.)” (<em>译注: <a href="https://en.wikipedia.org/wiki/Eingetragener_Verein">e. V.</a>是在德国和奥地利合法的志愿者社团，有法人身份</em>)，实质上是一个合法组织，允许团体有财务权。</p>
-
-<p>有个正式的实体也给团队一些合法性，当开展工作时受法律保护：事实上，hacking到银行系统或者电信网络，会很容易被执法机关解释为犯罪或不法活动。以一个e.V.运作，降低了受到任何干涉的风险。</p>
-
-<p>“这只是随后被采纳的一个法律解释，为了不被视为恐怖组织，” Pritlove开玩笑说。“这是替代方法。”</p>
-
-<p>在大会开始的同年，Wau Holland和另一个CCC成员Steffan Wernery，搞了一次’抢银行’。他们利用Bildschirmtext (BTX)的缺陷，这是由<a href="https://en.wikipedia.org/wiki/Deutsche_Bundespost">德国联邦邮政</a>和电话网络运营的计算机网络，掐掉13万5千德国马克(大概7万5千美元)，存到CCC拥有的银行账户上。</p>
-
-<h3 id="section">我认为德国是尊重黑客的安全岛</h3>
-
-<p>起初在网络背后的政府机构<a href="http://www.spiegel.de/einestages/btx-hack-1984-angriff-der-ccc-hacker-gegen-die-bundespost-a-1002443.html">忽略了提出的问题</a>。因此CCC将hack的细节分享给德国最大的一家广播公司，在媒体一番炒作之后，问题被修复了。最后CCC将现金返还。</p>
-
-<p>“从一开始[CCC]就在做媒体博弈，” Pritlove补充说，“黑客在德国的印象立即成了罗宾汉之类的侠盗。”</p>
-
-<p>其它高姿态的hack也为这一形象做出贡献。为了反对在护照中使用生物计量数据，<a href="http://www.wired.com/2008/03/hackers-publish/">小组发布了德国当时内政部长Wolfgang Schauble的指纹</a>；与荷兰一个公民组织一起, CCC揭露了德国使用计算机之后<a href="http://www.ccc.de/en/updates/2007/wahlcomputer-spenden">电子投票系统的缺陷</a>；2011年，小组逆向工程了<a href="http://www.wired.co.uk/news/archive/2011-10/12/german-state-spying-software">国家执法部门所用的强大恶意软件的片段</a>。</p>
-
-<p>然后就在最近，作为对84年BTX hack的响应，德国新闻组Tagesschau报道了研究者的发现，欧洲支付终端被<a href="https://motherboard.vice.com/read/european-card-terminals-are-plagued-with-serious-vulnerabilities">严重的缺陷所困恼</a>。这些缺陷让入侵者得以将资金转到德国境内任意一个银行账户。</p>
-
-<p>“因此在德国，黑客的形象与世界其它地方特别是美国，完全不同。在美国，黑客普遍与犯罪活动联系起来，” Pritlove说。CCC经常被要求到<a href="https://www.youtube.com/watch?v=Q4Z5Y8SLvic">一些政府听证会</a>作证，提供监管、IT立法和数据保留方面的专家证据，而不是象美国媒体经常报道黑客的那样，被看做一小撮计算机犯罪分子。</p>
-
-<p>“我认为德国是黑客受到尊敬的安全岛”, dodger，CCC主席说。</p>
-
-<p>但也曾有一些时刻，德国的hacking场面和俱乐部，本可能全部被摧毁。</p>
-
-<center>***</center>
-
-<p>一个与CCC有联系的黑客小组，由Karl Koch这个人领导，由于侵入美国计算机并<a href="https://en.wikipedia.org/wiki/Karl_Koch_(hacker)">将操作系统源代码卖给了当时苏联情报组织-克格勃(KGB)</a>而被捕。1989年，发现Koch被烧死在策勒附近的森林里，离他出生的汉诺威城不远。</p>
-
-<p>整个事件“威胁到要终结CCC，” Neumann说 - 严重损害他们所代表的黑客形象。</p>
-
-<p><img src="http://hack.the-lifematrix.net/images/ccc-hacking-conference/CCC-hackerspace.jpg" alt="" /></p>
-<center><small>CCC hackerspace. Photo: Joseph Cox</small></center>
-
-<p>Pritlove解释说，大会在汉堡和柏林之间迁移了数次。1989年柏林墙倒塌，让首都成为一个“疯狂”的地方，聚会当时在柏林举办，Pritlove说，“在那儿，每个社会的小组织都莫名其妙地足够壮大而能维持。”</p>
-
-<p>然后到了90年代后期，大会发展巨快，大概超过以往任何时候。Pritlove说，“终于hacking成为很酷的事情，每个年轻人都有自己的电脑。”</p>
-
-<p>“’万维网’(world wide web)，’赛博空间’，每件事都完全让人兴奋，” 他补充到，“千禧年来临，未来终将在这里！”</p>
-
-<p>在整个过程中，一个持续不断的政治脉络贯穿着CCC和大会的发展。从左翼报纸Die Tageszeitung的办公室，到柏林和汉堡的反资本主义占屋，直到今天一个<a href="http://www.theguardian.com/technology/2015/dec/29/hamburg-chaos-hacker-conference-refugee-keynote">索马里难民在大会主讲台发表主题演讲</a>，政治在塑造俱乐部及其行动中扮演了至关重要的角色。</p>
-
-<p>其它的政治对话，包括年度国家<a href="https://events.ccc.de/congress/2015/Fahrplan/events/7307.html">洋葱会话</a>，对去年Tor匿名网络的概述，以及<a href="https://events.ccc.de/congress/2015/Fahrplan/events/7374.html">讨论监管系统对我们城市的影响</a>。</p>
-
-<p>“我们在80年代告诉他们的，如今正在发生，” dogger说。</p>
-
-<p>“就大会和政治，你不能将它们分开”， Pritlove说。这三人都同意，CCC的政治血统追溯起来要比其创立早得多：有人将它基本上看作后二战反应，Pritlove也提到，涌现于70年代<a href="https://en.wikipedia.org/wiki/Red_Army_Faction">激进左翼的政治运动</a>。</p>
-
-<p>解决方法办法是“我们不需要阻止它。我们需要找到不同的途径，我们通过进入权力机构来开始征途。我们需要具有建设性。我们需要走入那些我们所批判的决策中，而非仅仅置身事外，然后一直扔燃烧弹，并杀人。”</p>
-
-<p>进入权力机构的做法已经受到欢迎。2015年11月，德国内政部长<a href="http://www.faz.net/aktuell/wirtschaft/netzwirtschaft/it-gipfel-ich-braeuchte-von-ihnen-mal-eine-krisennummer-13921103.html">公开声明</a>，如果一个大规模的互联网相关或赛博事件发生，他将会求助于CCC。</p>
-
-<h3 id="section-1">“如今整个活动就是一个操作系统”</h3>
-
-<p>在00后中期以前，大会很大程度上是与世隔绝的事件。虽然它也吸引德国各地及欧洲的黑客，但在这之外的黑客们大部分并不关注。</p>
-
-<p>因此，Pritlove告诉我，CCC开始接触到在美国的联系人，邀请他们来发表演讲。</p>
-
-<p>“他们回去后，告诉其朋友们所有关于大会的情况。下一年，有20个人来，再下一年，有更多的人来，” Pritlove说。</p>
-
-<p>美国人显然很吃惊。“在美国的黑客大会，到处是警察，商人，情报机构，充满了怀疑，” Pritlove继续说，“很多都是为了赚钱。”</p>
-
-<p><img src="http://hack.the-lifematrix.net/images/ccc-hacking-conference/3D-printers.jpg" alt="" /></p>
-<center><small>3D printers. Photo: Joseph Cox</small></center>
-
-<p>但是，CCC的大会，“是完全的自由，[美国人]还处在乔治·布什时代(<em>译注：911事件的时期</em>)，对黑客充满了害怕、恐怖和压制。”</p>
-
-<p>“两周后他们都回去了，他们在旧金山、华盛顿、纽约建立了黑客空间。一年后，美国各地都诞生了新的黑客空间”， Pritlove说。“我想，可以公平地说，<a href="http://www.wired.com/2007/08/us-hackers-moun/">点燃这些的火种</a>确实来自这里，来自这里的场景。”</p>
-
-<p>军方与德国hacking场面的距离，在这里极不同于在美国那样密切。</p>
-
-<p>“基本上，在美国任何IT安全领域的人，迟早都会成为国防部的某类承包商或者进入这一领域，否则不可能走太远。” Neumann说。“因为那里有资金，有趣的工作，你能做出好玩的东西。”</p>
-
-<p>他也指出Roger Dingledine，Tor项目的联合创始人和研究总监，<a href="http://www.scrible.com/contentview/page/MKQ81904HKLO822Q14O5K2R8CGA42GA6:77893486/index.html?utm_source=tb_permalink&amp;utm_medium=permalink&amp;utm_campaign=tb_buttons&amp;_sti=1423988">他为好几份军方资助的合同工作</a>。(Tor项目如今试图让<a href="http://www.theverge.com/2015/11/24/9793232/tor-project-donate-crowdfund">资金多元化</a>，特别是减少对美国政府资金的依赖。)</p>
-
-<p>在德国，相反，却没有这样的合同商、军工联合体，或任何与美国类似程度的情况。</p>
-
-<p>这里没有“那么多钱，以及那么多军方的国家荣誉。” Neumann说。因此，在德国绽放的黑客很可能迈向其它方向：CCC，而非美国那样的路径。“我们有大多数的研究者”，Neumann补充说。</p>
-
-<center>***</center>
-
-<p>今年，大会接待了<a href="https://en.wikipedia.org/wiki/Chaos_Communication_Congress">超过一万三千名参会者</a>，已经变成由各种自制网络和基础设施组成了盘旋复杂的奇妙装置。</p>
-
-<p>当参会者鱼贯进入会场时，扫描入场券以及付款台的计算机都其自己的软件。专门有个后勤系统用于在酒吧里管理黑客汽水瓶子的库存，并将空瓶子拿走。“丝绸之路”送递系统-由管道组成了网络在大楼各个房间里迂回穿行 -允许黑客在大会各个中心之间传送物件。</p>
-
-<p>多通路、高带宽的上行链路给参会者提供了极其快速的网络连接；一个全功能的GSM移动电话网络允许每个人摆弄到深夜时能够联系上他们的朋友。</p>
-
-<p>甚至视频摄制组，他们负责录制、实况直播以及用高清格式归档谈话，也使用他们自己的相机、装备，间或软件。</p>
-
-<p>“我要说，这甚至超过了专业标准，因为你实在买不到这样的服务,” Pritlove说。“如今整个活动就是个操作系统。”</p>
-
-<p>开源的属性自然反映在与会者自己对设备的选择上: 在“基础设施回顾”中，负责大会基干设施的小组做了<a href="https://www.youtube.com/watch?v=NwX-ylkxDOY">一小时的展示</a>，发言者宣布，Linux是迄今最受欢迎的操作系统族群，大会里大约四分之一的计算机都使用了Liunx。(“这是Linux胜利的时刻，”演讲者说，听众们接着就欢呼鼓掌。)</p>
-
-<p>“的确有些公司可能举办这样的活动，” 在基础设施回顾中一位发言者说，他投放了一张有各种组织的幻灯片。今年，那些公司包括中国公司华为，德国电信(德国最大的互联网服务提供商)，其它就这十几个。</p>
-
-<p>“我们遇到一点点问题；你不可能运作一个这样的会议而不需要从大公司借东西,” dodger说。“你需要获得硬件。你不能购买那些硬件，并持有它们；这不可能。”事实上，在这样规模的大会，要提供几千人的互通互联，大概没人拥有这些的硬件和基础设施来实现它，因此确实需要赞助者介入。</p>
-
-<p>但这并不需象其它大会那样，通过提供装备，巨头公司们开始将他们的商标贴满了交易所，希望获得一些新客户。</p>
-
-<p>“我们试图寻找合作伙伴借给我们硬件，我们也试图不要只有一个主赞助商。我们不允许在大会上打横幅或做广告，” dodger告诉我。相反，反法西斯和支持难民的旗帜淹没了会议大厅。“硬件赞助商将他们的Logo放在CCC网站上，没有Google索引等等。这就是他们的所得。”</p>
-
-<p>CCC与大型机构的联系，通常是因为有个成员为其中之一工作，Neumann说。</p>
-
-<p>“当然我们有人在NXP供职,” 他对我说，提到一个大型的<a href="http://www.nxp.com/applications/smart-connected-solutions:SMART-CONNECTED-SOLUTIONS">计算机网络公司</a>。“如果我们想与NXP安全分部的负责人交谈，我有他的号码，我直接给他打电话。” 这些关系已经在过去30年里发展起来了，也是人们通常职业生活的一部分。“</p>
-
-<p><img src="http://hack.the-lifematrix.net/images/ccc-hacking-conference/pinball.jpg" alt="" /></p>
-<center><small>Pinball. Photo: Joseph Cox</small></center>
-
-<p>但是，大会真正的脊梁不是数字化的基础设施或计算机硬件，而是无偿在会议中工作的志愿大军。</p>
-
-<p>“你需要大约1000人来照顾所有杂七杂八的事，” Neumann告诉我。</p>
-
-<p>大部分这样的志愿者，被称为天使：是让系统甚至在密集的使用下，稳定运行四天的个人。(第一天刚到大会的20分钟里，一位天使要我把一些外套衣架从一个房间挪到另一个。自然地，我施以援手，尽管只微薄之力)。</p>
-
-<p>志愿者文化是大会如此亲密地嫁接到德国的众多原因之一。但是，它也与一个国家独特的历史和政治传统相关联。</p>
-
-<p>Neumann说象大会这样的事物，也许能在德国之外存在，但可能有困难：让一千多人齐心协力连续数天或数周工作，所需的后勤挑战，想象在其它地方并非易事。</p>
-
-<p>当问到Pritlove大会是否能存在德国之外时，他一声长叹。</p>
-
-<p>“这是很德国的事”，他说。“我不知道。”</p>
-
-<p>Topics: hacking, Chaos Communication Congress, CCC, germany, black hat, politics, white hat, Club Mate, volunteerism, features</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2016/02/face-analysis/">Face Analysis</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-02-25T11:49:52+08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>11:49 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2016/02/cifar10-on-tensorflow/">CIFAR-10 on Tensorflow</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-02-18T16:39:12+08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:39 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2 id="cifar-10-">CIFAR-10 数据集</h2>
-
-<p><a href="http://www.cs.toronto.edu/~kriz/cifar.html">CIFAR-10和CIFAR-100</a>是对象识别的基准数据集。它们是从<a href="http://groups.csail.mit.edu/vision/TinyImages/">8000万微型图片数据集</a>选取的子集。CIFAR-10中包含60000张32x32的彩色图片，分为10类，即每类有6000张。其中50000张作为训练集，另10000张为训练集。</p>
-
-<p>这10类分别是：airplane, automobile, bird, cat, deer, dog, frog, horse, ship, and truck，示例如下：</p>
-
-<p><img src="http://hack.the-lifematrix.net/images/cifar10-tf/cifar10_sample.png" alt="" /></p>
-
-<p>这类是互斥的，也即：每个图片唯一属于某类。</p>
-
-<p>而CIFAR-100数据集和CIFAR-10类似，但是分为100个类。这100个类又属于20个父类。</p>
-
-<h2 id="tensorflow">Tensorflow</h2>
-
-<p><a href="www.tensorflow.org">Tensorflow</a>是google去年年底刚刚公开的深度学习计算框架。虽然在一些比较中(<a href="http://fastml.com/what-you-wanted-to-know-about-tensorflow/">fastml</a>, <a href="https://github.com/soumith/convnet-benchmarks/issues/66">soumith</a>, <a href="http://chenrudan.github.io/blog/2015/11/18/comparethreeopenlib.html">陈汝丹</a>)，tensorflow的计算速度比caffe等要慢很大。但是tensorflow的优势，如其<a href="http://download.tensorflow.org/paper/whitepaper2015.pdf">白皮书</a>所言，在于其架构。它提供了跨域异构计算资源(从移动设备、单机到多GPU集群…)的一致性计算平台，其抽象能力和扩展性极其优越，极大降低开发、运行和维护的成本。Google对计算架构的理解和设计有超乎寻常的远见，比如Google的三驾马车GFS、Map-Reduce、BigTable开启了大数据计算框架之先河。所以tensorflow计算慢的问题，相信其设计者应该意识到的，今后或许有改进。总之，值得对tensorflow做些探索和学习。</p>
-
-<p>虽然tensforflow的文档还不够丰富，但它的确提供了采用cifar-10数据集的<a href="https://www.tensorflow.org/versions/r0.7/tutorials/deep_cnn/index.html">示例程序</a>。也许，为了充分说明tensorflow的各种特色：并发性、多GPU处理等，所以，这个代码结构对于初学者过于复杂，而且模型的构造淹没在很多代码细节中，不够清晰。因此，笔者决定自己探索实现一个程序。</p>
-
-<h2 id="section">基本模型</h2>
-
-<p>UC Berkeley <a href="http://caffe.berkeleyvision.org">Caffe</a>计算框架中，用配置文件的方式来定义模型，独立于代码，因此模型的定义很清晰也易于调整。本文就选择了其中的<a href="https://github.com/BVLC/caffe/blob/master/examples/cifar10/cifar10_quick.prototxt">快速示例</a>，作为基本模型，再逐步调优。</p>
-
-<p><img src="http://hack.the-lifematrix.net/images/cifar10-tf/cifar10_model_basic.png" alt="" width="400px" /></p>
-
-<p>由于训练集数据不算大(几百兆)，可以一次性全部读入内存，以下测试时给出的运行时间，就不包含读取图片的时间。</p>
-
-<p>基本模型的运行情况(batchsize=100)：</p>
-
-<p><img src="http://hack.the-lifematrix.net/images/cifar10-tf/time_basic.png" alt="" /></p>
-
-<p>最大正确校验正确率：73.08%，在epoch=30, 训练100分钟时达到。之后更多的训练没有提高正确率。</p>
-
-<h3 id="random-crop">Random Crop</h3>
-
-<p>深度网络的参数巨大，很容易出现过拟合。通过人为扩大训练集数据(<a href="http://www.cs.toronto.edu/~fritz/absps/imagenet.pdf">ImageNet</a>)，是避免过拟合的有效策略。先尝试简单的方法，在32x32的图片中，随机裁剪出28x28的图片，进行训练。这也就是将训练集扩大了4x4=16倍。</p>
-
-<p><img src="http://hack.the-lifematrix.net/images/cifar10-tf/time_randomcrop.png" alt="" /></p>
-
-<p>最大正确校验正确率：74.58%，在epoch=56, 训练137分钟时达到。之后更多的训练没有提高正确率。</p>
-
-<p>正确性叫基本模型提高了1.5个百分点，效果明显。</p>
-
-<h3 id="dropout">Dropout</h3>
-
-<p>Dropout也是一种变相的调整策略，避免过拟合(<a href="http://www.cs.toronto.edu/~fritz/absps/imagenet.pdf">ImageNet</a>)。要注意的是，在训练是采用dropout(keep_prob=0.5), 但是在validation时则不选用(keep_prob=1.0)。</p>
-
-<p><img src="http://hack.the-lifematrix.net/images/cifar10-tf/time_dropout.png" alt="" /></p>
-
-<p>最大正确校验正确率：76.22%，在epoch=103, 训练260分钟时达到。之后更多的训练没有提高正确率。
-又提高了1.64%个百分点。可见有明显的效果。</p>
-
-<p>在<a href="https://www.kaggle.com/c/cifar-10">Kaggle的cifar10竞赛</a>中得分为：74.59%。</p>
-
-<p><img src="http://hack.the-lifematrix.net/images/cifar10-tf/kaggle_dropout.png" alt="" /></p>
-
-<h3 id="section-1">内存使用分析</h3>
-
-<p>受<a href="http://cs231n.github.io/convolutional-networks/">此文</a>对<a href="http://www.robots.ox.ac.uk/%7Evgg/research/very_deep/">VGGNet</a>分析的启发，也对本例的简单模型做类似分析。注意，由于采用了crop，则较前图的基本模型，图片输入为28*28像素。后面的数据维度也相应调整。</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Layer</th>
-      <th>Data Shape</th>
-      <th>Data Memory</th>
-      <th>Weights</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Input Layer</td>
-      <td>28*28@3</td>
-      <td>9K</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <td>Conv-1 (5x5@32)</td>
-      <td>28*28@32</td>
-      <td>98K</td>
-      <td>5<em>5</em>3*32+32 = 2,432</td>
-    </tr>
-    <tr>
-      <td>MaxPool-1</td>
-      <td>14*14@32</td>
-      <td>25K</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <td>Conv-2 (5x5@32)</td>
-      <td>14*14@32</td>
-      <td>25K</td>
-      <td>5<em>5</em>32*32+32 = 25,632</td>
-    </tr>
-    <tr>
-      <td>AvgPool-2</td>
-      <td>7*7@32</td>
-      <td>6K</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <td>Conv-3 (5x5@64)</td>
-      <td>7*7@64</td>
-      <td>12K</td>
-      <td>5<em>5</em>32*64 = 51,200</td>
-    </tr>
-    <tr>
-      <td>Relu-3</td>
-      <td>7*7@64</td>
-      <td>12K</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <td>AvgPool-3</td>
-      <td>4*4@64</td>
-      <td>4K</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <td>FC Layer-4</td>
-      <td>64</td>
-      <td> </td>
-      <td>1024*64 + 64 = 65,600</td>
-    </tr>
-    <tr>
-      <td>FC Layer-5</td>
-      <td>10</td>
-      <td> </td>
-      <td>64*10 + 10 = 640</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>*注：每个数字用float32存储，占4个字节。卷积网络的一个特点就是，数据类型的精度对训练结果影响不大。参见: <a href="http://arxiv.org/abs/1502.02551">Deep Learning with Limited Numerical Precision</a>, <a href="https://www.cs.toronto.edu/~kriz/learning-features-2009-TR.pdf">Learning Multiple Layers of Features from Tiny Images</a></p>
-
-<p>每个实例的数据，需要内存191K。共有142K(145,504)个参数，需要内存142K*4=568K。</p>
-
-<p>假设GPU内存有4G，一次性处理的最大batchsize:
- (4G - 568K) / 191K = 21956</p>
-
-<h3 id="section-2">时间分析</h3>
-
-<p>花了4个小时才训练出最优的模型，一方面是算法问题，也与tensorflow固有的较低的计算速度有关。</p>
-
-<h3 id="batchsize">Batchsize</h3>
-
-<p>如果batchsize=1000, 明显看出学习速度明显下降。花费近8个小时，训练的最好模型的校验正确率为72.10%。</p>
-
-<p><img src="http://hack.the-lifematrix.net/images/cifar10-tf/batchsize1000.png" alt="" /></p>
-
-<p>如果batchsize=200, 学习速率也有些慢。花费4个小时，达到最高的校验正确率75.82%。但学习过程似乎不够稳定。
-<img src="http://hack.the-lifematrix.net/images/cifar10-tf/batchsize200.png" alt="" /></p>
-
-<p>或许要调整一下学习率</p>
-
-<h2 id="section-3">更深的网络</h2>
-
-<p>上述基本网络只用了3个卷积层，达到75%的正确率，换言之25%的错误率。结果不是很出色，<a href="https://github.com/nagadomi/kaggle-cifar10-torch7">Torch 7 ConvNet</a> 取得了7%的错误率。决定在tensorflow下实验此模型。结果，请见后文。</p>
-
-<hr />
-
-<h2 id="section-4">补充</h2>
-
-<p>在GTX 1070上，重新训练此模型。Dropout达到，76.74%。4sec/epoch。</p>
+<p><a href="https://github.com/robwhess/opensift">Open Sift</a></p>
 
 </div>
   
@@ -1278,23 +653,23 @@ sudo ln -s /Volumes/VOLUME_NAME ~/Desktop/VOLUME_NAME &amp;&amp; open ~/Desktop/
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2017/01/key-understandings-on-basic-deep-learning/">深度学习的一些关键性理解</a>
+        <a href="/blog/2017/10/resources-on-reinforcement-learning/">强化学习的资源和笔记</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2016/11/notes-on-how-goole-works-2/">《谷歌是如何运营的》笔记二：创新</a>
+        <a href="/blog/2017/03/notes-on-vgg-model/">Notes on VGG Model</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2016/09/resources-on-image-and-visual-search/">图像识别和视觉识别的资源</a>
+        <a href="/blog/2017/02/notes-on-image-recognition-of-video/">Notes on Image Recognition of Video</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2016/05/notes-on-how-google-works-1/">《谷歌是如何运营的》笔记一：文化</a>
+        <a href="/blog/2017/02/notes-of-faster-rcnn/">Notes of Faster Rcnn</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2016/04/how-to-make-mac-os-write-ntfs-volume/">Mac系统下如何让NTFS磁盘卷可写</a>
+        <a href="/blog/2017/02/notes-on-lfw/">Introduction to Face Databases</a>
       </li>
     
   </ul>
