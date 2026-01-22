@@ -13,3 +13,6 @@ enableRobotsTXT = true
     title = "LifeMatrix"
     subtitle = "Compilers · Cryptography · Scientific Computing"
 
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
