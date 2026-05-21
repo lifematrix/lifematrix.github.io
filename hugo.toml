@@ -6,12 +6,13 @@ theme = "PaperMod"
 enableRobotsTXT = true
 
 [params]
-  description = "Compilers · Cryptography · Scientific Computing"
+  description = "Computation · AI · Physcial Science"
 
   [params.profileMode]
     enabled = true
     title = "LifeMatrix"
-    subtitle = "Compilers · Cryptography · Scientific Computing"
+    #subtitle = "Compilers · Cryptography · Scientific Computing"
+    subtitle = "Computation · AI · Physcial Science"
 
 [caches]
   [caches.images]
