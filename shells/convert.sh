@@ -119,7 +119,7 @@ for texfile in "${texfiles[@]}"; do
         continue
     fi
 
-    html_body=$(sed -n '/<body/,/<\/body>/p' "$html_output")
+    html_body=$(sed -n '/<body/,/<\/body>/p' "$html_output" | sed 's|</head>||')
 
     # ------------------------------------------------------------------
     # Step 4: Write Hugo-compatible HTML content file

@@ -8,12 +8,47 @@ enableRobotsTXT = true
 [params]
   description = "Computation · AI · Physcial Science"
 
+  # Show recent posts on home page
+  ShowReadingTime    = true
+  ShowPostNavLinks   = true
+  ShowBreadCrumbs    = true
+  ShowCodeCopyButtons = true
+
   [params.profileMode]
     enabled = true
     title = "LifeMatrix"
     #subtitle = "Compilers · Cryptography · Scientific Computing"
     subtitle = "Computation · AI · Physical Science"
 
+  
+    # Home page profile box
+    [params.homeInfoParams]
+      Title   = "LifeMatrix"
+      Content = "Computation · AI · Physical Science"
+
 [caches]
   [caches.images]
     dir = ':cacheDir/images'
+
+# -------------------------------------------------------
+# Navigation menu
+# -------------------------------------------------------
+[[menu.main]]
+  name   = "Posts"
+  url    = "/posts/"
+  weight = 10
+
+[[menu.main]]
+  name   = "Tags"
+  url    = "/tags/"
+  weight = 20
+
+[[menu.main]]
+  name   = "Archives"
+  url    = "/archives/"
+  weight = 30
+
+[[menu.main]]
+  name   = "Search"
+  url    = "/search/"
+  weight = 40
