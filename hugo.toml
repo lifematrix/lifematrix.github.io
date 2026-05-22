@@ -12,7 +12,7 @@ enableRobotsTXT = true
     enabled = true
     title = "LifeMatrix"
     #subtitle = "Compilers · Cryptography · Scientific Computing"
-    subtitle = "Computation · AI · Physcial Science"
+    subtitle = "Computation · AI · Physical Science"
 
 [caches]
   [caches.images]
