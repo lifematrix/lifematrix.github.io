@@ -13,15 +13,30 @@
       <link>http://localhost:1313/posts/emc2/</link>
       <pubDate>Fri, 22 May 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/emc2/</guid>
-      <description>&lt;body&gt;
+      <description>&lt;/head&gt;&lt;body&gt;
    &lt;h3 class=&#39;sectionHead&#39; id=&#39;introduction&#39;&gt;&lt;span class=&#39;titlemark&#39;&gt;1   &lt;/span&gt; &lt;a id=&#39;x1-10001&#39;&gt;&lt;/a&gt;Introduction&lt;/h3&gt;
-&lt;!-- l. 14 --&gt;&lt;p class=&#39;noindent&#39;&gt;This is my blog post with some math:
+&lt;!-- l. 16 --&gt;&lt;p class=&#39;noindent&#39;&gt;This is my blog post with some math:
 &lt;/p&gt;
    &lt;table class=&#39;equation&#39;&gt;&lt;tr&gt;&lt;td&gt;
-&lt;!-- l. 16 --&gt;&lt;p class=&#39;indent&#39;&gt;
-&lt;/p&gt;&lt;!-- l. 16 --&gt;&lt;math class=&#39;equation&#39; display=&#39;block&#39; xmlns=&#39;http://www.w3.org/1998/Math/MathML&#39;&gt;&lt;mrow&gt;
+&lt;!-- l. 18 --&gt;&lt;p class=&#39;indent&#39;&gt;
+&lt;/p&gt;&lt;!-- l. 18 --&gt;&lt;math class=&#39;equation&#39; display=&#39;block&#39; xmlns=&#39;http://www.w3.org/1998/Math/MathML&#39;&gt;&lt;mrow&gt;
                              &lt;mstyle class=&#39;label&#39; id=&#39;x1-1001r1&#39;&gt;&lt;/mstyle&gt;&lt;!-- endlabel --&gt;&lt;mi&gt;E&lt;/mi&gt; &lt;mo class=&#39;MathClass-rel&#39; stretchy=&#39;false&#39;&gt;=&lt;/mo&gt; &lt;mi&gt;m&lt;/mi&gt;&lt;msup&gt;&lt;mrow&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;/mrow&gt;&lt;mrow&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/mrow&gt;&lt;/msup&gt;
 &lt;/mrow&gt;&lt;/math&gt;&lt;/td&gt;&lt;td class=&#39;eq-no&#39;&gt;(1)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+   &lt;table class=&#39;equation&#39;&gt;&lt;tr&gt;&lt;td&gt;
+&lt;!-- l. 22 --&gt;&lt;p class=&#39;indent&#39;&gt;
+&lt;/p&gt;&lt;!-- l. 22 --&gt;&lt;math class=&#39;equation&#39; display=&#39;block&#39; xmlns=&#39;http://www.w3.org/1998/Math/MathML&#39;&gt;&lt;mrow&gt;
+                            &lt;mstyle class=&#39;label&#39; id=&#39;x1-1002r2&#39;&gt;&lt;/mstyle&gt;&lt;!-- endlabel --&gt;&lt;msup&gt;&lt;mrow&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;/mrow&gt;&lt;mrow&gt;&lt;mo class=&#39;MathClass-bin&#39; stretchy=&#39;false&#39;&gt;−&lt;/mo&gt;&lt;mi mathvariant=&#39;italic&#39;&gt;iπ&lt;/mi&gt;&lt;/mrow&gt;&lt;/msup&gt; &lt;mo class=&#39;MathClass-bin&#39; stretchy=&#39;false&#39;&gt;+&lt;/mo&gt; &lt;mn&gt;1&lt;/mn&gt; &lt;mo class=&#39;MathClass-rel&#39; stretchy=&#39;false&#39;&gt;=&lt;/mo&gt; &lt;mn&gt;0&lt;/mn&gt;
+&lt;/mrow&gt;&lt;/math&gt;&lt;/td&gt;&lt;td class=&#39;eq-no&#39;&gt;(2)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;!-- l. 26 --&gt;&lt;p class=&#39;indent&#39;&gt;   A historic group photo:
+&lt;/p&gt;
+   &lt;figure class=&#39;figure&#39;&gt; 
+
+
+
+&lt;!-- l. 30 --&gt;&lt;p class=&#39;noindent&#39;&gt;&lt;img alt=&#39;PIC&#39; src=&#39;images/Solvay_conference_1927.jpg&#39; width=&#39;345&#39; /&gt;
+
+&lt;/p&gt;
+   &lt;/figure&gt;
     
 &lt;/body&gt;</description>
     </item>

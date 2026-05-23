@@ -159,5 +159,6 @@ table.equation-star { width:100%; }
 .boxed{border: 1px solid black; padding-left:2px; padding-right:2px;}
 mtd.align-odd{margin-left:2em; text-align:right;}
 mtd.align-even{margin-right:2em; text-align:left;}
+.rotatebox{display: inline-block;}
 /* end css.sty */
 

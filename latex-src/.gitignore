@@ -1,0 +1,30 @@
+# LaTeX typesetting artifacts
+*.aux
+*.fls
+*.log
+*.fdb_latexmk
+*.synctex.gz
+*.out
+*.toc
+*.lof
+*.lot
+*.dvi
+*.bbl
+*.blg
+*.idx
+*.ind
+*.ilg
+*.nav
+*.snm
+*.vrb
+
+# make4ht / TeX4ht intermediate files
+*.4ct
+*.4tc
+*.idv
+*.lg
+*.tmp
+*.xref
+
+# convert-latex.sh build tree
+html_temp/
