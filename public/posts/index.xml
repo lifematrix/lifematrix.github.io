@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on LifeMatrix</title>
-    <link>http://localhost:1313/posts/</link>
+    <link>https://lifematrix.github.io/posts/</link>
     <description>Recent content in Posts on LifeMatrix</description>
     <generator>Hugo -- 0.154.5</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 22 May 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://lifematrix.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>My First Academic Blog Post</title>
-      <link>http://localhost:1313/posts/emc2/</link>
+      <link>https://lifematrix.github.io/posts/emc2/</link>
       <pubDate>Fri, 22 May 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/emc2/</guid>
-      <description>&lt;link rel=&#34;stylesheet&#34; href=&#34;http://localhost:1313/css/LaTeXML.css&#34;&gt;
-&lt;link rel=&#34;stylesheet&#34; href=&#34;http://localhost:1313/css/ltx-article.css&#34;&gt;
-&lt;!-- Computer Modern web font (CMU Serif): matches the PDF typeface exactly --&gt;
-&lt;link rel=&#34;stylesheet&#34; href=&#34;https://cdn.jsdelivr.net/npm/computer-modern@0.1.2/cmu-serif.css&#34;&gt;
+      <guid>https://lifematrix.github.io/posts/emc2/</guid>
+      <description>&lt;link rel=&#34;stylesheet&#34; href=&#34;https://lifematrix.github.io/css/LaTeXML.css&#34;&gt;
+&lt;link rel=&#34;stylesheet&#34; href=&#34;https://lifematrix.github.io/css/ltx-article.css&#34;&gt;
+&lt;!-- CMU Serif: self-hosted mirror of npm/computer-modern@0.1.2 --&gt;
+&lt;link rel=&#34;stylesheet&#34; href=&#34;https://lifematrix.github.io/fonts/npm/computer-modern@0.1.2/cmu-serif.css&#34;&gt;
 &lt;style&gt;
 /* PaperMod integration overrides */
 .ltx_document { font-family: &#34;CMU Serif&#34;, Georgia, serif; font-size: 1.05em; }

@@ -394,8 +394,8 @@ convert_project() {
         echo "---"
         echo '<link rel="stylesheet" href="/css/LaTeXML.css">'
         echo '<link rel="stylesheet" href="/css/ltx-article.css">'
-        echo '<!-- Computer Modern web font (CMU Serif): matches the PDF typeface exactly -->'
-        echo '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/computer-modern@0.1.2/cmu-serif.css">'
+        echo '<!-- CMU Serif: self-hosted mirror of npm/computer-modern@0.1.2 -->'
+        echo '<link rel="stylesheet" href="/fonts/npm/computer-modern@0.1.2/cmu-serif.css">'
         echo '<style>'
         echo '/* PaperMod integration overrides */'
         echo '.ltx_document { font-family: "CMU Serif", Georgia, serif; font-size: 1.05em; }'
