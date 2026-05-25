@@ -2,25 +2,33 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on LifeMatrix</title>
-    <link>https://lifematrix.github.io/posts/</link>
+    <link>http://localhost:65369/posts/</link>
     <description>Recent content in Posts on LifeMatrix</description>
     <generator>Hugo -- 0.154.5</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 22 May 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://lifematrix.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:65369/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>My First Academic Blog Post</title>
-      <link>https://lifematrix.github.io/posts/emc2/</link>
+      <link>http://localhost:65369/posts/emc2/</link>
       <pubDate>Fri, 22 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://lifematrix.github.io/posts/emc2/</guid>
-      <description>&lt;link rel=&#34;stylesheet&#34; href=&#34;https://lifematrix.github.io/css/LaTeXML.css&#34;&gt;
-&lt;link rel=&#34;stylesheet&#34; href=&#34;https://lifematrix.github.io/css/ltx-article.css&#34;&gt;
+      <guid>http://localhost:65369/posts/emc2/</guid>
+      <description>&lt;link rel=&#34;stylesheet&#34; href=&#34;http://localhost:65369/css/LaTeXML.css&#34;&gt;
+&lt;link rel=&#34;stylesheet&#34; href=&#34;http://localhost:65369/css/ltx-article.css&#34;&gt;
 &lt;style&gt;
 /* PaperMod integration overrides */
 .ltx_figure img { max-width: 100%; height: auto; }
 .ltx_page_main { padding: 0; }
 &lt;/style&gt;
 &lt;article class=&#34;ltx_document&#34;&gt;
+&lt;h1 class=&#34;ltx_title ltx_title_document&#34;&gt;My First Academic Blog Post&lt;/h1&gt;
+&lt;div class=&#34;ltx_authors&#34;&gt;
+&lt;span class=&#34;ltx_creator ltx_role_author&#34;&gt;
+&lt;span class=&#34;ltx_personname&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ltx_dates&#34;&gt;(2026-05-22)&lt;/div&gt;
+
 &lt;section id=&#34;S1&#34; class=&#34;ltx_section&#34;&gt;
 &lt;h2 class=&#34;ltx_title ltx_title_section&#34;&gt;
 &lt;span class=&#34;ltx_tag ltx_tag_section&#34;&gt;1 &lt;/span&gt;Introduction&lt;/h2&gt;

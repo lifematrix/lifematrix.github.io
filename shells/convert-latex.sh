@@ -56,6 +56,11 @@
 OUT_DIR="content/posts"
 STATIC_CSS_DIR="static/css"
 
+# --- Custom class path (relative to repo root) ---
+# latexml --path points here so it finds pensee.cls.ltxml (and any future
+# custom class bindings) without requiring a system-wide TeX install.
+CLASSES_DIR="latex-src/classes"
+
 # --- LaTeXML CSS source (Homebrew install) ---
 LATEXML_CSS_SRC="$(perl -MFile::ShareDir=dist_dir -e \
     'eval { print dist_dir("LaTeXML") } or print "/opt/homebrew/Cellar/latexml/0.8.8_4/libexec/lib/perl5/LaTeXML/resources"' \
@@ -267,11 +272,19 @@ convert_project() {
     # Run from the project directory so that latexml resolves all
     # \input{}, \include{}, image paths, and .bib files relative to the
     # project root, exactly as pdflatex would.
+    #
+    # --path : adds latex-src/classes/ to latexml's search path so it
+    #          finds pensee.cls.ltxml (and any future custom class bindings)
+    #          without a system-wide TeX install.  The path is expressed
+    #          relative to the project dir (where we cd before running).
     # ------------------------------------------------------------------
     local xml_out="$temp_dir/${stem}.xml"
+    local classes_abspath
+    classes_abspath="$(pwd)/$CLASSES_DIR"
 
     if ! ( cd "$project_dir" && \
-           latexml --dest="html_temp/${stem}.xml" "${stem}.tex" 2>&1 ); then
+           latexml --path="$classes_abspath" \
+                   --dest="html_temp/${stem}.xml" "${stem}.tex" 2>&1 ); then
         echo -e "  ${RED}✘ Failed${NC}    : latexml error in '$slug'"
         (( FAILED++ )) || true
         echo ""

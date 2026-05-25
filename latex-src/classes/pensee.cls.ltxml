@@ -1,0 +1,48 @@
+# -*- mode: Perl -*-
+# =============================================================================
+# pensee.cls.ltxml — LaTeXML binding for the pensee document class
+#
+# LaTeXML uses this file instead of parsing pensee.cls directly.
+# It delegates all article-class behaviour to LaTeXML's built-in
+# article binding, then adds definitions for pensee-specific commands.
+#
+# Placed alongside pensee.cls in latex-src/classes/.
+# The conversion script passes --path=../classes so latexml finds both.
+# =============================================================================
+use strict;
+package LaTeXML::Package::Pool;
+use LaTeXML::Package;
+
+# -----------------------------------------------------------------------------
+# Delegate to the article class binding — LaTeXML's article support is
+# complete and battle-tested; no need to reimplement it here.
+# -----------------------------------------------------------------------------
+LoadClass('article');
+
+# -----------------------------------------------------------------------------
+# Bundled packages declared in pensee.cls
+# LaTeXML has built-in bindings for all of these.
+# -----------------------------------------------------------------------------
+RequirePackage('amsmath');
+RequirePackage('amssymb');
+RequirePackage('amsthm');
+RequirePackage('graphicx');
+RequirePackage('float');
+RequirePackage('xcolor');
+RequirePackage('hyperref');
+RequirePackage('geometry');
+
+# -----------------------------------------------------------------------------
+# \blogdate{YYYY-MM-DD}
+# Maps to \date{} — LaTeXML's article binding handles \date normally.
+# -----------------------------------------------------------------------------
+DefMacro('\blogdate{}', '\date{#1}');
+
+# -----------------------------------------------------------------------------
+# \blogtags{tag1, tag2, ...}
+# Pure metadata — silently ignored in HTML output.
+# (Future: could emit an RDFa/meta annotation into the HTML head.)
+# -----------------------------------------------------------------------------
+DefMacro('\blogtags{}', '');
+
+1;
