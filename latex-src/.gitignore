@@ -26,5 +26,6 @@
 *.tmp
 *.xref
 
-# convert-latex.sh build tree
+# convert-latex.sh build tree (current and legacy)
 html_temp/
+tmp/
