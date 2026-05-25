@@ -172,13 +172,28 @@ m = re.search(
 if m:
     html = m.group(0)
 
-# Step 2: strip height from all <img> tags
+# Step 2: strip the LaTeXML-generated title block.
+# LaTeXML automatically renders \title{}, \author{}, and \date{} into the
+# document even without \maketitle. In a Hugo blog these are redundant —
+# PaperMod already displays the title and date from the YAML front matter.
+# We remove the specific elements LaTeXML generates for them:
+#   <h1 class="ltx_title ltx_title_document">...</h1>   ← from \title{}
+#   <div class="ltx_authors">...</div>                   ← from \author{}
+#   <div class="ltx_dates">...</div>                     ← from \date{}
+for pattern in [
+    r'<h1\b[^>]*\bltx_title_document\b[^>]*>.*?</h1>',
+    r'<div\b[^>]*\bltx_authors\b[^>]*>.*?</div>',
+    r'<div\b[^>]*\bltx_dates\b[^>]*>.*?</div>',
+]:
+    html = re.sub(pattern, '', html, flags=re.IGNORECASE | re.DOTALL)
+
+# Step 3: strip height from all <img> tags
 html = re.sub(
     r'<img\b[^>]*>',
     lambda m: strip_attr(m.group(0), 'height'),
     html, flags=re.IGNORECASE | re.DOTALL)
 
-# Step 3: strip width from <img> tags inside <figure> elements
+# Step 4: strip width from <img> tags inside <figure> elements
 def fix_figure(m):
     return re.sub(
         r'<img\b[^>]*>',
@@ -379,10 +394,16 @@ convert_project() {
         echo "---"
         echo '<link rel="stylesheet" href="/css/LaTeXML.css">'
         echo '<link rel="stylesheet" href="/css/ltx-article.css">'
+        echo '<!-- Computer Modern web font (CMU Serif): matches the PDF typeface exactly -->'
+        echo '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/computer-modern@0.1.2/cmu-serif.css">'
         echo '<style>'
         echo '/* PaperMod integration overrides */'
+        echo '.ltx_document { font-family: "CMU Serif", Georgia, serif; font-size: 1.05em; }'
         echo '.ltx_figure img { max-width: 100%; height: auto; }'
         echo '.ltx_page_main { padding: 0; }'
+        echo '/* Section heading: match LaTeX size and number spacing */'
+        echo 'article.ltx_document .ltx_title_section { font-size: 1.5em; font-weight: bold; }'
+        echo 'article.ltx_document .ltx_tag_section { margin-right: 0.5em; }'
         echo '</style>'
         echo "$html_body"
     } > "$dest_dir/index.html"

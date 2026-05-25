@@ -45,4 +45,8 @@ DefMacro('\blogdate{}', '\date{#1}');
 # -----------------------------------------------------------------------------
 DefMacro('\blogtags{}', '');
 
+# Note: the duplicate title/date block that LaTeXML generates from \title{}
+# and \date{} is stripped by the Python post-processor in convert-latex.sh,
+# since PaperMod already renders these from the YAML front matter.
+
 1;
