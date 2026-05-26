@@ -15,8 +15,8 @@
       <guid>https://lifematrix.github.io/posts/emc2/</guid>
       <description>&lt;link rel=&#34;stylesheet&#34; href=&#34;https://lifematrix.github.io/css/LaTeXML.css&#34;&gt;
 &lt;link rel=&#34;stylesheet&#34; href=&#34;https://lifematrix.github.io/css/ltx-article.css&#34;&gt;
-&lt;!-- CMU Serif: self-hosted mirror of npm/computer-modern@0.1.2 --&gt;
-&lt;link rel=&#34;stylesheet&#34; href=&#34;https://lifematrix.github.io/fonts/npm/computer-modern@0.1.2/cmu-serif.css&#34;&gt;
+&lt;!-- CMU Serif: self-hosted, always current via current/ symlink --&gt;
+&lt;link rel=&#34;stylesheet&#34; href=&#34;https://lifematrix.github.io/fonts/npm/computer-modern/cmu-serif-current.css&#34;&gt;
 &lt;style&gt;
 /* PaperMod integration overrides */
 .ltx_document { font-family: &#34;CMU Serif&#34;, Georgia, serif; font-size: 1.05em; }

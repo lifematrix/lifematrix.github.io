@@ -59,7 +59,7 @@ STATIC_CSS_DIR="static/css"
 # --- Custom class path (relative to repo root) ---
 # latexml --path points here so it finds pensee.cls.ltxml (and any future
 # custom class bindings) without requiring a system-wide TeX install.
-CLASSES_DIR="latex-src/classes"
+CLASSES_DIR="latex/lib"
 
 # --- LaTeXML CSS source (Homebrew install) ---
 LATEXML_CSS_SRC="$(perl -MFile::ShareDir=dist_dir -e \
@@ -81,7 +81,7 @@ NC='\033[0m'
 # --- Usage ---
 usage() {
     echo "Usage:"
-    echo "  $(basename "$0")                        # batch on latex-src/ (default)"
+    echo "  $(basename "$0")                        # batch on latex/pensee/ (default)"
     echo "  $(basename "$0") -b [DIR]               # batch: scan all subfolders of DIR"
     echo "  $(basename "$0") --batch [DIR]"
     echo "  $(basename "$0") -s <PROJECT_DIR>       # single: one LaTeX project folder"
@@ -91,6 +91,7 @@ usage() {
 # --- Argument parsing ---
 MODE="batch"
 TARGET=""
+SKIP_FONT_UPDATE=0
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -100,6 +101,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         -b|--batch)
             MODE="batch"
+            shift
+            ;;
+        -F|--skip-font-update)
+            SKIP_FONT_UPDATE=1
             shift
             ;;
         -h|--help)
@@ -135,7 +140,7 @@ if [[ "$MODE" == "single" ]]; then
         exit 1
     fi
 else
-    TARGET="${TARGET:-latex-src}"
+    TARGET="${TARGET:-latex/pensee}"
     if [[ ! -d "$TARGET" ]]; then
         echo -e "${RED}Error:${NC} Source directory '$TARGET' not found."
         exit 1
@@ -210,6 +215,15 @@ PYEOF
 
 # --- Create output directories ---
 mkdir -p "$OUT_DIR" "$STATIC_CSS_DIR"
+
+# --- Font update check ---
+# Calls update-fonts.sh to check npm for a newer Computer Modern version.
+# On any network or download error it warns and continues — never fatal.
+# Skip with -F / --skip-font-update for offline or CI use.
+if [[ "$SKIP_FONT_UPDATE" -eq 0 ]]; then
+    bash shells/update-fonts.sh --download
+    echo ""
+fi
 
 # --- Step 0: Ensure LaTeXML CSS files are in static/css/ ---
 #
@@ -394,8 +408,8 @@ convert_project() {
         echo "---"
         echo '<link rel="stylesheet" href="/css/LaTeXML.css">'
         echo '<link rel="stylesheet" href="/css/ltx-article.css">'
-        echo '<!-- CMU Serif: self-hosted mirror of npm/computer-modern@0.1.2 -->'
-        echo '<link rel="stylesheet" href="/fonts/npm/computer-modern@0.1.2/cmu-serif.css">'
+        echo '<!-- CMU Serif: self-hosted, always current via current/ symlink -->'
+        echo '<link rel="stylesheet" href="/fonts/npm/computer-modern/cmu-serif-current.css">'
         echo '<style>'
         echo '/* PaperMod integration overrides */'
         echo '.ltx_document { font-family: "CMU Serif", Georgia, serif; font-size: 1.05em; }'
@@ -469,7 +483,16 @@ else
     echo -e "${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo ""
 
+    SKIPPED=0
     for project_dir in "${subfolders[@]}"; do
+        slug=$(basename "$project_dir")
+        # Skip folders with no LaTeX entry point — e.g. latex-src/classes/
+        if [[ ! -f "$project_dir/${slug}.tex" && ! -f "$project_dir/main.tex" ]]; then
+            echo -e "  ${YELLOW}⊘ Skipped${NC}    : $slug (no ${slug}.tex or main.tex)"
+            echo ""
+            (( SKIPPED++ )) || true
+            continue
+        fi
         convert_project "$project_dir"
     done
 
@@ -480,6 +503,8 @@ echo -e "${BOLD}━━━━━━━━━━━━━━━━━━━━━�
 echo -e "${BOLD} Summary${NC}"
 echo -e "${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "  ${GREEN}✔ Converted : $CONVERTED project(s)${NC}"
+[[ ${SKIPPED:-0} -gt 0 ]] && \
+    echo -e "  ${YELLOW}⊘ Skipped   : $SKIPPED folder(s) (no entry-point .tex)${NC}"
 [[ $FAILED -gt 0 ]] && \
     echo -e "  ${RED}✘ Failed    : $FAILED project(s)${NC}"
 echo -e "${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
