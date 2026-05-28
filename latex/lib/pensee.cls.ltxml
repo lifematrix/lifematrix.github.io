@@ -49,4 +49,27 @@ DefMacro('\blogtags{}', '');
 # and \date{} is stripped by the Python post-processor in convert-latex.sh,
 # since PaperMod already renders these from the YAML front matter.
 
+# -----------------------------------------------------------------------------
+# Convenience colour commands — expand to \textcolor calls.
+# LaTeXML's xcolor binding handles \textcolor natively.
+# -----------------------------------------------------------------------------
+DefMacro('\textred{}',   '\textcolor{red}{#1}');
+DefMacro('\textblue{}',  '\textcolor{blue}{#1}');
+DefMacro('\textgreen{}', '\textcolor{green}{#1}');
+
+# -----------------------------------------------------------------------------
+# \blankline — vertical whitespace.
+# \vskip has no direct HTML equivalent; emit a paragraph break so browsers
+# render a visible gap between surrounding content blocks.
+# -----------------------------------------------------------------------------
+DefMacro('\blankline', '\par ');
+
+# -----------------------------------------------------------------------------
+# \rubric{text} — lightweight standalone essay heading.
+# Wraps the text in a paragraph with class "ltx_rubric" so CSS can style it
+# as a block-level italic label without imposing a formal section hierarchy.
+# -----------------------------------------------------------------------------
+DefConstructor('\rubric{}',
+  "<ltx:p class='ltx_rubric'>#1</ltx:p>");
+
 1;

@@ -410,15 +410,8 @@ convert_project() {
         echo '<link rel="stylesheet" href="/css/ltx-article.css">'
         echo '<!-- CMU Serif: self-hosted, always current via current/ symlink -->'
         echo '<link rel="stylesheet" href="/fonts/npm/computer-modern/cmu-serif-current.css">'
-        echo '<style>'
-        echo '/* PaperMod integration overrides */'
-        echo '.ltx_document { font-family: "CMU Serif", Georgia, serif; font-size: 1.05em; }'
-        echo '.ltx_figure img { max-width: 100%; height: auto; }'
-        echo '.ltx_page_main { padding: 0; }'
-        echo '/* Section heading: match LaTeX size and number spacing */'
-        echo 'article.ltx_document .ltx_title_section { font-size: 1.5em; font-weight: bold; }'
-        echo 'article.ltx_document .ltx_tag_section { margin-right: 0.5em; }'
-        echo '</style>'
+        echo '<!-- pensee-latex.css: PaperMod integration overrides for LaTeXML output -->'
+        echo '<link rel="stylesheet" href="/css/pensee-latex.css">'
         echo "$html_body"
     } > "$dest_dir/index.html"
 

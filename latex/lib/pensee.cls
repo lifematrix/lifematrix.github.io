@@ -90,3 +90,22 @@
 % -----------------------------------------------------------------------------
 \newcommand{\blogdate}[1]{\date{#1}}
 \newcommand{\blogtags}[1]{}     % no-op in PDF
+
+%------------------------------------------------------------------------------
+% some common formatting commands
+%------------------------------------------------------------------------------
+
+\newcommand{\textred}[1]{\textcolor{red}{#1}}
+\newcommand{\textblue}[1]{\textcolor{blue}{#1}}
+\newcommand{\textgreen}[1]{\textcolor{green}{#1}}
+\newcommand{\blankline}[0]{\vskip \baselineskip}
+
+% Lightweight standalone essay heading — non-run-in, unnumbered.
+% Inspired by the rubric headings of medieval manuscripts: a brief title
+% that names the section without imposing a formal hierarchy.
+% Usage: \rubric{A quiet observation}
+\newcommand{\rubric}[1]{%
+    \vspace{0.6em}%
+    {\noindent\normalsize\bfseries\itshape #1}%
+    \vspace{0.2em}\par\noindent\ignorespaces
+}
