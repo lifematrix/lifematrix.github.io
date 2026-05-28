@@ -10,10 +10,25 @@
  *   /fonts/npm/computer-modern/cmu-serif-current.css  — CMU Serif font
  * ============================================================================= */
 
-/* --- Body font --- */
+/* --- Content width override ---
+ * PaperMod's .main container is capped by --main-width (default 720px).
+ * A child max-width can never exceed its parent, so we must override the
+ * variable itself. pensee-latex.css is only loaded on pensee article pages,
+ * so this does not affect the rest of the site.
+ * ------------------------------------------------------------------ */
+:root {
+    --main-width: 860px;
+}
+
+/* --- Body font and line spacing ---
+ * PaperMod's body defaults to line-height 1.6, which is generous for
+ * short web posts but wastes vertical space in long-form prose.
+ * 1.4 matches printed book conventions and fits more lines per screen.
+ * ------------------------------------------------------------------ */
 .ltx_document {
     font-family: "CMU Serif", Georgia, serif;
     font-size: 1.05em;
+    line-height: 1.35;
 }
 
 /* --- Responsive figures --- */
@@ -25,6 +40,25 @@
 /* --- Remove LaTeXML page padding (PaperMod handles layout) --- */
 .ltx_page_main {
     padding: 0;
+}
+
+/* --- Paragraph spacing ---
+ * PaperMod applies margin-bottom: 20px to every <p> in .post-content.
+ * LaTeXML already uses text-indent to separate paragraphs (classic book
+ * style), so large extra spacing is redundant. 0.4em gives a light breath
+ * between blocks without fragmenting the reading flow.
+ * ------------------------------------------------------------------ */
+article.ltx_document .ltx_p {
+    margin-bottom: 0.5em;
+}
+
+/* --- Post title size ---
+ * PaperMod defaults to 40px, which is too large for longer essay titles.
+ * 28px is proportionate to the content and fits academic-style titles
+ * without wrapping aggressively.
+ * ------------------------------------------------------------------ */
+.post-title {
+    font-size: 30px;
 }
 
 /* --- Heading hierarchy ---
