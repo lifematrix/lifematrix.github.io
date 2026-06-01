@@ -1,1 +1,4 @@
 .DS_Store
+
+# Texifier (LaTeX editor) temporary build directory
+.texpadtmp/
