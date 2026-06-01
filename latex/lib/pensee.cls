@@ -100,12 +100,15 @@
 \newcommand{\textgreen}[1]{\textcolor{green}{#1}}
 \newcommand{\blankline}[0]{\vskip \baselineskip}
 
-% Lightweight standalone essay heading — non-run-in, unnumbered.
+% Colour used for \rubric headings — matches the HTML CSS value #622E7A.
+\definecolor{penseeRubric}{HTML}{622E7A}
+
+% Lightweight standalone essay heading — non-run-in, unnumbered, centred.
 % Inspired by the rubric headings of medieval manuscripts: a brief title
 % that names the section without imposing a formal hierarchy.
 % Usage: \rubric{A quiet observation}
 \newcommand{\rubric}[1]{%
-    \vspace{0.6em}%
-    {\noindent\normalsize\bfseries\itshape #1}%
-    \vspace{0.2em}\par\noindent\ignorespaces
+    \vspace{0.6em}\par%
+    {\centering\normalsize\bfseries\itshape\textcolor{penseeRubric}{#1}\par}%
+    \vspace{0.2em}\noindent\ignorespaces
 }
