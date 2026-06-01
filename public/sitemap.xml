@@ -2,31 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://lifematrix.github.io/</loc>
+    <loc>http://localhost:65369/tags/divine-will/</loc>
+    <lastmod>2026-05-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:65369/</loc>
+    <lastmod>2026-05-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:65369/tags/orin/</loc>
+    <lastmod>2026-05-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:65369/posts/</loc>
+    <lastmod>2026-05-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:65369/posts/notes_orin_article_will_7/</loc>
+    <lastmod>2026-05-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:65369/tags/spiritual-growth/</loc>
+    <lastmod>2026-05-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:65369/tags/</loc>
+    <lastmod>2026-05-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:65369/tags/math/</loc>
     <lastmod>2026-05-22T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://lifematrix.github.io/tags/math/</loc>
+    <loc>http://localhost:65369/posts/emc2/</loc>
     <lastmod>2026-05-22T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://lifematrix.github.io/posts/emc2/</loc>
+    <loc>http://localhost:65369/tags/physics/</loc>
     <lastmod>2026-05-22T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://lifematrix.github.io/tags/physics/</loc>
+    <loc>http://localhost:65369/tags/research/</loc>
     <lastmod>2026-05-22T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://lifematrix.github.io/posts/</loc>
-    <lastmod>2026-05-22T00:00:00+00:00</lastmod>
+    <loc>http://localhost:65369/archives/</loc>
   </url><url>
-    <loc>https://lifematrix.github.io/tags/research/</loc>
-    <lastmod>2026-05-22T00:00:00+00:00</lastmod>
+    <loc>http://localhost:65369/categories/</loc>
   </url><url>
-    <loc>https://lifematrix.github.io/tags/</loc>
-    <lastmod>2026-05-22T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://lifematrix.github.io/archives/</loc>
-  </url><url>
-    <loc>https://lifematrix.github.io/categories/</loc>
-  </url><url>
-    <loc>https://lifematrix.github.io/search/</loc>
+    <loc>http://localhost:65369/search/</loc>
   </url>
 </urlset>

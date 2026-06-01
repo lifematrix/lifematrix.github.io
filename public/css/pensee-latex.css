@@ -1,0 +1,105 @@
+/* =============================================================================
+ * pensee-latex.css
+ *
+ * PaperMod integration overrides for LaTeXML-generated HTML from the
+ * pensee document class.
+ *
+ * Loaded by every article produced by shells/convert-latex.sh, alongside:
+ *   /css/LaTeXML.css              — LaTeXML core styles
+ *   /css/ltx-article.css          — LaTeXML article layout
+ *   /fonts/npm/computer-modern/cmu-serif-current.css  — CMU Serif font
+ * ============================================================================= */
+
+/* --- Content width override ---
+ * PaperMod's .main container is capped by --main-width (default 720px).
+ * A child max-width can never exceed its parent, so we must override the
+ * variable itself. pensee-latex.css is only loaded on pensee article pages,
+ * so this does not affect the rest of the site.
+ * ------------------------------------------------------------------ */
+:root {
+    --main-width: 860px;
+}
+
+/* --- Body font and line spacing ---
+ * PaperMod's body defaults to line-height 1.6, which is generous for
+ * short web posts but wastes vertical space in long-form prose.
+ * 1.4 matches printed book conventions and fits more lines per screen.
+ * ------------------------------------------------------------------ */
+.ltx_document {
+    font-family: "CMU Serif", Georgia, serif;
+    font-size: 1.05em;
+    line-height: 1.35;
+}
+
+/* --- Responsive figures --- */
+.ltx_figure img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* --- Remove LaTeXML page padding (PaperMod handles layout) --- */
+.ltx_page_main {
+    padding: 0;
+}
+
+/* --- Paragraph spacing ---
+ * PaperMod applies margin-bottom: 20px to every <p> in .post-content.
+ * LaTeXML already uses text-indent to separate paragraphs (classic book
+ * style), so large extra spacing is redundant. 0.4em gives a light breath
+ * between blocks without fragmenting the reading flow.
+ * ------------------------------------------------------------------ */
+article.ltx_document .ltx_p {
+    margin-bottom: 0.5em;
+}
+
+/* --- Post title size ---
+ * PaperMod defaults to 40px, which is too large for longer essay titles.
+ * 28px is proportionate to the content and fits academic-style titles
+ * without wrapping aggressively.
+ * ------------------------------------------------------------------ */
+.post-title {
+    font-size: 30px;
+}
+
+/* --- Heading hierarchy ---
+ * LaTeXML emits <h2> for all sectioning levels, distinguishing them
+ * only by CSS class. The browser's built-in h2/h3/h4 size graduation
+ * does not apply here — each level must be sized explicitly.
+ * ------------------------------------------------------------------ */
+article.ltx_document .ltx_title_section       { font-size: 1.5em;  font-weight: bold; }
+article.ltx_document .ltx_title_subsection    { font-size: 1.25em; font-weight: bold; }
+article.ltx_document .ltx_title_subsubsection { font-size: 1.1em;  font-weight: bold; }
+
+/* --- Section number spacing --- */
+article.ltx_document .ltx_tag_section,
+article.ltx_document .ltx_tag_subsection,
+article.ltx_document .ltx_tag_subsubsection {
+    margin-right: 0.5em;
+}
+
+/* --- Lightweight paragraph heading (\paragraph*) ---
+ * Same size as body text, italic, no bold — visually lighter than
+ * all numbered section levels above it.
+ * -------------------------------------------------------- */
+article.ltx_document .ltx_title_paragraph {
+    font-size: 1.0em;
+    font-style: italic;
+    font-weight: normal;
+}
+
+/* --- \rubric — lightweight standalone essay heading ---
+ * Non-run-in italic label for dividing pensée content into named parts
+ * without imposing a formal numbered section hierarchy.
+ * -------------------------------------------------------- */
+article.ltx_document .ltx_para > .ltx_rubric {
+    display: block;
+    font-size: 1.1em;
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+    text-indent: 0;
+    margin-left: 0;
+    margin-top: 0.8em;
+    margin-bottom: 0.2em;
+    color: #622E7A;
+}

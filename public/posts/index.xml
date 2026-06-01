@@ -2,30 +2,50 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on LifeMatrix</title>
-    <link>https://lifematrix.github.io/posts/</link>
+    <link>http://localhost:65369/posts/</link>
     <description>Recent content in Posts on LifeMatrix</description>
     <generator>Hugo -- 0.154.5</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 22 May 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://lifematrix.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 27 May 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:65369/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Reading Notes on &#34;Will 7: The Will to Express&#34; by Orin</title>
+      <link>http://localhost:65369/posts/notes_orin_article_will_7/</link>
+      <pubDate>Wed, 27 May 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:65369/posts/notes_orin_article_will_7/</guid>
+      <description>&lt;link rel=&#34;stylesheet&#34; href=&#34;http://localhost:65369/css/LaTeXML.css&#34;&gt;
+&lt;link rel=&#34;stylesheet&#34; href=&#34;http://localhost:65369/css/ltx-article.css&#34;&gt;
+&lt;!-- CMU Serif: self-hosted, always current via current/ symlink --&gt;
+&lt;link rel=&#34;stylesheet&#34; href=&#34;http://localhost:65369/fonts/npm/computer-modern/cmu-serif-current.css&#34;&gt;
+&lt;!-- pensee-latex.css: PaperMod integration overrides for LaTeXML output --&gt;
+&lt;link rel=&#34;stylesheet&#34; href=&#34;http://localhost:65369/css/pensee-latex.css&#34;&gt;
+&lt;article class=&#34;ltx_document&#34;&gt;
+
+
+
+
+&lt;div id=&#34;p1&#34; class=&#34;ltx_para&#34;&gt;
+&lt;p class=&#34;ltx_p ltx_rubric&#34;&gt;The Will to Express: The Higher and Lower Meet&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;p2&#34; class=&#34;ltx_para&#34;&gt;
+&lt;p class=&#34;ltx_p&#34;&gt;The Seventh Ray radiates a quality of Divine Will called the Will to Express, and energy that brings spirit and matter together.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;p3&#34; class=&#34;ltx_para&#34;&gt;
+&lt;p class=&#34;ltx_p&#34;&gt;Its role is to bring into manifestation perfect forms that express the beauty and light of divinity.
+It has also been called the Manifesting Ray, the Violet Ray, and the Ray of Ceremonial Order.
+In this article, I will focus on how you can work with the Divine Will quality of this Ray, called the Will to Express, and also how you can call upon and use &lt;span class=&#34;ltx_text&#34; style=&#34;color:#0000FF;&#34;&gt;the Sacred Transmuting Flame, the essence of Seventh Ray energy&lt;/span&gt;.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>My First Academic Blog Post</title>
-      <link>https://lifematrix.github.io/posts/emc2/</link>
+      <link>http://localhost:65369/posts/emc2/</link>
       <pubDate>Fri, 22 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://lifematrix.github.io/posts/emc2/</guid>
-      <description>&lt;link rel=&#34;stylesheet&#34; href=&#34;https://lifematrix.github.io/css/LaTeXML.css&#34;&gt;
-&lt;link rel=&#34;stylesheet&#34; href=&#34;https://lifematrix.github.io/css/ltx-article.css&#34;&gt;
+      <guid>http://localhost:65369/posts/emc2/</guid>
+      <description>&lt;link rel=&#34;stylesheet&#34; href=&#34;http://localhost:65369/css/LaTeXML.css&#34;&gt;
+&lt;link rel=&#34;stylesheet&#34; href=&#34;http://localhost:65369/css/ltx-article.css&#34;&gt;
 &lt;!-- CMU Serif: self-hosted, always current via current/ symlink --&gt;
-&lt;link rel=&#34;stylesheet&#34; href=&#34;https://lifematrix.github.io/fonts/npm/computer-modern/cmu-serif-current.css&#34;&gt;
-&lt;style&gt;
-/* PaperMod integration overrides */
-.ltx_document { font-family: &#34;CMU Serif&#34;, Georgia, serif; font-size: 1.05em; }
-.ltx_figure img { max-width: 100%; height: auto; }
-.ltx_page_main { padding: 0; }
-/* Section heading: match LaTeX size and number spacing */
-article.ltx_document .ltx_title_section { font-size: 1.5em; font-weight: bold; }
-article.ltx_document .ltx_tag_section { margin-right: 0.5em; }
-&lt;/style&gt;
+&lt;link rel=&#34;stylesheet&#34; href=&#34;http://localhost:65369/fonts/npm/computer-modern/cmu-serif-current.css&#34;&gt;
+&lt;!-- pensee-latex.css: PaperMod integration overrides for LaTeXML output --&gt;
+&lt;link rel=&#34;stylesheet&#34; href=&#34;http://localhost:65369/css/pensee-latex.css&#34;&gt;
 &lt;article class=&#34;ltx_document&#34;&gt;
 
 
@@ -35,8 +55,63 @@ article.ltx_document .ltx_tag_section { margin-right: 0.5em; }
 &lt;h2 class=&#34;ltx_title ltx_title_section&#34;&gt;
 &lt;span class=&#34;ltx_tag ltx_tag_section&#34;&gt;1 &lt;/span&gt;Introduction&lt;/h2&gt;
 
-&lt;div id=&#34;S1.p1&#34; class=&#34;ltx_para&#34;&gt;
-&lt;p class=&#34;ltx_p&#34;&gt;This is my blog post with some math:&lt;/p&gt;</description>
+&lt;section id=&#34;S1.SS1&#34; class=&#34;ltx_subsection&#34;&gt;
+&lt;h3 class=&#34;ltx_title ltx_title_subsection&#34;&gt;
+&lt;span class=&#34;ltx_tag ltx_tag_subsection&#34;&gt;1.1 &lt;/span&gt;Physics&lt;/h3&gt;
+
+&lt;section id=&#34;S1.SS1.SSS1&#34; class=&#34;ltx_subsubsection&#34;&gt;
+&lt;h4 class=&#34;ltx_title ltx_title_subsubsection&#34;&gt;
+&lt;span class=&#34;ltx_tag ltx_tag_subsubsection&#34;&gt;1.1.1 &lt;/span&gt;The Special Theory of Relativity&lt;/h4&gt;
+
+&lt;div id=&#34;S1.SS1.SSS1.p1&#34; class=&#34;ltx_para&#34;&gt;
+&lt;p class=&#34;ltx_p&#34;&gt;This is my blog post with some math:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;S1.SS1.SSS1.p2&#34; class=&#34;ltx_para&#34;&gt;
+&lt;table id=&#34;S1.E1&#34; class=&#34;ltx_equation ltx_eqn_table&#34;&gt;
+
+&lt;tbody&gt;&lt;tr class=&#34;ltx_equation ltx_eqn_row ltx_align_baseline&#34;&gt;
+&lt;td class=&#34;ltx_eqn_cell ltx_eqn_center_padleft&#34;&gt;&lt;/td&gt;
+&lt;td class=&#34;ltx_eqn_cell ltx_align_center&#34;&gt;&lt;math id=&#34;S1.E1.m1&#34; class=&#34;ltx_Math&#34; alttext=&#34;E=mc^{2}&#34; display=&#34;block&#34;&gt;&lt;mrow&gt;&lt;mi&gt;E&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mrow&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mo&gt;⁢&lt;/mo&gt;&lt;msup&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;/mrow&gt;&lt;/math&gt;&lt;/td&gt;
+&lt;td class=&#34;ltx_eqn_cell ltx_eqn_center_padright&#34;&gt;&lt;/td&gt;
+&lt;td rowspan=&#34;1&#34; class=&#34;ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right&#34;&gt;&lt;span class=&#34;ltx_tag ltx_tag_equation ltx_align_right&#34;&gt;(1)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div id=&#34;S1.SS1.SSS1.p3&#34; class=&#34;ltx_para&#34;&gt;
+&lt;table id=&#34;S1.E2&#34; class=&#34;ltx_equation ltx_eqn_table&#34;&gt;
+
+&lt;tbody&gt;&lt;tr class=&#34;ltx_equation ltx_eqn_row ltx_align_baseline&#34;&gt;
+&lt;td class=&#34;ltx_eqn_cell ltx_eqn_center_padleft&#34;&gt;&lt;/td&gt;
+&lt;td class=&#34;ltx_eqn_cell ltx_align_center&#34;&gt;&lt;math id=&#34;S1.E2.m1&#34; class=&#34;ltx_Math&#34; alttext=&#34;e^{-i\pi}+1=0&#34; display=&#34;block&#34;&gt;&lt;mrow&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mrow&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;mrow&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mo&gt;⁢&lt;/mo&gt;&lt;mi&gt;π&lt;/mi&gt;&lt;/mrow&gt;&lt;/mrow&gt;&lt;/msup&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mrow&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;0&lt;/mn&gt;&lt;/mrow&gt;&lt;/math&gt;&lt;/td&gt;
+&lt;td class=&#34;ltx_eqn_cell ltx_eqn_center_padright&#34;&gt;&lt;/td&gt;
+&lt;td rowspan=&#34;1&#34; class=&#34;ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right&#34;&gt;&lt;span class=&#34;ltx_tag ltx_tag_equation ltx_align_right&#34;&gt;(2)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div id=&#34;S1.SS1.SSS1.p4&#34; class=&#34;ltx_para&#34;&gt;
+&lt;table id=&#34;S1.E3&#34; class=&#34;ltx_equation ltx_eqn_table&#34;&gt;
+
+&lt;tbody&gt;&lt;tr class=&#34;ltx_equation ltx_eqn_row ltx_align_baseline&#34;&gt;
+&lt;td class=&#34;ltx_eqn_cell ltx_eqn_center_padleft&#34;&gt;&lt;/td&gt;
+&lt;td class=&#34;ltx_eqn_cell ltx_align_center&#34;&gt;&lt;math id=&#34;S1.E3.m1&#34; class=&#34;ltx_Math&#34; alttext=&#34;a^{2}+b^{2}=c^{2}&#34; display=&#34;block&#34;&gt;&lt;mrow&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msup&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;msup&gt;&lt;mi&gt;b&lt;/mi&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;msup&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;/math&gt;&lt;/td&gt;
+&lt;td class=&#34;ltx_eqn_cell ltx_eqn_center_padright&#34;&gt;&lt;/td&gt;
+&lt;td rowspan=&#34;1&#34; class=&#34;ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right&#34;&gt;&lt;span class=&#34;ltx_tag ltx_tag_equation ltx_align_right&#34;&gt;(3)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div id=&#34;S1.SS1.SSS1.p5&#34; class=&#34;ltx_para&#34;&gt;
+&lt;table id=&#34;S1.E4&#34; class=&#34;ltx_equation ltx_eqn_table&#34;&gt;
+
+&lt;tbody&gt;&lt;tr class=&#34;ltx_equation ltx_eqn_row ltx_align_baseline&#34;&gt;
+&lt;td class=&#34;ltx_eqn_cell ltx_eqn_center_padleft&#34;&gt;&lt;/td&gt;
+&lt;td class=&#34;ltx_eqn_cell ltx_align_center&#34;&gt;&lt;math id=&#34;S1.E4.m1&#34; class=&#34;ltx_Math&#34; alttext=&#34;sin^{2}(x)+cos^{2}(x)=1&#34; display=&#34;block&#34;&gt;&lt;mrow&gt;&lt;mrow&gt;&lt;mrow&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;mo&gt;⁢&lt;/mo&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mo&gt;⁢&lt;/mo&gt;&lt;msup&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msup&gt;&lt;mo&gt;⁢&lt;/mo&gt;&lt;mrow&gt;&lt;mo stretchy=&#34;false&#34;&gt;(&lt;/mo&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo stretchy=&#34;false&#34;&gt;)&lt;/mo&gt;&lt;/mrow&gt;&lt;/mrow&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mrow&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;mo&gt;⁢&lt;/mo&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mo&gt;⁢&lt;/mo&gt;&lt;msup&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msup&gt;&lt;mo&gt;⁢&lt;/mo&gt;&lt;mrow&gt;&lt;mo stretchy=&#34;false&#34;&gt;(&lt;/mo&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo stretchy=&#34;false&#34;&gt;)&lt;/mo&gt;&lt;/mrow&gt;&lt;/mrow&gt;&lt;/mrow&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mrow&gt;&lt;/math&gt;&lt;/td&gt;
+&lt;td class=&#34;ltx_eqn_cell ltx_eqn_center_padright&#34;&gt;&lt;/td&gt;
+&lt;td rowspan=&#34;1&#34; class=&#34;ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right&#34;&gt;&lt;span class=&#34;ltx_tag ltx_tag_equation ltx_align_right&#34;&gt;(4)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div id=&#34;S1.SS1.SSS1.p6&#34; class=&#34;ltx_para&#34;&gt;
+&lt;p class=&#34;ltx_p&#34;&gt;A historic group photo:&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
