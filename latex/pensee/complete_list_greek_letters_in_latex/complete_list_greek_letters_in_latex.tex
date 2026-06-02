@@ -9,8 +9,12 @@
 \usepackage[backend=bibtex]{biblatex}
 \bibliography{complete_list_greek_letters_in_latex.bib}
 \usepackage{makecell}
-\usepackage{tipauni}
 \usepackage{float}
+\usepackage{iftex}
+% tipauni is XeLaTeX-only; LaTeXML handles Unicode IPA natively without it.
+\ifXeTeX
+  \usepackage{tipauni}
+\fi
 
 %% IPA pronunciations use Unicode characters directly.
 %% PDF: compile with XeLaTeX (Texifier: Product > Typesetting Engine).
