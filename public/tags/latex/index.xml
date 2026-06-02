@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>LaTeX on LifeMatrix</title>
+    <link>http://localhost:1313/tags/latex/</link>
+    <description>Recent content in LaTeX on LifeMatrix</description>
+    <generator>Hugo -- 0.154.5</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 01 Jun 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/latex/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Complete List of Greek Letters in Latex</title>
+      <link>http://localhost:1313/posts/complete_list_greek_letters_in_latex/</link>
+      <pubDate>Mon, 01 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/complete_list_greek_letters_in_latex/</guid>
+      <description>&lt;link rel=&#34;stylesheet&#34; href=&#34;http://localhost:1313/css/LaTeXML.css&#34;&gt;
+&lt;link rel=&#34;stylesheet&#34; href=&#34;http://localhost:1313/css/ltx-article.css&#34;&gt;
+&lt;!-- CMU Serif: self-hosted, always current via current/ symlink --&gt;
+&lt;link rel=&#34;stylesheet&#34; href=&#34;http://localhost:1313/fonts/npm/computer-modern/cmu-serif-current.css&#34;&gt;
+&lt;!-- pensee-latex.css: PaperMod integration overrides for LaTeXML output --&gt;
+&lt;link rel=&#34;stylesheet&#34; href=&#34;http://localhost:1313/css/pensee-latex.css&#34;&gt;
+&lt;!DOCTYPE html&gt;&lt;html lang=&#34;en&#34;&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&#34;content-type&#34; content=&#34;text/html; charset=UTF-8&#34;&gt;
+&lt;title&gt;Complete List of Greek Letters in Latex&lt;/title&gt;
+&lt;!--Generated on Tue Jun  2 18:30:32 2026 by LaTeXML (version 0.8.8) http://dlmf.nist.gov/LaTeXML/.--&gt;
+&lt;!--Document created on 2026‐06‐01.--&gt;
+
+&lt;link rel=&#34;stylesheet&#34; href=&#34;LaTeXML.css&#34; type=&#34;text/css&#34;&gt;
+&lt;link rel=&#34;stylesheet&#34; href=&#34;ltx-article.css&#34; type=&#34;text/css&#34;&gt;
+&lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1, shrink-to-fit=no&#34;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&#34;ltx_page_main&#34;&gt;
+&lt;div class=&#34;ltx_page_content&#34;&gt;
+&lt;article class=&#34;ltx_document ltx_authors_1line&#34;&gt;
+
+
+
+
+&lt;div id=&#34;p1&#34; class=&#34;ltx_para&#34;&gt;
+&lt;p class=&#34;ltx_p&#34;&gt;The Greek Letters are used widely in LaTeX mathematical equation typesetting. Due to a long time of cultural spreading and mutation, some letters has been developed different script forms. Overleaf provides a excellent guide &lt;cite class=&#34;ltx_cite ltx_citemacro_cite&#34;&gt;[&lt;a href=&#34;#bib.bib1&#34; title=&#34;List of greek letters and math symbols&#34; class=&#34;ltx_ref&#34;&gt;1&lt;/a&gt;]&lt;/cite&gt; on Greek Letters that helped me a lot. However, it’s incomplete after I discussing with Claude AI. So, it’s necessary to record a complete list for understanding and daily practical writing in LaTeX. The basic information is from the Wiki Page &lt;cite class=&#34;ltx_cite ltx_citemacro_cite&#34;&gt;[&lt;a href=&#34;#bib.bib3&#34; title=&#34;Greek alphabet&#34; class=&#34;ltx_ref&#34;&gt;2&lt;/a&gt;]&lt;/cite&gt;.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
