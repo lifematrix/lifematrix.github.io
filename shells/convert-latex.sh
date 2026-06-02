@@ -158,7 +158,8 @@ fi
 # 3. Strips width="..." / width='...' from <img> tags inside <figure> elements
 #    — lets figures scale to full content width, matching \textwidth intent.
 FIX_BODY_PY=$(mktemp /tmp/fix_body_XXXXXX.py)
-trap 'rm -f "$FIX_BODY_PY"' EXIT
+PREPROCESS_TEX_PY=$(mktemp /tmp/preprocess_tex_XXXXXX.py)
+trap 'rm -f "$FIX_BODY_PY" "$PREPROCESS_TEX_PY"' EXIT
 
 cat > "$FIX_BODY_PY" << 'PYEOF'
 import re, sys
@@ -210,7 +211,68 @@ html = re.sub(
     fix_figure,
     html, flags=re.IGNORECASE | re.DOTALL)
 
+# Step 5: Collapse \makecell nested tables into <br>-separated lines.
+#
+# LaTeXML renders \makecell{line1 \\ line2} as a nested <table> with one
+# <tr> per line.  Inside an outer <td> these nested inline-tables create
+# phantom blank lines: the \n characters between <td> and <table> become
+# anonymous inline boxes each ~22 px tall (line-height × font-size).
+#
+# Fix: replace each makecell table with its cell contents joined by <br>.
+# We identify makecell tables by the ltx_nopad_r class on their inner cells
+# (main-table cells never carry this class).
+#
+# The regex matches *innermost* tables only (no nested <table> inside),
+# which means it processes inner tables first and never accidentally matches
+# the outer main table, which contains nested tables.
+def _collapse_makecell(html_str):
+    def _replacer(m):
+        t = m.group(0)
+        if 'ltx_nopad_r' not in t:
+            return t          # not a makecell table — leave untouched
+        cells = re.findall(r'<td\b[^>]*>(.*?)</td>', t, re.DOTALL)
+        return '<br>\n'.join(c.strip() for c in cells) if cells else t
+    # Matches tables whose content contains no nested <table> tags.
+    return re.sub(
+        r'<table\b[^>]*>(?:(?!</?table\b).)*?</table>',
+        _replacer, html_str, flags=re.DOTALL)
+
+prev = None
+while prev != html:
+    prev = html
+    html = _collapse_makecell(html)
+
 sys.stdout.write(html)
+PYEOF
+
+# --- Python helper: pre-process .tex before feeding to LaTeXML ---
+#
+# Runs on a temp copy of each .tex file before latexml sees it.
+# The original source is never modified.
+# Add new steps here whenever LaTeXML silently drops or mishandles a
+# LaTeX/XeLaTeX construct.
+cat > "$PREPROCESS_TEX_PY" << 'PYEOF'
+import re, sys
+
+with open(sys.argv[1], encoding='utf-8') as f:
+    tex = f.read()
+
+# Step 1: Expand \symbol{"XXXX} to literal Unicode characters.
+#
+# XeLaTeX interprets \symbol{"XXXX} as "output the character at hex code
+# point XXXX".  LaTeXML does not implement this command and silently drops
+# it, leaving the surrounding text intact but missing the character.
+# Replacing with chr(0xXXXX) before latexml runs ensures the character
+# appears correctly in the HTML output.
+tex = re.sub(
+    r'\\symbol\{"([0-9A-Fa-f]{4,6})\}',
+    lambda m: chr(int(m.group(1), 16)),
+    tex)
+
+# (Add future pre-processing steps here.)
+
+with open(sys.argv[2], 'w', encoding='utf-8') as f:
+    f.write(tex)
 PYEOF
 
 # --- Create output directories ---
@@ -334,14 +396,27 @@ convert_project() {
     local classes_abspath
     classes_abspath="$(pwd)/$CLASSES_DIR"
 
+    # ------------------------------------------------------------------
+    # Step 2 (pre): Pre-process .tex before feeding to LaTeXML
+    #
+    # Applies the transformations defined in PREPROCESS_TEX_PY to a temp
+    # copy of the source file.  latexml receives the temp copy; the
+    # original .tex is never modified.
+    # ------------------------------------------------------------------
+    local preproc_tex
+    preproc_tex=$(mktemp /tmp/latexml_XXXXXX.tex)
+    python3 "$PREPROCESS_TEX_PY" "$project_dir/${stem}.tex" "$preproc_tex"
+
     if ! ( cd "$project_dir" && \
            latexml --path="$classes_abspath" \
-                   --dest="html_temp/${stem}.xml" "${stem}.tex" 2>&1 ); then
+                   --dest="html_temp/${stem}.xml" "$preproc_tex" 2>&1 ); then
+        rm -f "$preproc_tex"
         echo -e "  ${RED}✘ Failed${NC}    : latexml error in '$slug'"
         (( FAILED++ )) || true
         echo ""
         return
     fi
+    rm -f "$preproc_tex"
 
     # ------------------------------------------------------------------
     # Step 3: Run latexmlpost — LaTeXML XML → HTML5 with MathML

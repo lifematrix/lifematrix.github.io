@@ -103,3 +103,62 @@ article.ltx_document .ltx_para > .ltx_rubric {
     margin-bottom: 0.2em;
     color: #622E7A;
 }
+
+/* =============================================================================
+ * Reference table typography
+ * Applies to any LaTeXML-generated tabular environment wrapped in
+ * <figure class="ltx_table">. Improves readability for reference articles.
+ * ============================================================================= */
+
+/* Centre the figure and enable horizontal scroll on narrow viewports.
+ * padding-bottom: overflow-x:auto coerces overflow-y:auto (CSS spec), which
+ * clips the bottom border of the table flush to the content box edge.
+ * A small bottom pad gives the border room inside the scroll container. */
+figure.ltx_table {
+    margin: 1.5em auto;
+    overflow-x: auto;
+    text-align: center;
+    padding-bottom: 3px;
+}
+
+/* Keep inner table left-aligned within the centred figure */
+figure.ltx_table .ltx_tabular {
+    font-size: 0.93em;
+    display: inline-table;
+    text-align: left;
+}
+
+/* More breathing room: LaTeXML emits tight inline pt padding; override here */
+figure.ltx_table > table.ltx_tabular > tr.ltx_tr > td.ltx_td {
+    padding: 5px 14px !important;
+}
+
+/* No. column: tight horizontal padding — only needs to fit a 2-digit number */
+figure.ltx_table > table.ltx_tabular > tr.ltx_tr > td.ltx_td:first-child {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+
+/* Header row: bold only — the double rule below already provides separation */
+figure.ltx_table > table.ltx_tabular > tr.ltx_tr:first-child > td.ltx_td {
+    font-weight: bold;
+}
+
+/* Alternating row tint for data rows.
+ * Header = tr:first-child = nth-child(1) = odd, so nth-child(even) skips it
+ * and cleanly stripes rows 2, 4, 6 … (Alpha, Gamma, Epsilon …). */
+figure.ltx_table > table.ltx_tabular > tr.ltx_tr:nth-child(even) > td.ltx_td {
+    background-color: #f7f4fb;
+}
+
+/* Bottom border: ltx_border_bb emits "3px double black" which renders as
+ * invisible hairlines at screen resolution. In border-collapse:collapse mode
+ * border conflict resolution uses width then style — "3px double" always beats
+ * "2px solid" so a structural last-child rule cannot win.
+ * Override the class directly so the cascade gives the cell "2px solid" as its
+ * computed value before conflict resolution runs. */
+figure.ltx_table .ltx_border_bb {
+    border-bottom: 2px solid black !important;
+}
+
+
