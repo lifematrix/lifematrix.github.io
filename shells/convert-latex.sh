@@ -296,6 +296,29 @@ convert_project() {
     mkdir -p "$temp_dir"
 
     # ------------------------------------------------------------------
+    # Step 1.5: Pre-convert .bib files to .bib.xml
+    #
+    # latexmlpost resolves bibliographies from .bib.xml (preferred) or
+    # raw .bib (experimental).  Pre-converting is reliable and fast.
+    # Converted files are placed in html_temp/ alongside the XML output.
+    # The resulting --bibliography=... flags are collected in bib_args[]
+    # and passed to latexmlpost in Step 3.
+    # ------------------------------------------------------------------
+    local bib_args=()
+    while IFS= read -r -d '' bibfile; do
+        local bibname
+        bibname=$(basename "$bibfile" .bib)
+        echo -e "  ${CYAN}↳ Bib${NC}        : converting '${bibname}.bib' → '${bibname}.bib.xml'"
+        if ( cd "$project_dir" && \
+             latexml --dest="html_temp/${bibname}.bib.xml" \
+                     "${bibname}.bib" 2>&1 ); then
+            bib_args+=("--bibliography=html_temp/${bibname}.bib.xml")
+        else
+            echo -e "  ${YELLOW}⚠ Warning${NC}   : Failed to convert '${bibname}.bib' — bibliography may be empty"
+        fi
+    done < <(find "$project_dir" -maxdepth 1 -name "*.bib" -print0)
+
+    # ------------------------------------------------------------------
     # Step 2: Run latexml — LaTeX source → LaTeXML XML
     #
     # Run from the project directory so that latexml resolves all
@@ -340,6 +363,7 @@ convert_project() {
                --format=html5 \
                --pmml \
                --sourcedirectory="." \
+               ${bib_args[@]+"${bib_args[@]}"} \
                --dest="html_temp/${stem}.html" \
                "html_temp/${stem}.xml" 2>&1 ); then
         echo -e "  ${RED}✘ Failed${NC}    : latexmlpost error in '$slug'"

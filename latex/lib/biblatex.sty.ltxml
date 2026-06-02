@@ -1,0 +1,80 @@
+# -*- mode: Perl -*-
+# =============================================================================
+# biblatex.sty.ltxml — Minimal LaTeXML binding for the biblatex package
+#
+# LaTeXML has no native binding for biblatex, so without this file it falls
+# back to parsing the raw biblatex.sty (thousands of lines, causes timeouts).
+#
+# This stub handles the commands that matter for HTML bibliography output:
+#
+#   \bibliography{file}          preamble resource declaration
+#   \addbibresource[opts]{file}  biblatex primary resource command
+#   \printbibliography[opts]     emit <ltx:bibliography> at body position
+#
+# latexmlpost fills the <ltx:bibliography files='...'> element with entries
+# from the pre-converted .bib.xml file produced by convert-latex.sh.
+#
+# All other biblatex-specific commands are silently ignored.
+# =============================================================================
+use strict;
+package LaTeXML::Package::Pool;
+use LaTeXML::Package;
+
+# -----------------------------------------------------------------------------
+# \bibliography{files}
+# Preamble-only in biblatex: declares which .bib files to use.
+# Use DefMacro to store the filename without disrupting LaTeXML internals.
+# -----------------------------------------------------------------------------
+DefMacro('\bibliography{}', sub {
+  my ($gullet, $files) = @_;
+  my $fname = ToString($files);
+  $fname =~ s/\.bib\b//g;    # strip .bib extensions if present
+  AssignValue('biblatex@files' => $fname, 'global');
+  return ();                  # no tokens emitted — element created by \printbibliography
+});
+
+# -----------------------------------------------------------------------------
+# \addbibresource[options]{filename.bib}
+# Biblatex's primary way of declaring a bibliography file.
+# Accumulates multiple calls (comma-separated list).
+# -----------------------------------------------------------------------------
+DefMacro('\addbibresource[]{}', sub {
+  my ($gullet, $opts, $file) = @_;
+  my $fname = ToString($file);
+  $fname =~ s/\.bib$//;      # strip .bib extension
+  my $existing = LookupValue('biblatex@files') // '';
+  AssignValue('biblatex@files' =>
+    ($existing ? "$existing,$fname" : $fname), 'global');
+  return ();
+});
+
+# -----------------------------------------------------------------------------
+# \printbibliography[options]
+# Emits the bibliography element at this position in the document body.
+# latexmlpost uses the 'files' attribute to locate and inject bib entries
+# from the pre-converted .bib.xml file.
+# Self-closing: latexmlpost populates the children.
+# -----------------------------------------------------------------------------
+DefConstructor('\printbibliography OptionalKeyVals',
+  "<ltx:bibliography xml:id='bib' files='#files'>"
+  . "<ltx:title>References</ltx:title>"
+  . "</ltx:bibliography>",
+  afterDigest => sub {
+    my ($stomach, $whatsit) = @_;
+    $whatsit->setProperty(files => LookupValue('biblatex@files') // '');
+  });
+
+# -----------------------------------------------------------------------------
+# Silence common biblatex-specific commands that have no HTML equivalent
+# -----------------------------------------------------------------------------
+DefMacro('\ExecuteBibliographyOptions[]{}', '');
+DefMacro('\printshorthands[]',              '');
+DefMacro('\DeclareBibliographyCategory{}',  '');
+DefMacro('\addtocategory{}{}',              '');
+DefMacro('\defbibheading{}[]{}',            '');
+DefMacro('\defbibnote{}{}',                 '');
+DefMacro('\DeclareNameAlias{}{}',           '');
+DefMacro('\DeclareFieldFormat[]{}{}',       '');
+DefMacro('\nocite{}',                       '');
+
+1;
