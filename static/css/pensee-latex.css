@@ -128,35 +128,45 @@ figure.ltx_table .ltx_tabular {
     text-align: left;
 }
 
-/* More breathing room: LaTeXML emits tight inline pt padding; override here */
-figure.ltx_table > table.ltx_tabular > tr.ltx_tr > td.ltx_td {
-    padding: 5px 14px !important;
+/* Cell padding.
+ * Booktabs tables have no inline padding styles (unlike hline tables), so
+ * no !important is needed here. Pure descendant selectors are used throughout
+ * this section — direct-child chains (> tr > td) break when the browser
+ * inserts an implicit <tbody> between <table> and <tr>. */
+figure.ltx_table .ltx_tabular .ltx_td {
+    padding: 5px 14px;
 }
 
-/* No. column: tight horizontal padding — only needs to fit a 2-digit number */
-figure.ltx_table > table.ltx_tabular > tr.ltx_tr > td.ltx_td:first-child {
-    padding-left: 8px !important;
-    padding-right: 8px !important;
+/* No. column: tighter horizontal padding — only needs to fit a 2-digit number */
+figure.ltx_table .ltx_tabular .ltx_td:first-child {
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
-/* Header row: bold only — the double rule below already provides separation */
-figure.ltx_table > table.ltx_tabular > tr.ltx_tr:first-child > td.ltx_td {
-    font-weight: bold;
+/* Alternating row tint.
+ * Header = nth-child(1) = odd, so nth-child(even) cleanly targets data rows
+ * 2, 4, 6 … (Alpha, Gamma, Epsilon …) without touching the header. */
+figure.ltx_table .ltx_tabular .ltx_tr:nth-child(even) .ltx_td {
+    background-color: #ede8f5;
 }
 
-/* Alternating row tint for data rows.
- * Header = tr:first-child = nth-child(1) = odd, so nth-child(even) skips it
- * and cleanly stripes rows 2, 4, 6 … (Alpha, Gamma, Epsilon …). */
-figure.ltx_table > table.ltx_tabular > tr.ltx_tr:nth-child(even) > td.ltx_td {
-    background-color: #f7f4fb;
+/* Booktabs border weights.
+ *
+ * LaTeXML maps booktabs rules to its existing border classes:
+ *   \toprule   → ltx_border_tt  →  border-top:    3px double black
+ *   \midrule   → ltx_border_t   →  border-top:    1px solid  black  (fine as-is)
+ *   \bottomrule→ ltx_border_bb  →  border-bottom: 3px double black
+ *
+ * "3px double" renders as two invisible hairlines at screen resolution, and in
+ * border-collapse:collapse mode it cannot be overridden by a structural
+ * last/first-child rule (conflict resolution ranks "double" above "solid").
+ * Override the classes directly so the cascade resolves both to 2px solid
+ * before conflict resolution runs — giving toprule and bottomrule identical
+ * visible weight. */
+figure.ltx_table .ltx_border_tt {
+    border-top: 2px solid black !important;
+    font-weight: bold;          /* header row — ltx_border_tt is unique to \toprule cells */
 }
-
-/* Bottom border: ltx_border_bb emits "3px double black" which renders as
- * invisible hairlines at screen resolution. In border-collapse:collapse mode
- * border conflict resolution uses width then style — "3px double" always beats
- * "2px solid" so a structural last-child rule cannot win.
- * Override the class directly so the cascade gives the cell "2px solid" as its
- * computed value before conflict resolution runs. */
 figure.ltx_table .ltx_border_bb {
     border-bottom: 2px solid black !important;
 }

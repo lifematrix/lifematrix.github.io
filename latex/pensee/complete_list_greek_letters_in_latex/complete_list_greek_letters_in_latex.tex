@@ -10,6 +10,7 @@
 \bibliography{complete_list_greek_letters_in_latex.bib}
 \usepackage{makecell}
 \usepackage{float}
+\usepackage{booktabs}
 \usepackage{iftex}
 % tipauni is XeLaTeX-only; LaTeXML handles Unicode IPA natively without it.
 \ifXeTeX
@@ -40,62 +41,36 @@
 The Greek Letters are used widely in LaTeX mathematical equation typesetting. Due to a long history of cultural transmission and regional variation, some letters have developed distinct script forms. Overleaf provides an excellent guide \cite{overleaf:mathsymbols} on Greek Letters that helped me considerably. However, after discussing with Claude AI, I found it incomplete. This article records a complete list for understanding and daily practical writing in LaTeX. The basic information is from the Wikipedia article on the Greek alphabet \cite{wiki:greek_alphabet}.
 
 \begin{table}[H]
-	\renewcommand{\arraystretch}{1.3}
 	\centering
-	\begin{tabular}{|c|l|l|l|c|l|}
-		\hline
+	\begin{tabular}{@{}rlllll@{}}
+		\toprule
 		No. & Letter & Upper-case & Lower-case & Name & Pronunciation (IPA) \\
-		\hline
-		\hline
-		1 & Α $\alpha$ & \symbol{"0391} (U+0391) & $\alpha$ \textbackslash alpha  & Alpha & /ˈælfə/ \\
-			\hline
-		2 & Β $\beta$ & \symbol{"0392} (U+0392) & $\beta$ \textbackslash beta  & Beta & \makecell[l]{US: /ˈbeɪtə/ \\ UK: /ˈbiːtə/} \\
-			\hline
-		3 & $\Gamma$ $\gamma$ & $\Gamma$ \textbackslash Gamma  & $\gamma$ \textbackslash gamma  & Gamma & /ˈɡæmə/ \\
-			\hline
-		4 & $\Delta$ $\delta$ & $\Delta$ \textbackslash Delta  & $\delta$ \textbackslash delta  & Delta & /ˈdɛltə/ \\
-			\hline
-		5 & Ε $\epsilon$ $\varepsilon$ & \symbol{"0395} (U+0395) & \makecell[l]{$\epsilon$ \textbackslash epsilon \\ $\varepsilon$ \textbackslash varepsilon}  & Epsilon & \makecell[l]{US: /ˈɛpsəˌlɑːn/ \\ UK: /ɛp\null ˈsaɪlən/} \\
-			\hline
-		6 & Ζ $\zeta$ & \symbol{"0396} (U+0396) & $\zeta$ \textbackslash zeta  & Zeta & \makecell[l]{US: /ˈzeɪtə/ \\ UK: /ˈziːtə/} \\
-			\hline
-		7 & Η $\eta$ & \symbol{"0397} (U+0397) & $\eta$ \textbackslash eta  & Eta & \makecell[l]{US: /ˈeɪtə/ \\ UK: /ˈiːtə/} \\
-			\hline
-		8 & $\Theta$ $\theta$ $\vartheta$ & $\Theta$ \textbackslash Theta  &  \makecell[l]{$\theta$ \textbackslash theta \\ $\vartheta$ \textbackslash vartheta}  & Theta & \makecell[l]{US: /ˈθeɪtə/ \\ UK: /ˈθiːtə/} \\
-			\hline
-		9 & Ι $\iota$ & \symbol{"0399} (U+0399) & $\iota$ \textbackslash iota  & Iota & \makecell[l]{US: /aɪ\null ˈoʊtə/ \\ UK: /aɪ\null ˈəʊtə/} \\
-			\hline
-		10 & Κ $\kappa$ $\varkappa$ & \symbol{"039A} (U+039A) & \makecell[l]{$\kappa$ \textbackslash kappa \\ $\varkappa$ \textbackslash varkappa}  & Kappa  & /ˈkæpə/ \\
-			\hline
-		11 & $\Lambda$ $\lambda$ & $\Lambda$ \textbackslash Lambda  & $\lambda$ \textbackslash lambda  & Lambda & /ˈlæmdə/ \\
-			\hline
-		12 & Μ $\mu$ & \symbol{"039C} (U+039C) & $\mu$ \textbackslash mu  & Mu & /mjuː/ \\
-			\hline
-		13 & Ν $\nu$ & \symbol{"039D} (U+039D) & $\nu$ \textbackslash nu  & Nu & \makecell[l]{US: /nuː/ \\ UK: /njuː/} \\
-			\hline
-		14 & $\Xi$ $\xi$ & $\Xi$ \textbackslash Xi  & $\xi$ \textbackslash xi  & Xi & /zaɪ/, /saɪ/, /ksaɪ/ \\
-			\hline
-		15 & Ο ο & \symbol{"039F} (U+039F) & \symbol{"03BF} (U+03BF) & Omicron & \makecell[l]{US: /ˈɒmɪˌkrɒn/ \\ UK: /ˈɒmɪkrɒn/} \\
-			\hline
-		16 & $\Pi$ $\pi$ $\varpi$ & $\Pi$ \textbackslash Pi  & \makecell[l]{$\pi$ \textbackslash pi \\ $\varpi$ \textbackslash varpi}  & Pi & /paɪ/ \\
-			\hline
-		17 & Ρ $\rho$ $\varrho$ & \symbol{"03A1} (U+03A1) & \makecell[l]{$\rho$ \textbackslash rho \\ $\varrho$ \textbackslash varrho}  & Rho & \makecell[l]{US: /roʊ/ \\ UK: /rəʊ/} \\
-			\hline
-		18 & $\Sigma$ $\sigma$ $\varsigma$ & $\Sigma$ \textbackslash Sigma  & \makecell[l]{$\sigma$ \textbackslash sigma \\ $\varsigma$ \textbackslash varsigma}  & Sigma & /ˈsɪɡmə/ \\
-			\hline
-		19 & Τ $\tau$ & \symbol{"03A4} (U+03A4) & $\tau$ \textbackslash tau  & Tau & \makecell[l]{US: /taʊ/, /tɔ/ \\ UK: /taʊ/, /tɔː/} \\
-			\hline
-		20 & $\Upsilon$ $\upsilon$ & $\Upsilon$ \textbackslash Upsilon  & $\upsilon$ \textbackslash upsilon  & Upsilon & \makecell[l]{US: /ˈju:psəˌlɒn/, /ˈʌp-/ \\ UK: /ˈʌpsɪˌlɒn/} \\
-			\hline
-		21 & $\Phi$ $\phi$ $\varphi$ & $\Phi$ \textbackslash Phi  & \makecell[l]{$\phi$ \textbackslash phi \\ $\varphi$ \textbackslash varphi}  & Phi & /faɪ/ \\
-			\hline
-		22 & Χ $\chi$ & \symbol{"03A7} (U+03A7) & $\chi$ \textbackslash chi  & Chi & /kaɪ/ \\
-			\hline
-		23 & $\Psi$ $\psi$ & $\Psi$ \textbackslash Psi  & $\psi$ \textbackslash psi  & Psi & /saɪ/, /psaɪ/ \\
-			\hline
-		24 & $\Omega$ $\omega$ & $\Omega$ \textbackslash Omega  & $\omega$ \textbackslash omega  & Omega & \makecell[l]{US: /oʊ\null ˈmɛɡə/ \\ UK: /ˈəʊmɪɡə/} \\
-		\hline
-		\hline
+		\midrule
+		1  & Α $\alpha$                   & \symbol{"0391} (U+0391)      & $\alpha$ \textbackslash alpha                                                       & Alpha   & /ˈælfə/ \\
+		2  & Β $\beta$                    & \symbol{"0392} (U+0392)      & $\beta$ \textbackslash beta                                                         & Beta    & \makecell[l]{US: /ˈbeɪtə/ \\ UK: /ˈbiːtə/} \\
+		3  & $\Gamma$ $\gamma$            & $\Gamma$ \textbackslash Gamma  & $\gamma$ \textbackslash gamma                                                     & Gamma   & /ˈɡæmə/ \\
+		4  & $\Delta$ $\delta$            & $\Delta$ \textbackslash Delta  & $\delta$ \textbackslash delta                                                     & Delta   & /ˈdɛltə/ \\
+		5  & Ε $\epsilon$ $\varepsilon$   & \symbol{"0395} (U+0395)      & \makecell[l]{$\epsilon$ \textbackslash epsilon \\ $\varepsilon$ \textbackslash varepsilon} & Epsilon & \makecell[l]{US: /ˈɛpsəˌlɑːn/ \\ UK: /ɛp\null ˈsaɪlən/} \\
+		6  & Ζ $\zeta$                    & \symbol{"0396} (U+0396)      & $\zeta$ \textbackslash zeta                                                         & Zeta    & \makecell[l]{US: /ˈzeɪtə/ \\ UK: /ˈziːtə/} \\
+		7  & Η $\eta$                     & \symbol{"0397} (U+0397)      & $\eta$ \textbackslash eta                                                           & Eta     & \makecell[l]{US: /ˈeɪtə/ \\ UK: /ˈiːtə/} \\
+		8  & $\Theta$ $\theta$ $\vartheta$& $\Theta$ \textbackslash Theta  & \makecell[l]{$\theta$ \textbackslash theta \\ $\vartheta$ \textbackslash vartheta} & Theta   & \makecell[l]{US: /ˈθeɪtə/ \\ UK: /ˈθiːtə/} \\
+		9  & Ι $\iota$                    & \symbol{"0399} (U+0399)      & $\iota$ \textbackslash iota                                                         & Iota    & \makecell[l]{US: /aɪ\null ˈoʊtə/ \\ UK: /aɪ\null ˈəʊtə/} \\
+		10 & Κ $\kappa$ $\varkappa$       & \symbol{"039A} (U+039A)      & \makecell[l]{$\kappa$ \textbackslash kappa \\ $\varkappa$ \textbackslash varkappa} & Kappa   & /ˈkæpə/ \\
+		11 & $\Lambda$ $\lambda$          & $\Lambda$ \textbackslash Lambda & $\lambda$ \textbackslash lambda                                                  & Lambda  & /ˈlæmdə/ \\
+		12 & Μ $\mu$                      & \symbol{"039C} (U+039C)      & $\mu$ \textbackslash mu                                                             & Mu      & /mjuː/ \\
+		13 & Ν $\nu$                      & \symbol{"039D} (U+039D)      & $\nu$ \textbackslash nu                                                             & Nu      & \makecell[l]{US: /nuː/ \\ UK: /njuː/} \\
+		14 & $\Xi$ $\xi$                  & $\Xi$ \textbackslash Xi      & $\xi$ \textbackslash xi                                                             & Xi      & /zaɪ/, /saɪ/, /ksaɪ/ \\
+		15 & Ο ο                          & \symbol{"039F} (U+039F)      & \symbol{"03BF} (U+03BF)                                                             & Omicron & \makecell[l]{US: /ˈɒmɪˌkrɒn/ \\ UK: /ˈɒmɪkrɒn/} \\
+		16 & $\Pi$ $\pi$ $\varpi$         & $\Pi$ \textbackslash Pi      & \makecell[l]{$\pi$ \textbackslash pi \\ $\varpi$ \textbackslash varpi}             & Pi      & /paɪ/ \\
+		17 & Ρ $\rho$ $\varrho$           & \symbol{"03A1} (U+03A1)      & \makecell[l]{$\rho$ \textbackslash rho \\ $\varrho$ \textbackslash varrho}         & Rho     & \makecell[l]{US: /roʊ/ \\ UK: /rəʊ/} \\
+		18 & $\Sigma$ $\sigma$ $\varsigma$ & $\Sigma$ \textbackslash Sigma & \makecell[l]{$\sigma$ \textbackslash sigma \\ $\varsigma$ \textbackslash varsigma} & Sigma   & /ˈsɪɡmə/ \\
+		19 & Τ $\tau$                     & \symbol{"03A4} (U+03A4)      & $\tau$ \textbackslash tau                                                           & Tau     & \makecell[l]{US: /taʊ/, /tɔ/ \\ UK: /taʊ/, /tɔː/} \\
+		20 & $\Upsilon$ $\upsilon$        & $\Upsilon$ \textbackslash Upsilon & $\upsilon$ \textbackslash upsilon                                              & Upsilon & \makecell[l]{US: /ˈju:psəˌlɒn/, /ˈʌp-/ \\ UK: /ˈʌpsɪˌlɒn/} \\
+		21 & $\Phi$ $\phi$ $\varphi$      & $\Phi$ \textbackslash Phi    & \makecell[l]{$\phi$ \textbackslash phi \\ $\varphi$ \textbackslash varphi}         & Phi     & /faɪ/ \\
+		22 & Χ $\chi$                     & \symbol{"03A7} (U+03A7)      & $\chi$ \textbackslash chi                                                           & Chi     & /kaɪ/ \\
+		23 & $\Psi$ $\psi$                & $\Psi$ \textbackslash Psi    & $\psi$ \textbackslash psi                                                           & Psi     & /saɪ/, /psaɪ/ \\
+		24 & $\Omega$ $\omega$            & $\Omega$ \textbackslash Omega & $\omega$ \textbackslash omega                                                      & Omega   & \makecell[l]{US: /oʊ\null ˈmɛɡə/ \\ UK: /ˈəʊmɪɡə/} \\
+		\bottomrule
 	\end{tabular}
 \end{table}
 

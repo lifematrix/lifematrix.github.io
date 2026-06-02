@@ -219,17 +219,25 @@ html = re.sub(
 # anonymous inline boxes each ~22 px tall (line-height × font-size).
 #
 # Fix: replace each makecell table with its cell contents joined by <br>.
-# We identify makecell tables by the ltx_nopad_r class on their inner cells
-# (main-table cells never carry this class).
+# We identify makecell tables by requiring that EVERY <td> carries the
+# ltx_nopad_r class.  \makecell produces a single-column mini-table so all
+# its cells have ltx_nopad_r.  The main table always has a mix — cells on
+# inner columns lack it — so the check is never triggered on the outer table,
+# even after its nested tables have been collapsed in an earlier pass (which
+# would otherwise make it look like an "innermost" table too).
+# An earlier weaker check ("ltx_nopad_r anywhere in the table") caused the
+# outer table to be collapsed when @{} in the column spec added ltx_nopad_r
+# to the edge-column cells.
 #
-# The regex matches *innermost* tables only (no nested <table> inside),
-# which means it processes inner tables first and never accidentally matches
-# the outer main table, which contains nested tables.
+# The regex matches *innermost* tables only (no nested <table> inside).
 def _collapse_makecell(html_str):
     def _replacer(m):
         t = m.group(0)
-        if 'ltx_nopad_r' not in t:
-            return t          # not a makecell table — leave untouched
+        cell_attrs = re.findall(r'<td\b([^>]*)>', t, re.DOTALL)
+        if not cell_attrs:
+            return t
+        if not all('ltx_nopad_r' in attrs for attrs in cell_attrs):
+            return t          # not a single-column makecell table — leave untouched
         cells = re.findall(r'<td\b[^>]*>(.*?)</td>', t, re.DOTALL)
         return '<br>\n'.join(c.strip() for c in cells) if cells else t
     # Matches tables whose content contains no nested <table> tags.
