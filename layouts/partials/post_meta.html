@@ -19,7 +19,9 @@
 {{- end }}
 
 {{- with .Params.pdf -}}
-{{- $scratch.Add "meta" (slice (printf "<a class=\"post-meta-pdf\" href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">PDF</a>" .)) }}
+{{- $label := "PDF" -}}
+{{- with $.Params.pdf_size -}}{{- $label = printf "PDF (%s)" . -}}{{- end -}}
+{{- $scratch.Add "meta" (slice (printf "<a class=\"post-meta-pdf\" href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">%s</a>" . $label)) }}
 {{- end }}
 
 {{- with ($scratch.Get "meta") }}

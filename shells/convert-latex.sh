@@ -521,7 +521,7 @@ convert_project() {
     # and pdf_url is set so it appears in the Hugo front matter.
     # On failure a warning is printed and HTML conversion continues normally.
     # ------------------------------------------------------------------
-    local pdf_url=""
+    local pdf_url="" pdf_size=""
     if [[ "$PDF_FLAG" -eq 1 ]]; then
         local pdf_tmp
         pdf_tmp=$(mktemp -d /tmp/xelatex_XXXXXX)
@@ -536,7 +536,12 @@ convert_project() {
             mkdir -p "static/pdf"
             cp "$pdf_tmp/${stem}.pdf" "static/pdf/${slug}.pdf"
             pdf_url="/pdf/${slug}.pdf"
-            echo -e "  ${GREEN}↳ PDF${NC}        : static/pdf/${slug}.pdf"
+            pdf_size=$(python3 -c "
+import os
+b = os.path.getsize('static/pdf/${slug}.pdf')
+print(f'{round(b/1024)} KB' if b < 1048576 else f'{b/1048576:.1f} MB')
+")
+            echo -e "  ${GREEN}↳ PDF${NC}        : static/pdf/${slug}.pdf (${pdf_size})"
         else
             echo -e "  ${YELLOW}⚠ Warning${NC}   : XeLaTeX failed — PDF skipped (see $pdf_tmp/latexmk.log)"
         fi
@@ -546,13 +551,14 @@ convert_project() {
 
     # 4c: Extract \title, \date, \author from preamble; assemble full YAML
     local frontmatter
-    frontmatter=$(python3 - "$main_tex" "$cm_draft" "$cm_tags" "$pdf_url" <<'PYEOF'
+    frontmatter=$(python3 - "$main_tex" "$cm_draft" "$cm_tags" "$pdf_url" "$pdf_size" <<'PYEOF'
 import re, sys
 
-tex     = open(sys.argv[1]).read()
-draft   = sys.argv[2]
-tags    = sys.argv[3]
-pdf_url = sys.argv[4] if len(sys.argv) > 4 else ''
+tex      = open(sys.argv[1]).read()
+draft    = sys.argv[2]
+tags     = sys.argv[3]
+pdf_url  = sys.argv[4] if len(sys.argv) > 4 else ''
+pdf_size = sys.argv[5] if len(sys.argv) > 5 else ''
 
 # Restrict extraction to the preamble (before \begin{document})
 m = re.match(r'(.*?)\\begin\{document\}', tex, re.DOTALL)
@@ -584,8 +590,11 @@ lines = [
 ]
 if author:
     lines.append('author: ' + yaml_str(author))
+lines.append('latex: true')
 if pdf_url:
     lines.append('pdf: "' + pdf_url + '"')
+if pdf_size:
+    lines.append('pdf_size: "' + pdf_size + '"')
 
 print('\n'.join(lines))
 PYEOF
@@ -612,12 +621,11 @@ PYEOF
     #   content/posts/<slug>/index.html   ← the article page
     #   content/posts/<slug>/<images>     ← source asset dirs (Step 8)
     #
-    # The <link> tags reference LaTeXML CSS files served from /css/ by Hugo.
-    # The <style> block contains PaperMod integration overrides:
-    #   - ltx_figure img: responsive images (width controlled by article layout,
-    #     height scales proportionally)
-    #   - ltx_page_main padding is irrelevant (that div is not emitted since
-    #     we extracted only the <article> — included for safety)
+    # CSS is loaded from the <head> via layouts/partials/extend_head.html,
+    # conditional on the latex: true front matter flag. This ensures all
+    # stylesheets (including pensee-latex.css) are available before any
+    # page element is rendered — required for rules that target elements
+    # outside the article body (e.g. .post-meta-pdf in the page header).
     # ------------------------------------------------------------------
     local dest_dir="$OUT_DIR/$slug"
     mkdir -p "$dest_dir"
@@ -626,12 +634,6 @@ PYEOF
         echo "---"
         echo "$frontmatter"
         echo "---"
-        echo '<link rel="stylesheet" href="/css/LaTeXML.css">'
-        echo '<link rel="stylesheet" href="/css/ltx-article.css">'
-        echo '<!-- CMU Serif: self-hosted, always current via current/ symlink -->'
-        echo '<link rel="stylesheet" href="/fonts/npm/computer-modern/cmu-serif-current.css">'
-        echo '<!-- pensee-latex.css: PaperMod integration overrides for LaTeXML output -->'
-        echo '<link rel="stylesheet" href="/css/pensee-latex.css">'
         echo "$html_body"
     } > "$dest_dir/index.html"
 

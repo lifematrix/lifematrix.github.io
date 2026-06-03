@@ -20,19 +20,14 @@
 }
 
 /* --- PDF link in post meta ---
- * Styled as a small pill so it reads as an action rather than plain text,
- * while remaining visually quiet alongside the date/time/words metadata.
+ * Plain underlined text link — consistent with the web's native link
+ * convention and appropriate for a tertiary navigational item alongside
+ * date, reading time, and author. The underline signals clickability
+ * without the visual weight of a button or pill.
  * ------------------------------------------------------------------ */
 .post-meta-pdf {
-    display: inline-block;
-    padding: 1px 7px;
-    border: 1px solid currentColor;
-    border-radius: 3px;
-    font-size: 0.8em;
-    letter-spacing: 0.04em;
-    opacity: 0.75;
-    text-decoration: none !important;
-    vertical-align: middle;
+    text-decoration: underline !important;
+    text-underline-offset: 2px;
 }
 
 /* --- Content width override ---
