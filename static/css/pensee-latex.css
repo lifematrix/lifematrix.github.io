@@ -128,25 +128,44 @@ figure.ltx_table .ltx_tabular {
     text-align: left;
 }
 
-/* Cell padding.
- * Booktabs tables have no inline padding styles (unlike hline tables), so
- * no !important is needed here. Pure descendant selectors are used throughout
- * this section — direct-child chains (> tr > td) break when the browser
- * inserts an implicit <tbody> between <table> and <tr>. */
-figure.ltx_table .ltx_tabular .ltx_td {
-    padding: 5px 14px;
+/* Cell padding, vertical alignment, and line spacing.
+ *
+ * longtable generates inline style="padding-top:5.5pt;padding-bottom:5.5pt;"
+ * on every cell (from \arraystretch{2.1}), so !important is required for any
+ * property that needs to beat those inline values.
+ *
+ * longtable also wraps header cells in <thead> as <th class="ltx_td …"> and
+ * data cells in <tbody> as <td class="ltx_td …">, so we must target both
+ * element types. The descendant selector (no >) is immune to the implicit
+ * <thead>/<tbody> wrappers.
+ *
+ * vertical-align:top — mirrors \makecell[tl]: first line of multi-line cells
+ *   aligns with single-line cells in the same row instead of floating to
+ *   the vertical middle of the row.
+ * line-height:1.15 — tightens <br>-separated lines to match \\[-3pt] in LaTeX,
+ *   so US/UK pairs and variant forms read as a unit within their cell. */
+figure.ltx_table .ltx_tabular td.ltx_td,
+figure.ltx_table .ltx_tabular th.ltx_td {
+    padding: 10px 14px !important;
+    vertical-align: top !important;
+    line-height: 1.15 !important;
 }
 
-/* No. column: tighter horizontal padding — only needs to fit a 2-digit number */
-figure.ltx_table .ltx_tabular .ltx_td:first-child {
-    padding-left: 8px;
-    padding-right: 8px;
+/* No. column: tighter horizontal padding and explicit centering.
+ * LaTeXML.css rules for .ltx_th can override ltx_align_center on <th>,
+ * making the header "No." appear left-aligned vs the centered data cells. */
+figure.ltx_table .ltx_tabular td.ltx_td:first-child,
+figure.ltx_table .ltx_tabular th.ltx_td:first-child {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    text-align: center !important;
 }
 
 /* Alternating row tint.
- * Header = nth-child(1) = odd, so nth-child(even) cleanly targets data rows
- * 2, 4, 6 … (Alpha, Gamma, Epsilon …) without touching the header. */
-figure.ltx_table .ltx_tabular .ltx_tr:nth-child(even) .ltx_td {
+ * longtable separates header into <thead> and data into <tbody>, so nth-child
+ * now counts within <tbody> only: Alpha = nth-child(1) odd, Beta = nth-child(2)
+ * even, etc. Use nth-child(even) on tbody rows to tint Beta, Delta, Zeta … */
+figure.ltx_table .ltx_tbody .ltx_tr:nth-child(even) td.ltx_td {
     background-color: #ede8f5;
 }
 
