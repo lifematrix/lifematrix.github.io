@@ -23,7 +23,7 @@
 &lt;head&gt;
 &lt;meta http-equiv=&#34;content-type&#34; content=&#34;text/html; charset=UTF-8&#34;&gt;
 &lt;title&gt;Complete List of Greek Letters in Latex&lt;/title&gt;
-&lt;!--Generated on Wed Jun  3 01:43:53 2026 by LaTeXML (version 0.8.8) http://dlmf.nist.gov/LaTeXML/.--&gt;
+&lt;!--Generated on Wed Jun  3 19:08:02 2026 by LaTeXML (version 0.8.8) http://dlmf.nist.gov/LaTeXML/.--&gt;
 &lt;!--Document created on 2026‐06‐01.--&gt;
 
 &lt;link rel=&#34;stylesheet&#34; href=&#34;LaTeXML.css&#34; type=&#34;text/css&#34;&gt;
@@ -97,9 +97,21 @@ In this article, I will focus on how you can work with the Divine Will quality o
 &lt;span class=&#34;ltx_tag ltx_tag_subsubsection&#34;&gt;1.1.1 &lt;/span&gt;The Special Theory of Relativity&lt;/h4&gt;
 
 &lt;div id=&#34;S1.SS1.SSS1.p1&#34; class=&#34;ltx_para&#34;&gt;
-&lt;p class=&#34;ltx_p&#34;&gt;This is my blog post with some math:&lt;/p&gt;
+&lt;p class=&#34;ltx_p&#34;&gt;This is my blog post with some math.&lt;/p&gt;
 &lt;/div&gt;
-&lt;div id=&#34;S1.SS1.SSS1.p2&#34; class=&#34;ltx_para&#34;&gt;
+&lt;section id=&#34;S1.SS1.SSS1.Px1&#34; class=&#34;ltx_paragraph&#34;&gt;
+&lt;h5 class=&#34;ltx_title ltx_title_paragraph&#34;&gt;Moving body&lt;/h5&gt;
+
+&lt;div id=&#34;S1.SS1.SSS1.Px1.p1&#34; class=&#34;ltx_para&#34;&gt;
+&lt;p class=&#34;ltx_p&#34;&gt;This is the first subject.&lt;/p&gt;
+&lt;/div&gt;
+&lt;section id=&#34;S1.SS1.SSS1.Px1.SPx1&#34; class=&#34;ltx_subparagraph&#34;&gt;
+&lt;h6 class=&#34;ltx_title ltx_title_subparagraph&#34;&gt;Electricitys&lt;/h6&gt;
+
+&lt;div id=&#34;S1.SS1.SSS1.Px1.SPx1.p1&#34; class=&#34;ltx_para&#34;&gt;
+&lt;p class=&#34;ltx_p&#34;&gt;It’s my second paragraph.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;S1.SS1.SSS1.Px1.SPx1.p2&#34; class=&#34;ltx_para&#34;&gt;
 &lt;table id=&#34;S1.E1&#34; class=&#34;ltx_equation ltx_eqn_table&#34;&gt;
 
 &lt;tbody&gt;&lt;tr class=&#34;ltx_equation ltx_eqn_row ltx_align_baseline&#34;&gt;
@@ -110,7 +122,7 @@ In this article, I will focus on how you can work with the Divine Will quality o
 &lt;/tr&gt;&lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-&lt;div id=&#34;S1.SS1.SSS1.p3&#34; class=&#34;ltx_para&#34;&gt;
+&lt;div id=&#34;S1.SS1.SSS1.Px1.SPx1.p3&#34; class=&#34;ltx_para&#34;&gt;
 &lt;table id=&#34;S1.E2&#34; class=&#34;ltx_equation ltx_eqn_table&#34;&gt;
 
 &lt;tbody&gt;&lt;tr class=&#34;ltx_equation ltx_eqn_row ltx_align_baseline&#34;&gt;
@@ -121,7 +133,7 @@ In this article, I will focus on how you can work with the Divine Will quality o
 &lt;/tr&gt;&lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-&lt;div id=&#34;S1.SS1.SSS1.p4&#34; class=&#34;ltx_para&#34;&gt;
+&lt;div id=&#34;S1.SS1.SSS1.Px1.SPx1.p4&#34; class=&#34;ltx_para&#34;&gt;
 &lt;table id=&#34;S1.E3&#34; class=&#34;ltx_equation ltx_eqn_table&#34;&gt;
 
 &lt;tbody&gt;&lt;tr class=&#34;ltx_equation ltx_eqn_row ltx_align_baseline&#34;&gt;
@@ -132,7 +144,7 @@ In this article, I will focus on how you can work with the Divine Will quality o
 &lt;/tr&gt;&lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-&lt;div id=&#34;S1.SS1.SSS1.p5&#34; class=&#34;ltx_para&#34;&gt;
+&lt;div id=&#34;S1.SS1.SSS1.Px1.SPx1.p5&#34; class=&#34;ltx_para&#34;&gt;
 &lt;table id=&#34;S1.E4&#34; class=&#34;ltx_equation ltx_eqn_table&#34;&gt;
 
 &lt;tbody&gt;&lt;tr class=&#34;ltx_equation ltx_eqn_row ltx_align_baseline&#34;&gt;
@@ -143,7 +155,7 @@ In this article, I will focus on how you can work with the Divine Will quality o
 &lt;/tr&gt;&lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-&lt;div id=&#34;S1.SS1.SSS1.p6&#34; class=&#34;ltx_para&#34;&gt;
+&lt;div id=&#34;S1.SS1.SSS1.Px1.SPx1.p6&#34; class=&#34;ltx_para&#34;&gt;
 &lt;p class=&#34;ltx_p&#34;&gt;A historic group photo:&lt;/p&gt;</description>
     </item>
   </channel>

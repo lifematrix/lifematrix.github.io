@@ -128,35 +128,64 @@ figure.ltx_table .ltx_tabular {
     text-align: left;
 }
 
-/* More breathing room: LaTeXML emits tight inline pt padding; override here */
-figure.ltx_table > table.ltx_tabular > tr.ltx_tr > td.ltx_td {
-    padding: 5px 14px !important;
+/* Cell padding, vertical alignment, and line spacing.
+ *
+ * longtable generates inline style="padding-top:5.5pt;padding-bottom:5.5pt;"
+ * on every cell (from \arraystretch{2.1}), so !important is required for any
+ * property that needs to beat those inline values.
+ *
+ * longtable also wraps header cells in <thead> as <th class="ltx_td …"> and
+ * data cells in <tbody> as <td class="ltx_td …">, so we must target both
+ * element types. The descendant selector (no >) is immune to the implicit
+ * <thead>/<tbody> wrappers.
+ *
+ * vertical-align:top — mirrors \makecell[tl]: first line of multi-line cells
+ *   aligns with single-line cells in the same row instead of floating to
+ *   the vertical middle of the row.
+ * line-height:1.15 — tightens <br>-separated lines to match \\[-3pt] in LaTeX,
+ *   so US/UK pairs and variant forms read as a unit within their cell. */
+figure.ltx_table .ltx_tabular td.ltx_td,
+figure.ltx_table .ltx_tabular th.ltx_td {
+    padding: 10px 14px !important;
+    vertical-align: top !important;
+    line-height: 1.15 !important;
 }
 
-/* No. column: tight horizontal padding — only needs to fit a 2-digit number */
-figure.ltx_table > table.ltx_tabular > tr.ltx_tr > td.ltx_td:first-child {
+/* No. column: tighter horizontal padding and explicit centering.
+ * LaTeXML.css rules for .ltx_th can override ltx_align_center on <th>,
+ * making the header "No." appear left-aligned vs the centered data cells. */
+figure.ltx_table .ltx_tabular td.ltx_td:first-child,
+figure.ltx_table .ltx_tabular th.ltx_td:first-child {
     padding-left: 8px !important;
     padding-right: 8px !important;
+    text-align: center !important;
 }
 
-/* Header row: bold only — the double rule below already provides separation */
-figure.ltx_table > table.ltx_tabular > tr.ltx_tr:first-child > td.ltx_td {
-    font-weight: bold;
+/* Alternating row tint.
+ * longtable separates header into <thead> and data into <tbody>, so nth-child
+ * now counts within <tbody> only: Alpha = nth-child(1) odd, Beta = nth-child(2)
+ * even, etc. Use nth-child(even) on tbody rows to tint Beta, Delta, Zeta … */
+figure.ltx_table .ltx_tbody .ltx_tr:nth-child(even) td.ltx_td {
+    background-color: #ede8f5;
 }
 
-/* Alternating row tint for data rows.
- * Header = tr:first-child = nth-child(1) = odd, so nth-child(even) skips it
- * and cleanly stripes rows 2, 4, 6 … (Alpha, Gamma, Epsilon …). */
-figure.ltx_table > table.ltx_tabular > tr.ltx_tr:nth-child(even) > td.ltx_td {
-    background-color: #f7f4fb;
+/* Booktabs border weights.
+ *
+ * LaTeXML maps booktabs rules to its existing border classes:
+ *   \toprule   → ltx_border_tt  →  border-top:    3px double black
+ *   \midrule   → ltx_border_t   →  border-top:    1px solid  black  (fine as-is)
+ *   \bottomrule→ ltx_border_bb  →  border-bottom: 3px double black
+ *
+ * "3px double" renders as two invisible hairlines at screen resolution, and in
+ * border-collapse:collapse mode it cannot be overridden by a structural
+ * last/first-child rule (conflict resolution ranks "double" above "solid").
+ * Override the classes directly so the cascade resolves both to 2px solid
+ * before conflict resolution runs — giving toprule and bottomrule identical
+ * visible weight. */
+figure.ltx_table .ltx_border_tt {
+    border-top: 2px solid black !important;
+    font-weight: bold;          /* header row — ltx_border_tt is unique to \toprule cells */
 }
-
-/* Bottom border: ltx_border_bb emits "3px double black" which renders as
- * invisible hairlines at screen resolution. In border-collapse:collapse mode
- * border conflict resolution uses width then style — "3px double" always beats
- * "2px solid" so a structural last-child rule cannot win.
- * Override the class directly so the cascade gives the cell "2px solid" as its
- * computed value before conflict resolution runs. */
 figure.ltx_table .ltx_border_bb {
     border-bottom: 2px solid black !important;
 }
