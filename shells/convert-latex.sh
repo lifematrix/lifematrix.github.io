@@ -30,19 +30,26 @@
 #        html_temp/<stem>.html  ← post-processed HTML5
 #   2. Runs latexml  : LaTeX → LaTeXML XML
 #   3. Runs latexmlpost : LaTeXML XML → HTML5 (with MathML)
-#   4. Extracts Hugo front matter from a comment block at the top of main.tex
+#   4. Assembles Hugo front matter from two sources:
+#        \title{}, \date{}, \author{} — extracted from the LaTeX preamble
+#        draft:, tags:               — read from the comment block (see below)
 #   5. Extracts <article class="ltx_document"> body; strips img dimensions
 #   6. Ensures LaTeXML CSS files are in static/css/ (copied once)
 #   7. Writes final HTML to content/posts/<slug>/index.html (Hugo leaf bundle)
 #   8. Copies resource subdirectories (e.g. images/) into the leaf bundle
 #
-# Front matter format (at the top of main.tex):
-#   % ---
-#   % title: "My Post Title"
-#   % date: 2026-05-22
-#   % draft: false
-#   % tags: ["math", "research"]
-#   % ---
+# Front matter sources:
+#
+#   LaTeX preamble (intrinsic document metadata — also typeset in the PDF):
+#     \title{My Post Title}
+#     \author{Steven Liu}       ← optional; omit or leave empty to use global author
+#     \date{2026-05-22}
+#
+#   Comment block at the top of the .tex file (publishing metadata only):
+#     % ---
+#     % draft: false
+#     % tags: ["math", "research"]
+#     % ---
 #
 # Usage:
 #   ./convert-latex.sh                        # batch on latex-src/ (default)
@@ -463,23 +470,84 @@ convert_project() {
     fi
 
     # ------------------------------------------------------------------
-    # Step 4: Extract Hugo front matter from main.tex comment block
+    # Step 4: Assemble Hugo front matter from two sources
     #
-    # Looks for:
+    # Source A — LaTeX preamble (before \begin{document}):
+    #   \title{...}   required
+    #   \date{...}    required
+    #   \author{...}  optional; omitted or empty → global author from hugo.toml
+    #
+    # Source B — comment block at the top of the .tex file:
     #   % ---
-    #   % title: "..."
-    #   % date: ...
+    #   % draft: true|false
+    #   % tags: [...]
     #   % ---
     # ------------------------------------------------------------------
-    local frontmatter
-    frontmatter=$(awk '
-        /^% ---/ { found++; next }
-        found == 1 && /^% / { sub(/^% /, ""); print }
-        found == 2 { exit }
-    ' "$main_tex")
 
-    if [[ -z "$frontmatter" ]]; then
-        echo -e "  ${YELLOW}⚠ Warning${NC}   : No front matter found in '${stem}.tex'. Skipping."
+    # 4a: Extract draft and tags from comment block
+    local cm_draft cm_tags
+    cm_draft=$(awk '/^% ---/{c++; next} c==1 && /^% draft:/{sub(/^% /,""); print; exit} c==2{exit}' "$main_tex")
+    cm_tags=$(awk  '/^% ---/{c++; next} c==1 && /^% tags:/ {sub(/^% /,""); print; exit} c==2{exit}' "$main_tex")
+
+    if [[ -z "$cm_draft" ]]; then
+        echo -e "  ${RED}✘ Failed${NC}    : No 'draft:' found in comment block of '${stem}.tex'. Skipping."
+        (( FAILED++ )) || true
+        echo ""
+        return
+    fi
+    if [[ -z "$cm_tags" ]]; then
+        echo -e "  ${RED}✘ Failed${NC}    : No 'tags:' found in comment block of '${stem}.tex'. Skipping."
+        (( FAILED++ )) || true
+        echo ""
+        return
+    fi
+
+    # 4b: Extract \title, \date, \author from preamble; assemble full YAML
+    local frontmatter
+    frontmatter=$(python3 - "$main_tex" "$cm_draft" "$cm_tags" <<'PYEOF'
+import re, sys
+
+tex   = open(sys.argv[1]).read()
+draft = sys.argv[2]
+tags  = sys.argv[3]
+
+# Restrict extraction to the preamble (before \begin{document})
+m = re.match(r'(.*?)\\begin\{document\}', tex, re.DOTALL)
+preamble = m.group(1) if m else tex
+
+def extract(cmd):
+    m = re.search(r'\\' + cmd + r'\{([^}]*)\}', preamble)
+    return m.group(1).strip() if m else ''
+
+def yaml_str(s):
+    return '"' + s.replace('\\', '\\\\').replace('"', '\\"') + '"'
+
+title  = extract('title')
+date   = extract('date')
+author = extract('author')
+
+errors = []
+if not title: errors.append('\\title{}')
+if not date:  errors.append('\\date{}')
+if errors:
+    print('MISSING: ' + ', '.join(errors), file=sys.stderr)
+    sys.exit(1)
+
+lines = [
+    'title: ' + yaml_str(title),
+    'date: '  + date,
+    draft,
+    tags,
+]
+if author:
+    lines.append('author: ' + yaml_str(author))
+
+print('\n'.join(lines))
+PYEOF
+)
+
+    if [[ $? -ne 0 ]]; then
+        echo -e "  ${RED}✘ Failed${NC}    : Missing required LaTeX command(s) in preamble of '${stem}.tex'. Skipping."
         (( FAILED++ )) || true
         echo ""
         return

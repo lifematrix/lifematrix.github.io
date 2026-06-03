@@ -32,19 +32,6 @@ RequirePackage('xcolor');
 RequirePackage('hyperref');
 RequirePackage('geometry');
 
-# -----------------------------------------------------------------------------
-# \blogdate{YYYY-MM-DD}
-# Maps to \date{} — LaTeXML's article binding handles \date normally.
-# -----------------------------------------------------------------------------
-DefMacro('\blogdate{}', '\date{#1}');
-
-# -----------------------------------------------------------------------------
-# \blogtags{tag1, tag2, ...}
-# Pure metadata — silently ignored in HTML output.
-# (Future: could emit an RDFa/meta annotation into the HTML head.)
-# -----------------------------------------------------------------------------
-DefMacro('\blogtags{}', '');
-
 # Note: the duplicate title/date block that LaTeXML generates from \title{}
 # and \date{} is stripped by the Python post-processor in convert-latex.sh,
 # since PaperMod already renders these from the YAML front matter.

@@ -14,15 +14,14 @@
 %
 %   \title{My Reflection on Something}
 %   \author{Your Name}
-%   \blogdate{2026-05-25}
-%   \blogtags{math, physics, notes}
+%   \date{2026-05-25}
 %
-% Blog front matter (for Hugo) is still read from the leading comment block:
+% Blog publishing metadata (draft flag and tags) is read from a leading
+% comment block by convert-latex.sh; title, date, and author are extracted
+% from the LaTeX commands above:
 %   % ---
-%   % title: "..."
-%   % date: ...
 %   % draft: false
-%   % tags: [...]
+%   % tags: ["math", "physics"]
 %   % ---
 % =============================================================================
 
@@ -80,16 +79,6 @@
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{example}[theorem]{Example}
 \newtheorem{remark}[theorem]{Remark}
-
-% -----------------------------------------------------------------------------
-% Blog metadata commands
-%
-% \blogdate{YYYY-MM-DD} : sets the document date (rendered in PDF title block)
-% \blogtags{tag1, tag2} : purely metadata — silently ignored in PDF output;
-%                         available for future script extraction or LaTeXML use
-% -----------------------------------------------------------------------------
-\newcommand{\blogdate}[1]{\date{#1}}
-\newcommand{\blogtags}[1]{}     % no-op in PDF
 
 %------------------------------------------------------------------------------
 % some common formatting commands
