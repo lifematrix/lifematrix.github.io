@@ -19,6 +19,22 @@
     letter-spacing: 0.06em;
 }
 
+/* --- PDF link in post meta ---
+ * Styled as a small pill so it reads as an action rather than plain text,
+ * while remaining visually quiet alongside the date/time/words metadata.
+ * ------------------------------------------------------------------ */
+.post-meta-pdf {
+    display: inline-block;
+    padding: 1px 7px;
+    border: 1px solid currentColor;
+    border-radius: 3px;
+    font-size: 0.8em;
+    letter-spacing: 0.04em;
+    opacity: 0.75;
+    text-decoration: none !important;
+    vertical-align: middle;
+}
+
 /* --- Content width override ---
  * PaperMod's .main container is capped by --main-width (default 720px).
  * A child max-width can never exceed its parent, so we must override the

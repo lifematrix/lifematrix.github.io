@@ -33,6 +33,8 @@
 #   4. Assembles Hugo front matter from two sources:
 #        \title{}, \date{}, \author{} — extracted from the LaTeX preamble
 #        draft:, tags:               — read from the comment block (see below)
+#   4b. (--pdf only) Compiles PDF with XeLaTeX via latexmk; copies to static/pdf/
+#       and adds pdf: "/pdf/<slug>.pdf" to the front matter.
 #   5. Extracts <article class="ltx_document"> body; strips img dimensions
 #   6. Ensures LaTeXML CSS files are in static/css/ (copied once)
 #   7. Writes final HTML to content/posts/<slug>/index.html (Hugo leaf bundle)
@@ -57,6 +59,8 @@
 #   ./convert-latex.sh --batch [DIR]
 #   ./convert-latex.sh -s <PROJECT_DIR>       # single: convert one LaTeX project folder
 #   ./convert-latex.sh --single <PROJECT_DIR>
+#   ./convert-latex.sh -p                     # also compile PDF with XeLaTeX
+#   ./convert-latex.sh --pdf
 # =============================================================================
 
 # --- Output and static directories (relative to repo root) ---
@@ -99,6 +103,7 @@ usage() {
 MODE="batch"
 TARGET=""
 SKIP_FONT_UPDATE=0
+PDF_FLAG=0
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -112,6 +117,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         -F|--skip-font-update)
             SKIP_FONT_UPDATE=1
+            shift
+            ;;
+        -p|--pdf)
+            PDF_FLAG=1
             shift
             ;;
         -h|--help)
@@ -504,14 +513,43 @@ convert_project() {
         return
     fi
 
-    # 4b: Extract \title, \date, \author from preamble; assemble full YAML
+    # ------------------------------------------------------------------
+    # Step 4b (--pdf only): Compile PDF with XeLaTeX via latexmk
+    #
+    # Runs latexmk -xelatex in a temp dir so auxiliary files never land in
+    # the source tree. On success the PDF is copied to static/pdf/<slug>.pdf
+    # and pdf_url is set so it appears in the Hugo front matter.
+    # On failure a warning is printed and HTML conversion continues normally.
+    # ------------------------------------------------------------------
+    local pdf_url=""
+    if [[ "$PDF_FLAG" -eq 1 ]]; then
+        local pdf_tmp
+        pdf_tmp=$(mktemp -d /tmp/xelatex_XXXXXX)
+        echo -e "  ${CYAN}↳ PDF${NC}        : compiling with XeLaTeX…"
+        latexmk -xelatex -interaction=nonstopmode -halt-on-error \
+            -outdir="$pdf_tmp" "$main_tex" \
+            > "$pdf_tmp/latexmk.log" 2>&1
+        if [[ $? -eq 0 ]] && [[ -f "$pdf_tmp/${stem}.pdf" ]]; then
+            mkdir -p "static/pdf"
+            cp "$pdf_tmp/${stem}.pdf" "static/pdf/${slug}.pdf"
+            pdf_url="/pdf/${slug}.pdf"
+            echo -e "  ${GREEN}↳ PDF${NC}        : static/pdf/${slug}.pdf"
+        else
+            echo -e "  ${YELLOW}⚠ Warning${NC}   : XeLaTeX failed — PDF skipped (see $pdf_tmp/latexmk.log)"
+        fi
+        # keep temp dir on failure for diagnosis; clean up on success
+        [[ -n "$pdf_url" ]] && rm -rf "$pdf_tmp"
+    fi
+
+    # 4c: Extract \title, \date, \author from preamble; assemble full YAML
     local frontmatter
-    frontmatter=$(python3 - "$main_tex" "$cm_draft" "$cm_tags" <<'PYEOF'
+    frontmatter=$(python3 - "$main_tex" "$cm_draft" "$cm_tags" "$pdf_url" <<'PYEOF'
 import re, sys
 
-tex   = open(sys.argv[1]).read()
-draft = sys.argv[2]
-tags  = sys.argv[3]
+tex     = open(sys.argv[1]).read()
+draft   = sys.argv[2]
+tags    = sys.argv[3]
+pdf_url = sys.argv[4] if len(sys.argv) > 4 else ''
 
 # Restrict extraction to the preamble (before \begin{document})
 m = re.match(r'(.*?)\\begin\{document\}', tex, re.DOTALL)
@@ -543,6 +581,8 @@ lines = [
 ]
 if author:
     lines.append('author: ' + yaml_str(author))
+if pdf_url:
+    lines.append('pdf: "' + pdf_url + '"')
 
 print('\n'.join(lines))
 PYEOF
