@@ -10,6 +10,15 @@
  *   /fonts/npm/computer-modern/cmu-serif-current.css  — CMU Serif font
  * ============================================================================= */
 
+/* --- Post meta: letter-spacing for an airy, typographic feel ---
+ * PaperMod's .post-meta has no letter-spacing by default. 0.06em is
+ * subtler than Tachyons' 0.1em "tracked" utility — appropriate for
+ * PaperMod's font stack which is already well-spaced.
+ * ------------------------------------------------------------------ */
+.post-meta {
+    letter-spacing: 0.06em;
+}
+
 /* --- Content width override ---
  * PaperMod's .main container is capped by --main-width (default 720px).
  * A child max-width can never exceed its parent, so we must override the

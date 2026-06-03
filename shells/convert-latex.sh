@@ -178,9 +178,11 @@ def strip_attr(tag, attr):
 
 html = sys.stdin.read()
 
-# Step 1: extract <article class="ltx_document">...</article>
+# Step 1: extract <article class="ltx_document ...">...</article>
+# Use \b word-boundary match on the class name so it works when LaTeXML
+# adds extra classes alongside ltx_document (e.g. ltx_authors_1line).
 m = re.search(
-    r'<article\b[^>]*class=["\']ltx_document["\'][^>]*>.*?</article>',
+    r'<article\b[^>]*\bltx_document\b[^>]*>.*?</article>',
     html, flags=re.IGNORECASE | re.DOTALL)
 if m:
     html = m.group(0)

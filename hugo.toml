@@ -11,6 +11,7 @@ enableRobotsTXT = true
 
   # Show recent posts on home page
   ShowReadingTime    = true
+  ShowWordCount      = true
   ShowPostNavLinks   = true
   ShowBreadCrumbs    = true
   ShowCodeCopyButtons = true
