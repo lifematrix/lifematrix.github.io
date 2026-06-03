@@ -526,8 +526,11 @@ convert_project() {
         local pdf_tmp
         pdf_tmp=$(mktemp -d /tmp/xelatex_XXXXXX)
         echo -e "  ${CYAN}↳ PDF${NC}        : compiling with XeLaTeX…"
-        latexmk -xelatex -interaction=nonstopmode -halt-on-error \
-            -outdir="$pdf_tmp" "$main_tex" \
+        # Run latexmk from inside the project directory so that relative paths
+        # (e.g. images/foo.jpg referenced in \includegraphics) resolve correctly.
+        # $pdf_tmp is an absolute path so -outdir still works from any cwd.
+        ( cd "$project_dir" && latexmk -xelatex -interaction=nonstopmode -halt-on-error \
+            -outdir="$pdf_tmp" "${stem}.tex" ) \
             > "$pdf_tmp/latexmk.log" 2>&1
         if [[ $? -eq 0 ]] && [[ -f "$pdf_tmp/${stem}.pdf" ]]; then
             mkdir -p "static/pdf"
