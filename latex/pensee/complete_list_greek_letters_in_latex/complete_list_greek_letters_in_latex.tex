@@ -4,8 +4,11 @@
 % ---
 
 \documentclass{pensee}
-\usepackage[backend=bibtex]{biblatex}
+\usepackage[backend=bibtex, sorting=none]{biblatex}
 \bibliography{complete_list_greek_letters_in_latex.bib}
+\usepackage{xurl}
+\usepackage{amssymb}
+\usepackage{csquotes}
 \usepackage{makecell}
 \usepackage{float}
 \usepackage{booktabs}
@@ -19,6 +22,7 @@
 \newcommand{\lxcmd}[1]{{\ttfamily\textcolor{cmdcolor}{\textbackslash #1}}}
 % \ucode{XXXX}  →  (U+XXXX) in slate monospace  (Unicode code-point annotation)
 \newcommand{\ucode}[1]{{\ttfamily\textcolor{unicodecolor}{(U+#1)}}}
+\newcommand{\latex}{\LaTeX\;}
 
 %% XeLaTeX-only packages — guarded so LaTeXML skips them safely.
 %% IPA characters are entered as raw Unicode; tipauni maps them to TIPA
@@ -38,7 +42,7 @@
 \begin{document}
 \maketitle
 
-The Greek Letters are used widely in LaTeX mathematical equation typesetting. Due to a long history of cultural transmission and regional variation, some letters have developed distinct script forms. Overleaf provides an excellent guide \cite{overleaf:mathsymbols} on Greek Letters that helped me considerably. However, after discussing with Claude AI, I found it incomplete. This article records a complete list for understanding and daily practical writing in LaTeX. The basic information is from the Wikipedia article on the Greek alphabet \cite{wiki:greek_alphabet}.
+The Greek Letters are used widely in \latex  mathematical equation typesetting. Due to a long history of cultural transmission and regional variation, some letters have developed distinct script forms. Overleaf provides an excellent guide \cite{overleaf:mathsymbols} on Greek Letters that helped me substantially. However, after discussing with Claude AI, I noticed it incomplete, and I didn't find a complete and satisfying one on the web too. So, it's valuable to create one by myself as reference table for understanding and daily practical writing in LaTeX. That is the following table. The basic information is from the Wikipedia article on the Greek alphabet \cite{wiki:greek_alphabet}.
 
 % longtable: in-text environment that breaks naturally across pages.
 % \arraystretch adds vertical breathing room between rows — important for
@@ -87,21 +91,30 @@ The Greek Letters are used widely in LaTeX mathematical equation typesetting. Du
 	24 & $\Omega$ $\omega$            & $\Omega$ \lxcmd{Omega} & $\omega$ \lxcmd{omega}                                                      & Omega   & \makecell[tl]{US: /oʊ\null ˈmɛɡə/ \\[-3pt] UK: /ˈəʊmɪɡə/} \\
 \end{longtable}
 
+There are 24 Greek letters, and each one has both Upper and lower cases. The upper-cases of 13 of them\textemdash \enquote{A, B, E, Z, H, I, K, M, N, O, P, T, X}, and the lower case of letter Omicorn\textemdash \enquote{ο}, have identical looking to their corresponding Latin letter, but in fact, they are different unicode characters and defined in Greek and Coptic block (U+0370-U+03FF)
+\cite{wiki:Greek_script_in_Unicode}(\cite{unicode:greek_coptic_chart} for detail)
+. These 14 ($=13+1$) unicodes are presented in the upper and lower case columns with the format \textcolor{unicodecolor}{(U+XXXX)}, for example, in the row 1, the upper-case is \enquote{A \textcolor{unicodecolor}{(U+0391)}}, and in row 15, the lower-case is \enquote{ο \textcolor{unicodecolor}{(U+03BF)}}.
 
-\blankline
+The other upper and lower cases of Greek letters, from now on we could call them symbols too, have their distinct forms and were extensively used in math and physics expressions. They can be typeset by LaTeX engines effortless using LaTeX commands. These symbol together with their LaTeX commands are presented in the upper and lower case columns with the format \textcolor{cmdcolor}{\textbackslash ccc}, for example, in the row 1, the lower-case is \enquote{$\alpha$ \textcolor{cmdcolor}{\textbackslash alpha}}, in the row 24, the Upper-case is \enquote{$\Omega$ \textcolor{cmdcolor}{\textbackslash Omega}} and the lower-case is  \enquote{$\omega$ \textcolor{cmdcolor}{\textbackslash omega}}.
 
-\begin{itemize}
-	\item Total: 24 (12*2)
-	\item Upper Case \\
-		     normal ascii: 13 \\
-		     defined: 11
-	\item Lower case:
-		  normal ascii: 1 \\
-		  defined: 23
-		  variant: 6 +1
-\end{itemize}
+While the Greek culture spreading to the world, the letter forms emerge different variants. There are 7 Greek letters whose lower cases have two different symbols, so LaTeX define the variant symbol with a "var" prefix. Those 7 letters are: Epsilon (row 5), Theta (row 8), Kappa (row 10), Pi (row 16), Rho (Row 17), Sigma (row 18), and Phi (row 21).
 
-Latex original define: upper 11 + lower 23 + var 6 = 40
+Totally, there are 41 math symbols defined in LaTeX. The calculation is:
+\begin{align*}
+	\text{\# of symbols} = \;&24 \text{ (\# of Greek Letters)} \\
+										 &*2 \text{ (Upper and lower cases)} \\
+										 &+7 \text{ (\# of lower case variants)} \\
+										 =\;&55 
+\end{align*}
+\begin{align*}
+	\text{\# of symbols defined in LaTeX} = \;& 55 \text{ (\# of symbols calculated)} \\
+											& -14 \text{ (\# of upper\&lower cases identical to Latin)}\\
+											 =\;&41 
+\end{align*}
+ 
+ 40 of 41 is defined natively in LaTeX engine that could be found in the original source code \cite{latex2e:fontdef.dtx:2025}. The special one \enquote{$\varkappa$ \textcolor{cmdcolor}{\textbackslash varkappa}} is defined in the package amsmath or amsfonts that you could find in the source code \cite{ams:amssymb.dtx}.
+
+
 
 
 
